@@ -1,0 +1,18 @@
+{
+  "name": "ma-services",
+  "version": "1.0.0",
+  "description": "[MNA services] Convert empty value to null",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  }
+}

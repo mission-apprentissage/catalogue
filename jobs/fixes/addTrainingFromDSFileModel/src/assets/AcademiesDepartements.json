@@ -1,0 +1,656 @@
+[
+ {
+   "numAcademie": 0,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "984"
+ },
+ {
+   "numAcademie": 1,
+   "nomAcademie": "Paris",
+   "nomDepartement": "Paris",
+   "numDeparement": "75"
+ },
+ {
+   "numAcademie": 2,
+   "nomAcademie": "Aix-Marseille",
+   "nomDepartement": "Alpes-de-Haute-Provence",
+   "numDeparement": "4"
+ },
+ {
+   "numAcademie": 2,
+   "nomAcademie": "Aix-Marseille",
+   "nomDepartement": "Hautes-Alpes",
+   "numDeparement": "5"
+ },
+ {
+   "numAcademie": 2,
+   "nomAcademie": "Aix-Marseille",
+   "nomDepartement": "Bouches-du-Rhône",
+   "numDeparement": "13"
+ },
+ {
+   "numAcademie": 2,
+   "nomAcademie": "Aix-Marseille",
+   "nomDepartement": "Vaucluse",
+   "numDeparement": "84"
+ },
+ {
+   "numAcademie": 3,
+   "nomAcademie": "Besançon",
+   "nomDepartement": "Doubs",
+   "numDeparement": "25"
+ },
+ {
+   "numAcademie": 3,
+   "nomAcademie": "Besançon",
+   "nomDepartement": "Jura",
+   "numDeparement": "39"
+ },
+ {
+   "numAcademie": 3,
+   "nomAcademie": "Besançon",
+   "nomDepartement": "Haute-Saône",
+   "numDeparement": "70"
+ },
+ {
+   "numAcademie": 3,
+   "nomAcademie": "Besançon",
+   "nomDepartement": "Terr. de Belfort",
+   "numDeparement": "90"
+ },
+ {
+   "numAcademie": 4,
+   "nomAcademie": "Bordeaux",
+   "nomDepartement": "Dordogne",
+   "numDeparement": "24"
+ },
+ {
+   "numAcademie": 4,
+   "nomAcademie": "Bordeaux",
+   "nomDepartement": "Gironde",
+   "numDeparement": "33"
+ },
+ {
+   "numAcademie": 4,
+   "nomAcademie": "Bordeaux",
+   "nomDepartement": "Landes",
+   "numDeparement": "40"
+ },
+ {
+   "numAcademie": 4,
+   "nomAcademie": "Bordeaux",
+   "nomDepartement": "Lot-et-Garonne",
+   "numDeparement": "47"
+ },
+ {
+   "numAcademie": 4,
+   "nomAcademie": "Bordeaux",
+   "nomDepartement": "Pyrénées-Atlantiques",
+   "numDeparement": "64"
+ },
+ {
+   "numAcademie": 5,
+   "nomAcademie": "Caen",
+   "nomDepartement": "Calvados",
+   "numDeparement": "14"
+ },
+ {
+   "numAcademie": 5,
+   "nomAcademie": "Caen",
+   "nomDepartement": "Manche",
+   "numDeparement": "50"
+ },
+ {
+   "numAcademie": 5,
+   "nomAcademie": "Caen",
+   "nomDepartement": "Orne",
+   "numDeparement": "61"
+ },
+ {
+   "numAcademie": 6,
+   "nomAcademie": "Clermont-Ferrand",
+   "nomDepartement": "Allier",
+   "numDeparement": "3"
+ },
+ {
+   "numAcademie": 6,
+   "nomAcademie": "Clermont-Ferrand",
+   "nomDepartement": "Cantal",
+   "numDeparement": "15"
+ },
+ {
+   "numAcademie": 6,
+   "nomAcademie": "Clermont-Ferrand",
+   "nomDepartement": "Haute-Loire",
+   "numDeparement": "43"
+ },
+ {
+   "numAcademie": 6,
+   "nomAcademie": "Clermont-Ferrand",
+   "nomDepartement": "Puy-de-Dôme",
+   "numDeparement": "63"
+ },
+ {
+   "numAcademie": 7,
+   "nomAcademie": "Dijon",
+   "nomDepartement": "Côte-d'Or",
+   "numDeparement": "21"
+ },
+ {
+   "numAcademie": 7,
+   "nomAcademie": "Dijon",
+   "nomDepartement": "Nièvre",
+   "numDeparement": "58"
+ },
+ {
+   "numAcademie": 7,
+   "nomAcademie": "Dijon",
+   "nomDepartement": "Saône-et-Loire",
+   "numDeparement": "71"
+ },
+ {
+   "numAcademie": 7,
+   "nomAcademie": "Dijon",
+   "nomDepartement": "Yonne",
+   "numDeparement": "89"
+ },
+ {
+   "numAcademie": 8,
+   "nomAcademie": "Grenoble",
+   "nomDepartement": "Ardèche",
+   "numDeparement": "7"
+ },
+ {
+   "numAcademie": 8,
+   "nomAcademie": "Grenoble",
+   "nomDepartement": "Drôme",
+   "numDeparement": "26"
+ },
+ {
+   "numAcademie": 8,
+   "nomAcademie": "Grenoble",
+   "nomDepartement": "Isère",
+   "numDeparement": "38"
+ },
+ {
+   "numAcademie": 8,
+   "nomAcademie": "Grenoble",
+   "nomDepartement": "Savoie",
+   "numDeparement": "73"
+ },
+ {
+   "numAcademie": 8,
+   "nomAcademie": "Grenoble",
+   "nomDepartement": "Haute-Savoie",
+   "numDeparement": "74"
+ },
+ {
+   "numAcademie": 9,
+   "nomAcademie": "Lille",
+   "nomDepartement": "Nord",
+   "numDeparement": "59"
+ },
+ {
+   "numAcademie": 9,
+   "nomAcademie": "Lille",
+   "nomDepartement": "Pas-de-Calais",
+   "numDeparement": "62"
+ },
+ {
+   "numAcademie": 10,
+   "nomAcademie": "Lyon",
+   "nomDepartement": "Ain",
+   "numDeparement": "1"
+ },
+ {
+   "numAcademie": 10,
+   "nomAcademie": "Lyon",
+   "nomDepartement": "Loire",
+   "numDeparement": "42"
+ },
+ {
+   "numAcademie": 10,
+   "nomAcademie": "Lyon",
+   "nomDepartement": "Rhône",
+   "numDeparement": "69"
+ },
+ {
+   "numAcademie": 11,
+   "nomAcademie": "Montpellier",
+   "nomDepartement": "Aude",
+   "numDeparement": "11"
+ },
+ {
+   "numAcademie": 11,
+   "nomAcademie": "Montpellier",
+   "nomDepartement": "Gard",
+   "numDeparement": "30"
+ },
+ {
+   "numAcademie": 11,
+   "nomAcademie": "Montpellier",
+   "nomDepartement": "Hérault",
+   "numDeparement": "34"
+ },
+ {
+   "numAcademie": 11,
+   "nomAcademie": "Montpellier",
+   "nomDepartement": "Lozère",
+   "numDeparement": "48"
+ },
+ {
+   "numAcademie": 11,
+   "nomAcademie": "Montpellier",
+   "nomDepartement": "Pyrénées-Orientales",
+   "numDeparement": "66"
+ },
+ {
+   "numAcademie": 12,
+   "nomAcademie": "Nancy-Metz",
+   "nomDepartement": "Meurthe-et-Moselle",
+   "numDeparement": "54"
+ },
+ {
+   "numAcademie": 12,
+   "nomAcademie": "Nancy-Metz",
+   "nomDepartement": "Meuse",
+   "numDeparement": "55"
+ },
+ {
+   "numAcademie": 12,
+   "nomAcademie": "Nancy-Metz",
+   "nomDepartement": "Moselle",
+   "numDeparement": "57"
+ },
+ {
+   "numAcademie": 12,
+   "nomAcademie": "Nancy-Metz",
+   "nomDepartement": "Vosges",
+   "numDeparement": "88"
+ },
+ {
+   "numAcademie": 13,
+   "nomAcademie": "Poitiers",
+   "nomDepartement": "Charente",
+   "numDeparement": "16"
+ },
+ {
+   "numAcademie": 13,
+   "nomAcademie": "Poitiers",
+   "nomDepartement": "Charente-Maritime",
+   "numDeparement": "17"
+ },
+ {
+   "numAcademie": 13,
+   "nomAcademie": "Poitiers",
+   "nomDepartement": "Deux-Sèvres",
+   "numDeparement": "79"
+ },
+ {
+   "numAcademie": 13,
+   "nomAcademie": "Poitiers",
+   "nomDepartement": "Vienne",
+   "numDeparement": "86"
+ },
+ {
+   "numAcademie": 14,
+   "nomAcademie": "Rennes",
+   "nomDepartement": "Côtes d'Armor",
+   "numDeparement": "22"
+ },
+ {
+   "numAcademie": 14,
+   "nomAcademie": "Rennes",
+   "nomDepartement": "Finistère",
+   "numDeparement": "29"
+ },
+ {
+   "numAcademie": 14,
+   "nomAcademie": "Rennes",
+   "nomDepartement": "Ille-et-Vilaine",
+   "numDeparement": "35"
+ },
+ {
+   "numAcademie": 15,
+   "nomAcademie": "Strasbourg",
+   "nomDepartement": "Bas-Rhin",
+   "numDeparement": "67"
+ },
+ {
+   "numAcademie": 15,
+   "nomAcademie": "Strasbourg",
+   "nomDepartement": "Haut-Rhin",
+   "numDeparement": "68"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Ariège",
+   "numDeparement": "9"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Aveyron",
+   "numDeparement": "12"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Haute-Garonne",
+   "numDeparement": "31"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Gers",
+   "numDeparement": "32"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Lot",
+   "numDeparement": "46"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Hautes-Pyrénées",
+   "numDeparement": "65"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Tarn",
+   "numDeparement": "81"
+ },
+ {
+   "numAcademie": 16,
+   "nomAcademie": "Toulouse",
+   "nomDepartement": "Tarn-et-Garonne",
+   "numDeparement": "82"
+ },
+ {
+   "numAcademie": 17,
+   "nomAcademie": "Nantes",
+   "nomDepartement": "Loire-Atlantique",
+   "numDeparement": "44"
+ },
+ {
+   "numAcademie": 17,
+   "nomAcademie": "Nantes",
+   "nomDepartement": "Maine-et-Loire",
+   "numDeparement": "49"
+ },
+ {
+   "numAcademie": 17,
+   "nomAcademie": "Nantes",
+   "nomDepartement": "Mayenne",
+   "numDeparement": "53"
+ },
+ {
+   "numAcademie": 17,
+   "nomAcademie": "Nantes",
+   "nomDepartement": "Sarthe",
+   "numDeparement": "72"
+ },
+ {
+   "numAcademie": 17,
+   "nomAcademie": "Nantes",
+   "nomDepartement": "Vendée",
+   "numDeparement": "85"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Cher",
+   "numDeparement": "18"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Eure-et-Loir",
+   "numDeparement": "28"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Indre",
+   "numDeparement": "36"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Indre-et-Loire",
+   "numDeparement": "37"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Loir-et-Cher",
+   "numDeparement": "41"
+ },
+ {
+   "numAcademie": 18,
+   "nomAcademie": "Orléans-Tours",
+   "nomDepartement": "Loiret",
+   "numDeparement": "45"
+ },
+ {
+   "numAcademie": 19,
+   "nomAcademie": "Reims",
+   "nomDepartement": "Ardennes",
+   "numDeparement": "8"
+ },
+ {
+   "numAcademie": 19,
+   "nomAcademie": "Reims",
+   "nomDepartement": "Aube",
+   "numDeparement": "10"
+ },
+ {
+   "numAcademie": 19,
+   "nomAcademie": "Reims",
+   "nomDepartement": "Marne",
+   "numDeparement": "51"
+ },
+ {
+   "numAcademie": 19,
+   "nomAcademie": "Reims",
+   "nomDepartement": "Haute-Marne",
+   "numDeparement": "52"
+ },
+ {
+   "numAcademie": 20,
+   "nomAcademie": "Amiens",
+   "nomDepartement": "Aisne",
+   "numDeparement": "2"
+ },
+ {
+   "numAcademie": 20,
+   "nomAcademie": "Amiens",
+   "nomDepartement": "Oise",
+   "numDeparement": "60"
+ },
+ {
+   "numAcademie": 20,
+   "nomAcademie": "Amiens",
+   "nomDepartement": "Somme",
+   "numDeparement": "80"
+ },
+ {
+   "numAcademie": 21,
+   "nomAcademie": "Rouen",
+   "nomDepartement": "Eure",
+   "numDeparement": "27"
+ },
+ {
+   "numAcademie": 21,
+   "nomAcademie": "Rouen",
+   "nomDepartement": "Seine-Maritime",
+   "numDeparement": "76"
+ },
+ {
+   "numAcademie": 22,
+   "nomAcademie": "Limoges",
+   "nomDepartement": "Corrèze",
+   "numDeparement": "19"
+ },
+ {
+   "numAcademie": 22,
+   "nomAcademie": "Limoges",
+   "nomDepartement": "Creuse",
+   "numDeparement": "23"
+ },
+ {
+   "numAcademie": 22,
+   "nomAcademie": "Limoges",
+   "nomDepartement": "Haute-Vienne",
+   "numDeparement": "87"
+ },
+ {
+   "numAcademie": 23,
+   "nomAcademie": "Nice",
+   "nomDepartement": "Alpes-Maritimes",
+   "numDeparement": "6"
+ },
+ {
+   "numAcademie": 23,
+   "nomAcademie": "Nice",
+   "nomDepartement": "Var",
+   "numDeparement": "83"
+ },
+ {
+   "numAcademie": 24,
+   "nomAcademie": "Créteil",
+   "nomDepartement": "Seine-et-Marne",
+   "numDeparement": "77"
+ },
+ {
+   "numAcademie": 24,
+   "nomAcademie": "Créteil",
+   "nomDepartement": "Seine-St-Denis",
+   "numDeparement": "93"
+ },
+ {
+   "numAcademie": 24,
+   "nomAcademie": "Créteil",
+   "nomDepartement": "Val-de-Marne",
+   "numDeparement": "94"
+ },
+ {
+   "numAcademie": 25,
+   "nomAcademie": "Versailles",
+   "nomDepartement": "Yvelines",
+   "numDeparement": "78"
+ },
+ {
+   "numAcademie": 25,
+   "nomAcademie": "Versailles",
+   "nomDepartement": "Essonne",
+   "numDeparement": "91"
+ },
+ {
+   "numAcademie": 25,
+   "nomAcademie": "Versailles",
+   "nomDepartement": "Hauts-de-Seine",
+   "numDeparement": "92"
+ },
+ {
+   "numAcademie": 25,
+   "nomAcademie": "Versailles",
+   "nomDepartement": "Val-D'Oise",
+   "numDeparement": "95"
+ },
+ {
+   "numAcademie": 27,
+   "nomAcademie": "Corse",
+   "nomDepartement": "Corse-du-Sud",
+   "numDeparement": "02A"
+ },
+ {
+   "numAcademie": 27,
+   "nomAcademie": "Corse",
+   "nomDepartement": "Haute-Corse",
+   "numDeparement": "02B"
+ },
+ {
+   "numAcademie": 28,
+   "nomAcademie": "La Réunion",
+   "nomDepartement": "",
+   "numDeparement": "974"
+ },
+ {
+   "numAcademie": 31,
+   "nomAcademie": "Martinique",
+   "nomDepartement": "",
+   "numDeparement": "972"
+ },
+ {
+   "numAcademie": 32,
+   "nomAcademie": "Guadeloupe",
+   "nomDepartement": "",
+   "numDeparement": "971"
+ },
+ {
+   "numAcademie": 32,
+   "nomAcademie": "Guadeloupe",
+   "nomDepartement": "",
+   "numDeparement": "977"
+ },
+ {
+   "numAcademie": 32,
+   "nomAcademie": "Guadeloupe",
+   "nomDepartement": "",
+   "numDeparement": "978"
+ },
+ {
+   "numAcademie": 33,
+   "nomAcademie": "Guyane",
+   "nomDepartement": "",
+   "numDeparement": "973"
+ },
+ {
+   "numAcademie": 40,
+   "nomAcademie": "Nouvelle Calédonie",
+   "nomDepartement": "",
+   "numDeparement": "988"
+ },
+ {
+   "numAcademie": 41,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "987"
+ },
+ {
+   "numAcademie": 41,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "989"
+ },
+ {
+   "numAcademie": 42,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "986"
+ },
+ {
+   "numAcademie": 43,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "976"
+ },
+ {
+   "numAcademie": 43,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "985"
+ },
+ {
+   "numAcademie": 44,
+   "nomAcademie": "",
+   "nomDepartement": "",
+   "numDeparement": "975"
+ }
+]

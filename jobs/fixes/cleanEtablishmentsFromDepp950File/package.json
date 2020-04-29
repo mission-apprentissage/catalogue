@@ -1,0 +1,41 @@
+{
+  "name": "ma-services",
+  "version": "1.0.0",
+  "description": "[MNA services] Clean Etablishments From Depp 950 File",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.630.0",
+    "axios": "^0.19.2",
+    "convert-csv-to-json": "^0.0.15",
+    "deep-replace-in-object": "^1.1.7",
+    "fs-extra": "^8.1.0",
+    "lodash": "^4.17.15",
+    "slashes": "^2.0.2",
+    "winston": "^3.2.1",
+    "xlsx": "^0.15.5"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
