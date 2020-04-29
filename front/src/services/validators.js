@@ -87,6 +87,14 @@ export const isValidCapacite = (capacite) => {
   return !isNaN(capacite) || capacite === "";
 };
 
+export const isValidDuree = (duree) => {
+  return /^[0-9]{1}$/g.test(duree) || duree === "";
+};
+
+export const isValidAnnee = (annee) => {
+  return /^[0-9]{1}$/g.test(annee) || annee === "";
+};
+
 export const isValidEmail = (email) => {
   return (
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
@@ -163,6 +171,8 @@ const fieldValidators = {
   code_postal: isValidCodePostal,
   code_commune_insee: isValidCodeCommuneInsee,
   capacite: isValidCapacite,
+  duree: isValidDuree,
+  annee: isValidAnnee,
   siret: isValidSiret,
   siret_siege_social: isValidSiret,
   uai: isValidUAI,

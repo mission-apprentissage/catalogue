@@ -110,27 +110,33 @@ const checkIsValid = (hasRightToEdit, accessor, value) => {
   return hasRightToEdit ? validateCell(accessor, value) : true;
 };
 
-const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector((state) => state.user);
-
+const checkIfHasRightToEdit = (item, column, value, userAcm) => {
   let hasRightToEdit = userAcm.all;
   if (!hasRightToEdit) {
     hasRightToEdit = userAcm.academie.includes(`${item.num_academie}`);
   }
-
-  const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
-
-  hasRightToEdit =
+  return (
     hasRightToEdit &&
     (column.editable ||
       (column.editableEmpty && value === "") ||
-      (column.editableInvalid && !validateCell(column.accessor, value)));
+      (column.editableInvalid && !validateCell(column.accessor, value)))
+  );
+};
 
+const Cell = ({ item, id, column }) => {
+  const { acm: userAcm } = useSelector((state) => state.user);
+  const [isEditing, setIsEditing] = useState(false);
+  const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
+
+  if (value === undefined) {
+    throw new Error(`Unable to render Cell for "${column.accessor}" because value is undefined`);
+  }
+
+  const hasRightToEdit = checkIfHasRightToEdit(item, column, value, userAcm);
   const edition = hasRightToEdit && isEditing;
   const isValid = React.useMemo(() => checkIsValid(hasRightToEdit, column.accessor, value), [
-    hasRightToEdit,
     column.accessor,
+    hasRightToEdit,
     value,
   ]);
 
@@ -197,7 +203,7 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
-const SearchResult = ({ data, filters, loading, debug }) => {
+const SearchResult = ({ data, filters, debug }) => {
   return (
     <div className="search-result">
       <table className="table table-hover">
@@ -217,8 +223,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="siren"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_responsable_siret" && (
@@ -228,8 +234,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_responsable_siret"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_formateur_siret" && (
@@ -239,8 +245,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_formateur_siret"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_formateur_uai" && (
@@ -272,8 +278,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="ds_id_dossier"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "niveau" && (
@@ -287,6 +293,28 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       // missingLabel="(Vide)"
                     />
                   )}
+                  {column.accessor === "duree" && (
+                    <Filter
+                      componentId="duree"
+                      dataField="duree.keyword"
+                      filterLabel="duree"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "annee" && (
+                    <Filter
+                      componentId="annee"
+                      dataField="annee.keyword"
+                      filterLabel="annee"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
                   {column.accessor === "uai_formation" && (
                     <Filter
                       componentId="uai_formation"
@@ -294,8 +322,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="uai_formation"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "code_postal" && (
@@ -305,8 +333,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="codePostal"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "code_commune_insee" && (
@@ -316,8 +344,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="codeCommuneInsee"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "num_academie" && (
@@ -345,8 +373,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="num_departement"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "nom_academie" && (
@@ -356,8 +384,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="nomAcademie"
                       filters={filters}
                       sortBy="asc"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "source" && (
@@ -367,8 +395,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="source"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "educ_nat_code" && (
@@ -378,8 +406,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="educ_nat_code"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_reference_type" && (
@@ -389,8 +417,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_reference_type"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_reference_conventionne" && (
@@ -400,8 +428,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_reference_conventionne"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_reference_declare_prefecture" && (
@@ -411,8 +439,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_reference_declare_prefecture"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "etablissement_reference_datadock" && (
@@ -422,19 +450,30 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="etablissement_reference_datadock"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
-                  {column.accessor === "intitule" && (
+                  {column.accessor === "intitule_long" && (
                     <Filter
-                      componentId="intitule"
-                      dataField="intitule.keyword"
-                      filterLabel="intitule"
+                      componentId="intitule_long"
+                      dataField="intitule_long.keyword"
+                      filterLabel="intitule_long"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "intitule_court" && (
+                    <Filter
+                      componentId="intitule_court"
+                      dataField="intitule_court.keyword"
+                      filterLabel="intitule_court"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "rncp_etablissement_reference_habilite" && (
@@ -450,8 +489,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="rome_codes"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "rncp_code" && (
@@ -461,8 +500,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="rncp_code"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "mef_10_code" && (
@@ -472,8 +511,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="mef_10_code"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "mef_8_code" && (
@@ -483,8 +522,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="mef_8_code"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "mef_8_codes" && (
@@ -494,8 +533,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="mef_8_codes"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "parcoursup_reference" && (
@@ -505,8 +544,8 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       filterLabel="parcoursup_reference"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                 </th>

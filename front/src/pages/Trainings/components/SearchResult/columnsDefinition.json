@@ -3,7 +3,7 @@
     "Header": "Numéro académie",
     "accessor": "num_academie",
     "width": 200,
-    "editorInput":"text",
+    "editorInput": "text",
     "editable": true
   },
   {
@@ -28,13 +28,13 @@
     "Header": "Siret_CFA_OFA",
     "accessor": "etablissement_responsable_siret",
     "width": 200,
-    "editorInput":"text"
+    "editorInput": "text"
   },
   {
     "Header": "Uai Responsable",
     "accessor": "etablissement_responsable_uai",
     "width": 200,
-    "editorInput":"text"
+    "editorInput": "text"
   },
   {
     "Header": "Intitulé SIRET CFA-OFA",
@@ -46,13 +46,13 @@
     "Header": "Siret Formateur",
     "accessor": "etablissement_formateur_siret",
     "width": 200,
-    "editorInput":"text"
+    "editorInput": "text"
   },
   {
     "Header": "Uai formateur",
     "accessor": "etablissement_formateur_uai",
     "width": 200,
-    "editorInput":"text"
+    "editorInput": "text"
   },
   {
     "Header": "Intitulé Siret formateur",
@@ -94,13 +94,19 @@
     "Header": "Diplome",
     "accessor": "diplome",
     "width": 200,
-    "editorInput":"textarea",
+    "editorInput": "textarea",
     "editable": false,
     "editableEmpty": true
   },
   {
-    "Header": "Intitulé de la formation",
-    "accessor": "intitule",
+    "Header": "Intitulé long de la formation",
+    "accessor": "intitule_long",
+    "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "Intitulé court de la formation",
+    "accessor": "intitule_court",
     "width": 200,
     "editable": false
   },
@@ -136,7 +142,7 @@
     "Header": "Code du diplôme ou du titre suivant la nomenclature de l'Education nationale (CodeEN)",
     "accessor": "educ_nat_code",
     "width": 400,
-    "editorInput":"text",
+    "editorInput": "text",
     "editable": false,
     "editableInvalid": true
   },
@@ -178,7 +184,7 @@
     "Header": "Periode",
     "accessor": "periode",
     "width": 200,
-    "editorInput":"textarea",
+    "editorInput": "textarea",
     "editable": true
   },
   {
@@ -186,6 +192,18 @@
     "accessor": "capacite",
     "width": 200,
     "editable": true
+  },
+  {
+    "Header": "Duree",
+    "accessor": "duree",
+    "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "Annee",
+    "accessor": "annee",
+    "width": 200,
+    "editable": false
   },
   {
     "Header": "Uai formation",

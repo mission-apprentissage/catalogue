@@ -2,7 +2,8 @@ import React from "react";
 import { ReactiveBase, ReactiveList } from "@appbaseio/reactivesearch";
 import { Container, Row, Col } from "reactstrap";
 
-import SearchResult from "./components/SearchResult";
+import ExportButton from "../../components/ExportButton";
+import SearchResult, { columnsDefinition } from "./components/SearchResult";
 
 import config from "../../config";
 
@@ -29,6 +30,11 @@ export default () => {
         <Row>
           <Col xs="12">
             <ReactiveBase url={`${config.apiGateway.endpoint}/es/search/`} app="etablissements">
+              <ExportButton
+                exportName="etablissements"
+                filters={FILTERS}
+                columns={columnsDefinition.map((def) => ({ header: def.Header, fieldName: def.accessor }))}
+              />
               <ReactiveList
                 componentId="result"
                 title="Results"

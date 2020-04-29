@@ -175,8 +175,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="Sirens"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "siret" && (
@@ -186,8 +186,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="Sirets"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "uai" && (
@@ -208,8 +208,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="CPs"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "code_insee_localite" && (
@@ -219,8 +219,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="CCs"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "computed_type" && (
@@ -230,8 +230,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="type"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "computed_conventionne" && (
@@ -241,8 +241,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="conventionne"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "computed_declare_prefecture" && (
@@ -252,8 +252,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="declarePrefecture"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "computed_info_datadock" && (
@@ -263,8 +263,8 @@ const SearchResult = ({ data, filters, loading }) => {
                       filterLabel="infoDataDock"
                       filters={filters}
                       sortBy="count"
-                      // showMissing={true}
-                      // missingLabel="(Vide)"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "num_academie" && (
