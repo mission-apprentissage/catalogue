@@ -28,8 +28,8 @@ STAGE="dev" npm run es:dump
 ```
 
 Mongo local: 127.0.0.1:27017
-ES local: http://localhost:9200
 Kibana local: http://localhost:5601/
+ES local: http://localhost:9200
 
 ### Docker
 

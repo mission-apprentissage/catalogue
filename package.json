@@ -14,5 +14,8 @@
     "es:dump": "bash tools/elasticsearch/es-dump.sh",
     "mongodb:backup": "bash tools/mongodb/mongodb-backup.sh",
     "mongodb:dump": "bash tools/mongodb/mongodb-dump.sh"
+  },
+  "devDependencies": {
+    "elasticdump": "6.23.0"
   }
 }
