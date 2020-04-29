@@ -1,0 +1,77 @@
+{
+  "name": "mna-admin",
+  "version": "1.3.0",
+  "description": "[MNA Admin] Back end",
+  "repository": "https://github.com/Gethi/mna-admin.git",
+  "private": true,
+  "author": "MNA",
+  "license": "MIT",
+  "dependencies": {
+    "@appbaseio/reactivesearch": "^3.7.11",
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/react-fontawesome": "^0.1.9",
+    "@sentry/browser": "5.13.2",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.2",
+    "@testing-library/user-event": "^8.0.3",
+    "aws-amplify": "^3.0.8",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "connected-react-router": "^6.6.1",
+    "cross-env": "^7.0.2",
+    "formik": "^2.1.2",
+    "node-less-chokidar": "^0.4.1",
+    "npm-run-all": "^4.1.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "react-switch": "^5.0.1",
+    "reactstrap": "^8.2.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-thunk": "^2.3.0",
+    "webfontloader": "^1.6.28",
+    "yup": "^0.28.3"
+  },
+  "scripts": {
+    "start": "yarn run build-css && run-p -ncr watch-css start-js",
+    "build": "cross-env GENERATE_SOURCEMAP=false run-s -n build-css build-js",
+    "test": "run-s -n build-css test-js",
+    "start-js": "react-app-rewired start",
+    "build-js": "react-app-rewired build",
+    "test-js": "react-app-rewired test --env=jsdom",
+    "build-css": "node-less-chokidar src",
+    "watch-css": "node-less-chokidar src --watch",
+    "eject": "react-app-rewired eject",
+    "lint": "eslint ./src",
+    "format": "prettier --write \"**/*.+(js|jsx|json|yml|yaml|css|md|vue)\""
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.3",
+    "less": "^3.10.3",
+    "prettier": "^2.0.4",
+    "react-app-rewired": "^2.1.5"
+  }
+}

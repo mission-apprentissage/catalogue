@@ -1,0 +1,141 @@
+[
+    {
+        "Header": "Siren",
+        "accessor": "siren",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Siret",
+        "accessor": "siret",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Uai",
+        "accessor": "uai",
+        "width": 200,
+        "editorInput":"text",
+        "editable": true
+    },
+    {
+        "Header": "CFA ou OFA ? ",
+        "accessor": "computed_type",
+        "width": 200,
+        "editable": false
+      },
+      {
+        "Header": "CFA conventionné ? ",
+        "accessor": "computed_conventionne",
+        "width": 200,
+        "editable": false
+      },
+      {
+        "Header": "CFA déclaré en préfecture ? ",
+        "accessor": "computed_declare_prefecture",
+        "width": 200,
+        "editable": false
+      },
+      {
+        "Header": "Organisme certifié 2015 ? ",
+        "accessor": "computed_info_datadock",
+        "width": 200,
+        "editable": false
+      },
+    {
+        "Header": "Nom commercial",
+        "accessor": "ds_questions_nom",
+        "width": 200,
+        "editorInput":"textarea"
+    },
+    {
+        "Header": "Raison sociale",
+        "accessor": "raison_sociale",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Siret Siège social",
+        "accessor": "siret_siege_social",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Code entreprise",
+        "accessor": "code_effectif_entreprise",
+        "width": 80,
+        "editorInput":"text"
+    },
+    {
+        "Header": "Date de création",
+        "accessor": "date_creation",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Code NAF",
+        "accessor": "naf_code",
+        "width": 100,
+        "editable": false
+    },
+    {
+        "Header": "Libellé code NAF",
+        "accessor": "naf_libelle",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Adresse",
+        "accessor": "adresse",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Numéro de voie",
+        "accessor": "numero_voie",
+        "width": 60,
+        "editable": false
+    },
+    {
+        "Header": "Type de voie",
+        "accessor": "type_voie",
+        "width": 60,
+        "editable": false
+    },
+    {
+        "Header": "Nom de la voie",
+        "accessor": "nom_voie",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Complément d'adresse",
+        "accessor": "complement_adresse",
+        "width": 200,
+        "editable": false
+    }, 
+    {
+        "Header": "Numéro académie",
+        "accessor": "num_academie",
+        "width": 200,
+        "editorInput":"text"
+    },   
+    {
+        "Header": "Code postal",
+        "accessor": "code_postal",
+        "width": 120,
+        "editorInput":"text"
+    },
+    {
+        "Header": "Localité",
+        "accessor": "localite",
+        "width": 200,
+        "editorInput":"text"
+    },
+    {
+        "Header": "Code commune INSEE",
+        "accessor": "code_insee_localite",
+        "width": 200,
+        "editorInput":"text"
+    }
+]

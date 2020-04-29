@@ -1,0 +1,120 @@
+.establishments {
+    .loading-placeholder{
+        height: 419px;
+    }
+    .search-result {
+
+        //width: 1350px;
+        max-height: 600px;
+        overflow-x: auto;
+        overflow-y: auto;
+        //overflow-y: hidden;
+
+        .filter {
+            ul {
+                width: auto;
+            }
+        }
+
+        table {
+            border-spacing: 0;
+            border: 1px solid black;
+            margin-bottom: 0;
+
+            // thead {
+            //     display: block;
+            // }
+
+            // tbody { 
+            //     display: block;
+            //     overflow-y: auto;
+            //     /* width: 90%; */
+            //     height: 300px;
+            //     //direction: rtl;
+
+            //     ::-webkit-scrollbar {
+            //         -webkit-appearance: none;
+            //         width: 7px;
+            //     }
+
+            //     ::-webkit-scrollbar-thumb {
+            //         border-radius: 4px;
+            //         background-color: rgba(0,0,0,.5);
+            //         -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5);
+            //     }
+            // }
+
+            tr {
+                :last-child {
+                td {
+                    border-bottom: 0;
+                }
+                }
+            }
+
+            .cell-content {
+                overflow: hidden;
+                text-overflow: ellipsis; 
+                white-space: nowrap;
+                display: flex;
+
+                .cell-text{
+                    flex-grow: 1;
+                }
+
+                .edit-btn{
+                    padding: 3px;
+                }
+
+                .popover-btn {
+                    padding: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis; 
+                    white-space: nowrap;
+                    text-align: left;
+                    color: #212529;
+                }
+
+                .input-group-prepend .btn
+                {
+                    max-height: 38px;
+                }
+
+                textarea
+                {
+                    height: 100px;
+                }
+            }
+
+            .invalid-value
+            {
+                font-size: 20px;
+                margin-right: 5px;
+                color: #dc3545;
+            }
+
+            th,
+            td {
+                margin: 0;
+                padding: 0.5rem;
+                border-bottom: 1px solid black;
+                border-right: 1px solid black;
+
+                :last-child {
+                border-right: 0;
+                }
+            }
+
+            th {
+                position: sticky; 
+                top: 0;
+                background-color: #e8e8e8;
+                z-index: 3;
+            }
+
+            td {
+                background-color:white;
+            }            
+        }
+    }
+}

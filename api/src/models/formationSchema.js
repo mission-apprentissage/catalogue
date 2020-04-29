@@ -1,0 +1,361 @@
+const trainingSchema = {
+  etablissement_formateur_id: {
+    type: Object,
+    default: {},
+    description: "Identifiant établissement formateur",
+  },
+  etablissement_formateur_siret: {
+    type: String,
+    default: "",
+    description: "Numéro siret formateur",
+  },
+  etablissement_formateur_siret_intitule: {
+    type: String,
+    default: "",
+    description: "Raison social établissement formateur",
+  },
+  etablissement_formateur_uai: {
+    type: String,
+    default: "",
+    description: "UAI de l'etablissement formateur",
+  },
+  etablissement_formateur_type: {
+    type: String,
+    default: "",
+    description: "Etablissement formateur est un CFA ou un OF",
+  },
+  etablissement_formateur_conventionne: {
+    type: String,
+    default: "",
+    description: "Etablissement formateur est conventionné ou pas",
+  },
+  etablissement_formateur_declare_prefecture: {
+    type: String,
+    default: "",
+    description: "Etablissement formateur est déclaré en prefecture",
+  },
+  etablissement_formateur_datadock: {
+    type: String,
+    default: "",
+    description: "Etablissement formateur est connu de datadock",
+  },
+  etablissement_formateur_published: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement formateur entre dans le catalogue",
+  },
+  etablissement_responsable_id: {
+    type: Object,
+    default: {},
+    description: "Identifiant établissement responable",
+  },
+  etablissement_responsable_siret: {
+    type: String,
+    default: "",
+    description: "Numéro siret responsable",
+  },
+  etablissement_responsable_siret_intitule: {
+    type: String,
+    default: "",
+    description: "Raison social établissement responsable",
+  },
+  etablissement_responsable_uai: {
+    type: String,
+    default: "",
+    description: "UAI de l'etablissement responsable",
+  },
+  etablissement_responsable_type: {
+    type: String,
+    default: "",
+    description: "Etablissement responsable est un CFA ou un OF",
+  },
+  etablissement_responsable_conventionne: {
+    type: String,
+    default: "",
+    description: "Etablissement responsable est conventionné ou pas",
+  },
+  etablissement_responsable_declare_prefecture: {
+    type: String,
+    default: "",
+    description: "Etablissement responsable est déclaré en prefecture",
+  },
+  etablissement_responsable_datadock: {
+    type: String,
+    default: "",
+    description: "Etablissement responsable est connu de datadock",
+  },
+  etablissement_responsable_published: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement responsable entre dans le catalogue",
+  },
+  etablissement_reference: {
+    type: String,
+    default: "",
+    description:
+      "Etablissement reference est égale à l'établissement formateur ou responsable (formateur | responsable)",
+  },
+  etablissement_reference_id: {
+    type: Object,
+    default: {},
+    description: "Identifiant établissement reference",
+  },
+  etablissement_reference_type: {
+    type: String,
+    default: "",
+    description: "Etablissement reference est un CFA ou un OF",
+  },
+  etablissement_reference_conventionne: {
+    type: String,
+    default: "",
+    description: "Etablissement reference est conventionné ou pas",
+  },
+  etablissement_reference_declare_prefecture: {
+    type: String,
+    default: "",
+    description: "Etablissement reference est déclaré en prefecture",
+  },
+  etablissement_reference_datadock: {
+    type: String,
+    default: "",
+    description: "Etablissement reference est connu de datadock",
+  },
+  etablissement_reference_published: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement reference entre dans le catalogue",
+  },
+  siren: {
+    type: String,
+    default: "",
+    description: "Numéro siren",
+  },
+  nom_academie: {
+    type: String,
+    default: "",
+    description: "Nom de l'académie",
+  },
+  num_academie: {
+    type: Number,
+    default: 0,
+    description: "Numéro de l'académie",
+  },
+  nom_academie_siege: {
+    type: String,
+    default: "",
+    description: "Nom de l'académie siége",
+  },
+  num_academie_siege: {
+    type: Number,
+    default: 0,
+    description: "Numéro de l'académie siége",
+  },
+  code_postal: {
+    type: String,
+    default: "",
+    description: "Code postal",
+  },
+  code_commune_insee: {
+    type: String,
+    default: "",
+    description: "Code commune INSEE",
+  },
+  num_departement: {
+    type: String,
+    default: "",
+    description: "Numéro de departement",
+  },
+  ds_id_dossier: {
+    type: String,
+    default: "",
+    description: "Numéro de dossier Démarche Simplifiée",
+  },
+  uai_formation: {
+    type: String,
+    default: "",
+    description: "UAI de la formation",
+  },
+  nom: {
+    type: String,
+    default: "",
+    description: "Nom de la formation",
+  },
+  intitule: {
+    type: String,
+    default: "",
+    description: "Intitulé de la formation normalisé BCN",
+  },
+  diplome: {
+    type: String,
+    default: "",
+    description: "Diplôme ou titre visé",
+  },
+  niveau: {
+    type: String,
+    default: "",
+    description: "Niveau de la formation",
+  },
+  educ_nat_code: {
+    type: String,
+    default: "",
+    description: "Code education nationale",
+  },
+  educ_nat_specialite_lettre: {
+    type: String,
+    default: "",
+    description: "Lettre spécialité du code education nationale",
+  },
+  educ_nat_specialite_libelle: {
+    type: String,
+    default: "",
+    description: "Libellé spécialité du code education nationale",
+  },
+  educ_nat_specialite_libelle_court: {
+    type: String,
+    default: "",
+    description: "Libellé court spécialité du code education nationale",
+  },
+  rncp_code: {
+    type: String,
+    default: "",
+    description: "Code RNCP",
+  },
+  rncp_eligible_apprentissage: {
+    type: String,
+    default: "",
+    description: "Le titre RNCP est éligible en apprentissage",
+  },
+  rncp_etablissement_formateur_habilite: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement formateur est habilité RNCP ou pas",
+  },
+  rncp_etablissement_responsable_habilite: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement responsable est habilité RNCP ou pas",
+  },
+  rncp_etablissement_reference_habilite: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement reference est habilité RNCP ou pas",
+  },
+  rome_codes: {
+    type: [String],
+    default: [],
+    description: "Codes ROME",
+  },
+  periode: {
+    type: String,
+    default: "",
+    description: "Période d'inscription à la formation",
+  },
+  capacite: {
+    type: String,
+    default: "",
+    description: "Capacité d'accueil",
+  },
+  duree: {
+    type: String,
+    default: "",
+    description: "Durée de la formation en années",
+  },
+  annee: {
+    type: String,
+    default: "",
+    description: "Année de la formation (cursus)",
+  },
+  email: {
+    type: String,
+    default: "",
+    description: "Email du contact pour cette formation",
+  },
+  parcoursup_reference: {
+    type: String,
+    default: "NON",
+    description: "La formation est présent sur parcourSup",
+  },
+
+  info_bcn_code_en: {
+    type: Number,
+    default: 0,
+    description: "le codeEn est présent ou pas dans la base BCN",
+  },
+  info_bcn_intitule: {
+    type: Number,
+    default: 0,
+    description: "l'intitulé est présent ou pas dans la base BCN",
+  },
+  info_bcn_niveau: {
+    type: Number,
+    default: 0,
+    description: "Niveau a été mis à jour par la base BCN",
+  },
+  info_bcn_diplome: {
+    type: Number,
+    default: 0,
+    description: "Diplome a été mis à jour par la base BCN",
+  },
+  computed_bcn_code_en: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  computed_bcn_intitule: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  computed_bcn_niveau: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  computed_bcn_diplome: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  source: {
+    type: String,
+    default: "",
+    description: "Origine de la formation",
+  },
+  commentaires: {
+    type: String,
+    default: "",
+    description: "Commentaire",
+  },
+  last_modification: {
+    type: String,
+    default: "",
+    description: "Qui a réalisé la derniere modification",
+  },
+  to_verified: {
+    type: Boolean,
+    default: false,
+    description: "Formation à vérifier manuellement",
+  },
+  published_old: {
+    type: Boolean,
+    default: false,
+    description: "ancien published à re-verifier coté métier 588 false",
+  },
+  published: {
+    type: Boolean,
+    default: false,
+    description: "Est publiée, la formation est éligible pour le catalogue général",
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
+    description: "Date d'ajout en base de données",
+  },
+  last_update_at: {
+    type: Date,
+    default: Date.now,
+    description: "Date de dernières mise à jour",
+  },
+};
+
+module.exports = trainingSchema;

@@ -1,2 +1,8 @@
-# catalogue
-Catalogue en apprentissage
+# Catalogue
+
+## Stack
+ - React
+ - Lambda
+ - Node
+ - Mongo
+ - Es

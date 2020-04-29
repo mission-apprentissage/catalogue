@@ -1,0 +1,60 @@
+{
+  "name": "mna-api",
+  "version": "0.1.0",
+  "description": "MNA api serverless",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-api.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "serverless offline -v --httpPort 3001",
+    "deploy:dev": "serverless deploy -v --stage dev",
+    "deploy:prod": "serverless deploy -v --stage prod",
+    "deploy:prepare": "node tools/generateJsonSchema.js",
+    "lint": "eslint ."
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "@babel/runtime": "^7.8.4",
+    "@elastic/elasticsearch": "^7.6.1",
+    "aws-elasticsearch-connector": "^8.2.0",
+    "aws-sdk": "^2.625.0",
+    "mongoose": "^5.9.4",
+    "mongoose-paginate": "^5.0.3",
+    "uuid": "^7.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-export-default-from": "^7.8.3",
+    "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.8.3",
+    "@babel/preset-env": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "mongoose-schema-jsonschema": "^1.3.1",
+    "prettier": "^1.19.1",
+    "serverless-aws-documentation": "^1.1.0",
+    "serverless-offline": "^6.1.4",
+    "serverless-webpack": "^5.3.1",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-merge": "^4.2.2",
+    "webpack-node-externals": "^1.7.2"
+  }
+}

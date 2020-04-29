@@ -1,0 +1,61 @@
+{
+  "name": "mna-services",
+  "version": "1.0.0",
+  "description": "[MNA services] Common",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "test": "mocha --recursive --exit --timeout 5000 test",
+    "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
+    "test:integration": "mocha --recursive --exit --timeout 5000 test/integration",
+    "docker:start": "docker-compose up -d --build --force-recreate",
+    "docker:stop": "docker-compose down",
+    "docker:destroy": "docker-compose rm --force --stop -v ; rm -rf .data/; docker volume rm mna_data_elasticsearch; docker volume rm mna_data_mongodb",
+    "es:backup": "bash tools/elasticsearch/es-backup.sh",
+    "es:dump": "bash tools/elasticsearch/es-dump.sh",
+    "mongodb:backup": "bash tools/mongodb/mongodb-backup.sh",
+    "mongodb:dump": "bash tools/mongodb/mongodb-dump.sh"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.630.0",
+    "elasticdump": "6.23.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "7.6.1",
+    "aws-elasticsearch-connector": "8.2.0",
+    "axios": "^0.19.2",
+    "cli-spinner": "^0.2.10",
+    "csv-parse": "4.8.8",
+    "elasticsearch-scroll-stream": "1.2.1",
+    "env-var": "6.0.4",
+    "fs-extra": "^8.1.0",
+    "iconv-lite": "0.5.1",
+    "lodash": "4.17.15",
+    "logform": "^2.1.2",
+    "mocha": "7.1.1",
+    "moment": "2.24.0",
+    "mongoose": "^5.9.7",
+    "multipipe": "4.0.0",
+    "uuid": "7.0.3",
+    "winston": "^3.2.1",
+    "title-case": "3.0.2"
+  }
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-16"?>
+<FICHES>
+    <FICHE>
+        <ID_FICHE>14295</ID_FICHE>
+        <NUMERO_FICHE>RNCPXXXX1</NUMERO_FICHE>
+        <INTITULE>MASTER</INTITULE>
+        <ETAT_FICHE>Publiée</ETAT_FICHE>
+        <SI_JURY_CA>Oui</SI_JURY_CA>
+        <TYPE_ENREGISTREMENT>Enregistrement de droit</TYPE_ENREGISTREMENT>
+        <CERTIFICATEURS>
+            <CERTIFICATEUR>
+                <ID_CERTIFICATEUR>20224</ID_CERTIFICATEUR>
+                <SIRET_CERTIFICATEUR>11111111111111</SIRET_CERTIFICATEUR>
+                <NOM_CERTIFICATEUR>OF certificateur</NOM_CERTIFICATEUR>
+            </CERTIFICATEUR>
+        </CERTIFICATEURS>
+        <PARTENAIRES>
+            <PARTENAIRE>
+                <NOM_PARTENAIRE>OF Formateur</NOM_PARTENAIRE>
+                <SIRET_PARTENAIRE>22222222222222</SIRET_PARTENAIRE>
+                <HABILITATION_PARTENAIRE>Habilitation pour former</HABILITATION_PARTENAIRE>
+            </PARTENAIRE>
+            <PARTENAIRE>
+                <NOM_PARTENAIRE>OF Formateur</NOM_PARTENAIRE>
+                <SIRET_PARTENAIRE>22222222200000</SIRET_PARTENAIRE>
+                <HABILITATION_PARTENAIRE>Habilitation pour organiser l’évaluation</HABILITATION_PARTENAIRE>
+            </PARTENAIRE>
+            <PARTENAIRE>
+                <NOM_PARTENAIRE>OF Formateur</NOM_PARTENAIRE>
+                <SIRET_PARTENAIRE>22222222211111</SIRET_PARTENAIRE>
+                <HABILITATION_PARTENAIRE>Habilitation pour former et organiser l’évaluation</HABILITATION_PARTENAIRE>
+            </PARTENAIRE>
+        </PARTENAIRES>
+        <CODES_ROME>
+            <ROME>
+                <CODE>I1607</CODE>
+                <LIBELLE>Reparation de cycles, motocycles et motoculteurs de loisirs</LIBELLE>
+            </ROME>
+            <ROME>
+                <CODE>D1211</CODE>
+                <LIBELLE>Vente en articles de sport et loisirs</LIBELLE>
+            </ROME>
+        </CODES_ROME>
+    </FICHE>
+</FICHES>

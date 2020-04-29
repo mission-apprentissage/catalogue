@@ -1,0 +1,75 @@
+# Javascript Node CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-javascript/ for more details
+#
+version: 2
+jobs:
+    lint:
+        working_directory: ~/repo
+        docker:
+            - image: circleci/node:12.11
+        steps:
+            - checkout
+            - restore_cache: # special step to restore the dependency cache
+                key: dependency-cache-{{ checksum "package.json" }}
+            - run: yarn install
+            - save_cache:
+                key: dependency-cache-{{ checksum "package.json" }}
+                paths:
+                - node_modules
+                - yarn.lock
+            - run: yarn run lint
+    serverless_deploy_dev:
+        working_directory: ~/repo
+        docker:
+            - image: circleci/node:12.11
+        steps:
+            - checkout
+            - attach_workspace:
+                # Must be absolute path or relative path from working_directory
+                at: ~/repo
+            - run: yarn install
+            - run:
+                name: Install serverless
+                command: sudo yarn global add serverless@1.64.0
+            - run: yarn run deploy:prepare
+            - run: yarn run deploy:dev
+    serverless_deploy_prod:
+        working_directory: ~/repo
+        docker:
+            - image: circleci/node:12.11
+        steps:
+            - checkout
+            - attach_workspace:
+                # Must be absolute path or relative path from working_directory
+                at: ~/repo
+            - run: yarn install
+            - run:
+                name: Install serverless
+                command: sudo yarn global add serverless@1.64.0
+            - run: yarn run deploy:prod
+
+workflows:
+    version: 2
+    deploy:
+        jobs:
+            - lint:
+                filters:
+                    branches:
+                        only:
+                            - master
+                            - staging
+            - serverless_deploy_prod:
+                requires:
+                    - lint
+                filters:
+                    branches:
+                        only:
+                            - master
+            - serverless_deploy_dev:
+                requires:
+                    - lint
+                filters:
+                    branches:
+                        only:
+                            - staging

@@ -1,0 +1,301 @@
+service:
+  name: mna-api
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-webpack
+  - serverless-offline
+  - serverless-aws-documentation
+
+package:
+  individually: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: eu-west-3
+  environment:
+    # DEBUG: "*"
+    PAGE_LOAD_TIMEOUT: 20000
+    LOGGING: true
+    STAGE: '${opt:stage}'
+
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    packager: 'yarn'
+    includeModules:
+      forceExclude:
+        - aws-sdk
+  documentation:
+    # this is general info about the API
+    api:
+      info:
+        version: '1'
+        title: MNA dev API
+        description: mission apprentissage API
+        termsOfService: https://www.google.com
+        contact:
+          name: Antoine Bigard
+          url: https://www.beta.gouv.fr
+          email: antoine.bigard@beta.gouv.fr
+        license:
+          name: The license
+          url: https://www.github.com
+      tags:
+        -
+          name: Formation
+          description: CRUD formation en apprentissage
+        -
+          name: Etablissement
+          description: CRUD établissement
+    models:
+      -
+        name: "EstablishmentSchema"
+        description: "This is an establishment"
+        contentType: "application/json"
+        schema: ${file(establishmentSchema.json)}
+      -
+        name: "FormationSchema"
+        description: "This is a formation"
+        contentType: "application/json"
+        schema: ${file(formationSchema.json)}
+  commonModelSchemaFragments:
+    MethodResponse200JsonEstablisment:
+      statusCode: '200'
+      responseBody:
+        description: "Response body description"
+      responseModels:
+        "application/json": EstablishmentSchema
+    MethodResponse200JsonFormation:
+      statusCode: '200'
+      responseBody:
+        description: "Response body description"
+      responseModels:
+        "application/json": FormationSchema
+
+functions:
+  createTraining:
+    handler: src/index.createTrainingHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: formation
+          cors:
+            origin: '*'
+  getTrainingById:
+    handler: src/index.getTrainingByIdHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: formation/{id}
+          cors:
+            origin: '*'
+          documentation:
+            summary: "Accèder à une formation"
+            description: "Détails de la formation"
+            tags:
+              - Formation
+            pathParams:
+              -
+                name: id
+                description: "formation ID"
+                required: true
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonFormation}
+  getTraining:
+    handler: src/index.getTrainingHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: formation
+          cors:
+            origin: '*'
+  getTrainings:
+    handler: src/index.getTrainingsHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: formations
+          cors:
+            origin: '*'
+  countTrainings:
+    handler: src/index.countTrainingsHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: formations/count
+          cors:
+            origin: '*'
+  updateTraining:
+    handler: src/index.updateTrainingHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: put
+          path: formation/{id}
+          cors:
+            origin: '*'
+  deleteTraining:
+    handler: src/index.deleteTrainingHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: delete
+          path: formation/{id}
+          cors:
+            origin: '*'
+  createEstablishment:
+    handler: src/index.createEstablishmentHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: etablissement
+          cors:
+            origin: '*'
+  getEstablishmentById:
+    handler: src/index.getEstablishmentByIdHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: etablissement/{id}
+          cors:
+            origin: '*'
+          documentation:
+            summary: "Accèder à un établissement"
+            description: "Détails de l'établissement"
+            tags:
+              - Etablissement
+            pathParams:
+              -
+                name: id
+                description: "établissement ID"
+                required: true
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonEstablisment}
+  getEstablishment:
+    handler: src/index.getEstablishmentHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: etablissement
+          cors:
+            origin: '*'
+  getEstablishments:
+    handler: src/index.getEstablishmentsHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: etablissements
+          cors:
+            origin: '*'
+  countEstablishments:
+    handler: src/index.countEstablishmentsHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: etablissements/count
+          cors:
+            origin: '*'
+  updateEstablishment:
+    handler: src/index.updateEstablishmentHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: put
+          path: etablissement/{id}
+          cors:
+            origin: '*'
+  deleteEstablishment:
+    handler: src/index.deleteEstablishmentHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: delete
+          path: etablissement/{id}
+          cors:
+            origin: '*'
+  esSearch:
+    handler: src/index.esSearchHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: es/search/{index}/_msearch
+          cors:
+            origin: '*'
+  esScroll:
+    handler: src/index.esScrollHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: es/search/{index}/scroll
+          cors:
+            origin: '*'
+  getUsers:
+    handler: src/index.getUsersHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: admin/users
+          cors:
+            origin: '*'
+  updateUser:
+    handler: src/index.updateUserHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: put
+          path: admin/user/{username}
+          cors:
+            origin: '*'
+  deleteUser:
+    handler: src/index.deleteUserHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: delete
+          path: admin/user/{username}
+          cors:
+            origin: '*'
+  createUser:
+    handler: src/index.createUserHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: admin/user
+          cors:
+            origin: '*'

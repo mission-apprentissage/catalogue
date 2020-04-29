@@ -1,0 +1,12 @@
+{
+    "ESTABLISHMENTS": "/etablissements",
+    "FORMATIONS": "/formations",
+    "NOTFOUND": "/404",
+    "SIGNIN": "/connexion",
+    "CHANGEPASSWORD": "/changepassword",
+    "FORGOTPASSWORD": "/forgotpassword",
+    "PROFILE": "/profile",
+    "STATISTIQUES": "/stats",
+    "CHANGELOG": "/journal",
+    "ADMIN": "/admin"
+}

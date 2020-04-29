@@ -1,0 +1,113 @@
+const { connectToMongo } = require("../../../../common/mongo");
+const { Formation } = require("../../../../common/models");
+const logger = require("../../../../common/Logger").mainLogger;
+const asyncForEach = require("../../../../common/utils").asyncForEach;
+const establishmentsData = require("./updaters/establishmentsData");
+const codeEnData = require("./updaters/codeEnData");
+const locationData = require("./updaters/locationData");
+const academieData = require("./updaters/academieData");
+const bcnData = require("./updaters/bcnData");
+const pSupData = require("./updaters/pSupData");
+
+const UPDATE_ALL = true;
+const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
+
+const run = async () => {
+  try {
+    logger.info(" -- Start of Trainings updater -- ");
+    await connectToMongo();
+
+    const trainings = await Formation.find({});
+
+    await asyncForEach(trainings, async trainingItem => {
+      if (UPDATE_ALL || trainingItem._doc[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
+        let updatedTraining = {
+          ...trainingItem._doc,
+        };
+        let updatedNeeded = false;
+
+        // Fix / Clean CodeEn
+        const updatesCodeEnData = codeEnData.getUpdates(updatedTraining);
+        if (updatesCodeEnData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesCodeEnData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update Establishments information
+        const updatesEstablishmentsData = await establishmentsData.getUpdates(updatedTraining);
+        if (updatesEstablishmentsData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesEstablishmentsData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update location information
+        const updatesLocationData = locationData.getUpdates(updatedTraining);
+        if (updatesLocationData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesLocationData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update academie information
+        const updatesAcademieData = await academieData.getUpdates(updatedTraining);
+        if (updatesAcademieData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesAcademieData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update BCN > codeEn,niveau, intitule, diplome information, codeMEF, Modalité
+        const updatesBcnData = await bcnData.getUpdates(updatedTraining);
+        if (updatesBcnData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesBcnData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update PSup
+        const updatesPSupData = await pSupData.getUpdates(updatedTraining);
+        if (updatesPSupData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesPSupData,
+          };
+          updatedNeeded = true;
+        }
+
+        // Update training
+        if (updatedNeeded) {
+          updatedTraining.last_update_at = Date.now();
+          try {
+            await Formation.findOneAndUpdate({ _id: trainingItem._id }, updatedTraining, { new: true });
+            logger.info(`Training ${trainingItem._id} has been updated`);
+          } catch (error) {
+            logger.error(error);
+          }
+        } else {
+          logger.info(`Training ${trainingItem._id} nothing to do`);
+        }
+      }
+    });
+    codeEnData.stats();
+    bcnData.stats();
+    pSupData.stats();
+
+    logger.info(" -- End of Trainings updater -- ");
+  } catch (err) {
+    logger.error(err);
+  }
+};
+
+run();

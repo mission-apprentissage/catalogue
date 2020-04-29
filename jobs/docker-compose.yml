@@ -1,0 +1,51 @@
+version: '2.4'
+services:
+
+  mongodb:
+    image: mongo:4.2.5-bionic
+    container_name: mna_mongodb
+    command: --wiredTigerCacheSizeGB 1
+    ports:
+      - "127.0.0.1:27017:27017"
+    volumes:
+      - mna_data_mongodb:/data
+      - ./.data/backups/mongodb:/backups
+    networks:
+      - mna_network
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.1.1
+    container_name: mna_elasticsearch
+    ports:
+      - "127.0.0.1:9200:9200"
+    environment:
+      ES_JAVA_OPTS: "-Xmx512m -Xms512m"
+    volumes:
+      - mna_data_elasticsearch:/usr/share/elasticsearch/data
+      - ./tools/elasticsearch/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+    networks:
+      - mna_network
+
+  kibana:
+    image: docker.elastic.co/kibana/kibana-oss:7.1.1
+    container_name: mna_kibana
+    ports:
+      - "127.0.0.1:5601:5601"
+    volumes:
+      - ./tools/elasticsearch/kibana.yml:/usr/share/kibana/config/kibana.yml:ro
+    depends_on:
+      - elasticsearch
+    networks:
+      - mna_network
+
+networks:
+  mna_network:
+    name: mna_network
+
+volumes:
+  mna_data_elasticsearch:
+    driver: local
+    name: mna_data_elasticsearch
+  mna_data_mongodb:
+    driver: local
+    name: mna_data_mongodb

@@ -1,0 +1,28 @@
+{
+  "name": "ma-services",
+  "version": "1.0.0",
+  "description": "[MNA services] Template",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.651.0",
+    "axios": "^0.19.2",
+    "convert-csv-to-json": "^0.0.15",
+    "fs-extra": "^8.1.0",
+    "lodash": "^4.17.15",
+    "uuid": "^7.0.2",
+    "winston": "^3.2.1",
+    "xlsx": "^0.15.5"
+  }
+}
