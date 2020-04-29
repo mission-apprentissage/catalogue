@@ -16,7 +16,8 @@ class LocationData {
   }
 
   codePostal(training) {
-    const cp = formatCodePostal(training.code_postal);
+    const { code_postal } = training;
+    const cp = formatCodePostal(code_postal);
     if (!isValidCodePostal(cp)) {
       // First code to fix, 4 digits instead of 5 (due to str to int cast)
       if (/^[0-9]{4}$/g.test(cp)) {
@@ -29,16 +30,16 @@ class LocationData {
         }
       }
     }
-    return training.code_postal;
+    return code_postal !== "" ? code_postal : null;
   }
 
   numDepartement(training) {
     const cp = formatCodePostal(training.code_postal);
     if (!isValidCodePostal(cp)) {
       logger.info(`Training ${training._id} has invalid code_postal`);
-      return training.num_departement;
+      return null;
     }
-    return cp !== "" ? cp.substring(0, 2) : training.num_departement;
+    return cp !== "" ? cp.substring(0, 2) : null;
   }
 }
 

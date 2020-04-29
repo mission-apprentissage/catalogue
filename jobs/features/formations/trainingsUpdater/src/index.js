@@ -66,7 +66,7 @@ const run = async () => {
           updatedNeeded = true;
         }
 
-        // Update BCN > codeEn,niveau, intitule, diplome information, codeMEF, Modalité
+        // Update BCN > codeEn,niveau, intitule court & long, diplome information, codeMEF, Modalité
         const updatesBcnData = await bcnData.getUpdates(updatedTraining);
         if (updatesBcnData) {
           updatedTraining = {

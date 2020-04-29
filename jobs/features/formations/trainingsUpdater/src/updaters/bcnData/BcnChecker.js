@@ -98,15 +98,29 @@ class BcnChecker {
     }
   }
 
-  cleanIntitule(codeEducNat, intitule) {
+  cleanIntituleLong(codeEducNat, intitule_long) {
     const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match) {
-      return { info: infosCodes.intitule.Error, value: intitule };
+      return { info: infosCodes.intitule.Error, value: intitule_long };
     }
 
-    if (intitule === match.LIBELLE_STAT_33) {
-      return { info: infosCodes.intitule.NothingDoTo, value: intitule };
+    if (intitule_long === match.LIBELLE_LONG_200) {
+      return { info: infosCodes.intitule.NothingDoTo, value: intitule_long };
+    }
+
+    return { info: infosCodes.intitule.Updated, value: match.LIBELLE_LONG_200 };
+  }
+
+  cleanIntituleCourt(codeEducNat, intitule_court) {
+    const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
+
+    if (!match) {
+      return { info: infosCodes.intitule.Error, value: intitule_court };
+    }
+
+    if (intitule_court === match.LIBELLE_STAT_33) {
+      return { info: infosCodes.intitule.NothingDoTo, value: intitule_court };
     }
 
     return { info: infosCodes.intitule.Updated, value: match.LIBELLE_STAT_33 };

@@ -21,14 +21,14 @@ class AcademieData {
     }
 
     return {
-      nom_academie: nomAcademie || "",
-      nom_academie_siege: nomAcademieSiege || "",
+      nom_academie: nomAcademie || null,
+      nom_academie_siege: nomAcademieSiege || null,
       num_academie: numAcademie || -1,
     };
   }
 
   async cleanEmptyNomAcademies(training) {
-    if (training.nom_academie !== "") {
+    if (training.nom_academie !== null) {
       return training.nom_academie;
     }
 
@@ -48,7 +48,7 @@ class AcademieData {
   }
 
   async cleanEmtpyNomAcademiesSiege(training) {
-    if (training.nom_academie_siege !== "") {
+    if (training.nom_academie_siege !== null) {
       return training.nom_academie_siege;
     }
 
@@ -70,7 +70,7 @@ class AcademieData {
   }
 
   async cleanEmptyNomAndNumAcademies(training) {
-    if (training.nom_academie !== "" && training.num_academie !== -1) {
+    if (training.nom_academie !== null && training.num_academie !== -1) {
       return {
         nom_academie: training.nom_academie,
         num_academie: training.num_academie,

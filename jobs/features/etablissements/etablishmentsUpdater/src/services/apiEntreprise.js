@@ -20,6 +20,7 @@ class ApiEntreprise {
       return response.data;
     } catch (error) {
       logger.error(error);
+      return null;
     }
   }
 }

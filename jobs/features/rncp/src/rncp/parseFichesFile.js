@@ -38,6 +38,7 @@ const convertXmlIntoJson = async xml => {
   let data = _.cloneDeepWith(json, regroupTagsWithMultipleOccurences);
   return _.pick(data, [
     "NUMERO_FICHE",
+    "INTITULE",
     "CERTIFICATEURS",
     "CODES_ROME",
     "PARTENAIRES",

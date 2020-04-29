@@ -24,6 +24,9 @@ class CodeEnData {
   }
 
   cleaningCodeEn(training) {
+    if (!training.educ_nat_code) {
+      return false;
+    }
     const codeEn = `${training.educ_nat_code}`.trim();
 
     let newCode = codeEn;

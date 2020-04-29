@@ -1,7 +1,7 @@
 const assert = require("assert");
 const importRNCP = require("../../src/importRNCP");
 const { createFormation } = require("../../../../test/data/fixtures");
-const Formation = require("../../../../common/models/formation");
+const { Formation } = require("../../../../common/models/formation");
 const { connectToMongo } = require("../../../../common/mongo");
 const { getElasticInstance } = require("../../../../common/esClient");
 const getTestFile = require("../data/getTestFile");
@@ -39,6 +39,7 @@ describe(__filename, () => {
     const results = await Formation.find(formationQueryForTests);
     let doc = results[0].toObject();
     assert.strictEqual(doc.rncp_code, "RNCPXXXX1");
+    assert.strictEqual(doc.rncp_intitule, "MASTER");
     assert.deepStrictEqual(doc.rome_codes, ["I1607", "D1211"]);
     assert.strictEqual(doc.rncp_eligible_apprentissage, true);
     assert.strictEqual(doc.rncp_etablissement_formateur_habilite, true);

@@ -29,13 +29,14 @@ class EstablishmentsData {
     return {
       etablissement_responsable_id: attachedEstablishments.responsable ? attachedEstablishments.responsable._id : null,
       etablissement_formateur_id: attachedEstablishments.formateur ? attachedEstablishments.formateur._id : null,
-      etablissement_responsable_uai: attachedEstablishments.responsable ? attachedEstablishments.responsable.uai : "",
-      etablissement_formateur_uai: attachedEstablishments.formateur ? attachedEstablishments.formateur.uai : "",
+      etablissement_responsable_uai: attachedEstablishments.responsable ? attachedEstablishments.responsable.uai : null,
+      etablissement_formateur_uai: attachedEstablishments.formateur ? attachedEstablishments.formateur.uai : null,
       etablissement_reference_declare_prefecture: referenceEstablishment.computed_declare_prefecture,
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
       etablissement_reference_published: referenceEstablishment.published,
+      published: referenceEstablishment.api_entreprise_reference,
     };
   }
 

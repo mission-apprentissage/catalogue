@@ -33,7 +33,7 @@ class BcnData {
       code_postal,
     } = training;
 
-    if (mef_10_code === "" && mef_8_code === "" && mef_8_codes.length === 0) {
+    if (!mef_10_code && !mef_8_code && mef_8_codes.length === 0) {
       return false;
     }
 

@@ -20,7 +20,9 @@ class EntrepriseApiData {
       !etablissementApiInfo.entreprise ||
       !etablissementApiInfo.entreprise.etat_administratif
     ) {
-      return null;
+      return {
+        api_entreprise_reference: false,
+      };
     }
 
     return {
@@ -57,6 +59,8 @@ class EntrepriseApiData {
 
       nom: etablissementApiInfo.entreprise.nom,
       prenom: etablissementApiInfo.entreprise.prenom,
+
+      api_entreprise_reference: true,
     };
   }
 }
