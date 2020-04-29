@@ -125,6 +125,11 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference entre dans le catalogue",
   },
+  etablissement_reference_api_entreprise_reference: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement reference bien référencé dans l'API Entreprise",
+  },
   siren: {
     type: String,
     default: "",
@@ -180,10 +185,15 @@ const trainingSchema = {
     default: "",
     description: "Nom de la formation",
   },
-  intitule: {
+  intitule_long: {
     type: String,
     default: "",
-    description: "Intitulé de la formation normalisé BCN",
+    description: "Intitulé long de la formation normalisé BCN",
+  },
+  intitule_court: {
+    type: String,
+    default: "",
+    description: "Intitulé court de la formation normalisé BCN",
   },
   diplome: {
     type: String,
@@ -215,14 +225,34 @@ const trainingSchema = {
     default: "",
     description: "Libellé court spécialité du code education nationale",
   },
+  mef_10_code: {
+    type: String,
+    default: "",
+    description: "Code MEF 10 caractères",
+  },
+  mef_8_code: {
+    type: String,
+    default: "",
+    description: "Code MEF 8 caractères",
+  },
+  mef_8_codes: {
+    type: [String],
+    default: [],
+    description: "List des codes MEF 8 caractères",
+  },
   rncp_code: {
     type: String,
     default: "",
     description: "Code RNCP",
   },
-  rncp_eligible_apprentissage: {
+  rncp_intitule: {
     type: String,
-    default: "",
+    default: null,
+    description: "Intitulé du code RNCP",
+  },
+  rncp_eligible_apprentissage: {
+    type: Boolean,
+    default: false,
     description: "Le titre RNCP est éligible en apprentissage",
   },
   rncp_etablissement_formateur_habilite: {
@@ -281,10 +311,15 @@ const trainingSchema = {
     default: 0,
     description: "le codeEn est présent ou pas dans la base BCN",
   },
-  info_bcn_intitule: {
+  info_bcn_intitule_long: {
     type: Number,
     default: 0,
-    description: "l'intitulé est présent ou pas dans la base BCN",
+    description: "l'intitulé long est présent ou pas dans la base BCN",
+  },
+  info_bcn_intitule_court: {
+    type: Number,
+    default: 0,
+    description: "l'intitulé court est présent ou pas dans la base BCN",
   },
   info_bcn_niveau: {
     type: Number,
@@ -296,12 +331,22 @@ const trainingSchema = {
     default: 0,
     description: "Diplome a été mis à jour par la base BCN",
   },
+  info_bcn_mef: {
+    type: Number,
+    default: 0,
+    description: "code MEF 10 a été créé ou mis à jour par la base BCN",
+  },
   computed_bcn_code_en: {
     type: String,
     default: "",
     description: "Valeur intelligible evaluée",
   },
-  computed_bcn_intitule: {
+  computed_bcn_intitule_long: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  computed_bcn_intitule_court: {
     type: String,
     default: "",
     description: "Valeur intelligible evaluée",
@@ -312,6 +357,11 @@ const trainingSchema = {
     description: "Valeur intelligible evaluée",
   },
   computed_bcn_diplome: {
+    type: String,
+    default: "",
+    description: "Valeur intelligible evaluée",
+  },
+  computed_bcn_mef: {
     type: String,
     default: "",
     description: "Valeur intelligible evaluée",

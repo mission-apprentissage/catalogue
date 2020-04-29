@@ -255,6 +255,11 @@ const establishmentSchema = {
     default: Date.now,
     description: "Date de dernières mise à jour",
   },
+  api_entreprise_reference: {
+    type: Boolean,
+    default: false,
+    description: "L'établissement est trouvé via l'API Entreprise",
+  },
 };
 
 module.exports = establishmentSchema;
