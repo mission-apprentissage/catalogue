@@ -1,9 +1,9 @@
 {
-  "name": "mna-services",
-  "version": "1.0.0",
-  "description": "[MNA services] Common",
+  "name": "mna-catalogue-jobs",
+  "version": "1.3.0",
+  "description": "[MNA services] Jobs",
   "main": "src/index.js",
-  "repository": "https://github.com/Gethi/mna-services.git",
+  "repository": "https://github.com/mission-apprentissage/catalogue.git",
   "author": "Mna",
   "license": "MIT",
   "private": true,
@@ -11,14 +11,7 @@
     "lint": "eslint .",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
-    "test:integration": "mocha --recursive --exit --timeout 5000 test/integration",
-    "docker:start": "docker-compose up -d --build --force-recreate",
-    "docker:stop": "docker-compose down",
-    "docker:destroy": "docker-compose rm --force --stop -v ; rm -rf .data/; docker volume rm mna_data_elasticsearch; docker volume rm mna_data_mongodb",
-    "es:backup": "bash tools/elasticsearch/es-backup.sh",
-    "es:dump": "bash tools/elasticsearch/es-dump.sh",
-    "mongodb:backup": "bash tools/mongodb/mongodb-backup.sh",
-    "mongodb:dump": "bash tools/mongodb/mongodb-dump.sh"
+    "test:integration": "mocha --recursive --exit --timeout 5000 test/integration"
   },
   "engines": {
     "node": ">=12.11.0",
