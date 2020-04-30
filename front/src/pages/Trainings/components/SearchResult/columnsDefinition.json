@@ -132,6 +132,13 @@
     "editable": false
   },
   {
+    "Header": "Intitulé du code RNCP",
+    "accessor": "rncp_intitule",
+    "width": 200,
+    "debug": true,
+    "editable": false
+  },
+  {
     "Header": "Codes ROME",
     "accessor": "rome_codes",
     "width": 200,
@@ -233,6 +240,13 @@
     "Header": "Nom Academie Siege",
     "accessor": "nom_academie_siege",
     "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "Url ONISEP",
+    "accessor": "onisep_url",
+    "width": 300,
+    "debug": true,
     "editable": false
   }
 ]

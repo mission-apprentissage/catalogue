@@ -29,9 +29,9 @@ export default () => {
       <Container>
         <Row>
           <Col xs="12">
-            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search/`} app="etablissements">
+            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app="etablissements">
               <ExportButton
-                exportName="etablissements"
+                index={"etablissements"}
                 filters={FILTERS}
                 columns={columnsDefinition.map((def) => ({ header: def.Header, fieldName: def.accessor }))}
               />

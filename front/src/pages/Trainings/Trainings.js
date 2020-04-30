@@ -79,9 +79,9 @@ export default () => {
         )}
         <Row>
           <Col xs="12">
-            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search/`} app="formations">
+            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app="formations">
               <ExportButton
-                exportName={"formations"}
+                index={"formations"}
                 filters={FILTERS}
                 columns={columnsDefinition
                   .filter((def) => !def.debug || debug)
