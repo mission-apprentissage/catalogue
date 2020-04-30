@@ -12,14 +12,13 @@ jobs:
             - checkout
             - restore_cache: # special step to restore the dependency cache
                 key: dependency-cache-{{ checksum "package.json" }}
-            - run: cd api
-            - run: yarn install
+            - run: cd api && yarn install
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
                 paths:
-                - node_modules
-                - yarn.lock
-            - run: yarn run lint
+                - api/node_modules
+                - api/yarn.lock
+            - run: cd api && yarn run lint
     serverless_deploy_dev:
         working_directory: ~/repo
         docker:
@@ -29,12 +28,12 @@ jobs:
             - attach_workspace:
                 # Must be absolute path or relative path from working_directory
                 at: ~/repo
-            - run: yarn install
+            - run: cd api && yarn install
             - run:
                 name: Install serverless
                 command: sudo yarn global add serverless@1.64.0
-            - run: yarn run deploy:prepare
-            - run: yarn run deploy:dev
+            - run: cd api && yarn run deploy:prepare
+            - run: cd api && yarn run deploy:dev
     serverless_deploy_prod:
         working_directory: ~/repo
         docker:
@@ -44,11 +43,11 @@ jobs:
             - attach_workspace:
                 # Must be absolute path or relative path from working_directory
                 at: ~/repo
-            - run: yarn install
+            - run: cd api && yarn install
             - run:
                 name: Install serverless
                 command: sudo yarn global add serverless@1.64.0
-            - run: yarn run deploy:prod
+            - run: cd api && yarn run deploy:prod
 
 workflows:
     version: 2
