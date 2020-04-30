@@ -48,20 +48,23 @@ const downloadCSV = (fileName, csv) => {
 
 let search = (index, query) => {
   return API.post("api", `/es/search/${index}/_search?scroll=5m`, {
-    body: JSON.stringify({ size: 1000, query: query.query }),
+    body: {
+      size: 1000,
+      query: query.query,
+    },
   });
 };
 
 let scroll = (index, scrollId) => {
   return API.post("api", `/es/search/${index}/scroll?scroll=5m&scroll_id=${scrollId}`, {
-    body: JSON.stringify({
+    body: {
       scroll: true,
       scroll_id: scrollId,
       activeQuery: {
         scroll: "1m",
         scroll_id: scrollId,
       },
-    }),
+    },
   });
 };
 
