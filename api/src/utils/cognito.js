@@ -1,5 +1,5 @@
 import AWS from "aws-sdk";
-import config from "../config";
+import config from "../../../config";
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
   region: config.cognito.region,
