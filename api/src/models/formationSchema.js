@@ -247,7 +247,7 @@ const trainingSchema = {
   },
   rncp_intitule: {
     type: String,
-    default: null,
+    default: "",
     description: "Intitulé du code RNCP",
   },
   rncp_eligible_apprentissage: {
