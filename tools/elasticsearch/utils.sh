@@ -4,11 +4,11 @@ readonly BACKUP_DIR="${BASE_DIR}/.data/backups/elasticsearch"
 function get_stage_elasticsearch_url(){
     if [ "${STAGE}" = "dev" ]
     then
-        echo "${ES_URL_DEV}"
+        echo "https://${ES_URL_DEV}"
     fi
     if [ "${STAGE}" = "prod" ]
     then
-        echo "${ES_URL_PROD}"
+        echo "https://${ES_URL_PROD}"
     fi
 }
 
