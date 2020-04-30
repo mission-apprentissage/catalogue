@@ -1,6 +1,8 @@
 import Amplify, { Auth } from "aws-amplify";
 import config from "../config";
 
+console.log("@config");
+
 const configure = async () => {
   Amplify.configure({
     API: {
