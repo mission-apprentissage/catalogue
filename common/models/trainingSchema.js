@@ -240,6 +240,11 @@ const trainingSchema = {
     default: [],
     description: "List des codes MEF 8 caractères",
   },
+  onisep_url: {
+    type: String,
+    default: null,
+    description: "Url de redirection vers le site de l'ONISEP",
+  },
   rncp_code: {
     type: String,
     default: null,
