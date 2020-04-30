@@ -19,6 +19,8 @@ provider:
     PAGE_LOAD_TIMEOUT: 20000
     LOGGING: true
     STAGE: '${opt:stage}'
+    MONGODB_URL_DEV: '${opt:mongodb_url_dev}'
+    MONGODB_DBNAME_DEV: '${opt:mongodb_dbname_dev}'
 
 custom:
   webpack:
