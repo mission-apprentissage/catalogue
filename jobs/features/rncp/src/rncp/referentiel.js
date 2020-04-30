@@ -1,13 +1,13 @@
 const parseFichesFile = require("./parseFichesFile");
 const parseCodesDiplomesFile = require("./parseCodesDiplomesFile");
 
-module.exports = (rncpFichesFile, codesDiplomesFile) => {
+module.exports = () => {
   let referentiel = [];
 
   return {
-    buildReferentiel: async () => {
-      let { fiches, stats } = await parseFichesFile(rncpFichesFile);
-      let { codesDiplomes } = await parseCodesDiplomesFile(codesDiplomesFile);
+    loadXmlFile: async (ficheInputStream, codesDiplomesStream) => {
+      let { fiches, stats } = await parseFichesFile(ficheInputStream);
+      let { codesDiplomes } = await parseCodesDiplomesFile(codesDiplomesStream);
 
       referentiel = fiches.map(f => {
         return { ...f, CODE_DIPLOME: codesDiplomes[f.NUMERO_FICHE] };

@@ -1,12 +1,16 @@
 const assert = require("assert");
+const fs = require("fs");
+const path = require("path");
 const importRNCP = require("../../src/importRNCP");
 const { createFormation } = require("../../../../test/data/fixtures");
 const { Formation } = require("../../../../common/models/formation");
 const { connectToMongo } = require("../../../../common/mongo");
 const { getElasticInstance } = require("../../../../common/esClient");
-const getTestFile = require("../data/getTestFile");
 
 let formationQueryForTests = { source: "TEST" };
+const getInputStream = fileName => {
+  return fs.createReadStream(path.join(__dirname, "..", "data", fileName), { encoding: "UTF-8" });
+};
 
 describe(__filename, () => {
   before(() => connectToMongo());
@@ -32,7 +36,7 @@ describe(__filename, () => {
     });
     await formation.save();
 
-    await importRNCP(getTestFile("rncp.xml"), getTestFile("rncp-mapping.csv"), {
+    await importRNCP(getInputStream("rncp.xml"), getInputStream("rncp-mapping.csv"), {
       query: formationQueryForTests,
     });
 
@@ -56,7 +60,7 @@ describe(__filename, () => {
     });
     await formation.save();
 
-    await importRNCP(getTestFile("rncp.xml"), getTestFile("rncp-mapping.csv"), {
+    await importRNCP(getInputStream("rncp.xml"), getInputStream("rncp-mapping.csv"), {
       query: formationQueryForTests,
     });
 
@@ -75,7 +79,7 @@ describe(__filename, () => {
     });
     await formation.save();
 
-    await importRNCP(getTestFile("rncp.xml"), getTestFile("rncp-mapping.csv"), {
+    await importRNCP(getInputStream("rncp.xml"), getInputStream("rncp-mapping.csv"), {
       query: formationQueryForTests,
     });
 
@@ -94,7 +98,7 @@ describe(__filename, () => {
     });
     await formation.save();
 
-    await importRNCP(getTestFile("rncp.xml"), getTestFile("rncp-mapping.csv"), {
+    await importRNCP(getInputStream("rncp.xml"), getInputStream("rncp-mapping.csv"), {
       query: formationQueryForTests,
     });
 
@@ -116,7 +120,7 @@ describe(__filename, () => {
     });
     await formation.save();
 
-    let stats = await importRNCP(getTestFile("rncp.xml"), getTestFile("rncp-mapping.csv"), {
+    let stats = await importRNCP(getInputStream("rncp.xml"), getInputStream("rncp-mapping.csv"), {
       query: formationQueryForTests,
     });
 

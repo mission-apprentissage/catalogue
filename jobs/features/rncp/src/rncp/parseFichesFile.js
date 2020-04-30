@@ -47,7 +47,7 @@ const convertXmlIntoJson = async xml => {
   ]);
 };
 
-module.exports = async fichesFile => {
+module.exports = async inputStream => {
   let xml = "";
   let partial = true;
   let fiches = [];
@@ -57,7 +57,7 @@ module.exports = async fichesFile => {
   };
 
   await pipeline(
-    fs.createReadStream(fichesFile),
+    inputStream,
     decodeStream("UTF-8"),
     new LineStream(),
     new Transform({

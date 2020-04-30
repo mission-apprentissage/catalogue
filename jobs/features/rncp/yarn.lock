@@ -158,10 +158,10 @@ emoji-regex@^7.0.1:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
   integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
 
-env-var@6.0.4:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/env-var/-/env-var-6.0.4.tgz#e6affd2da0cd10bc71b2782a29575de8b59e7ab5"
-  integrity sha512-BuPct2oloVEf9DaZz2bmGRLoDoGRWWy6s9HBfAI3t6BAZ1+QIt6Qp93iRkQfo59ELuGkgpx3NJNr7OHhiHFH2w==
+env-var@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/env-var/-/env-var-6.1.1.tgz#8c2963ebc221ca8cd9ad86c81844c0ad6fa1a792"
+  integrity sha512-cuNYps3wIJKz4D01KAeYtuU0gqwKp59Fs5pPwRdAo9e/brL5XBCBDr7+Q474tYcP28c02QR/BNmQkygOxJcZ4g==
 
 es-abstract@^1.17.0-next.1, es-abstract@^1.17.5:
   version "1.17.5"
@@ -285,13 +285,6 @@ he@1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
   integrity sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==
-
-iconv-lite@0.5.1:
-  version "0.5.1"
-  resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.5.1.tgz#b2425d3c7b18f7219f2ca663d103bddb91718d64"
-  integrity sha512-ONHr16SQvKZNSqjQT9gy5z24Jw+uqfO02/ngBSBoqChZ+W8qXX7GPRa1RoUnzGADw8K63R1BXUMzarCVQBpY8Q==
-  dependencies:
-    safer-buffer ">= 2.1.2 < 3"
 
 inflight@^1.0.4:
   version "1.0.6"
@@ -554,11 +547,6 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
-
-"safer-buffer@>= 2.1.2 < 3":
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
-  integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
 sax@>=0.6.0:
   version "1.2.4"

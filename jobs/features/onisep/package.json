@@ -1,5 +1,5 @@
 {
-  "name": "ma-services-rncp",
+  "name": "ma-services-onisep",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -8,12 +8,12 @@
   "scripts": {
     "start": "node src/index.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
-    "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
+    "test:unit": "mocha --recursive --exit --timeout 1000 test/integration",
     "test:integration": "mocha --recursive --exit --timeout 5000 test/integration"
   },
   "dependencies": {
     "byline": "5.0.0",
-    "env-var": "^6.1.1",
+    "env-var": "6.0.4",
     "lodash": "4.17.15",
     "mocha": "7.1.2",
     "xml2js": "0.4.23"

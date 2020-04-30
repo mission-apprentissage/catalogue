@@ -1,10 +1,10 @@
-const referentiel = require("./rncp/referentiel");
+const createReferentiel = require("./rncp/referentiel");
 const { pipeline, writeObject } = require("../../../common/script/streamUtils");
 const logger = require("../../../common/Logger").mainLogger;
 const { Formation } = require("../../../common/models");
 
-module.exports = async (fichesFile, codesDiplomesFile, options = {}) => {
-  let { buildReferentiel, findRNCP } = referentiel(fichesFile, codesDiplomesFile);
+module.exports = async (ficheInputStream, codesDiplomesStream, options = {}) => {
+  let referentiel = createReferentiel();
   let stats = {
     formations: {
       updated: 0,
@@ -14,14 +14,14 @@ module.exports = async (fichesFile, codesDiplomesFile, options = {}) => {
   };
 
   logger.info("Loading RNCP referentiel (Fiches + Code Diplômes)...");
-  stats.referentiel = await buildReferentiel();
+  stats.referentiel = await referentiel.loadXmlFile(ficheInputStream, codesDiplomesStream);
 
   logger.info("Updating formations...");
   await pipeline(
     Formation.find(options.query ? options.query : {}).cursor(),
     writeObject(
       async f => {
-        let rncp = findRNCP(f.educ_nat_code);
+        let rncp = referentiel.findRNCP(f.educ_nat_code);
         let etablissement_reference_siret = f[`etablissement_${f.etablissement_reference}_siret`];
 
         try {

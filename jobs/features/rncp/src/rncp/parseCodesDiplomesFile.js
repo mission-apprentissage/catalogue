@@ -1,11 +1,10 @@
-const fs = require("fs");
 const { pipeline, parseCSV, writeObject } = require("../../../../common/script/streamUtils");
 
-module.exports = async file => {
+module.exports = async inputStream => {
   let codesDiplomes = [];
 
   await pipeline(
-    fs.createReadStream(file, { encoding: "UTF-8" }),
+    inputStream,
     parseCSV({
       delimiter: ";",
       skip_lines_with_error: true,
