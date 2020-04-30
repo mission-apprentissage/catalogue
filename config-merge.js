@@ -29,7 +29,7 @@ const config = {
       apiGateway: {
         name: "api",
         region: "eu-west-3",
-        endpoint: "https://4r5ojnv3cg.execute-api.eu-west-3.amazonaws.com/dev",
+        endpoint: "https://r7mayzn08d.execute-api.eu-west-3.amazonaws.com/dev",
       },
       cognito: {
         region: "eu-west-1",
