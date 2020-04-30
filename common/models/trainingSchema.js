@@ -248,9 +248,7 @@ const trainingSchema = {
   rncp_intitule: {
     type: String,
     default: null,
-    documentation: {
-      description: "Intitulé du code RNCP",
-    },
+    description: "Intitulé du code RNCP",
   },
   rncp_eligible_apprentissage: {
     type: Boolean,
