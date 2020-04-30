@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { API } from "aws-amplify";
 import { ReactiveComponent } from "@appbaseio/reactivesearch";
-import { Button } from "reactstrap";
+import { Button, Progress } from "reactstrap";
 
 const CSV_SEPARATOR = ";";
 
@@ -68,24 +68,31 @@ let scroll = (index, scrollId) => {
   });
 };
 
-let getDataAsCSV = async (searchUrl, query, columns) => {
+let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
   let data = [];
+  let pushAll = (hits) => {
+    let total = hits.total.value;
+    data = [...data, ...hits.hits.map((h) => h._source)];
+    setProgress(Math.round((data.length * 100) / total));
+  };
 
-  let res = await search(searchUrl, query);
-  data = [...data, ...res.hits.hits.map((h) => h._source)];
+  let { hits, _scroll_id } = await search(searchUrl, query);
+  pushAll(hits);
 
-  while (data.length < res.hits.total.value) {
-    res = await scroll(searchUrl, res._scroll_id);
-    data = [...data, ...res.hits.hits.map((h) => h._source)];
+  while (data.length < hits.total.value) {
+    let { hits } = await scroll(searchUrl, _scroll_id);
+    pushAll(hits);
   }
 
   let headers = columns.map((c) => c.header).join(CSV_SEPARATOR) + "\n";
   let lines = data.map((obj) => serializeObject(columns, obj)).join("\n");
+  setProgress(100);
   return `${headers}${lines}`;
 };
 
 const ExportButton = ({ index, filters, columns }) => {
   const [exporting, setExporting] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [query, setQuery] = useState({ query: { match_all: {} } });
 
   return (
@@ -95,17 +102,23 @@ const ExportButton = ({ index, filters, columns }) => {
       onQueryChange={(prevQuery, nextQuery) => setQuery(nextQuery)}
       render={() => {
         if (exporting) {
-          return <div>Chargement en cours</div>;
+          return (
+            <Progress min={0} max={100} value={progress}>
+              {progress}%
+            </Progress>
+          );
         }
 
         return (
           <Button
+            size="sm"
             onClick={async () => {
               setExporting(true);
-              let csv = await getDataAsCSV(index, query, columns);
+              let csv = await getDataAsCSV(index, query, columns, setProgress);
               let fileName = `${index}_${new Date().toJSON()}.csv`;
               downloadCSV(fileName, csv);
               setExporting(false);
+              setProgress(0);
             }}
           >
             Exporter
