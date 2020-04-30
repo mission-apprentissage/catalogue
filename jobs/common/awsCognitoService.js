@@ -6,7 +6,7 @@ const AWS = require("aws-sdk");
 // #endregion
 
 // Cognito Default Values
-const { config } = require("./config");
+const { config } = require("../../config-merge");
 
 const defaultPassword = "1MotDePassTemporaire!";
 const customApiKey = "XXXX";

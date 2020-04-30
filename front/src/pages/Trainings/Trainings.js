@@ -6,7 +6,7 @@ import { API } from "aws-amplify";
 
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
 import ExportButton from "../../components/ExportButton";
-import config, { getEnvName } from "../../config";
+import { config, getEnvName } from "@config";
 
 import "./trainings.css";
 
@@ -79,7 +79,7 @@ export default () => {
         )}
         <Row>
           <Col xs="12">
-            <ReactiveBase url={`${config.apiGateway.endpoint}/es/search/`} app="formations">
+            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search/`} app="formations">
               <ExportButton
                 exportName={"formations"}
                 filters={FILTERS}

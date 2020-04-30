@@ -5,7 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import ExportButton from "../../components/ExportButton";
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
 
-import config from "../../config";
+import { config } from "@config";
 
 import "./establishments.css";
 
@@ -29,7 +29,7 @@ export default () => {
       <Container>
         <Row>
           <Col xs="12">
-            <ReactiveBase url={`${config.apiGateway.endpoint}/es/search/`} app="etablissements">
+            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search/`} app="etablissements">
               <ExportButton
                 exportName="etablissements"
                 filters={FILTERS}

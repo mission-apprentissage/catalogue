@@ -1,8 +1,8 @@
 import AWS from "aws-sdk";
-import config from "../../../config";
+import { config } from "../../../config-merge";
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
-  region: config.cognito.region,
+  region: config.aws.cognito.region,
 });
 
 export const getUserFromToken = AccessToken =>
@@ -19,7 +19,7 @@ export const getUserFromToken = AccessToken =>
 export const userIsSuperAdmin = user =>
   new Promise((resolve, reject) => {
     const params = {
-      UserPoolId: config.cognito.userPoolId,
+      UserPoolId: config.aws.cognito.userPoolId,
       Username: user.Username,
     };
     cognitoIdentityServiceProvider.adminListGroupsForUser(params, (err, data) => {
@@ -34,7 +34,7 @@ export const userIsSuperAdmin = user =>
 export const listUsers = (attributesToGet = []) =>
   new Promise((resolve, reject) => {
     const params = {
-      UserPoolId: config.cognito.userPoolId,
+      UserPoolId: config.aws.cognito.userPoolId,
     };
 
     if (attributesToGet.length > 0) params.AttributesToGet = attributesToGet;
@@ -104,7 +104,7 @@ export const updateUser = (username, attr) =>
           Value: "true",
         },
       ],
-      UserPoolId: config.cognito.userPoolId /* required */,
+      UserPoolId: config.aws.cognito.userPoolId /* required */,
       Username: username /* required */,
     };
     cognitoIdentityServiceProvider.adminUpdateUserAttributes(params, (err, data) => {
@@ -116,7 +116,7 @@ export const updateUser = (username, attr) =>
 export const deleteUser = username =>
   new Promise((resolve, reject) => {
     const params = {
-      UserPoolId: config.cognito.userPoolId /* required */,
+      UserPoolId: config.aws.cognito.userPoolId /* required */,
       Username: username /* required */,
     };
     cognitoIdentityServiceProvider.adminDeleteUser(params, (err, data) => {
@@ -128,7 +128,7 @@ export const deleteUser = username =>
 export const createUser = user =>
   new Promise((resolve, reject) => {
     const params = {
-      UserPoolId: config.cognito.userPoolId /* required */,
+      UserPoolId: config.aws.cognito.userPoolId /* required */,
       Username: user.newUsername /* required */,
       DesiredDeliveryMediums: ["EMAIL"],
       TemporaryPassword: user.newTmpPassword,

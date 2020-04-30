@@ -7,7 +7,7 @@ const Spinner = require("cli-spinner").Spinner;
 const { connectToMongo } = require("../../../../common/mongo");
 const { attachEstablishmentTo } = require("../../../../common/models/establishment");
 const { attachFormationTo } = require("../../../../common/models/formation");
-const { getConfig } = require("../../../../common/config");
+const { getConfig } = require("../../../../../config-merge");
 const { getElasticInstance } = require("../../../../common/esClient");
 
 // #endregion

@@ -1,13 +1,13 @@
 import { Client } from "@elastic/elasticsearch";
 import { AmazonConnection } from "aws-elasticsearch-connector";
 import mongoosasticHandler from "./mongoosastic";
-import config from "../../../../config";
+import { config } from "../../../../config-merge";
 
 const { STAGE } = process.env;
 
-const localOptions = { node: `http://${config.es.endpoint}` };
+const localOptions = { node: `http://${config.aws.elasticsearch.endpoint}` };
 const awsOptions = {
-  node: `https://${config.es.endpoint}`,
+  node: `https://${config.aws.elasticsearch.endpoint}`,
   Connection: AmazonConnection,
   awsConfig: {
     credentials: {

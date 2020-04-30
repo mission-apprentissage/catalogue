@@ -1,12 +1,12 @@
 import Amplify, { Auth } from "aws-amplify";
-import config from "../config";
+import { config } from "@config";
 
 const configure = async () => {
   Amplify.configure({
     API: {
       endpoints: [
         {
-          ...config.apiGateway,
+          ...config.aws.apiGateway,
           custom_header: async () => {
             const token = await getToken();
             if (!token) return {};
@@ -17,7 +17,7 @@ const configure = async () => {
         },
       ],
     },
-    Auth: config.cognito,
+    Auth: config.aws.cognito,
   });
 };
 

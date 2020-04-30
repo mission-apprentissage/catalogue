@@ -8,7 +8,7 @@ import { push } from "connected-react-router";
 
 import { signOut } from "../../redux/Auth/actions";
 import routes from "../../routes.json";
-import { getEnvName } from "../../config";
+import { getEnvName } from "@config";
 
 import "./topbar.css";
 import logo from "./logo.png";
