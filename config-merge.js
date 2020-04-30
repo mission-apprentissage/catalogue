@@ -86,13 +86,12 @@ const getConfig = envName => {
 };
 
 let env = null;
-const hostname = window ? window.location.hostname : "";
-const getEnvName = () => {
+const getEnvName = (hostname = "") => {
   if (env) {
     // Env already setled
     return env;
   }
-  if(!window) {
+  if(!hostname) {
     // node env
     return process.env.STAGE;
   }

@@ -1,5 +1,7 @@
 import Amplify, { Auth } from "aws-amplify";
-import { config } from "@config";
+import { getConfig, getEnvName } from "@config";
+
+const config = getConfig(getEnvName(window.location.hostname));
 
 const configure = async () => {
   Amplify.configure({

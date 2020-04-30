@@ -33,7 +33,7 @@ export default () => {
               <ExportButton
                 index={"etablissements"}
                 filters={FILTERS}
-                columns={columnsDefinition.map((def) => ({ header: def.Header, fieldName: def.accessor }))}
+                columns={columnsDefinition.map(def => ({ header: def.Header, fieldName: def.accessor }))}
               />
               <ReactiveList
                 componentId="result"
@@ -46,7 +46,7 @@ export default () => {
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} />;
                 }}
-                renderResultStats={(stats) => {
+                renderResultStats={stats => {
                   return <p style={{ fontSize: 14 }}>{`${stats.numberOfResults} établissements trouvés`}</p>;
                 }}
                 react={{ and: FILTERS }}
