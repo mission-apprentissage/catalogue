@@ -2,8 +2,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 // eslint-disable-next-line import/no-extraneous-dependencies
 require("mongoose-schema-jsonschema")(mongoose);
-const establishmentSchema = require("../src/models/establishmentSchema");
-const formationSchema = require("../src/models/formationSchema");
+const { establishmentSchema, formationSchema } = require("../../common/models");
 
 const { Schema } = mongoose;
 

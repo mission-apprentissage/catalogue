@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate";
 import { mongoosastic, getElasticInstance } from "../utils/es";
-import establishmentSchema from "./establishmentSchema";
-import trainingSchema from "./formationSchema";
+import { establishmentSchema, trainingSchema } from "../../../common/models";
 
 const getModel = (MODELNAME, schema) => {
   exports.Schema = schema;
