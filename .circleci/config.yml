@@ -33,7 +33,7 @@ jobs:
                 name: Install serverless
                 command: sudo yarn global add serverless@1.64.0
             - run: cd api && yarn run deploy:prepare
-            # - run: cd api && yarn run deploy:dev
+            - run: cd api && yarn run deploy:dev
     serverless_deploy_prod:
         working_directory: ~/repo
         docker:
