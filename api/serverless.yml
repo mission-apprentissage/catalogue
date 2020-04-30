@@ -34,7 +34,7 @@ custom:
         version: '1'
         title: MNA dev API
         description: mission apprentissage API
-        termsOfService: https://www.google.com
+        termsOfService: https://www.beta.gouv.fr
         contact:
           name: Antoine Bigard
           url: https://www.beta.gouv.fr
