@@ -39,7 +39,7 @@ const config = {
       },
       elasticsearch: {
         region: "eu-west-3",
-        endpoint: "search-mna-es-dev-4p4det7qgnd7fp7k77kon32gwi.eu-west-3.es.amazonaws.com", // TODO env Var netlify
+        endpoint: "search-mna-es-dev-4p4det7qgnd7fp7k77kon32gwi.eu-west-3.es.amazonaws.com",
       },
     },
     mongo: {
