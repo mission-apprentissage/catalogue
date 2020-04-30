@@ -12,6 +12,7 @@ jobs:
             - checkout
             - restore_cache: # special step to restore the dependency cache
                 key: dependency-cache-{{ checksum "package.json" }}
+            - run: cd api
             - run: yarn install
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
@@ -59,17 +60,17 @@ workflows:
                         only:
                             - master
                             - staging
-            - serverless_deploy_prod:
-                requires:
-                    - lint
-                filters:
-                    branches:
-                        only:
-                            - master
-            - serverless_deploy_dev:
-                requires:
-                    - lint
-                filters:
-                    branches:
-                        only:
-                            - staging
+            # - serverless_deploy_prod:
+            #     requires:
+            #         - lint
+            #     filters:
+            #         branches:
+            #             only:
+            #                 - master
+            # - serverless_deploy_dev:
+            #     requires:
+            #         - lint
+            #     filters:
+            #         branches:
+            #             only:
+            #                 - staging
