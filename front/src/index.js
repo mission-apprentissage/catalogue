@@ -14,8 +14,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 const store = configureStore();
 
-window.saveHost = window.location.hostname;
-
 async function init() {
   await awsConfigure();
 

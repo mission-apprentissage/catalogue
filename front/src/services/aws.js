@@ -1,7 +1,5 @@
 import Amplify, { Auth } from "aws-amplify";
-import { getConfig, getEnvName } from "@config";
-
-const config = getConfig(getEnvName(saveHost));
+import config from "../config";
 
 const configure = async () => {
   Amplify.configure({

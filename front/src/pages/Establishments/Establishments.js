@@ -5,7 +5,7 @@ import { Container, Row, Col } from "reactstrap";
 import ExportButton from "../../components/ExportButton";
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
 
-import { config } from "@config";
+import config from "../../config";
 
 import "./establishments.css";
 

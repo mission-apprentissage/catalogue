@@ -8,7 +8,7 @@ import { push } from "connected-react-router";
 
 import { signOut } from "../../redux/Auth/actions";
 import routes from "../../routes.json";
-import { getEnvName } from "@config";
+import { getEnvName } from "../../config";
 
 import "./topbar.css";
 import logo from "./logo.png";
@@ -17,7 +17,7 @@ const ENV_NAME = getEnvName();
 
 const TopBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   const toggle = () => setIsOpen(!isOpen);
