@@ -12,7 +12,7 @@ export default async event => {
       return badRequest({ message: "something went wrong" });
     }
 
-    const result = await esClient.search({ index, ...queryStringParameters, body });
+    const result = await esClient.msearch({ index, ...queryStringParameters, body });
 
     /**
      *  Response

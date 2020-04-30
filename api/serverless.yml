@@ -239,6 +239,16 @@ functions:
           path: etablissement/{id}
           cors:
             origin: '*'
+  esMultiSearch:
+    handler: src/index.esMultiSearchHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: es/search/{index}/_msearch
+          cors:
+            origin: '*'
   esSearch:
     handler: src/index.esSearchHandler
     memorySize: 3008
@@ -246,7 +256,7 @@ functions:
     events:
       - http:
           method: post
-          path: es/search/{index}/_msearch
+          path: es/search/{index}/_search
           cors:
             origin: '*'
   esScroll:

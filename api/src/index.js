@@ -20,4 +20,4 @@ export {
 
 export { createUserHandler, updateUserHandler, getUsersHandler, deleteUserHandler } from "./admin/user";
 
-export { esSearchHandler, esScrollHandler } from "./search";
+export { esMultiSearchHandler, esSearchHandler, esScrollHandler } from "./search";
