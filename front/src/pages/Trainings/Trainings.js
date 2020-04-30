@@ -85,8 +85,8 @@ export default () => {
                 index={"formations"}
                 filters={FILTERS}
                 columns={columnsDefinition
-                  .filter((def) => !def.debug || debug)
-                  .map((def) => ({ header: def.Header, fieldName: def.accessor }))}
+                  .filter(def => !def.debug || debug)
+                  .map(def => ({ header: def.Header, fieldName: def.accessor }))}
               />
               <ReactiveList
                 componentId="result"
@@ -100,7 +100,7 @@ export default () => {
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} debug={debug} />;
                 }}
-                renderResultStats={(stats) => {
+                renderResultStats={stats => {
                   return (
                     <p style={{ fontSize: 14 }}>{`${stats.numberOfResults} formations affichées sur ${
                       countFormations !== 0 ? countFormations : ""
@@ -122,7 +122,7 @@ export default () => {
                 multiSelect={false}
                 showFilter={true}
                 URLParams={false}
-                onChange={(e) => {
+                onChange={e => {
                   if (e.value && e.value !== publishedTrainings) {
                     setPublishedTrainings(publishedTrainings === "true" ? "false" : "true");
                   }
