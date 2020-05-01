@@ -1,10 +1,10 @@
 // #region Imports
 
-const logger = require("../../../../common-jobs/Logger").mainLogger;
-const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
+const logger = require("../../../common-jobs/Logger").mainLogger;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 
-const awsCognitoService = require("../../../../common-jobs/awsCognitoService");
-const apiEsSup = require("../../../../common-jobs/EsSupApi");
+const awsCognitoService = require("../../../common-jobs/awsCognitoService");
+const apiEsSup = require("../../../common-jobs/EsSupApi");
 const fileManager = require("./services/FileManager");
 const getUserNameFromMail = require("./services/utils").getUserNameFromMail;
 const { userStatuts, userAccess } = require("./services/constants");
