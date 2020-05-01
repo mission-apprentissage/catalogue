@@ -1,9 +1,9 @@
 // #region Imports
 const { connectToMongo } = require("../../../../common/mongo");
 const { getElasticInstance } = require("../../../../common/esClient");
-const logger = require("../../../common/Logger").mainLogger;
+const logger = require("../../../common-jobs/Logger").mainLogger;
 
-const { Formation } = require("../../../common/models");
+const { Formation } = require("../../../common-jobs/models");
 
 const run = async () => {
   try {

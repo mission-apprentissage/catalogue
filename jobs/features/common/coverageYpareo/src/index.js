@@ -1,9 +1,9 @@
 // #region Imports
 const { connectToMongo } = require("../../../../../common/mongo");
-const logger = require("../../../../common/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 const fileManager = require("./services/FileManager");
-const { Establishment } = require("../../../../common/models");
-const asyncForEach = require("../../../../common/utils").asyncForEach;
+const { Establishment } = require("../../../../common-jobs/models");
+const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 const Exporter = require("./services/Exporter");
 const writeXlsxFile = require("./services/FileUtils").writeXlsxFile;
 const exporter = new Exporter();

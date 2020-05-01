@@ -2,12 +2,12 @@
 
 const filePathConstants = require("./constants/FilePathConstants");
 const { connectToMongo } = require("../../../../common/mongo");
-const { Establishment } = require("../../../common/models");
+const { Establishment } = require("../../../common-jobs/models");
 
 const logger = require("./services/Logger");
 const fileManager = require("./services/FileManager");
 const Exporter = require("./services/Exporter");
-const asyncForEach = require("../../../common/utils").asyncForEach;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const writeXlsxFile = require("./services/FileUtils").writeXlsxFile;
 const path = require("path");
 const fs = require("fs");

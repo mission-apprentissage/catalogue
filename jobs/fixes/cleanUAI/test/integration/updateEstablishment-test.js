@@ -1,7 +1,7 @@
 const assert = require("assert");
 const updateEstablishment = require("../../src/services/updateEstablishment");
 const { createEstablishment } = require("../../../../test/data/fixtures");
-const { Establishment } = require("../../../../common/models");
+const { Establishment } = require("../../../../common-jobs/models");
 const { connectToMongo } = require("../../../../../common/mongo");
 
 let queryForTests = { nom_commercial: "TEST" };

@@ -2,7 +2,7 @@ const _ = require("lodash");
 const mongoose = require("mongoose");
 var { ObjectId } = mongoose.Types;
 const { randomSIRET } = require("./testUtils");
-const { Formation, Establishment } = require("../../common/models");
+const { Formation, Establishment } = require("../../common-jobs/models");
 
 module.exports = {
   createFormation: (options = {}) => {

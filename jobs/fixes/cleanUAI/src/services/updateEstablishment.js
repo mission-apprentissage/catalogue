@@ -1,6 +1,6 @@
 const { pipeline, writeObject } = require("../../../../../common/streamUtils");
-const logger = require("../../../../common/Logger").mainLogger;
-const { Establishment } = require("../../../../common/models");
+const logger = require("../../../../common-jobs/Logger").mainLogger;
+const { Establishment } = require("../../../../common-jobs/models");
 const sanitizeUAI = require("./sanitizeUAI");
 
 module.exports = async (options = {}) => {

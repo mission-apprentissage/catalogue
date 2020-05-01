@@ -1,11 +1,11 @@
 const path = require("path");
 const { connectToMongo } = require("../../../../common/mongo");
-const { Establishment, Formation } = require("../../../common/models");
+const { Establishment, Formation } = require("../../../common-jobs/models");
 
 const fileManager = require("./services/FileManager");
 const formatingModel = require("./services/FormatingModel");
 const dsFetcher = require("./services/DSFetcher");
-const asyncForEach = require("../../../common/utils").asyncForEach;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 
 // const CASE = {
 //   idDossier: 1202774,

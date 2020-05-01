@@ -1,4 +1,4 @@
-const logger = require("../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 const { isValidCodePostal, zipCodeExist } = require("../utils/validation");
 const { formatCodePostal } = require("../utils/formating");
 

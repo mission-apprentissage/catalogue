@@ -5,7 +5,7 @@ const fileHeadersConstants = require("./constants/FileHeadersConstants");
 const readXLSXFile = require("./FileUtils").readXLSXFile;
 const readJsonFromCsvFile = require("./FileUtils").readJsonFromCsvFile;
 const XLSX = require("xlsx");
-const logger = require("../../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

@@ -1,7 +1,7 @@
 const { connectToMongo } = require("../../../../../common/mongo");
-const { Formation } = require("../../../../common/models");
-const logger = require("../../../../common/Logger").mainLogger;
-const asyncForEach = require("../../../../common/utils").asyncForEach;
+const { Formation } = require("../../../../common-jobs/models");
+const logger = require("../../../../common-jobs/Logger").mainLogger;
+const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 const establishmentsData = require("./updaters/establishmentsData");
 const codeEnData = require("./updaters/codeEnData");
 const locationData = require("./updaters/locationData");

@@ -1,7 +1,7 @@
 const _ = require("lodash");
 const { Transform } = require("stream");
 const { LineStream } = require("byline");
-const logger = require("../../../../common/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 const util = require("util");
 const xml2js = require("xml2js");
 const {

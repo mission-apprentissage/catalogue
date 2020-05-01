@@ -4,7 +4,7 @@ const filePathConstants = require("./constants/FilePathConstants");
 const fileManager = require("./FileManager");
 const some = require("lodash").some;
 const { infosCodes } = require("./constants/EtablissementsConstants");
-const logger = require("../../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

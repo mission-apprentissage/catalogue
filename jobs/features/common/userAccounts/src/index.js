@@ -1,10 +1,10 @@
 // #region Imports
 
-const logger = require("../../../../common/Logger").mainLogger;
-const asyncForEach = require("../../../../common/utils").asyncForEach;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
+const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 
-const awsCognitoService = require("../../../../common/awsCognitoService");
-const apiEsSup = require("../../../../common/EsSupApi");
+const awsCognitoService = require("../../../../common-jobs/awsCognitoService");
+const apiEsSup = require("../../../../common-jobs/EsSupApi");
 const fileManager = require("./services/FileManager");
 const getUserNameFromMail = require("./services/utils").getUserNameFromMail;
 const { userStatuts, userAccess } = require("./services/constants");
@@ -42,15 +42,18 @@ const createPamUsers = async usersToAdd => {
 
   await asyncForEach(usersToAdd, async userToAdd => {
     const userName = getUserNameFromMail(userToAdd.MAIL);
+    //const NumAcademe = await getNumAcademieListFromEsSup(userToAdd.ACADEMIE);
+    // eslint-disable-next-line no-unused-vars
     const user = {
       userName: userName,
       email: userToAdd.MAIL.trim().toLowerCase(),
-      accessAll: userToAdd.ACCES.trim().toLowerCase() === userAccess.full
-        ? userToAdd.ACCES_COMPLET.trim().toLowerCase() === "oui"
-          ? "true"
-          : "false"
-        : "false",
-      accessAcademie: `${user.a await getNumAcademieListFromEsSup(userToAdd.ACADEMIE)}`,
+      accessAll:
+        userToAdd.ACCES.trim().toLowerCase() === userAccess.full
+          ? userToAdd.ACCES_COMPLET.trim().toLowerCase() === "oui"
+            ? "true"
+            : "false"
+          : "false",
+      // accessAcademie: `${user.a }`, NumAcademe    < ---------------------------ISSUE HERE -------------------------------------------------------------
     };
 
     if (!awsCognitoService.getCognitoUser(userName)) {
@@ -95,6 +98,7 @@ const updateUsers = async usersToUpdate => {
   logger.info(" -- End Updating Catalog User Accounts -- ");
 };
 
+// eslint-disable-next-line no-unused-vars
 const getNumAcademieListFromEsSup = async academiesList => {
   if (!academiesList) {
     return "-1";

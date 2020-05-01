@@ -1,8 +1,8 @@
 // #region Imports
-const asyncForEach = require("../../../common/utils").asyncForEach;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const { connectToMongo } = require("../../../../common/mongo");
-const logger = require("../../../common/Logger").mainLogger;
-const { Establishment, Formation } = require("../../../common/models");
+const logger = require("../../../common-jobs/Logger").mainLogger;
+const { Establishment, Formation } = require("../../../common-jobs/models");
 
 const { getEtablissements, getFormations } = require("./services/elasticSearch");
 const mapNewModelEtablishment = require("./mapNewModelEtablishment");

@@ -1,6 +1,6 @@
 // #region Imports
 const path = require("path");
-const logger = require("../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 const readXLSXFile = require("./FileUtils").readXLSXFile;
 const getJsonDataFromWorksheet = require("./FileUtils").getJsonDataFromWorksheet;

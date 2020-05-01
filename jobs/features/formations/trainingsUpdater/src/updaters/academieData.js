@@ -1,5 +1,5 @@
-const logger = require("../../../../../common/Logger").mainLogger;
-const apiEsSup = require("../../../../../common/EsSupApi");
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
+const apiEsSup = require("../../../../../common-jobs/EsSupApi");
 
 class AcademieData {
   constructor() {}

@@ -1,8 +1,8 @@
 // #region Imports
 
 const { connectToMongo } = require("../../../../common/mongo");
-const { Formation } = require("../../../common/models");
-const asyncForEach = require("../../../common/utils").asyncForEach;
+const { Formation } = require("../../../common-jobs/models");
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const logger = require("./services/Logger");
 const fileManager = require("./services/FileManager");
 const { getTrainingFormattedMnaData } = require("./common/catalogFormatData");

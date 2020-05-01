@@ -4,7 +4,7 @@ const filePathConstants = require("../constants/FilePathConstants");
 const fileHeadersConstants = require("../constants/FileHeadersConstants");
 const readXLSXFile = require("./FileUtils").readXLSXFile;
 const XLSX = require("xlsx");
-const logger = require("../../../../common/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

@@ -1,8 +1,8 @@
-const logger = require("../../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 const { infosCodes, computeCodes } = require("./Constants");
 const bcnChecker = require("./BcnChecker");
 const { difference } = require("lodash");
-const asyncForEach = require("../../../../../../common/utils").asyncForEach;
+const asyncForEach = require("../../../../../../common-jobs/utils").asyncForEach;
 const pSupData = require("../pSupData");
 class BcnData {
   constructor() {

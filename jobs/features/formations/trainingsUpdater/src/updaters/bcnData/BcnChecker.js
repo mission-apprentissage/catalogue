@@ -12,7 +12,7 @@ const {
 const { find, filter } = require("lodash");
 const moment = require("moment");
 const fileManager = require("./FileManager");
-const logger = require("../../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

@@ -1,4 +1,4 @@
-const logger = require("../../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 const { infosCodes } = require("./Constants");
 const pSupChecker = require("./pSupChecker");
 

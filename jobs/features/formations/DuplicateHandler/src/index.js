@@ -1,13 +1,13 @@
 // #region Imports
 const { connectToMongo, closeMongoConnection } = require("../../../../../common/mongo");
-const logger = require("../../../../common/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 //const asyncForEach = require("../../../../common/utils").asyncForEach;
 const { uniq, remove } = require("lodash");
 //const stringSimilarity = require("string-similarity");
 const { detailedDiff } = require("deep-object-diff");
 const cluster = require("cluster");
 
-const { Formation } = require("../../../../common/models");
+const { Formation } = require("../../../../common-jobs/models");
 
 // const pressAnyKey = () =>
 //   new Promise(resolve => {

@@ -3,7 +3,7 @@
 const path = require("path");
 const readXLSXFile = require("./FileUtils").readXLSXFile;
 const XLSX = require("xlsx");
-const logger = require("../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 const ypareoFilePath = path.join(__dirname, "../../_inputFiles/SIFA_SIRET_V1.xlsx");
 const ypareoFileHeader = [

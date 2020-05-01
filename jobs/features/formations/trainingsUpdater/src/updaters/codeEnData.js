@@ -1,4 +1,4 @@
-const logger = require("../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 const fileManager = require("../updaters/bcnData/FileManager");
 const { PATH_SPECIALITE } = require("../updaters/bcnData/Constants");
 

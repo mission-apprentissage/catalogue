@@ -1,4 +1,4 @@
-const logger = require("../../../../../common/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 const axios = require("axios");
 
 // Cf Documentation : https://doc.entreprise.api.gouv.fr/#param-tres-obligatoires

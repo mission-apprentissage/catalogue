@@ -1,9 +1,9 @@
 // #region Imports
 const { connectToMongo } = require("../../../../common/mongo");
-const logger = require("../../../common/Logger").mainLogger;
-const asyncForEach = require("../../../common/utils").asyncForEach;
+const logger = require("../../../common-jobs/Logger").mainLogger;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 
-const { Establishment, Formation } = require("../../../common/models");
+const { Establishment, Formation } = require("../../../common-jobs/models");
 
 const run = async () => {
   try {

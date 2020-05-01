@@ -1,7 +1,7 @@
 const createReferentiel = require("./rncp/referentiel");
 const { pipeline, writeObject } = require("../../../../common/streamUtils");
-const logger = require("../../../common/Logger").mainLogger;
-const { Formation } = require("../../../common/models");
+const logger = require("../../../common-jobs/Logger").mainLogger;
+const { Formation } = require("../../../common-jobs/models");
 
 module.exports = async (ficheInputStream, codesDiplomesStream, options = {}) => {
   let referentiel = createReferentiel();

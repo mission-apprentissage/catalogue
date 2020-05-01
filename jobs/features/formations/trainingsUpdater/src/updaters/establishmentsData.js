@@ -1,5 +1,5 @@
-const logger = require("../../../../../common/Logger").mainLogger;
-const { Establishment } = require("../../../../../common/models");
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
+const { Establishment } = require("../../../../../common-jobs/models");
 
 class EstablishmentsData {
   constructor() {}
