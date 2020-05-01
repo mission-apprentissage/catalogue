@@ -35,8 +35,8 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
-      etablissement_reference_published: referenceEstablishment.published,
-      published: referenceEstablishment.api_entreprise_reference,
+      etablissement_reference_published: referenceEstablishment.published, // || referenceEstablishment.api_entreprise_reference, TODO Published Rules
+      // published: referenceEstablishment.api_entreprise_reference,
     };
   }
 
