@@ -1,4 +1,3 @@
-const fs = require("fs");
 const _ = require("lodash");
 const { Transform } = require("stream");
 const { LineStream } = require("byline");
@@ -11,7 +10,7 @@ const {
   accumulate,
   ignoreEmpty,
   decodeStream,
-} = require("../../../../common/script/streamUtils");
+} = require("../../../../../common/script/streamUtils");
 
 const xmlToJson = util.promisify(
   new xml2js.Parser({

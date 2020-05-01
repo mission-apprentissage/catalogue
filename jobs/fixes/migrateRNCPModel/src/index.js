@@ -1,7 +1,7 @@
-const { execute } = require("../../../common/script/scriptWrapper");
+const { execute } = require("../../../../common/script/scriptWrapper");
 const logger = require("../../../common/Logger").mainLogger;
 const { Establishment, Formation } = require("../../../common/models");
-const { getElasticInstance } = require("../../../common/esClient");
+const { getElasticInstance } = require("../../../../common/esClient");
 
 let rebuildIndex = async (index, schema) => {
   let client = getElasticInstance();

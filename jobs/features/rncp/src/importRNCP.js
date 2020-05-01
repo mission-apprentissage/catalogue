@@ -1,5 +1,5 @@
 const createReferentiel = require("./rncp/referentiel");
-const { pipeline, writeObject } = require("../../../common/script/streamUtils");
+const { pipeline, writeObject } = require("../../../../common/script/streamUtils");
 const logger = require("../../../common/Logger").mainLogger;
 const { Formation } = require("../../../common/models");
 

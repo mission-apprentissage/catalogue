@@ -1,4 +1,4 @@
-const { pipeline, parseCSV, writeObject } = require("../../../../common/script/streamUtils");
+const { pipeline, parseCSV, writeObject } = require("../../../../../common/script/streamUtils");
 
 module.exports = () => {
   let catalogue = [];
