@@ -1,15 +1,14 @@
-const _ = require("lodash");
+const { isEmpty: _isEmpty } = require("lodash");
 const util = require("util");
 const { Transform, Writable } = require("stream");
 const pipeline = util.promisify(require("stream").pipeline);
 const { encodeStream, decodeStream } = require("iconv-lite");
 const mergeStreams = require("multipipe");
-const parseCSV = require("csv-parse");
 
 let transformObject = (transform, options = {}) => {
   let lines = 0;
   let isFirstLine = () => (options.ignoreFirstLine || false) && lines++ === 0;
-  let isEmpty = value => (options.ignoreEmpty || false) && _.isEmpty(value);
+  let isEmpty = value => (options.ignoreEmpty || false) && _isEmpty(value);
   let parallel = options.parallel || 1;
 
   let promises = [];
@@ -83,7 +82,6 @@ module.exports = {
   pipeline,
   encodeStream,
   decodeStream,
-  parseCSV,
   transformObject,
   writeObject,
   mergeStreams,

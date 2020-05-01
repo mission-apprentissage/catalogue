@@ -43,7 +43,6 @@
     "@elastic/elasticsearch": "7.6.1",
     "aws-elasticsearch-connector": "8.2.0",
     "elasticsearch-scroll-stream": "1.2.1",
-    "csv-parse": "4.8.8",
     "iconv-lite": "0.5.1",
     "mongoose": "^5.9.7",
     "multipipe": "4.0.0",
