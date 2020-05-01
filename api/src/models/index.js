@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
 import mongoosePaginate from "mongoose-paginate";
+import { mongooseInstance as mongoose } from "../../../common/mongo";
 import { mongoosastic, getElasticInstance } from "../utils/es";
 import { establishmentSchema, trainingSchema } from "../../../common/models";
 

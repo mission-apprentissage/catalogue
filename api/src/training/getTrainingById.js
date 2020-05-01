@@ -1,4 +1,4 @@
-import { connectToMongo } from "../utils/mongo";
+import { connectToMongo } from "../../../common/mongo";
 import { success, failure, notFound } from "../utils/response";
 import { Formation } from "../models";
 
