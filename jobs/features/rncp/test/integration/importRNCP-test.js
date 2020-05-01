@@ -4,7 +4,7 @@ const path = require("path");
 const importRNCP = require("../../src/importRNCP");
 const { createFormation } = require("../../../../test/data/fixtures");
 const { Formation } = require("../../../../../common/models");
-const { connectToMongo } = require("../../../../common/mongo");
+const { connectToMongo } = require("../../../../../common/mongo");
 const { getElasticInstance } = require("../../../../../common/esClient");
 
 let formationQueryForTests = { source: "TEST" };

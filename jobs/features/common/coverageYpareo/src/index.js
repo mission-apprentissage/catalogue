@@ -1,5 +1,5 @@
 // #region Imports
-const { connectToMongo } = require("../../../../common/mongo");
+const { connectToMongo } = require("../../../../../common/mongo");
 const logger = require("../../../../common/Logger").mainLogger;
 const fileManager = require("./services/FileManager");
 const { Establishment } = require("../../../../common/models");

@@ -1,6 +1,6 @@
 // #region Imports
-const { connectToMongo } = require("../../../common/mongo");
-const { getElasticInstance } = require("../../../common/esClient");
+const { connectToMongo } = require("../../../../common/mongo");
+const { getElasticInstance } = require("../../../../common/esClient");
 const logger = require("../../../common/Logger").mainLogger;
 
 const { Formation } = require("../../../common/models");

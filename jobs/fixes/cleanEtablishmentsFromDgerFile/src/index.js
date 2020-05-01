@@ -1,6 +1,6 @@
 // #region Imports
 const filePathConstants = require("./constants/FilePathConstants");
-const { connectToMongo } = require("../../../common/mongo");
+const { connectToMongo } = require("../../../../common/mongo");
 const { Establishment } = require("../../../common/models");
 //const { prepareRequest, handleRequest, signedRequest, getEtablissements } = require("../../../common/elasticSearch");
 //const ENV = "dev";

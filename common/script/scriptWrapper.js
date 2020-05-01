@@ -1,5 +1,4 @@
 const moment = require("moment");
-const logger = require("../Logger").mainLogger;
 const { connectToMongo, closeMongoConnection } = require("../mongo");
 
 process.on("unhandledRejection", e => console.log(e));
@@ -14,14 +13,14 @@ const createTimer = () => {
     stop: results => {
       let duration = moment.utc(new Date().getTime() - launchTime).format("HH:mm:ss.SSS");
       let data = results && results.toJSON ? results.toJSON() : results;
-      logger.info(JSON.stringify(data || {}));
-      logger.info(`Completed in ${duration}`);
+      console.log(JSON.stringify(data || {}));
+      console.log(`Completed in ${duration}`);
     },
   };
 };
 
 const handleError = error => {
-  logger.error(error.constructor.name === "EnvVarError" ? error.message : JSON.stringify(error));
+  console.error(error.constructor.name === "EnvVarError" ? error.message : JSON.stringify(error));
   process.exitCode = 1;
 };
 

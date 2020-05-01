@@ -1,5 +1,5 @@
 const path = require("path");
-const { connectToMongo } = require("../../../common/mongo");
+const { connectToMongo } = require("../../../../common/mongo");
 const { Establishment, Formation } = require("../../../common/models");
 
 const fileManager = require("./services/FileManager");

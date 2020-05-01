@@ -1,7 +1,7 @@
 // #region Imports
 
 const filePathConstants = require("./constants/FilePathConstants");
-const { connectToMongo } = require("../../../common/mongo");
+const { connectToMongo } = require("../../../../common/mongo");
 const { Establishment } = require("../../../common/models");
 
 const logger = require("./services/Logger");
@@ -112,6 +112,7 @@ const exportMultipleMatchingsToExcel = async (etablissementItem, etablissementFo
 /**
  * Integrate data from returned matching multiples files
  */
+// eslint-disable-next-line no-unused-vars
 const integrateRetoursMatchingMultiples = async () => {
   try {
     logger.returnMatchingsMultiplesLogger.info(" -- Début de l'intégration des matching multiples -- ");

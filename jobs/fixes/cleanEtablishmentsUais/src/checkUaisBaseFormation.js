@@ -1,6 +1,6 @@
 // #region Imports
 
-const { connectToMongo } = require("../../../common/mongo");
+const { connectToMongo } = require("../../../../common/mongo");
 const { Formation } = require("../../../common/models");
 const asyncForEach = require("../../../common/utils").asyncForEach;
 const logger = require("./services/Logger");
