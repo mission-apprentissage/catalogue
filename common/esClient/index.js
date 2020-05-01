@@ -57,7 +57,7 @@ const createEsInstance = (stage = null) => {
 
 let clientDefault = createEsInstance();
 
-// Très moche mais pas d'idée sur le moment (antoine)
+// To keep singleton
 let clientProd = null;
 let clientDev = null;
 let clientLocal = null;
