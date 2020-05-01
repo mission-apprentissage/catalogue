@@ -8,15 +8,15 @@ const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
       config.mongo.db}?retryWrites=true&w=majority`;
     console.log(`MongoDB: Connection to ${connectDbUri}`);
 
-    mongooseInstance = mongooseInst || mongoose;
+    const mongooseInstanceTmp = mongooseInst || mongooseInstance;
     // Set up default mongoose connection
-    mongooseInstance.connect(connectDbUri, {
+    mongooseInstanceTmp.connect(connectDbUri, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
     }); // Get Mongoose to use the global promise library
-    mongooseInstance.Promise = global.Promise; // Get the default connection
-    const db = mongooseInstance.connection;
+    mongooseInstanceTmp.Promise = global.Promise; // Get the default connection
+    const db = mongooseInstanceTmp.connection;
     // Bind connection to error event (to get notification of connection errors)
     db.on("error", () => {
       console.error.bind(console, "MongoDB: connection error:");
@@ -24,10 +24,10 @@ const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
     });
     db.once("open", () => {
       console.log("MongoDB: Connected");
-      resolve(db);
+      resolve(mongooseInstanceTmp);
     });
   });
 
 module.exports.mongooseInstance = mongooseInstance;
 module.exports.connectToMongo = connectToMongo;
-module.exports.closeMongoConnection = () => mongooseInstance.connection.close();
+module.exports.closeMongoConnection = (mongooseInst = mongooseInstance) => mongooseInst.connection.close();
