@@ -3,7 +3,7 @@
 const logger = require("./Logger").mainLogger;
 const AWS = require("aws-sdk");
 const { v4: uuidv4 } = require("uuid");
-const { config } = require("../../config-merge");
+const { config } = require("../../config");
 // #endregion
 
 // Cognito Default Values

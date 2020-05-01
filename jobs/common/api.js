@@ -1,5 +1,5 @@
 const axios = require("axios");
-const { config } = require("../../config-merge");
+const { config } = require("../../config");
 
 class Api {
   constructor() {

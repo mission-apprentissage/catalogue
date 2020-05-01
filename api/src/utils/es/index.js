@@ -1,7 +1,7 @@
 import { Client } from "@elastic/elasticsearch";
 import { AmazonConnection } from "aws-elasticsearch-connector";
 import mongoosasticHandler from "./mongoosastic";
-import { config } from "../../../../config-merge";
+import { config } from "../../../../config";
 
 const { STAGE } = process.env;
 

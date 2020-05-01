@@ -6,7 +6,7 @@ const logger = require("../../../../common/Logger").mainLogger;
 const Spinner = require("cli-spinner").Spinner;
 const { connectToMongo } = require("../../../../common/mongo");
 const { attachFormationTo, attachEstablishmentTo } = require("../../../../common/models");
-const { getConfig } = require("../../../../../config-merge");
+const { getConfig } = require("../../../../../config");
 const { getElasticInstance } = require("../../../../common/esClient");
 
 // #endregion

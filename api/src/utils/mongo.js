@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { config } from "../../../config-merge";
+import { config } from "../../../config";
 
 // TODO return promise reject
 export const connectToMongo = () => {

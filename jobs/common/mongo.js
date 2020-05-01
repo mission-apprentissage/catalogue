@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { config } = require("../../config-merge");
+const { config } = require("../../config");
 
 let mongooseInstance = mongoose;
 const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
