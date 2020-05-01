@@ -1,5 +1,5 @@
-import { success, failure, badRequest } from "../utils/response";
-import { getElasticInstance } from "../utils/es";
+import { success, failure, badRequest } from "../common-api/response";
+import { getElasticInstance } from "../common-api/es";
 
 const esClient = getElasticInstance();
 

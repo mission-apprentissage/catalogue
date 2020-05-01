@@ -1,6 +1,6 @@
 import mongoosePaginate from "mongoose-paginate";
 import { mongooseInstance as mongoose } from "../../../common/mongo";
-import { mongoosastic, getElasticInstance } from "../utils/es";
+import { mongoosastic, getElasticInstance } from "../common-api/es";
 import { establishmentSchema, trainingSchema } from "../../../common/models";
 
 const getModel = (MODELNAME, schema) => {

@@ -1,7 +1,7 @@
 import { connectToMongo } from "../../../common/mongo";
-import { success, failure } from "../utils/response";
+import { success, failure } from "../common-api/response";
 import { Formation } from "../models";
-import { findUserByAttribute } from "../utils/cognito";
+import { findUserByAttribute } from "../common-api/cognito";
 
 export default async (event, context) => {
   // eslint-disable-next-line no-param-reassign

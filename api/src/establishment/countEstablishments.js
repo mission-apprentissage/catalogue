@@ -1,5 +1,5 @@
 import { connectToMongo } from "../../../common/mongo";
-import { success, failure } from "../utils/response";
+import { success, failure } from "../common-api/response";
 import { Establishment } from "../models";
 
 export default async (event, context) => {

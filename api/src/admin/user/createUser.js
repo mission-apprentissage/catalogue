@@ -1,5 +1,5 @@
-import { success, failure, badRequest } from "../../utils/response";
-import { getUserFromToken, userIsSuperAdmin, createUser } from "../../utils/cognito";
+import { success, failure, badRequest } from "../../common-api/response";
+import { getUserFromToken, userIsSuperAdmin, createUser } from "../../common-api/cognito";
 
 export default async event => {
   if (!event.body || event.body === "") {

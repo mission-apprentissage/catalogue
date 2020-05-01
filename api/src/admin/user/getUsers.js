@@ -1,5 +1,5 @@
-import { success, failure } from "../../utils/response";
-import { getUserFromToken, userIsSuperAdmin, listUsers } from "../../utils/cognito";
+import { success, failure } from "../../common-api/response";
+import { getUserFromToken, userIsSuperAdmin, listUsers } from "../../common-api/cognito";
 
 export default async event => {
   try {
