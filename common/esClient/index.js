@@ -1,7 +1,7 @@
 const { Client } = require("@elastic/elasticsearch");
 const { AmazonConnection } = require("aws-elasticsearch-connector");
 const ElasticsearchScrollStream = require("elasticsearch-scroll-stream");
-const { transformObject, mergeStreams } = require("../script/streamUtils");
+const { transformObject, mergeStreams } = require("../streamUtils");
 const mongoosastic = require("./mongoosastic");
 const { getConfig } = require("../../config");
 

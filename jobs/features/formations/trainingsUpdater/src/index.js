@@ -1,4 +1,4 @@
-const { connectToMongo } = require("../../../../common/mongo");
+const { connectToMongo } = require("../../../../../common/mongo");
 const { Formation } = require("../../../../common/models");
 const logger = require("../../../../common/Logger").mainLogger;
 const asyncForEach = require("../../../../common/utils").asyncForEach;
