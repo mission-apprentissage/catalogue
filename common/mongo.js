@@ -28,5 +28,6 @@ const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
     });
   });
 
+module.exports.mongooseInstance = mongooseInstance;
 module.exports.connectToMongo = connectToMongo;
 module.exports.closeMongoConnection = () => mongooseInstance.connection.close();
