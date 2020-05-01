@@ -3,25 +3,15 @@ const { mongoosastic, getElasticInstance } = require("../../../common/esClient")
 
 const { establishmentSchema, trainingSchema } = require("../../../common/models");
 
-const getModel = (MODELNAME, schema) => {
-  exports.Schema = schema;
-  const Schema = new mongooseInst.Schema(schema);
-  Schema.plugin(mongoosastic, { esClient: getElasticInstance(), index: MODELNAME });
-  return mongooseInst.model(MODELNAME, Schema);
-};
-
-const attachModelToEnv = (MODELNAME, schema, mongooseInstance, stage) => {
+const getModel = (MODELNAME, schema, mongooseInstance = mongooseInst, stage = null) => {
   const Schema = new mongooseInstance.Schema(schema);
   Schema.plugin(mongoosastic, { esClient: getElasticInstance(stage), index: MODELNAME });
-  const OBJ = mongooseInstance.model(MODELNAME, Schema);
-  return OBJ;
+  return mongooseInstance.model(MODELNAME, Schema);
 };
 
 module.exports = {
   Establishment: getModel("etablissements", establishmentSchema),
   Formation: getModel("formations", trainingSchema),
-  attachFormationTo: (mongooseInstance, stage) =>
-    attachModelToEnv("formations", trainingSchema, mongooseInstance, stage),
-  attachEstablishmentTo: (mongooseInstance, stage) =>
-    attachModelToEnv("etablissements", establishmentSchema, mongooseInstance, stage),
+  attachFormationTo: (minst, stage) => getModel("formations", trainingSchema, minst, stage),
+  attachEstablishmentTo: (minst, stage) => getModel("etablissements", establishmentSchema, minst, stage),
 };
