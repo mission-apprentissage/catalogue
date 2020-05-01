@@ -155,9 +155,16 @@ class BcnChecker {
     return { info: infosCodes.mef.Updated, value: match.MEF };
   }
 
+  getMefs10(codeEducNat) {
+    const match = filter(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
+    if (!match.length) {
+      return [];
+    }
+    return match.map(m => `${m.MEF}`);
+  }
+
   getMefs8(codeEducNat) {
-    const tronc = codeEducNat.substring(0, 3);
-    const match = filter(this.baseDispositifFormation, { NIVEAU_FORMATION_DIPLOME: tronc });
+    const match = filter(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
 
     if (!match.length) {
       return [];

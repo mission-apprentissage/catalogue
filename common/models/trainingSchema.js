@@ -230,6 +230,11 @@ const trainingSchema = {
     default: null,
     description: "Code MEF 10 caractères",
   },
+  mef_10_codes: {
+    type: [String],
+    default: [],
+    description: "List des codes MEF 10 caractères",
+  },
   mef_8_code: {
     type: String,
     default: null,

@@ -2,7 +2,8 @@ const logger = require("../../../../../../common/Logger").mainLogger;
 const { infosCodes, computeCodes } = require("./Constants");
 const bcnChecker = require("./BcnChecker");
 const { difference } = require("lodash");
-
+const asyncForEach = require("../../../../../../common/utils").asyncForEach;
+const pSupData = require("../pSupData");
 class BcnData {
   constructor() {
     this.countCodeEn = { ok: 0, ko: 0 };
@@ -12,6 +13,7 @@ class BcnData {
     this.countDiplome = { update: 0 };
     this.countMef10 = { update: 0 };
     this.countMef8 = { update: 0 };
+    this.countModalites = { update: 0 };
   }
 
   async getUpdates(training) {
@@ -24,8 +26,51 @@ class BcnData {
     const intituleLongUpdated = this.cleaningIntituleLong(updatedTraining);
     const intituleCourtUpdated = this.cleaningIntituleCourt(updatedTraining);
     const diplomeUpdated = this.cleaningDiplome(updatedTraining);
-    const mef10Updated = this.updateMEF10(updatedTraining);
-    const mef8Updated = this.updateMEF8(updatedTraining);
+
+    let modalitesUpdated = false;
+    let mef10Updated = false;
+    let mef8Updated = false;
+    let trainingsTokeep = [];
+
+    // Get multi mefs 10
+    const mefs10FromBcn = bcnChecker.getMefs10(updatedTraining.educ_nat_code);
+
+    if (mefs10FromBcn.length > 1) {
+      // Multi mefs10 - match keep psup matching trainings
+      await asyncForEach(mefs10FromBcn, async currentMef10 => {
+        const tmpTraining = { ...updatedTraining, mef_10_code: currentMef10 };
+        mef8Updated = this.updateMEF8(tmpTraining);
+        modalitesUpdated = this.updateModalites(tmpTraining);
+
+        // Check matching PSup
+        const updatesPSupData = await pSupData.getUpdates(tmpTraining);
+        if (updatesPSupData.parcoursup_reference === "OUI") {
+          trainingsTokeep.push(tmpTraining);
+        }
+      });
+
+      if (trainingsTokeep.length > 0) {
+        // Avoid duplicate updatedTraining in trainingsTokeep
+        updatedTraining = trainingsTokeep[0];
+        trainingsTokeep.shift();
+        mef10Updated = true;
+      } else {
+        // Not found case, we consider that if No pSup match + list of mef10 ==> the training doesn't have a mef10
+        updatedTraining.mef_10_codes = mefs10FromBcn;
+        updatedTraining.mef_10_code = null;
+        updatedTraining.mef_8_code = null;
+        updatedTraining.mef_8_codes = [];
+        return {
+          updatedTraining,
+          trainingsTokeep: [],
+        };
+      }
+    } else {
+      // One or 0 mef10 - classic treatment
+      mef10Updated = this.updateMEF10(updatedTraining);
+      mef8Updated = this.updateMEF8(updatedTraining);
+      modalitesUpdated = this.updateModalites(updatedTraining);
+    }
 
     if (
       !codeEnUpdated &&
@@ -33,13 +78,17 @@ class BcnData {
       !intituleLongUpdated &&
       !intituleCourtUpdated &&
       !diplomeUpdated &&
+      !modalitesUpdated &&
       !mef10Updated &&
       !mef8Updated
     ) {
-      return null;
+      return { updatedTraining: null, trainingsTokeep: [] };
     }
 
-    return updatedTraining;
+    return {
+      updatedTraining,
+      trainingsTokeep,
+    };
   }
 
   cleaningCodeEn(training) {
@@ -170,25 +219,36 @@ class BcnData {
     return false;
   }
 
+  updateModalites(training) {
+    if (training.mef_10_code) {
+      const { duree, annee } = bcnChecker.getModalities(training.mef_10_code);
+
+      if (training.duree === duree && training.annee === annee) {
+        return false;
+      }
+
+      training.duree = duree;
+      training.annee = annee;
+      this.countModalites.update++;
+      return true;
+    }
+    return false;
+  }
+
   updateMEF10(training) {
     if (training.educ_nat_code) {
       const { info: infoMef10, value: valueMef10 } = bcnChecker.getMef10(training.educ_nat_code, training.mef_10_code);
-      const { duree, annee } = bcnChecker.getModalities(valueMef10);
 
       if (
         training.info_bcn_mef === infoMef10 &&
         training.computed_bcn_mef === computeCodes.mef[infoMef10] &&
-        training.mef_10_code === valueMef10 &&
-        training.duree === duree &&
-        training.annee === annee
+        training.mef_10_code === valueMef10
       ) {
         return false;
       }
 
       training.info_bcn_mef = infoMef10;
       training.computed_bcn_mef = computeCodes.mef[infoMef10];
-      training.duree = duree;
-      training.annee = annee;
       if (infoMef10 === infosCodes.mef.Updated) {
         this.countMef10.update++;
         training.mef_10_code = valueMef10;
@@ -242,6 +302,7 @@ class BcnData {
     logger.info(`${this.countDiplome.update} Diplomes mis à jour`);
     logger.info(`${this.countMef10.update} MEF 10 mis à jour`);
     logger.info(`${this.countMef8.update} MEF 8 mis à jour`);
+    logger.info(`${this.countModalites.update} Modalites mises à jour`);
   }
 }
 
