@@ -91,20 +91,20 @@ const getEnvName = (hostname = "") => {
     // Env already setled
     return env;
   }
-  if(!hostname) {
+  if (!hostname) {
     // node env
     return process.env.STAGE;
   }
-   // Browser env
-   if (config.dev.urls.some((regexp) => regexp.test(hostname))) {
+  // Browser env
+  if (config.dev.urls.some(regexp => regexp.test(hostname))) {
     env = "dev";
-  } else if (config.prod.urls.some((regexp) => regexp.test(hostname))) {
+  } else if (config.prod.urls.some(regexp => regexp.test(hostname))) {
     env = "prod";
   } else {
     env = "local";
   }
   return env;
-}
+};
 
 module.exports = {
   getEnvName,

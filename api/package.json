@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "serverless offline -v --httpPort 3001",
+    "start": "serverless offline -v --httpPort 3001 --mongodb_url_dev $MONGODB_URL_DEV --mongodb_dbname_dev $MONGODB_DBNAME_DEV --mongodb_url_prod $MONGODB_URL_PROD --mongodb_dbname_prod $MONGODB_DBNAME_PROD",
     "deploy:dev": "serverless deploy -v --stage dev",
     "deploy:prod": "serverless deploy -v --stage prod",
     "deploy:prepare": "node tools/generateJsonSchema.js",
