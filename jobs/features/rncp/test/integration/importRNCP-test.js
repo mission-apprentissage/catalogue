@@ -3,9 +3,9 @@ const fs = require("fs");
 const path = require("path");
 const importRNCP = require("../../src/importRNCP");
 const { createFormation } = require("../../../../test/data/fixtures");
-const { Formation } = require("../../../../common/models/formation");
+const { Formation } = require("../../../../../common/models");
 const { connectToMongo } = require("../../../../common/mongo");
-const { getElasticInstance } = require("../../../../common/esClient");
+const { getElasticInstance } = require("../../../../../common/esClient");
 
 let formationQueryForTests = { source: "TEST" };
 const getInputStream = fileName => {

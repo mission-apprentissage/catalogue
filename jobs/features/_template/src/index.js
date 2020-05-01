@@ -2,7 +2,7 @@
 const { connectToMongo } = require("../../../common/mongo");
 const logger = require("../../../common/Logger").mainLogger;
 
-const { Establishment, Formation } = require("../../../common/models");
+const { Establishment } = require("../../../common/models");
 
 const run = async () => {
   try {

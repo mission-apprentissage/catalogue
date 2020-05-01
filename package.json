@@ -15,6 +15,15 @@
     "mongodb:backup": "bash tools/mongodb/mongodb-backup.sh",
     "mongodb:dump": "bash tools/mongodb/mongodb-dump.sh"
   },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
   "devDependencies": {
     "elasticdump": "6.23.0",
     "eslint": "^6.8.0",
@@ -29,5 +38,22 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^3.0.0",
     "prettier": "^1.19.1"
+  },
+  "dependencies": {
+    "@elastic/elasticsearch": "7.6.1",
+    "aws-elasticsearch-connector": "8.2.0",
+    "elasticsearch-scroll-stream": "1.2.1",
+    "csv-parse": "4.8.8",
+    "iconv-lite": "0.5.1",
+    "mongoose": "^5.9.7",
+    "multipipe": "4.0.0",
+    "lodash": "4.17.15",
+    "logform": "^2.1.2",
+    "uuid": "7.0.3",
+    "winston": "^3.2.1",
+    "mocha": "7.1.1",
+    "env-var": "6.0.4",
+    "fs-extra": "^8.1.0",
+    "moment": "2.24.0"
   }
 }

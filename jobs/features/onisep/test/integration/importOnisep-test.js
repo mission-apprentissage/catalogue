@@ -3,9 +3,9 @@ const assert = require("assert");
 const fs = require("fs");
 const importOnisep = require("../../src/importONISEP");
 const { createFormation } = require("../../../../test/data/fixtures");
-const { Formation } = require("../../../../common/models/formation");
+const { Formation } = require("../../../../../common/models");
 const { connectToMongo } = require("../../../../common/mongo");
-const { getElasticInstance } = require("../../../../common/esClient");
+const { getElasticInstance } = require("../../../../../common/esClient");
 
 const formationQueryForTests = { source: "TEST" };
 const getInputStream = fileName => {

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const { mongoosastic, getElasticInstance } = require("../esClient");
+const { mongoosastic, getElasticInstance } = require("../../../common/esClient");
 
 const { establishmentSchema, trainingSchema } = require("../../../common/models");
 
