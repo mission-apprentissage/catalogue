@@ -2,19 +2,37 @@
 
 const logger = require("./Logger").mainLogger;
 const AWS = require("aws-sdk");
-
+const { v4: uuidv4 } = require("uuid");
+const { config } = require("../../config-merge");
 // #endregion
 
 // Cognito Default Values
-const { config } = require("../../config-merge");
-
 const defaultPassword = "1MotDePassTemporaire!";
-const customApiKey = "XXXX";
 
 class AwsCognitoService {
   constructor() {
     AWS.config.region = config.aws.cognito.region;
     this.cognitoidentityserviceprovider = new AWS.CognitoIdentityServiceProvider();
+  }
+
+  /**
+   * Get an AWS Cognito User
+   * @param {*} user
+   */
+  getCognitoUser(user) {
+    try {
+      var params = {
+        UserPoolId: config.aws.cognito.userPoolId /* required */,
+        Username: user.userName,
+      };
+
+      return this.cognitoidentityserviceprovider.adminGetUser(params, function(err) {
+        if (err) logger.error(err, err.stack);
+      });
+    } catch (err) {
+      logger.error(err);
+      return null;
+    }
   }
 
   /**
@@ -43,7 +61,7 @@ class AwsCognitoService {
           },
           {
             Name: "custom:apiKey",
-            Value: customApiKey,
+            Value: userToCreate.apiKey || uuidv4().replace(/-/gi, ""), // Generate an API Key
           },
           {
             Name: "custom:access_academie",
@@ -97,7 +115,7 @@ class AwsCognitoService {
           },
           {
             Name: "custom:apiKey",
-            Value: customApiKey,
+            Value: userToUpdate.apiKey || uuidv4().replace(/-/gi, ""),
           },
           {
             Name: "custom:access_academie",

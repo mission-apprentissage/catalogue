@@ -5,7 +5,7 @@ const logger = require("../../../../../common/Logger").mainLogger;
 const readXLSXFile = require("./FileUtils").readXLSXFile;
 const getJsonDataFromWorksheet = require("./FileUtils").getJsonDataFromWorksheet;
 
-const headerUserList = ["PAM", "ACADEMIE", "MAIL", "AJOUTE"];
+const headerUserList = ["PAM", "ACADEMIE", "MAIL", "ACTION", "ACCES"];
 const usersListFileName = "ParticipantsPAM.xlsx";
 const usersListFilePath = path.join(__dirname, `../../input/${usersListFileName}`);
 
