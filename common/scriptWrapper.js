@@ -1,5 +1,5 @@
 const moment = require("moment");
-const { connectToMongo, closeMongoConnection } = require("../mongo");
+const { connectToMongo, closeMongoConnection } = require("./mongo");
 
 process.on("unhandledRejection", e => console.log(e));
 process.on("uncaughtException", e => console.log(e));

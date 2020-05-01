@@ -10,7 +10,7 @@ const {
   accumulate,
   ignoreEmpty,
   decodeStream,
-} = require("../../../../../common/script/streamUtils");
+} = require("../../../../../common/streamUtils");
 
 const xmlToJson = util.promisify(
   new xml2js.Parser({

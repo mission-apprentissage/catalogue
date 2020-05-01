@@ -1,4 +1,4 @@
-const { execute } = require("../../../../common/script/scriptWrapper");
+const { execute } = require("../../../../common/scriptWrapper");
 const logger = require("../../../common/Logger").mainLogger;
 const { Establishment, Formation } = require("../../../common/models");
 const { getElasticInstance } = require("../../../../common/esClient");

@@ -1,4 +1,4 @@
-const { pipeline, writeObject } = require("../../../../../common/script/streamUtils");
+const { pipeline, writeObject } = require("../../../../../common/streamUtils");
 const logger = require("../../../../common/Logger").mainLogger;
 const { Establishment } = require("../../../../common/models");
 const sanitizeUAI = require("./sanitizeUAI");

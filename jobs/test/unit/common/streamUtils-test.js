@@ -7,7 +7,7 @@ const {
   pipeline,
   mergeStreams,
   writeObject,
-} = require("../../../../common/script/streamUtils");
+} = require("../../../../common/streamUtils");
 
 const createStream = () => {
   return new Readable({

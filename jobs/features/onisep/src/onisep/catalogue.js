@@ -1,4 +1,4 @@
-const { pipeline, writeObject } = require("../../../../../common/script/streamUtils");
+const { pipeline, writeObject } = require("../../../../../common/streamUtils");
 const parseCSV = require("csv-parse");
 
 module.exports = () => {

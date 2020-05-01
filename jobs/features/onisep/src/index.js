@@ -1,6 +1,6 @@
 const fs = require("fs");
 const env = require("env-var");
-const { execute } = require("../../../../common/script/scriptWrapper");
+const { execute } = require("../../../../common/scriptWrapper");
 const { getS3ObjectAsStream } = require("../../../common/awsS3");
 const importONISEP = require("./importONISEP");
 
