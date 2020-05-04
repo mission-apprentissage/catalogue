@@ -109,7 +109,7 @@ class BcnData {
     const { info: infoIntituleLong, value: valueIntituleLong } = bcnChecker.cleanIntituleLong(
       training.educ_nat_code,
       training.intitule_long ? `${training.intitule_long}`.trim() : null,
-      training.intitule || null
+      training.intitule
     );
 
     if (
@@ -124,8 +124,8 @@ class BcnData {
     training.computed_bcn_intitule_long = computeCodes.intitule[infoIntituleLong];
     if (infoIntituleLong === infosCodes.intitule.Updated) {
       this.countIntituleLong.update++;
-      training.intitule_long = valueIntituleLong;
     }
+    training.intitule_long = valueIntituleLong;
 
     return true;
   }
