@@ -235,6 +235,11 @@ const trainingSchema = {
     default: [],
     description: "List des codes MEF 10 caractères",
   },
+  mef_10_code_updated: {
+    type: Boolean,
+    default: false,
+    description: "Temporaire - Code MEF 10 a été trouvé via la BCN",
+  },
   mef_8_code: {
     type: String,
     default: null,

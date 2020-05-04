@@ -67,9 +67,7 @@ const run = async () => {
         }
 
         // Update BCN > codeEn,niveau, intitule court & long, diplome information, codeMEF, Modalité + get multi mef10 trainings
-        const { updatedTraining: updatesBcnData, trainingsTokeep: trainingsToAdd } = await bcnData.getUpdates(
-          updatedTraining
-        );
+        const { updatedTraining: updatesBcnData, trainingsToCreate } = await bcnData.getUpdates(updatedTraining);
         if (updatesBcnData) {
           updatedTraining = {
             ...updatedTraining,
@@ -96,12 +94,12 @@ const run = async () => {
             logger.info(`Training ${trainingItem._id} has been updated`);
 
             // Add trainings
-            // await asyncForEach(trainingsToAdd, async trainingToAdd => {
-            //   delete trainingToAdd._id;
-            //   const doc = new Formation(trainingToAdd);
-            //   await doc.save();
-            //   logger.info(`Training ${trainingToAdd._id} has been added`);
-            // });
+            await asyncForEach(trainingsToCreate, async trainingToAdd => {
+              delete trainingToAdd._id;
+              const doc = new Formation(trainingToAdd);
+              await doc.save();
+              logger.info(`Training ${doc._id} has been added`);
+            });
           } catch (error) {
             logger.error(error);
           }
