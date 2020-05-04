@@ -185,6 +185,11 @@ const trainingSchema = {
     default: null,
     description: "Nom de la formation",
   },
+  intitule: {
+    type: String,
+    default: null,
+    description: "Ancien Intitulé DS",
+  },
   intitule_long: {
     type: String,
     default: null,
