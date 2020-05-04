@@ -108,7 +108,8 @@ class BcnData {
   cleaningIntituleLong(training) {
     const { info: infoIntituleLong, value: valueIntituleLong } = bcnChecker.cleanIntituleLong(
       training.educ_nat_code,
-      training.intitule_long ? `${training.intitule_long}`.trim() : null
+      training.intitule_long ? `${training.intitule_long}`.trim() : null,
+      training.intitule || null
     );
 
     if (

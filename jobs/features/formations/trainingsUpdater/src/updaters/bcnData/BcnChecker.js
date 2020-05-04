@@ -98,11 +98,11 @@ class BcnChecker {
     }
   }
 
-  cleanIntituleLong(codeEducNat, intitule_long) {
+  cleanIntituleLong(codeEducNat, intitule_long, old_intitule) {
     const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match) {
-      return { info: infosCodes.intitule.Error, value: intitule_long };
+      return { info: infosCodes.intitule.Error, value: old_intitule };
     }
 
     if (intitule_long === match.LIBELLE_LONG_200) {
