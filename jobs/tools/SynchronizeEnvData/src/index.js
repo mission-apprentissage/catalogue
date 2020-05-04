@@ -1,11 +1,11 @@
 // #region Imports
 
 const mongoose = require("mongoose");
-const asyncForEach = require("../../../common/utils").asyncForEach;
-const logger = require("../../../common/Logger").mainLogger;
+const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
+const logger = require("../../../common-jobs/Logger").mainLogger;
 const Spinner = require("cli-spinner").Spinner;
 const { connectToMongo } = require("../../../../common/mongo");
-const { attachFormationTo, attachEstablishmentTo } = require("../../../common/models");
+const { attachFormationTo, attachEstablishmentTo } = require("../../../common-jobs/models");
 const { getConfig } = require("../../../../config");
 const { getElasticInstance } = require("../../../../common/esClient");
 
