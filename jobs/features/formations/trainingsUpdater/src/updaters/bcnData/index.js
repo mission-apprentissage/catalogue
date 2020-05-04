@@ -14,6 +14,7 @@ class BcnData {
     this.countMef10 = { update: 0 };
     this.countMef8 = { update: 0 };
     this.countModalites = { update: 0 };
+    this.countFormations = { added: 0 };
   }
 
   async getUpdates(training) {
@@ -43,7 +44,7 @@ class BcnData {
         modalitesUpdated = this.updateModalites(tmpTraining);
 
         // Check matching PSup
-        const updatesPSupData = await pSupData.getUpdates(tmpTraining);
+        const updatesPSupData = await pSupData.getUpdates(tmpTraining, false);
         if (updatesPSupData.parcoursup_reference === "OUI") {
           trainingsTokeep.push(tmpTraining);
         }
@@ -54,6 +55,7 @@ class BcnData {
         updatedTraining = trainingsTokeep[0];
         trainingsTokeep.shift();
         mef10Updated = true;
+        this.countFormations.added += trainingsTokeep.length;
       } else {
         // Not found case, we consider that if No pSup match + list of mef10 ==> the training doesn't have a mef10
         updatedTraining.mef_10_codes = mefs10FromBcn;
@@ -303,6 +305,7 @@ class BcnData {
     logger.info(`${this.countMef10.update} MEF 10 mis à jour`);
     logger.info(`${this.countMef8.update} MEF 8 mis à jour`);
     logger.info(`${this.countModalites.update} Modalites mises à jour`);
+    logger.info(`${this.countFormations.added} formations ajoutées`);
   }
 }
 

@@ -7,12 +7,12 @@ class BcnData {
     this.countPsup = { uniq: 0, multiple: 0, notFound: 0 };
   }
 
-  async getUpdates(training) {
+  async getUpdates(training, count = true) {
     let updatedTraining = {
       ...training,
     };
 
-    const pSupUpdated = this.findAndUpdates(updatedTraining);
+    const pSupUpdated = this.findAndUpdates(updatedTraining, count);
 
     if (!pSupUpdated) {
       return null;
@@ -21,7 +21,7 @@ class BcnData {
     return updatedTraining;
   }
 
-  findAndUpdates(training) {
+  findAndUpdates(training, count) {
     const {
       mef_10_code,
       mef_8_code,
@@ -48,12 +48,12 @@ class BcnData {
     );
 
     if (infoPSup === infosCodes.psup.Found) {
-      this.countPsup.uniq++;
+      if (count) this.countPsup.uniq++;
       training.parcoursup_reference = "OUI";
     } else if (infoPSup === infosCodes.psup.FoundMultiple) {
-      this.countPsup.multiple++; // Goal to be 0
+      if (count) this.countPsup.multiple++; // Goal to be 0
     } else if (infoPSup === infosCodes.psup.NotFound) {
-      this.countPsup.notFound++;
+      if (count) this.countPsup.notFound++;
       training.parcoursup_reference = "NON";
     }
 
