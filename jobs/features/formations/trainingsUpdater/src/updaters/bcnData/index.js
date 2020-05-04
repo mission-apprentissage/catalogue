@@ -14,6 +14,7 @@ class BcnData {
     this.countMef10 = { update: 0 };
     this.countMef8 = { update: 0 };
     this.countModalites = { update: 0 };
+    this.countFormations = { added: 0 };
   }
 
   async getUpdates(training) {
@@ -27,50 +28,9 @@ class BcnData {
     const intituleCourtUpdated = this.cleaningIntituleCourt(updatedTraining);
     const diplomeUpdated = this.cleaningDiplome(updatedTraining);
 
-    let modalitesUpdated = false;
-    let mef10Updated = false;
-    let mef8Updated = false;
-    let trainingsTokeep = [];
-
-    // Get multi mefs 10
-    const mefs10FromBcn = bcnChecker.getMefs10(updatedTraining.educ_nat_code);
-
-    if (mefs10FromBcn.length > 1) {
-      // Multi mefs10 - match keep psup matching trainings
-      await asyncForEach(mefs10FromBcn, async currentMef10 => {
-        const tmpTraining = { ...updatedTraining, mef_10_code: currentMef10 };
-        mef8Updated = this.updateMEF8(tmpTraining);
-        modalitesUpdated = this.updateModalites(tmpTraining);
-
-        // Check matching PSup
-        const updatesPSupData = await pSupData.getUpdates(tmpTraining);
-        if (updatesPSupData.parcoursup_reference === "OUI") {
-          trainingsTokeep.push(tmpTraining);
-        }
-      });
-
-      if (trainingsTokeep.length > 0) {
-        // Avoid duplicate updatedTraining in trainingsTokeep
-        updatedTraining = trainingsTokeep[0];
-        trainingsTokeep.shift();
-        mef10Updated = true;
-      } else {
-        // Not found case, we consider that if No pSup match + list of mef10 ==> the training doesn't have a mef10
-        updatedTraining.mef_10_codes = mefs10FromBcn;
-        updatedTraining.mef_10_code = null;
-        updatedTraining.mef_8_code = null;
-        updatedTraining.mef_8_codes = [];
-        return {
-          updatedTraining,
-          trainingsTokeep: [],
-        };
-      }
-    } else {
-      // One or 0 mef10 - classic treatment
-      mef10Updated = this.updateMEF10(updatedTraining);
-      mef8Updated = this.updateMEF8(updatedTraining);
-      modalitesUpdated = this.updateModalites(updatedTraining);
-    }
+    const { update: mef10Updated, trainingsToCreate } = await this.updateMEF10(updatedTraining);
+    const mef8Updated = this.updateMEF8(updatedTraining);
+    const modalitesUpdated = this.updateModalites(updatedTraining);
 
     if (
       !codeEnUpdated &&
@@ -82,12 +42,12 @@ class BcnData {
       !mef10Updated &&
       !mef8Updated
     ) {
-      return { updatedTraining: null, trainingsTokeep: [] };
+      return { updatedTraining: null, trainingsToCreate: [] };
     }
 
     return {
       updatedTraining,
-      trainingsTokeep,
+      trainingsToCreate,
     };
   }
 
@@ -235,7 +195,59 @@ class BcnData {
     return false;
   }
 
-  updateMEF10(training) {
+  async updateMEF10(training) {
+    if (training.educ_nat_code) {
+      if (training.mef_10_code_updated) {
+        return { update: false, trainingsToCreate: [] }; // Nothing to do, code MEF10 already updated
+      }
+
+      // Get multi mefs 10
+      const mefs10FromBcn = bcnChecker.getMefs10(training.educ_nat_code);
+
+      if (mefs10FromBcn.length > 1) {
+        let trainingsToCreate = [];
+
+        // Multi mefs10 - match keep psup matching trainings
+        await asyncForEach(mefs10FromBcn, async currentMef10 => {
+          const tmpTraining = { ...training, mef_10_code: currentMef10, mef_10_code_updated: true };
+          this.updateMEF8(tmpTraining);
+          this.updateModalites(tmpTraining);
+
+          // Check matching PSup
+          const updatesPSupData = await pSupData.getUpdates(tmpTraining, false);
+          if (updatesPSupData.parcoursup_reference === "OUI") {
+            trainingsToCreate.push(tmpTraining);
+          }
+        });
+
+        if (trainingsToCreate.length > 0) {
+          // Avoid duplicate training in trainingsToCreate
+          training = trainingsToCreate[0];
+          trainingsToCreate.shift();
+
+          this.countFormations.added += trainingsToCreate.length;
+
+          return { update: true, trainingsToCreate };
+        } else {
+          // Not found case, we consider that if No pSup match + list of mef10 ==> the training doesn't have a mef10
+          training.mef_10_codes = mefs10FromBcn;
+          training.mef_10_code = null;
+          training.mef_8_code = null;
+          training.mef_8_codes = [];
+          return { update: true, trainingsToCreate: [] };
+        }
+      } else {
+        const result = this.updateSingleMEF10(training);
+        if (result) {
+          training.mef_10_code_updated = true;
+        }
+        return { update: result, trainingsToCreate: [] };
+      }
+    }
+    return { update: false, trainingsToCreate: [] };
+  }
+
+  updateSingleMEF10(training) {
     if (training.educ_nat_code) {
       const { info: infoMef10, value: valueMef10 } = bcnChecker.getMef10(training.educ_nat_code, training.mef_10_code);
 
@@ -303,6 +315,7 @@ class BcnData {
     logger.info(`${this.countMef10.update} MEF 10 mis à jour`);
     logger.info(`${this.countMef8.update} MEF 8 mis à jour`);
     logger.info(`${this.countModalites.update} Modalites mises à jour`);
+    logger.info(`${this.countFormations.added} formations ajoutées`);
   }
 }
 
