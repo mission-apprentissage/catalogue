@@ -28,7 +28,7 @@ class BcnData {
     const intituleCourtUpdated = this.cleaningIntituleCourt(updatedTraining);
     const diplomeUpdated = this.cleaningDiplome(updatedTraining);
 
-    const { update: mef10Updated, trainingsToCreate } = this.updateMEF10(updatedTraining);
+    const { update: mef10Updated, trainingsToCreate } = await this.updateMEF10(updatedTraining);
     const mef8Updated = this.updateMEF8(updatedTraining);
     const modalitesUpdated = this.updateModalites(updatedTraining);
 
@@ -198,7 +198,7 @@ class BcnData {
   async updateMEF10(training) {
     if (training.educ_nat_code) {
       if (training.mef_10_code_updated) {
-        return false; // Nothing to do, code MEF10 already updated
+        return { update: false, trainingsToCreate: [] }; // Nothing to do, code MEF10 already updated
       }
 
       // Get multi mefs 10
@@ -224,6 +224,7 @@ class BcnData {
           // Avoid duplicate training in trainingsToCreate
           training = trainingsToCreate[0];
           trainingsToCreate.shift();
+
           this.countFormations.added += trainingsToCreate.length;
 
           return { update: true, trainingsToCreate };
