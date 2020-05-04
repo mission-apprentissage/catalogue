@@ -114,35 +114,30 @@
     "Header": "Organisme Habilité (RNCP)",
     "accessor": "rncp_etablissement_reference_habilite",
     "width": 200,
-    "debug": true,
     "editable": false
   },
   {
     "Header": "Eligible apprentissage (RNCP)",
     "accessor": "rncp_eligible_apprentissage",
     "width": 200,
-    "debug": true,
     "editable": false
   },
   {
     "Header": "Codes RNCP",
     "accessor": "rncp_code",
     "width": 200,
-    "debug": true,
     "editable": false
   },
   {
     "Header": "Intitulé du code RNCP",
     "accessor": "rncp_intitule",
     "width": 200,
-    "debug": true,
     "editable": false
   },
   {
     "Header": "Codes ROME",
     "accessor": "rome_codes",
     "width": 200,
-    "debug": true,
     "editable": false
   },
   {
@@ -246,7 +241,6 @@
     "Header": "Url ONISEP",
     "accessor": "onisep_url",
     "width": 300,
-    "debug": true,
     "editable": false
   }
 ]

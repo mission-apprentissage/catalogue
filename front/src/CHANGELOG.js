@@ -1,17 +1,34 @@
 const changelog = {
   list: [
     {
-      version: "1.4",
+      version: "1.3.3",
       date: "Prochainement",
       about: `<h5>Les actions à venir :</h5>
       <ul>
-        <li>La prise en compte des habilitations RNCP : vérification que la formation peut être délivrée en apprentissage et que l’organisme de formation est bien habilité par le certificateur à délivrer cette certification</li>
         <li>l'affichage du code MEF et de l'indication de la formation est présente sur Parcoursup et / ou Affelnet</li>
         <li>travail sur l’ergonomie de la base : affichage des champs, modalités de recherche et navigation, informations contenues dans certains champs.</li>
       </ul>`,
       fixes: [],
       features: [],
       improvements: [],
+    },
+    {
+      version: "1.3.2",
+      date: "4 Mai 2020",
+      about: `<h5>A propos de cette version :</h5>
+      Cette version porte des améliorations et quelques correctifs qui sont détaillés ci après.`,
+      fixes: [],
+      features: [
+        "[Page] Extraction des données possible en format CSV",
+        "La prise en compte des habilitations RNCP : vérification que la formation peut être délivrée en apprentissage et que l’organisme de formation est bien habilité par le certificateur à délivrer cette certification",
+      ],
+      improvements: [
+        "[Catalogue] Ajout des codes et des libellé RNCP",
+        "[Catalogue] Ajout des codes ROMES associés",
+        "[Catalogue] Affichage des intitulés court et long d'une formation",
+        "[Catalogue] Ajout URL description formation Onisep",
+        "[Catalogue] Possibilité de filtrer sur les données vides sur certaines colonnes",
+      ],
     },
     {
       version: "1.3",

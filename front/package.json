@@ -1,6 +1,6 @@
 {
   "name": "mna-admin",
-  "version": "1.3.0",
+  "version": "1.3.2",
   "description": "[MNA Admin] Back end",
   "repository": "https://github.com/Gethi/mna-admin.git",
   "private": true,
