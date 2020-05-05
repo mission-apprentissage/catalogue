@@ -1,6 +1,6 @@
 # Serverless api
 
-## Développement 
+## Développement
 
 Serverless API, Deploy avec CI
 

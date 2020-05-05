@@ -10,14 +10,14 @@
 
 ## Développement
 
-#### Getting started
+### Getting started
 
 * Donner mon IP pour whitelist
 * Avoir le script setEnv.sh à demander à l'équipe
 * Avoir robomongo [https://robomongo.org/](https://robomongo.org/)
 * Configurer la variable d'envrironement `STAGE` à `dev` ou `prod` \(peut être set à la volé `STAGE="dev" yarn ...`\)
 
-#### tl;dr mount local env
+### tl;dr mount local env
 
 ```bash
 yarn
@@ -29,7 +29,7 @@ STAGE="dev" npm run es:dump
 
 Mongo local: 127.0.0.1:27017 Kibana local: [http://localhost:5601/](http://localhost:5601/) ES local: [http://localhost:9200](http://localhost:9200)
 
-#### Docker
+### Docker
 
 Il est possible de démarrer en local des containers Docker \(Elastichsearch, MongoDB,...\) en lançant la commande :
 
@@ -86,7 +86,7 @@ MONGODB_URL="<url mongodb>" npm run mongodb:backup
 
 Cette tâche va créer un répertoire dans le répertoire `.data/mongodb/backups`
 
-#### Accéder en local
+### Accéder en local
 
 Mongo local: 127.0.0.1:27017 ES local: [http://localhost:9200](http://localhost:9200) Kibana local: [http://localhost:5601/](http://localhost:5601/)
 
