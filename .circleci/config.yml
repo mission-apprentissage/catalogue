@@ -59,13 +59,13 @@ workflows:
                         only:
                             - master
                             - staging
-            # - serverless_deploy_prod:
-            #     requires:
-            #         - lint
-            #     filters:
-            #         branches:
-            #             only:
-            #                 - master
+            - serverless_deploy_prod:
+                requires:
+                    - lint
+                filters:
+                    branches:
+                        only:
+                            - master
             - serverless_deploy_dev:
                 requires:
                     - lint
