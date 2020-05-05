@@ -1,6 +1,6 @@
 # Table of contents
 
-* [Présentation](README.md)
+* [Présentation catalogue](README.md)
 
 ## Règles métiers
 
