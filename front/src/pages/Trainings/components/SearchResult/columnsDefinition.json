@@ -199,12 +199,14 @@
     "Header": "Duree",
     "accessor": "duree",
     "width": 200,
+    "debug": true,
     "editable": false
   },
   {
     "Header": "Annee",
     "accessor": "annee",
     "width": 200,
+    "debug": true,
     "editable": false
   },
   {
