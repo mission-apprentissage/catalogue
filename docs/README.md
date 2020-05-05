@@ -2,3 +2,5 @@
 
 ## Un catalogue élargi de formations en Apprentissage
 
+### Détails 
+
