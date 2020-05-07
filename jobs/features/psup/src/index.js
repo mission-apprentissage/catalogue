@@ -26,26 +26,33 @@ const run = async () => {
     console.log(trainings.length);
     const formationToload = trainings.filter(trainingItem => {
       if (
-        trainingItem._doc.etablissement_formateur_uai !== null ||
-        trainingItem._doc.etablissement_responsable_uai !== null ||
-        trainingItem._doc.uai_formation !== null
+        //trainingItem._doc.niveau === "4 (Bac...)" ||
+        trainingItem._doc.niveau === "5 (BTS, DUT...)" ||
+        trainingItem._doc.niveau === "6 (Licence...)"
       ) {
         if (
-          trainingItem._doc.etablissement_formateur_conventionne === "OUI" ||
-          (trainingItem._doc.etablissement_reference_declare_prefecture === "OUI" &&
-            trainingItem._doc.etablissement_reference_datadock === "datadocké")
+          trainingItem._doc.etablissement_formateur_uai !== null ||
+          trainingItem._doc.etablissement_responsable_uai !== null ||
+          trainingItem._doc.uai_formation !== null
         ) {
-          // GROUPE 1  ON EST QUE CES FORMATIONS ENTRENT
-          return true;
-        } else if (
-          trainingItem._doc.rncp_eligible_apprentissage &&
-          (trainingItem._doc.rncp_etablissement_formateur_habilite ||
-            trainingItem._doc.rncp_etablissement_responsable_habilite)
-        ) {
-          // CHECK RNCP
-          return true;
+          if (
+            trainingItem._doc.etablissement_formateur_conventionne === "OUI" ||
+            (trainingItem._doc.etablissement_reference_declare_prefecture === "OUI" &&
+              trainingItem._doc.etablissement_reference_datadock === "datadocké")
+          ) {
+            // GROUPE 1  ON EST QUE CES FORMATIONS ENTRENT
+            return true;
+          } else if (
+            trainingItem._doc.rncp_eligible_apprentissage &&
+            (trainingItem._doc.rncp_etablissement_formateur_habilite ||
+              trainingItem._doc.rncp_etablissement_responsable_habilite)
+          ) {
+            // CHECK RNCP
+            return true;
+          }
         }
       }
+
       return false;
     });
     console.log(formationToload.length);
