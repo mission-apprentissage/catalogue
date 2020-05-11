@@ -6,8 +6,8 @@ const pSupData = require("./updaters/pSupData");
 const pSupChecker = require("./updaters/pSupData/pSupChecker");
 const { uniq } = require("lodash");
 
-const UPDATE_ALL = true;
-const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
+//const UPDATE_ALL = true;
+//const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
 
 const run = async () => {
   try {
@@ -59,9 +59,15 @@ const run = async () => {
     });
     console.log(formationsToload.length);
 
-    for (let i = 0; i < formationsToload.length; i++) {
-      formationsToload[i]._doc.parcoursup_a_charger = true;
-    }
+    await asyncForEach(formationsToload, async trainingItem => {
+      let updatedTraining = {
+        ...trainingItem._doc,
+      };
+      updatedTraining.parcoursup_a_charger = true;
+      updatedTraining.last_update_at = Date.now();
+      await Formation.findOneAndUpdate({ _id: trainingItem._id }, updatedTraining, { new: true });
+      logger.info(`Training ${trainingItem._id} has been updated`);
+    });
 
     let allUais = [];
     for (let i = 0; i < formationsToload.length; i++) {
@@ -91,9 +97,17 @@ const run = async () => {
     await asyncForEach(allUais, async uai => {
       const etablishment = await Establishment.find({ uai });
       if (etablishment.length > 1) multipleEtablishment.push(uai);
-      else if (etablishment.length === 1 && !etablishment.ferme) {
-        etablishment.parcoursup_a_charger = true;
-        establishmentsToAdd.push(etablishment);
+      else if (etablishment.length === 1 && !etablishment[0].ferme) {
+        const establishmentToAdd = etablishment[0];
+        establishmentToAdd.parcoursup_a_charger = true;
+        establishmentsToAdd.push(establishmentToAdd);
+
+        // Update establishment
+        establishmentToAdd.last_update_at = Date.now();
+        await Establishment.findOneAndUpdate({ _id: establishmentToAdd._id }, establishmentToAdd, {
+          new: true,
+        });
+        logger.info(`Establishment ${establishmentToAdd._id} has been updated`);
       }
     });
     console.log(establishmentsToAdd.length);
