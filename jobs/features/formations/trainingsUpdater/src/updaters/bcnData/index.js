@@ -223,7 +223,13 @@ class BcnData {
 
         if (trainingsToCreate.length > 0) {
           // Avoid duplicate training in trainingsToCreate
-          training = trainingsToCreate[0];
+          const tmp = trainingsToCreate[0];
+          delete tmp._id;
+          delete tmp.__v;
+          for (let key in tmp) {
+            training[key] = tmp[key];
+          }
+
           trainingsToCreate.shift();
 
           this.countFormations.added += trainingsToCreate.length;

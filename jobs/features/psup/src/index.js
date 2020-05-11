@@ -2,7 +2,6 @@ const { connectToMongo } = require("../../../../common/mongo");
 const { Formation, Establishment } = require("../../../common-jobs/models");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
-const pSupData = require("./updaters/pSupData");
 const pSupChecker = require("./updaters/pSupData/pSupChecker");
 const { uniq } = require("lodash");
 
@@ -11,7 +10,7 @@ const { uniq } = require("lodash");
 
 const run = async () => {
   try {
-    logger.info(" -- Start of Trainings updater -- ");
+    logger.info(" -- Start of Psup updater -- ");
     await connectToMongo();
 
     const trainings = await Formation.find({ parcoursup_reference: "NON" }).and([
@@ -28,7 +27,7 @@ const run = async () => {
     //console.log(trainings.length);
     const formationsToload = trainings.filter(trainingItem => {
       if (
-        trainingItem._doc.niveau === "4 (Bac...)" ||
+        //trainingItem._doc.niveau === "4 (Bac...)" ||
         trainingItem._doc.niveau === "5 (BTS, DUT...)" ||
         trainingItem._doc.niveau === "6 (Licence...)"
       ) {
@@ -92,30 +91,48 @@ const run = async () => {
     allUais = uniq(allUais);
     //console.log(allUais.length);
 
-    const multipleEtablishment = [];
-    const establishmentsToAdd = [];
+    let establishmentsToAdd = new Map();
     await asyncForEach(allUais, async uai => {
-      const etablishment = await Establishment.find({ uai });
-      if (etablishment.length > 1) multipleEtablishment.push(uai);
-      else if (etablishment.length === 1 && !etablishment[0].ferme) {
-        const establishmentToAdd = etablishment[0];
-        establishmentToAdd.parcoursup_a_charger = true;
-        establishmentsToAdd.push(establishmentToAdd);
-
-        // Update establishment
-        establishmentToAdd.last_update_at = Date.now();
-        await Establishment.findOneAndUpdate({ _id: establishmentToAdd._id }, establishmentToAdd, {
-          new: true,
-        });
-        logger.info(`Establishment ${establishmentToAdd._id} has been updated`);
+      const etablishments = await Establishment.find({ uai });
+      if (etablishments.length > 1) {
+        for (let i = 0; i < etablishments.length; i++) {
+          const establishmentToAdd = etablishments[i];
+          if (!establishmentToAdd.ferme) {
+            if (
+              establishmentToAdd.computed_conventionne === "OUI" ||
+              (establishmentToAdd.computed_declare_prefecture === "OUI" &&
+                establishmentToAdd.computed_info_datadock === "datadocké")
+            ) {
+              establishmentToAdd.parcoursup_a_charger = true;
+              establishmentsToAdd.set(establishmentToAdd._id, establishmentToAdd);
+            }
+          }
+        }
+      } else if (etablishments.length === 1 && !etablishments[0].ferme) {
+        const establishmentToAdd = etablishments[0];
+        if (
+          establishmentToAdd.computed_conventionne === "OUI" ||
+          (establishmentToAdd.computed_declare_prefecture === "OUI" &&
+            establishmentToAdd.computed_info_datadock === "datadocké")
+        ) {
+          establishmentToAdd.parcoursup_a_charger = true;
+          establishmentsToAdd.set(establishmentToAdd._id, establishmentToAdd);
+        }
       }
     });
-    console.log(establishmentsToAdd.length);
-    console.log(`multiple ${multipleEtablishment.length}`);
 
-    pSupData.stats();
+    console.log(establishmentsToAdd.size);
+    establishmentsToAdd = Array.from(establishmentsToAdd.values());
+    await asyncForEach(establishmentsToAdd, async establishmentToAdd => {
+      // Update establishment
+      establishmentToAdd.last_update_at = Date.now();
+      await Establishment.findOneAndUpdate({ _id: establishmentToAdd._id }, establishmentToAdd, {
+        new: true,
+      });
+      logger.info(`Establishment ${establishmentToAdd._id} has been updated`);
+    });
 
-    logger.info(" -- End of Trainings updater -- ");
+    logger.info(" -- End of Psup updater -- ");
   } catch (err) {
     logger.error(err);
   }

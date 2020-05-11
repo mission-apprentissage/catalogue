@@ -44,6 +44,7 @@ const FILTERS = [
   "mef_8_code",
   "mef_8_codes",
   "parcoursup_reference",
+  "parcoursup_a_charger",
 ];
 
 export default () => {

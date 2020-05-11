@@ -21,7 +21,7 @@ import columnsDefinition from "./columnsDefinition.json";
 
 import "./searchResult.css";
 
-const Filter = React.memo((props) => {
+const Filter = React.memo(props => {
   const { componentId, dataField, filterLabel, filters } = props;
   return (
     <MultiDropdownList
@@ -40,6 +40,31 @@ const Filter = React.memo((props) => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      {...props}
+    />
+  );
+});
+
+const BooleanFilter = React.memo(({ dataField, ...props }) => {
+  return (
+    <Filter
+      dataField={dataField}
+      componentId={dataField}
+      filterLabel={dataField}
+      customQuery={data => {
+        return !data || data.length === 0
+          ? {}
+          : {
+              query: {
+                match: {
+                  [dataField]: data[0] === "OUI",
+                },
+              },
+            };
+      }}
+      transformData={data => {
+        return data.map(d => ({ ...d, key: d.key === "1" ? "OUI" : "NON" }));
+      }}
       {...props}
     />
   );
@@ -86,7 +111,7 @@ const checkIsValid = (hasRightToEdit, accessor, value) => {
 };
 
 const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector((state) => state.user);
+  const { acm: userAcm } = useSelector(state => state.user);
 
   let hasRightToEdit = userAcm.all;
   if (!hasRightToEdit) {
@@ -120,7 +145,7 @@ const Cell = ({ item, id, column }) => {
             id={item._id}
             fieldName={column.accessor}
             fieldType={column.editorInput}
-            onSubmit={(val) => {
+            onSubmit={val => {
               setValue(val);
               setIsEditing(!isEditing);
             }}
@@ -275,6 +300,9 @@ const SearchResult = ({ data, filters, loading }) => {
                       filters={filters}
                       sortBy="asc"
                     />
+                  )}
+                  {column.accessor === "parcoursup_a_charger" && (
+                    <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
                   )}
                 </th>
               );
