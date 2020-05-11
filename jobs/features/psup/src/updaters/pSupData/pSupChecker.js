@@ -1,7 +1,7 @@
 // #region Imports
 
 const { infosCodes, PATH_FORMATION_APPRENTISSAGE_PSUP } = require("./Constants");
-const { filter } = require("lodash");
+const { filter, find } = require("lodash");
 const fileManager = require("./FileManager");
 
 // #endregion
@@ -87,6 +87,19 @@ class PSupChecker {
       return { info: infosCodes.psup.NotFound, value: null };
     }
     return { info: infosCodes.psup.Found, value: result };
+  }
+
+  isUaiExist(uai) {
+    const result = find(this.baseFormation, psupFormation => {
+      const uaiGesFound = uai === psupFormation.UAI_GES;
+      const uaiComposanteFound = uai === psupFormation.UAI_COMPOSANTE;
+      const uaiAffFound = uai === psupFormation.UAI_AFF;
+      return uaiGesFound || uaiComposanteFound || uaiAffFound;
+    });
+    if (!result) {
+      return false;
+    }
+    return true;
   }
 }
 
