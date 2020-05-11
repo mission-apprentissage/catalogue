@@ -7,7 +7,7 @@ const importRNCP = require("./importRNCP");
 
 execute(() => {
   const rncpFichesFile = env.get("RNCP_FICHES_FILE").asString();
-  const codeDiplomesFile = path.join(__dirname, "assets", "codes_diplomes.csv");
+  const codeDiplomesFile = path.join(__dirname, "assets", "codes_diplomes.v1.1.csv");
 
   const codesDiplomesStream = fs.createReadStream(codeDiplomesFile, { encoding: "UTF-8" });
   const fileInputStream = rncpFichesFile
