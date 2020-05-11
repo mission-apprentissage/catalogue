@@ -59,6 +59,10 @@ const run = async () => {
     });
     console.log(formationsToload.length);
 
+    for (let i = 0; i < formationsToload.length; i++) {
+      formationsToload[i]._doc.parcoursup_a_charger = true;
+    }
+
     let allUais = [];
     for (let i = 0; i < formationsToload.length; i++) {
       const { etablissement_formateur_uai, etablissement_responsable_uai, uai_formation } = formationsToload[i]._doc;
@@ -88,11 +92,13 @@ const run = async () => {
       const etablishment = await Establishment.find({ uai });
       if (etablishment.length > 1) multipleEtablishment.push(uai);
       else if (etablishment.length === 1 && !etablishment.ferme) {
+        etablishment.parcoursup_a_charger = true;
         establishmentsToAdd.push(etablishment);
       }
     });
     console.log(establishmentsToAdd.length);
     console.log(`multiple ${multipleEtablishment.length}`);
+
     pSupData.stats();
 
     logger.info(" -- End of Trainings updater -- ");
