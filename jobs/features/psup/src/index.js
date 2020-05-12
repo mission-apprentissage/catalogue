@@ -23,7 +23,7 @@ const run = async () => {
       { niveau: { $ne: null } },
       { niveau: { $ne: "" } },
     ]);
-
+    let countRNCPhabiliteDiff = 0;
     //console.log(trainings.length);
     const formationsToload = trainings.filter(trainingItem => {
       if (
@@ -43,13 +43,22 @@ const run = async () => {
           ) {
             // GROUPE 1  ON EST QUE CES FORMATIONS ENTRENT
             return true;
-          } else if (
-            trainingItem._doc.rncp_eligible_apprentissage &&
-            (trainingItem._doc.rncp_etablissement_formateur_habilite ||
-              trainingItem._doc.rncp_etablissement_responsable_habilite)
-          ) {
-            // CHECK RNCP
-            return true;
+          } else {
+            if (
+              trainingItem._doc.rncp_eligible_apprentissage &&
+              trainingItem._doc.rncp_etablissement_formateur_habilite !==
+                trainingItem._doc.rncp_etablissement_responsable_habilite
+            ) {
+              countRNCPhabiliteDiff++;
+            }
+            if (
+              trainingItem._doc.rncp_eligible_apprentissage &&
+              (trainingItem._doc.rncp_etablissement_formateur_habilite ||
+                trainingItem._doc.rncp_etablissement_responsable_habilite)
+            ) {
+              // CHECK RNCP
+              return true;
+            }
           }
         }
       }
@@ -57,6 +66,7 @@ const run = async () => {
       return false;
     });
     console.log(formationsToload.length);
+    console.log(`Diff Rncp habilité ${countRNCPhabiliteDiff}`);
 
     await asyncForEach(formationsToload, async trainingItem => {
       let updatedTraining = {

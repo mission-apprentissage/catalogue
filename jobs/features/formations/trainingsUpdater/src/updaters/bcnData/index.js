@@ -4,6 +4,7 @@ const bcnChecker = require("./BcnChecker");
 const { difference } = require("lodash");
 const asyncForEach = require("../../../../../../common-jobs/utils").asyncForEach;
 const pSupData = require("../pSupData");
+const { Formation } = require("../../../../../../common-jobs/models");
 class BcnData {
   constructor() {
     this.countCodeEn = { ok: 0, ko: 0 };
@@ -216,12 +217,27 @@ class BcnData {
 
           // Check matching PSup
           const updatesPSupData = await pSupData.getUpdates(tmpTraining, false);
-          if (updatesPSupData.parcoursup_reference === "OUI") {
-            trainingsToCreate.push(tmpTraining);
+          if (updatesPSupData && updatesPSupData.parcoursup_reference === "OUI") {
+            trainingsToCreate.push(updatesPSupData);
           }
         });
 
         if (trainingsToCreate.length > 0) {
+          const trainingsHaveBeenAdded = await Formation.find({
+            educ_nat_code: training.educ_nat_code,
+            etablissement_formateur_uai: training.etablissement_formateur_uai,
+            etablissement_responsable_uai: training.etablissement_responsable_uai,
+            uai_formation: training.uai_formation,
+            code_commune_insee: training.code_commune_insee,
+            code_postal: training.code_postal,
+            parcoursup_reference: "OUI",
+            mef_10_code_updated: true,
+          });
+          if (trainingsHaveBeenAdded.length > 0) {
+            training.mef_10_code_updated = true;
+            return { update: true, trainingsToCreate: [] };
+          }
+
           // Avoid duplicate training in trainingsToCreate
           const tmp = trainingsToCreate[0];
           delete tmp._id;
