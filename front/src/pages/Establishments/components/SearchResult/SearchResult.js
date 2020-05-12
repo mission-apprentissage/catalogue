@@ -110,25 +110,46 @@ const checkIsValid = (hasRightToEdit, accessor, value) => {
   return hasRightToEdit ? validateCell(accessor, value) : true;
 };
 
-const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector(state => state.user);
-
+const checkIfHasRightToEdit = (item, column, value, userAcm) => {
   let hasRightToEdit = userAcm.all;
   if (!hasRightToEdit) {
     hasRightToEdit = userAcm.academie.includes(`${item.num_academie}`);
   }
+  return (
+    hasRightToEdit &&
+    (column.editable ||
+      (column.editableEmpty && value === "") ||
+      (column.editableInvalid && !validateCell(column.accessor, value)))
+  );
+};
 
+const Cell = ({ item, id, column }) => {
+  const { acm: userAcm } = useSelector(state => state.user);
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(item[column.accessor] || "");
+  const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
 
-  hasRightToEdit = hasRightToEdit && (column.editable || (column.editableEmpty && value === ""));
+  if (value === undefined) {
+    throw new Error(`Unable to render Cell for "${column.accessor}" because value is undefined`);
+  }
 
+  const hasRightToEdit = checkIfHasRightToEdit(item, column, value, userAcm);
   const edition = hasRightToEdit && isEditing;
   const isValid = React.useMemo(() => checkIsValid(hasRightToEdit, column.accessor, value), [
     hasRightToEdit,
     column.accessor,
     value,
   ]);
+
+  let getValueAsString = () => {
+    if (typeof value === "boolean") {
+      return value ? "OUI" : "NON";
+    }
+    if (Array.isArray(value)) {
+      return value.join(",");
+    }
+
+    return value;
+  };
 
   return (
     <td>
@@ -164,7 +185,7 @@ const Cell = ({ item, id, column }) => {
             {value}
           </Button>
         ) : (
-          <div className="cell-text"> {value}</div>
+          <div className="cell-text">{getValueAsString()}</div>
         )}
 
         {!edition && !isValid && <FontAwesomeIcon className="invalid-value" icon={faExclamationCircle} size="xs" />}
