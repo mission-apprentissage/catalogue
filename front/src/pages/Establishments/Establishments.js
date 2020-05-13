@@ -20,6 +20,7 @@ const FILTERS = [
   "declarePrefecture",
   "infoDataDock",
   "numAcademie",
+  "parcoursup_a_charger",
 ];
 
 export default () => {

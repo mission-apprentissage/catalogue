@@ -199,7 +199,6 @@ const establishmentSchema = {
     default: [],
     description: "UAIs des formations rattachées à l'établissement",
   },
-
   info_depp: {
     type: Number,
     default: 0,
@@ -244,6 +243,11 @@ const establishmentSchema = {
     type: Boolean,
     default: false,
     description: "L'établissement est trouvé via l'API Entreprise",
+  },
+  parcoursup_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "L'établissement doit être ajouter à ParcourSup",
   },
   published: {
     type: Boolean,

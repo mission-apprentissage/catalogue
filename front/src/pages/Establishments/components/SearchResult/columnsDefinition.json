@@ -137,5 +137,11 @@
         "accessor": "code_insee_localite",
         "width": 200,
         "editorInput":"text"
+    },
+    {
+        "Header": "À charger dans ParcourSup",
+        "accessor": "parcoursup_a_charger",
+        "width": 200,
+        "editable": false
     }
 ]

@@ -325,7 +325,11 @@ const trainingSchema = {
     default: "NON",
     description: "La formation est présent sur parcourSup",
   },
-
+  parcoursup_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à ParcourSup",
+  },
   info_bcn_code_en: {
     type: Number,
     default: 0,
