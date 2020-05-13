@@ -20,6 +20,7 @@ const FILTERS = [
   "declarePrefecture",
   "infoDataDock",
   "numAcademie",
+  "nom_academie",
   "parcoursup_a_charger",
 ];
 

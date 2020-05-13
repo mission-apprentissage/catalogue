@@ -92,7 +92,7 @@ const establishmentSchema = {
   num_departement: {
     type: String,
     default: null,
-    description: "Numéro de departement",
+    description: "Numéro de département",
   },
   localite: {
     type: String,
@@ -124,7 +124,6 @@ const establishmentSchema = {
     default: {},
     description: "Localisation GeoJson",
   },
-
   date_fermeture: {
     type: Date,
     default: null,
@@ -172,12 +171,16 @@ const establishmentSchema = {
     default: 0,
     description: "Numéro de l'académie",
   },
+  nom_academie: {
+    type: String,
+    default: null,
+    description: "Nom de l'académie",
+  },
   uai: {
     type: String,
     default: null,
     description: "UAI de l'établissement",
   },
-
   formations_attachees: {
     type: Boolean,
     default: false,

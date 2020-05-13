@@ -322,6 +322,15 @@ const SearchResult = ({ data, filters, loading }) => {
                       sortBy="asc"
                     />
                   )}
+                  {column.accessor === "nom_academie" && (
+                    <Filter
+                      componentId="nom_academie"
+                      dataField="nom_academie"
+                      filterLabel="nom_academie"
+                      filters={filters}
+                      sortBy="asc"
+                    />
+                  )}
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
                   )}

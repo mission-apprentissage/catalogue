@@ -9,7 +9,7 @@ const formationsData = require("./updaters/formationsData");
 const geoData = require("./updaters/geoData");
 const publishedData = require("./updaters/publishedData");
 
-const UPDATE_ALL = false;
+const UPDATE_ALL = true;
 const UPDATE_ONLY = { attr: "siret", value: "18250023100028" };
 
 const proccess = async updatedEstablishment => {

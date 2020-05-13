@@ -6,13 +6,15 @@ class AcademieData {
 
   async getUpdates(establishment) {
     let numAcademie = await this.getNumAcademie(establishment);
+    let nomAcademie = await this.getNomAcademie(numAcademie);
 
-    if (numAcademie === establishment.num_academie) {
+    if (numAcademie === establishment.num_academie && nomAcademie === establishment.nom_academie) {
       return null;
     }
 
     return {
       num_academie: numAcademie || -1,
+      nom_academie: nomAcademie || null,
     };
   }
 
@@ -28,6 +30,22 @@ class AcademieData {
     }
 
     return numAcademie;
+  }
+
+  async getNomAcademie(numAcademie) {
+    if (!numAcademie || numAcademie === -1) {
+      logger.error(`No num_academie for formation`);
+      return null;
+    }
+
+    const nomAcademie = await apiEsSup.getNomAcademieInfoFromNumAcademie(numAcademie);
+
+    if (!nomAcademie) {
+      logger.error(`nomAcademie not found for num_academie ${numAcademie}`);
+      return null;
+    }
+
+    return nomAcademie;
   }
 }
 

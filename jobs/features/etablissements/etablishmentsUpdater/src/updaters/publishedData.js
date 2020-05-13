@@ -4,8 +4,12 @@ class PublishedData {
   constructor() {}
 
   async getUpdates(establishment) {
+    let published = true;
+    if (establishment.ferme || !establishment.formations_attachees || !establishment.api_entreprise_reference) {
+      published = false;
+    }
     return {
-      published: establishment.formations_attachees || establishment.api_entreprise_reference,
+      published,
     };
   }
 }
