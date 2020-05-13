@@ -170,8 +170,29 @@
     "editable": false
   },
   {
+    "Header": "Liste codes MEF 10 caractères",
+    "accessor": "mef_10_codes",
+    "debug": true,
+    "width": 400,
+    "editable": false
+  },
+  {
+    "Header": "Liste codes MEF 8 caractères",
+    "accessor": "mef_8_codes",
+    "debug": true,
+    "width": 400,
+    "editable": false
+  },
+  {
     "Header": "Référencé dans ParcourSup",
     "accessor": "parcoursup_reference",
+    "width": 200,
+    "debug": true,
+    "editable": false
+  },
+  {
+    "Header": "À charger dans ParcourSup",
+    "accessor": "parcoursup_a_charger",
     "width": 200,
     "debug": true,
     "editable": false

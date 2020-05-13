@@ -44,6 +44,7 @@ const FILTERS = [
   "mef_8_code",
   "mef_8_codes",
   "parcoursup_reference",
+  "parcoursup_a_charger",
 ];
 
 export default () => {
@@ -74,7 +75,7 @@ export default () => {
           <Row>
             <Col xs="12">
               <Switch onChange={handleSwitchChange} checked={debug} />
-              <span className="debug-text-button">Vue recette (afficher MEF, Psup, RNCP ... )</span>
+              <span className="debug-text-button">Vue recette (afficher MEF8, MEF10, Psup, RNCP etc... )</span>
             </Col>
           </Row>
         )}
