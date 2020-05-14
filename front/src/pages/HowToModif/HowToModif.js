@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "reactstrap";
+import { Player } from "video-react";
 
 //import routes from "../../routes.json";
 
@@ -25,26 +26,26 @@ const HowToModif = () => {
               Les cellules ne pouvant pas être modifiées concernent des champs issus de tables et nomenclatures
               officielles ( Api Entreprise, tables de la BCN, niveau de formation ….) Si toutefois vous constatez des
               incohérences dans les données sur ces tables, merci de le signaler :
-              <ul>
-                <li>
-                  Au CFA qui se rapproche de l’
-                  <a href="https://www.insee.fr/fr/information/1972062" target="_blank" rel="noreferrer noopener">
-                    INSEE
-                  </a>{" "}
-                  pour les champs liés aux caractéristiques de l’établissement : raison sociale, SIRET, adresse postale,
-                  …
-                </li>
-                <li>
-                  À la{" "}
-                  <a href="http://infocentre.pleiade.education.fr/bcn/" target="_blank" rel="noreferrer noopener">
-                    BCN
-                  </a>{" "}
-                  (Banque Centrale des Nomenclatures) pour les informations relatives aux codes diplomes, intitulés,
-                  niveau
-                </li>
-                <li>A la DEPP pour les informations relatives aux UAI</li>
-              </ul>
             </p>
+            <ul>
+              <li>
+                Au CFA qui se rapproche de l’
+                <a href="https://www.insee.fr/fr/information/1972062" target="_blank" rel="noreferrer noopener">
+                  INSEE
+                </a>{" "}
+                pour les champs liés aux caractéristiques de l’établissement : raison sociale, SIRET, adresse postale, …
+              </li>
+              <li>
+                À la{" "}
+                <a href="http://infocentre.pleiade.education.fr/bcn/" target="_blank" rel="noreferrer noopener">
+                  BCN
+                </a>{" "}
+                (Banque Centrale des Nomenclatures) pour les informations relatives aux codes diplomes, intitulés,
+                niveau
+              </li>
+              <li>A la DEPP pour les informations relatives aux UAI</li>
+            </ul>
+
             <h5>Modifications unitaires :</h5>
             <p>
               Un champs de la base révèle une erreur et vous souhaitez la corriger : utiliser l’interface de
@@ -63,25 +64,25 @@ const HowToModif = () => {
               changement de statut des formations qui s’y rattachent, et ainsi les rendre éligibles.
             </p>
             <h5>Liste des champs modifiables et des champs en cascade</h5>
-            <p>
-              <strong>Sur l’onglet formation :</strong>
-              <ul>
-                <li>Numéro d’académie,</li>
-                <li>SIRET CFA-OFA,</li>
-                <li>SIRET Formateur,</li>
-                <li>Code diplôme (si le champs est vide ou qu’il contient des informations incorrectes),</li>
-                <li>Période, </li>
-                <li>Capacité,</li>
-                <li>UAI formation, </li>
-                <li>Code postal.</li>
-              </ul>
-              <strong>Sur l’onglet établissements :</strong>
-              <ul>
-                <li>UAI, </li>
-                <li>Nom commercial.</li>
-              </ul>
-            </p>
-            <p>
+
+            <strong>Sur l’onglet formation :</strong>
+            <ul>
+              <li>Numéro d’académie,</li>
+              <li>SIRET CFA-OFA,</li>
+              <li>SIRET Formateur,</li>
+              <li>Code diplôme (si le champs est vide ou qu’il contient des informations incorrectes),</li>
+              <li>Période, </li>
+              <li>Capacité,</li>
+              <li>UAI formation, </li>
+              <li>Code postal.</li>
+            </ul>
+            <strong>Sur l’onglet établissements :</strong>
+            <ul>
+              <li>UAI, </li>
+              <li>Nom commercial.</li>
+            </ul>
+
+            <p className="mb-5">
               Du <strong>SIREN</strong> on déduit : SIRET Siège Social, Raison Sociale, Code Entreprise, Date de
               création, Code NAF, Libellé code NAF, Adresse, Numéro de voie, Type de Voie, Nom de la voie, Complément
               d’adresse, Code postal, Localité, Code commune INSEE
@@ -101,6 +102,18 @@ const HowToModif = () => {
               <br />
               Du <strong>numéro d’académie</strong> on déduit le nom d’académie
             </p>
+          </Col>
+        </Row>
+        <Row>
+          <Col xs="12" className="mb-5">
+            <h5>Video de présentation</h5>
+            <Player
+              playsInline
+              poster="/assets/poster.png"
+              src="https://mna-bucket.s3.eu-west-3.amazonaws.com/pam-23042020.mp4"
+              fluid={false}
+              width={800}
+            />
           </Col>
         </Row>
       </Container>
