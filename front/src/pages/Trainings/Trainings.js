@@ -98,6 +98,11 @@ export default () => {
                 pagination={true}
                 showResultStats={true}
                 sortBy="asc"
+                defaultQuery={() => {
+                  return {
+                    _source: columnsDefinition.map(def => def.accessor),
+                  };
+                }}
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} debug={debug} />;
                 }}

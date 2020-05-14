@@ -45,6 +45,16 @@ export default () => {
                 size={8}
                 pagination={true}
                 showResultStats={true}
+                defaultQuery={() => {
+                  return {
+                    _source: columnsDefinition.map(def => def.accessor),
+                    query: {
+                      match: {
+                        published: true,
+                      },
+                    },
+                  };
+                }}
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} />;
                 }}

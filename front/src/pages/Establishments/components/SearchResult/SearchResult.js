@@ -325,10 +325,12 @@ const SearchResult = ({ data, filters, loading }) => {
                   {column.accessor === "nom_academie" && (
                     <Filter
                       componentId="nom_academie"
-                      dataField="nom_academie"
+                      dataField="nom_academie.keyword"
                       filterLabel="nom_academie"
                       filters={filters}
-                      sortBy="asc"
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
                     />
                   )}
                   {column.accessor === "parcoursup_a_charger" && (
