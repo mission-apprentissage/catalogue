@@ -37,6 +37,8 @@ class EstablishmentsData {
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
       etablissement_reference_published: referenceEstablishment.published, // || referenceEstablishment.api_entreprise_reference, TODO Published Rules
       // published: referenceEstablishment.api_entreprise_reference,
+      //catalogue_published
+      //etablissement_reference
     };
   }
 

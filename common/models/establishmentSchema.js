@@ -434,6 +434,12 @@ const establishmentSchema = {
   },
   //////////////////
 
+  catalogue_published: {
+    type: Boolean,
+    default: false,
+    description: "Est publié dans le catalogue général",
+  },
+
   published: {
     type: Boolean,
     default: false,
