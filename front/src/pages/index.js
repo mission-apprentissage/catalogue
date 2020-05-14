@@ -4,6 +4,7 @@ import Trainings from "./Trainings";
 import NotFound from "./NotFound";
 import Stats from "./Stats";
 import Journal from "./Journal";
+import HowTo from "./HowTo";
 
 import SignIn from "./Auth/SignIn";
 import Profile from "./Auth/Profile";
@@ -24,4 +25,5 @@ export {
   ChangePassword,
   ForgotPassword,
   Admin,
+  HowTo,
 };

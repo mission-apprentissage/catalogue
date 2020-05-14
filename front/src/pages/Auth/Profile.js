@@ -10,7 +10,7 @@ import routes from "../../routes.json";
 import "./profile.css";
 
 const Profile = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   return (

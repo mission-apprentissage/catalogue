@@ -41,6 +41,13 @@ const TopBar = () => {
                 Établissements
               </Link>
             </NavItem>
+            {user && (
+              <NavItem>
+                <Link to={routes.HOWTO} className={"nav-link link"}>
+                  Guides d'utilisation
+                </Link>
+              </NavItem>
+            )}
           </Nav>
           <NavbarText>{ENV_NAME === "local" || ENV_NAME === "dev" ? "(env: dev)" : ""}</NavbarText>
           <NavbarText>
