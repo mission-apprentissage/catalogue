@@ -54,7 +54,11 @@ export default () => {
   useEffect(() => {
     async function run() {
       try {
-        const resp = await API.get("api", `/formations/count`);
+        const resp = await API.get("api", `/formations/count`, {
+          queryStringParameters: {
+            published: true,
+          },
+        });
         setCountFormations(resp.count);
       } catch (e) {
         console.log(e);

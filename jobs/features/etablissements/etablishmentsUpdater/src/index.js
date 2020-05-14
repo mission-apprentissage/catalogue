@@ -74,7 +74,7 @@ const proccess = async updatedEstablishment => {
       updatedNeeded = true;
     }
 
-    const updatesPublishedData = publishedData.getUpdates(updatedEstablishment);
+    const updatesPublishedData = await publishedData.getUpdates(updatedEstablishment);
     if (updatesPublishedData) {
       updatedEstablishment = {
         ...updatedEstablishment,

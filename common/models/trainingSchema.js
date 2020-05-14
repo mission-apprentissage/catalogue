@@ -133,7 +133,7 @@ const trainingSchema = {
   etablissement_reference_catalogue_published: {
     type: Boolean,
     default: false,
-    description: "Etablissement reference entre dans le catalogue",
+    description: "Etablissement reference entre dans le catalogue général",
   },
   etablissement_reference_published: {
     type: Boolean,
@@ -428,7 +428,7 @@ const trainingSchema = {
   published: {
     type: Boolean,
     default: false,
-    description: "Est publiée, la formation est éligible pour le catalogue général",
+    description: "Est publiée, la formation est éligible pour le catalogue",
   },
   created_at: {
     type: Date,
