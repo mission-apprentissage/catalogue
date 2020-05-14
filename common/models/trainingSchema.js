@@ -42,6 +42,11 @@ const trainingSchema = {
   etablissement_formateur_published: {
     type: Boolean,
     default: false,
+    description: "Etablissement formateur est publié",
+  },
+  etablissement_formateur_catalogue_published: {
+    type: Boolean,
+    default: false,
     description: "Etablissement formateur entre dans le catalogue",
   },
   etablissement_responsable_id: {
@@ -87,6 +92,11 @@ const trainingSchema = {
   etablissement_responsable_published: {
     type: Boolean,
     default: false,
+    description: "Etablissement responsable est publié",
+  },
+  etablissement_responsable_catalogue_published: {
+    type: Boolean,
+    default: false,
     description: "Etablissement responsable entre dans le catalogue",
   },
   etablissement_reference: {
@@ -120,15 +130,15 @@ const trainingSchema = {
     default: null,
     description: "Etablissement reference est connu de datadock",
   },
-  etablissement_reference_published: {
+  etablissement_reference_catalogue_published: {
     type: Boolean,
     default: false,
     description: "Etablissement reference entre dans le catalogue",
   },
-  etablissement_reference_api_entreprise_reference: {
+  etablissement_reference_published: {
     type: Boolean,
     default: false,
-    description: "Etablissement reference bien référencé dans l'API Entreprise",
+    description: "Etablissement reference est publié",
   },
   siren: {
     type: String,
