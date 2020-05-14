@@ -1,7 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavbarText, Button } from "reactstrap";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavbarText,
+  Button,
+  UncontrolledDropdown,
+  DropdownMenu,
+  DropdownItem,
+  DropdownToggle,
+} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
 import { push } from "connected-react-router";
@@ -42,18 +55,23 @@ const TopBar = () => {
               </Link>
             </NavItem>
             {user && (
-              <>
-                <NavItem>
-                  <Link to={routes.HOWTO_MODIF} className={"nav-link link"}>
-                    Guides d'utilisation
-                  </Link>
-                </NavItem>
-                <NavItem>
-                  <Link to={routes.HOWTO_REGLEMENT} className={"nav-link link"}>
-                    Guides régelementaire
-                  </Link>
-                </NavItem>
-              </>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Guides
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <Link to={routes.HOWTO_MODIF} className={"nav-link link"}>
+                      Guide d'utilisation
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to={routes.HOWTO_REGLEMENT} className={"nav-link link"}>
+                      Guide réglementaire
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             )}
           </Nav>
           <NavbarText>{ENV_NAME === "local" || ENV_NAME === "dev" ? "(env: dev)" : ""}</NavbarText>

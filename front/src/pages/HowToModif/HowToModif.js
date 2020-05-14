@@ -8,18 +8,18 @@ import "./howToModif.css";
 const HowToModif = () => {
   return (
     <div className="page howToModif">
-      <h2 className="mt-3 mb-3">Guide de modification Catalogue</h2>
       <Container className="mt-5">
         <Row>
-          <Col xs="8" className="mission-summary">
-            <p>
-              <h5>
-                Pour modifier un champ , il vous suffit de cliquer sur le crayon, d’effectuer la modification souhaitée
-                et de la valider ensuite. <br />
-                <br />
-                Seules les cellules avec un crayon sont modifiables.
-              </h5>
-            </p>
+          <Col xs="12" className="mission-summary">
+            <h2 className="mt-3 mb-3">Guide de modification Catalogue</h2>
+            <br />
+            <h5>
+              Pour modifier un champ , il vous suffit de cliquer sur le crayon, d’effectuer la modification souhaitée et
+              de la valider ensuite. <br />
+              <br />
+              Seules les cellules avec un crayon sont modifiables.
+            </h5>
+
             <br />
             <p>
               Les cellules ne pouvant pas être modifiées concernent des champs issus de tables et nomenclatures
