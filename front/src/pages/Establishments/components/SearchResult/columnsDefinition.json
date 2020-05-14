@@ -18,6 +18,12 @@
         "editable": false
     },
     {
+        "Header": "Raison sociale de l'entreprise",
+        "accessor": "entreprise_raison_sociale",
+        "width": 200,
+        "editable": false
+    },
+    {
         "Header": "Uai",
         "accessor": "uai",
         "width": 200,
@@ -57,18 +63,6 @@
     {
         "Header": "Siret Siège social",
         "accessor": "etablissement_siege_siret",
-        "width": 200,
-        "editable": false
-    },
-    {
-        "Header": "Raison sociale de l'entreprise",
-        "accessor": "entreprise_raison_sociale",
-        "width": 200,
-        "editable": false
-    },
-    {
-        "Header": "Nom commercial",
-        "accessor": "ds_questions_nom",
         "width": 200,
         "editable": false
     },

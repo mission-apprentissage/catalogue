@@ -83,7 +83,7 @@ class EntrepriseApiData {
         date_creation: etablissementApiInfo.date_creation_etablissement,
         date_mise_a_jour: etablissementApiInfo.date_mise_a_jour,
         diffusable_commercialement: etablissementApiInfo.diffusable_commercialement,
-        enseigne: etablissementApiInfo.enseigne,
+        enseigne: etablissementApiInfo.enseigne ? etablissementApiInfo.enseigne : entrepriseApiInfo.enseigne,
 
         adresse: this.buildAdresse(etablissementApiInfo.adresse),
         numero_voie: etablissementApiInfo.adresse.numero_voie,
