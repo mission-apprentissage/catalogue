@@ -94,7 +94,6 @@
     "Header": "Diplome",
     "accessor": "diplome",
     "width": 200,
-    "editorInput": "textarea",
     "editable": false,
     "editableEmpty": true
   },

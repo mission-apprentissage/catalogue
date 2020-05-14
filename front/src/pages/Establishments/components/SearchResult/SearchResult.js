@@ -40,6 +40,15 @@ const Filter = React.memo(props => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      defaultQuery={() => {
+        return {
+          query: {
+            match: {
+              published: true,
+            },
+          },
+        };
+      }}
       {...props}
     />
   );

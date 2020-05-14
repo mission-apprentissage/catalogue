@@ -31,7 +31,7 @@ const FILTERS = [
   "codePostal",
   "codeCommuneInsee",
   "ds_id_dossier",
-  "published",
+  "catalogue_published",
   "etablissement_responsable_uai",
   "etablissement_formateur_uai",
   "intitule_long",
@@ -45,6 +45,7 @@ const FILTERS = [
   "mef_8_codes",
   "parcoursup_reference",
   "parcoursup_a_charger",
+  "diplome",
 ];
 
 export default () => {
@@ -125,7 +126,7 @@ export default () => {
                 react={{ and: FILTERS }}
               />
               <ToggleButton
-                componentId="published"
+                componentId="catalogue_published"
                 className="published-btn"
                 dataField="etablissement_reference_catalogue_published"
                 data={[

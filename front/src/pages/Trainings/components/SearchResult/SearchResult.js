@@ -40,6 +40,15 @@ const Filter = React.memo(props => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      defaultQuery={() => {
+        return {
+          query: {
+            match: {
+              published: true,
+            },
+          },
+        };
+      }}
       {...props}
     />
   );
@@ -545,6 +554,17 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="parcoursup_reference"
                       dataField="parcoursup_reference.keyword"
                       filterLabel="parcoursup_reference"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "diplome" && (
+                    <Filter
+                      componentId="diplome"
+                      dataField="diplome.keyword"
+                      filterLabel="diplome"
                       filters={filters}
                       sortBy="count"
                       showMissing={true}
