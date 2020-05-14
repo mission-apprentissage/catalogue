@@ -9,10 +9,10 @@ const trainingSchema = {
     default: null,
     description: "Numéro siret formateur",
   },
-  etablissement_formateur_siret_intitule: {
+  etablissement_formateur_enseigne: {
     type: String,
     default: null,
-    description: "Raison social établissement formateur",
+    description: "Enseigne établissement formateur",
   },
   etablissement_formateur_uai: {
     type: String,
@@ -59,10 +59,10 @@ const trainingSchema = {
     default: null,
     description: "Numéro siret responsable",
   },
-  etablissement_responsable_siret_intitule: {
+  etablissement_responsable_enseigne: {
     type: String,
     default: null,
-    description: "Raison social établissement responsable",
+    description: "Enseigne établissement responsable",
   },
   etablissement_responsable_uai: {
     type: String,

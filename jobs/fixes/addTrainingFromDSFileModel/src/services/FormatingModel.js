@@ -221,8 +221,8 @@ class FormatingModel {
   addFieldsToTraining(formation, etablissementR, etablissementF) {
     formation.etablissement_formateur_id = etablissementF._id;
 
-    formation.etablissement_responsable_siret_intitule = null;
-    formation.etablissement_formateur_siret_intitule = null;
+    formation.etablissement_responsable_enseigne = null;
+    formation.etablissement_formateur_enseigne = null;
 
     // Get Academie from numAcademie
     formation.nom_academie = null;
@@ -239,7 +239,7 @@ class FormatingModel {
     // Intitules Organismes CFA
     if (etablissementR) {
       formation.etablissement_responsable_id = etablissementR._id;
-      formation.etablissement_responsable_siret_intitule = etablissementR.nom_commercial
+      formation.etablissement_responsable_enseigne = etablissementR.nom_commercial
         ? etablissementR.nom_commercial
         : etablissementR.raison_sociale
         ? etablissementR.raison_sociale
@@ -253,7 +253,7 @@ class FormatingModel {
 
     // Intitules Organismes Formateur
     if (etablissementF) {
-      formation.etablissement_formateur_siret_intitule = etablissementF.nom_commercial
+      formation.etablissement_formateur_enseigne = etablissementF.nom_commercial
         ? etablissementF.nom_commercial
         : etablissementF.raison_sociale
         ? etablissementF.raison_sociale

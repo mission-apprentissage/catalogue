@@ -101,6 +101,11 @@ export default () => {
                 defaultQuery={() => {
                   return {
                     _source: columnsDefinition.map(def => def.accessor),
+                    query: {
+                      match: {
+                        published: true,
+                      },
+                    },
                   };
                 }}
                 render={({ data, loading }) => {
@@ -118,7 +123,7 @@ export default () => {
               <ToggleButton
                 componentId="published"
                 className="published-btn"
-                dataField="etablissement_reference_published"
+                dataField="etablissement_reference_catalogue_published"
                 data={[
                   { label: "Catalogue général", value: "true" },
                   { label: "Catalogue non-éligible", value: "false" },
