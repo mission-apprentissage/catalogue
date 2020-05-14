@@ -22,6 +22,11 @@ const FILTERS = [
   "numAcademie",
   "nom_academie",
   "parcoursup_a_charger",
+  "formations_n3",
+  "formations_n4",
+  "formations_n5",
+  "formations_n6",
+  "formations_n7",
 ];
 
 export default () => {

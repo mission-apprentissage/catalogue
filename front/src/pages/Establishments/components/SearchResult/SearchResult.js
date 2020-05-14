@@ -345,6 +345,21 @@ const SearchResult = ({ data, filters, loading }) => {
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
                   )}
+                  {column.accessor === "formations_n3" && (
+                    <BooleanFilter dataField="formations_n3" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n4" && (
+                    <BooleanFilter dataField="formations_n4" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n5" && (
+                    <BooleanFilter dataField="formations_n5" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n6" && (
+                    <BooleanFilter dataField="formations_n6" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n7" && (
+                    <BooleanFilter dataField="formations_n7" filters={filters} sortBy="count" />
+                  )}
                 </th>
               );
             })}
