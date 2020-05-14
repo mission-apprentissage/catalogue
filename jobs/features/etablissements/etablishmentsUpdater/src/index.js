@@ -2,6 +2,7 @@ const { connectToMongo } = require("../../../../../common/mongo");
 const { Establishment } = require("../../../../common-jobs/models");
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
+const referentielGeographique = require("../../../../common-jobs/referentielGeographique");
 const entrepriseApiData = require("./updaters/entrepriseApiData");
 const conventionnementData = require("./updaters/conventionnementData");
 const academieData = require("./updaters/academieData");
@@ -34,7 +35,7 @@ const proccess = async updatedEstablishment => {
       updatedNeeded = true;
     }
 
-    // // Update formations information
+    // Update formations information
     const updatesFormationData = await formationsData.getUpdates(updatedEstablishment);
     if (updatesFormationData) {
       updatedEstablishment = {
@@ -44,7 +45,7 @@ const proccess = async updatedEstablishment => {
       updatedNeeded = true;
     }
 
-    // // Update geolocation information
+    // Update geolocation information
     const updatesGeoData = await geoData.getUpdates(updatedEstablishment);
     if (updatesGeoData) {
       updatedEstablishment = {
@@ -64,7 +65,7 @@ const proccess = async updatedEstablishment => {
       updatedNeeded = true;
     }
 
-    // // Update conventionnement information
+    // Update conventionnement information
     const updatesConventionnementData = conventionnementData.getUpdates(updatedEstablishment);
     if (updatesConventionnementData) {
       updatedEstablishment = {
@@ -117,6 +118,9 @@ const proccess = async updatedEstablishment => {
 const run = async () => {
   try {
     logger.info(" -- Start of Establishments updater -- ");
+
+    await referentielGeographique.importReferentiel();
+
     await connectToMongo();
 
     const establishments = await Establishment.find({});

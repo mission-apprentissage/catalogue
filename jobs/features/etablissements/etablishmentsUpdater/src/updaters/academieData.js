@@ -1,5 +1,5 @@
 const logger = require("../../../../../common-jobs/Logger").mainLogger;
-const apiEsSup = require("../../../../../common-jobs/EsSupApi");
+const referentielGeographique = require("../../../../../common-jobs/referentielGeographique");
 
 class AcademieData {
   constructor() {}
@@ -20,7 +20,10 @@ class AcademieData {
 
   async getNumAcademie(establishment) {
     // Search numAcademie as int from codeInsee
-    const numAcademie = await apiEsSup.getNumAcademieInfoFromCodeCommune(establishment.code_insee_localite);
+    //const numAcademie = await apiEsSup.getNumAcademieInfoFromCodeCommune(establishment.code_insee_localite);
+    const numAcademie = await referentielGeographique.referentiel.getAcaCodeFromComCode(
+      establishment.code_insee_localite
+    );
 
     if (!numAcademie) {
       logger.error(
@@ -38,7 +41,8 @@ class AcademieData {
       return null;
     }
 
-    const nomAcademie = await apiEsSup.getNomAcademieInfoFromNumAcademie(numAcademie);
+    //const nomAcademie = await apiEsSup.getNomAcademieInfoFromNumAcademie(numAcademie);
+    const nomAcademie = await referentielGeographique.referentiel.getAcaNomFromNumAca(numAcademie);
 
     if (!nomAcademie) {
       logger.error(`nomAcademie not found for num_academie ${numAcademie}`);
