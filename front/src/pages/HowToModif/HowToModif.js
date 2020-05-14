@@ -3,11 +3,11 @@ import { Container, Row, Col } from "reactstrap";
 
 //import routes from "../../routes.json";
 
-import "./howTo.css";
+import "./howToModif.css";
 
-const HowTo = () => {
+const HowToModif = () => {
   return (
-    <div className="page howTo">
+    <div className="page howToModif">
       <h2 className="mt-3 mb-3">Guide de modification Catalogue</h2>
       <Container className="mt-5">
         <Row>
@@ -108,4 +108,4 @@ const HowTo = () => {
   );
 };
 
-export default HowTo;
+export default HowToModif;

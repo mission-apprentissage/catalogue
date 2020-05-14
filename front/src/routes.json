@@ -9,5 +9,6 @@
     "STATISTIQUES": "/stats",
     "CHANGELOG": "/journal",
     "ADMIN": "/admin",
-    "HOWTO": "/guide"
+    "HOWTO_MODIF": "/guide-modification",
+    "HOWTO_REGLEMENT": "/guide-reglementaire"
 }
