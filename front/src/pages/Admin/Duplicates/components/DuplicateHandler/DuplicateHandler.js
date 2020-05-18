@@ -17,7 +17,7 @@ import { API } from "aws-amplify";
 
 import columnsDefinition from "./columnsDefinition.json";
 
-import "./searchResult.css";
+import "./duplicateHandler.css";
 
 const EditionCell = React.memo(({ initValue, id, fieldName, fieldType, onClose, onSubmit }) => {
   const { values, handleSubmit, handleChange } = useFormik({
@@ -138,16 +138,14 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
-const SearchResult = ({ data, filters, debug }) => {
+const DuplicateHandler = ({ duplicates }) => {
+  // duplicates
   return (
-    <div className="search-result">
+    <div className="duplicates-result">
       <table className="table table-hover">
         <thead>
           <tr className="result-table-head">
             {columnsDefinition.map((column, i) => {
-              if (column.debug && !debug) {
-                return null;
-              }
               return (
                 <th key={i}>
                   <div style={{ width: `${column.width}px` }}>{column.Header}</div>
@@ -157,7 +155,7 @@ const SearchResult = ({ data, filters, debug }) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((obj, i) => {
+          {/* {data.map((obj, i) => {
             return (
               <tr key={obj._id}>
                 {columnsDefinition.map((column, j) => {
@@ -168,11 +166,11 @@ const SearchResult = ({ data, filters, debug }) => {
                 })}
               </tr>
             );
-          })}
+          })} */}
         </tbody>
       </table>
     </div>
   );
 };
 
-export default React.memo(SearchResult);
+export default React.memo(DuplicateHandler);

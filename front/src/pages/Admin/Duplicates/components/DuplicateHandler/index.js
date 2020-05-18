@@ -1,4 +1,4 @@
-import SearchResult from "./SearchResult";
+import DuplicateHandler from "./DuplicateHandler";
 import columnsDefinition from "./columnsDefinition.json";
-export default SearchResult;
+export default DuplicateHandler;
 export { columnsDefinition };
