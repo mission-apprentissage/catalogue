@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./users.css";
 
 const UserLine = ({ user }) => {
-  const { user: currentUser } = useSelector((state) => state.user);
+  const { user: currentUser } = useSelector(state => state.user);
   const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       apiKey: user ? user.Attributes["custom:apiKey"] : "",
@@ -28,7 +28,10 @@ const UserLine = ({ user }) => {
 
         try {
           if (currentUser.attributes["custom:access_all"]) {
-            const refreshToken = currentUser.getSignInUserSession().getAccessToken().getJwtToken();
+            const refreshToken = currentUser
+              .getSignInUserSession()
+              .getAccessToken()
+              .getJwtToken();
             if (user) {
               const body = {
                 refreshToken,
@@ -70,7 +73,10 @@ const UserLine = ({ user }) => {
   const onDeleteClicked = async () => {
     // eslint-disable-next-line no-restricted-globals
     if (confirm("Delete user !?") && currentUser.attributes["custom:access_all"]) {
-      const refreshToken = currentUser.getSignInUserSession().getAccessToken().getJwtToken();
+      const refreshToken = currentUser
+        .getSignInUserSession()
+        .getAccessToken()
+        .getJwtToken();
       await API.del("api", `/admin/user/${user.Username}`, { body: { refreshToken } });
       document.location.reload(true);
     }
@@ -216,12 +222,12 @@ const UserLine = ({ user }) => {
 };
 
 const Users = () => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
   const [users, setusers] = useState([]);
 
   const [isOpen, setIsOpen] = useState([false, false]);
 
-  const toggle = (part) => {
+  const toggle = part => {
     isOpen[part] = !isOpen[part];
     setIsOpen([...isOpen]);
   };
@@ -230,7 +236,10 @@ const Users = () => {
     async function run() {
       try {
         if (user.attributes["custom:access_all"]) {
-          const refreshToken = user.getSignInUserSession().getAccessToken().getJwtToken();
+          const refreshToken = user
+            .getSignInUserSession()
+            .getAccessToken()
+            .getJwtToken();
           const { users: response_users } = await API.get("api", `/admin/users`, {
             queryStringParameters: {
               refreshToken,
