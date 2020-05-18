@@ -31,7 +31,7 @@ const FILTERS = [
   "codePostal",
   "codeCommuneInsee",
   "ds_id_dossier",
-  "published",
+  "catalogue_published",
   "etablissement_responsable_uai",
   "etablissement_formateur_uai",
   "intitule_long",
@@ -45,6 +45,7 @@ const FILTERS = [
   "mef_8_codes",
   "parcoursup_reference",
   "parcoursup_a_charger",
+  "diplome",
 ];
 
 export default () => {
@@ -54,7 +55,11 @@ export default () => {
   useEffect(() => {
     async function run() {
       try {
-        const resp = await API.get("api", `/formations/count`);
+        const resp = await API.get("api", `/formations/count`, {
+          queryStringParameters: {
+            published: true,
+          },
+        });
         setCountFormations(resp.count);
       } catch (e) {
         console.log(e);
@@ -98,6 +103,16 @@ export default () => {
                 pagination={true}
                 showResultStats={true}
                 sortBy="asc"
+                defaultQuery={() => {
+                  return {
+                    _source: columnsDefinition.map(def => def.accessor),
+                    query: {
+                      match: {
+                        published: true,
+                      },
+                    },
+                  };
+                }}
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} debug={debug} />;
                 }}
@@ -111,9 +126,9 @@ export default () => {
                 react={{ and: FILTERS }}
               />
               <ToggleButton
-                componentId="published"
+                componentId="catalogue_published"
                 className="published-btn"
-                dataField="etablissement_reference_published"
+                dataField="etablissement_reference_catalogue_published"
                 data={[
                   { label: "Catalogue général", value: "true" },
                   { label: "Catalogue non-éligible", value: "false" },

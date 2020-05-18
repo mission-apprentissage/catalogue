@@ -8,6 +8,7 @@ const locationData = require("./updaters/locationData");
 const academieData = require("./updaters/academieData");
 const bcnData = require("./updaters/bcnData");
 const pSupData = require("./updaters/pSupData");
+const publishedData = require("./updaters/publishedData");
 
 const UPDATE_ALL = true;
 const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
@@ -85,6 +86,18 @@ const run = async () => {
           };
           updatedNeeded = true;
         }
+
+        const updatesPublishedData = await publishedData.getUpdates(updatedTraining);
+        if (updatesPublishedData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesPublishedData,
+          };
+          updatedNeeded = true;
+        }
+
+        delete updatedTraining.etablissement_responsable_siret_intitule;
+        delete updatedTraining.etablissement_formateur_siret_intitule;
 
         // Update training
         if (updatedNeeded) {

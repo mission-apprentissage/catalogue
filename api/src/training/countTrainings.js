@@ -6,11 +6,11 @@ export default async (event, context) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const query = event.queryStringParameters ? event.queryStringParameters.query : {};
+  const filter = event.queryStringParameters ? event.queryStringParameters : {};
 
   try {
     await connectToMongo();
-    const count = await Formation.countDocuments(query);
+    const count = await Formation.countDocuments(filter);
 
     return success({
       count,

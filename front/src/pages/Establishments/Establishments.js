@@ -20,7 +20,13 @@ const FILTERS = [
   "declarePrefecture",
   "infoDataDock",
   "numAcademie",
+  "nom_academie",
   "parcoursup_a_charger",
+  "formations_n3",
+  "formations_n4",
+  "formations_n5",
+  "formations_n6",
+  "formations_n7",
 ];
 
 export default () => {
@@ -44,6 +50,16 @@ export default () => {
                 size={8}
                 pagination={true}
                 showResultStats={true}
+                defaultQuery={() => {
+                  return {
+                    _source: columnsDefinition.map(def => def.accessor),
+                    query: {
+                      match: {
+                        published: true,
+                      },
+                    },
+                  };
+                }}
                 render={({ data, loading }) => {
                   return <SearchResult data={data} filters={FILTERS} loading={loading} />;
                 }}
