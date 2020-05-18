@@ -34,13 +34,12 @@ export default () => {
                 if (Array.isArray(val2)) val2 = val2.join(",");
 
                 if (val1 !== val2) {
-                  console.log(firstF[key], resp[key]);
                   attrDiffTmp.push(key);
                 }
               }
             }
           } else {
-            firstF = resp;
+            firstF = { ...resp };
           }
         }
         setAttrDiff(attrDiffTmp);
@@ -57,9 +56,7 @@ export default () => {
       <h1 className="mt-3">Liste des doublons</h1>
       <Container>
         <Row>
-          <Col xs="12">
-            <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />
-          </Col>
+          <Col xs="12">{duplicates.length > 0 && <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />}</Col>
         </Row>
       </Container>
     </div>

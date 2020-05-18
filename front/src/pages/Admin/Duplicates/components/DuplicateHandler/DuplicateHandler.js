@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -11,7 +11,7 @@ import {
   PopoverBody,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowCircleRight, faPen, faTimes, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
+import { faArrowCircleRight, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from "formik";
 import { API } from "aws-amplify";
 
@@ -87,11 +87,11 @@ const Cell = ({ item, id, column }) => {
   };
 
   return (
-    <td className={id.includes("_0") ? "fixedTd" : ""}>
+    <td>
       <div
         style={{
           width: `${edition ? column.width + (column.editorInput === "textarea" ? 150 : 100) : column.width}px`,
-          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 30}px`,
+          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 40}px`,
         }}
         className="cell-content"
       >
@@ -138,11 +138,31 @@ const Cell = ({ item, id, column }) => {
 };
 
 const DuplicateHandler = ({ duplicates, attrDiff }) => {
+  const [rS, setRS] = useState(0);
+  const [selectedTraining, setSelectedTraining] = useState(duplicates[0]);
+
+  // const handleChange = (e, i) => {
+  //   setRS(i);
+  //   setSelectedTraining(duplicates.find(d => d._id === e.target.value));
+  // };
+
+  const handleChange = useCallback(
+    (e, i) => {
+      setRS(i);
+      console.log(duplicates.find(d => d._id === e.target.value));
+      setSelectedTraining(duplicates.find(d => d._id === e.target.value));
+    },
+    [duplicates]
+  );
+
   return (
     <div className="duplicates-result">
       <table className="table table-hover">
         <thead>
           <tr className="result-table-head">
+            <th>
+              <div style={{ width: `200px` }}>-</div>
+            </th>
             {columnsDefinition.map((column, i) => {
               if (attrDiff.includes(column.accessor)) {
                 return (
@@ -163,12 +183,53 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
           {duplicates.map((obj, i) => {
             return (
               <tr key={obj._id}>
+                <td className="fixedTd">
+                  <div
+                    style={{
+                      width: `200px`,
+                      height: `40px`,
+                    }}
+                    className="cell-content"
+                  >
+                    {selectedTraining && (
+                      <>
+                        <Input
+                          type="radio"
+                          name="toKeep"
+                          value={obj._id}
+                          onChange={e => handleChange(e, i)}
+                          checked={rS === i}
+                        />
+                        Selectionner <br />
+                        source: {obj.source}
+                      </>
+                    )}
+                  </div>
+                </td>
                 {columnsDefinition.map((column, j) => {
                   return <Cell key={j} item={obj} id={`${i}_${j}`} column={column} />;
                 })}
               </tr>
             );
           })}
+          {selectedTraining && (
+            <tr className="selectedTraining">
+              <td className="fixedTd">
+                <div
+                  style={{
+                    width: `200px`,
+                    height: `40px`,
+                  }}
+                  className="cell-content"
+                >
+                  A garder
+                </div>
+              </td>
+              {columnsDefinition.map((column, j) => {
+                return <Cell key={j} item={selectedTraining} id={`${999999999}_${j}`} column={column} />;
+              })}
+            </tr>
+          )}
         </tbody>
       </table>
     </div>
