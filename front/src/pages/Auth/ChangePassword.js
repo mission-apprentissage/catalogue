@@ -9,7 +9,9 @@ import { changePassword } from "../../redux/Auth/actions";
 import "./changePassword.css";
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().email("Email non valide").required("requis"),
+  email: Yup.string()
+    .email("Email non valide")
+    .required("requis"),
   newpassword: Yup.string()
     .min(8, "min")
     .matches(/[a-z]/, "lowerCase")
@@ -21,7 +23,7 @@ const validationSchema = Yup.object().shape({
 
 const ChangePassword = () => {
   const dispatch = useDispatch();
-  const { user, router } = useSelector((state) => state);
+  const { user, router } = useSelector(state => state);
   const { query } = router.location;
 
   const [conditions, setConditions] = useState({
@@ -45,7 +47,7 @@ const ChangePassword = () => {
     },
   });
 
-  const onChange = async (e) => {
+  const onChange = async e => {
     handleChange(e);
     const val = e.target.value;
     const min = Yup.string().min(8, "min");

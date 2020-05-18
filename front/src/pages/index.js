@@ -10,7 +10,7 @@ import Profile from "./Auth/Profile";
 import ChangePassword from "./Auth/ChangePassword";
 import ForgotPassword from "./Auth/ForgotPassword";
 
-import Admin from "./Admin/Users";
+import { Users, Duplicates } from "./Admin";
 
 export {
   Landing,
@@ -23,5 +23,6 @@ export {
   Profile,
   ChangePassword,
   ForgotPassword,
-  Admin,
+  Users,
+  Duplicates,
 };

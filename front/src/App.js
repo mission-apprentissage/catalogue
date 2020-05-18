@@ -20,7 +20,8 @@ import {
   ForgotPassword,
   Stats,
   Journal,
-  Admin,
+  Users,
+  Duplicates,
 } from "./pages";
 
 import routes from "./routes.json";
@@ -60,7 +61,8 @@ const App = () => {
         <Route exact path={routes.ESTABLISHMENTS} component={Establishments} />
         <Route exact path={routes.SIGNIN} component={SignIn} />
         <RestrictedRoute exact path={routes.PROFILE} component={Profile} />
-        <RestrictedRoute exact path={routes.ADMIN} component={Admin} />
+        <RestrictedRoute exact path={routes.ADMIN_USERS} component={Users} />
+        <RestrictedRoute exact path={routes.ADMIN_DUPLICATE} component={Duplicates} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />
         <Route exact path={routes.FORGOTPASSWORD} component={ForgotPassword} />
         <Route exact path={routes.STATISTIQUES} component={Stats} />
