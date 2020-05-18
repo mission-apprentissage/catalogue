@@ -16,15 +16,15 @@ const HowToModif = () => {
             <br />
             <h5>
               Pour modifier un champ , il vous suffit de cliquer sur le crayon, d’effectuer la modification souhaitée et
-              de la valider ensuite. <br />
+              de la valider ensuite.
+              <br />
               <br />
               Seules les cellules avec un crayon sont modifiables.
             </h5>
-
             <br />
             <p>
               Les cellules ne pouvant pas être modifiées concernent des champs issus de tables et nomenclatures
-              officielles ( Api Entreprise, tables de la BCN, niveau de formation ….) Si toutefois vous constatez des
+              officielles ( Api Entreprise, tables de la BCN, niveau de formation ...) Si toutefois vous constatez des
               incohérences dans les données sur ces tables, merci de le signaler :
             </p>
             <ul>
@@ -33,7 +33,8 @@ const HowToModif = () => {
                 <a href="https://www.insee.fr/fr/information/1972062" target="_blank" rel="noreferrer noopener">
                   INSEE
                 </a>{" "}
-                pour les champs liés aux caractéristiques de l’établissement : raison sociale, SIRET, adresse postale, …
+                pour les champs liés aux caractéristiques de l’établissement : raison sociale, SIRET, adresse postale,
+                ...
               </li>
               <li>
                 À la{" "}
@@ -65,7 +66,7 @@ const HowToModif = () => {
             </p>
             <h5>Liste des champs modifiables et des champs en cascade</h5>
 
-            <strong>Sur l’onglet formation :</strong>
+            {/* <strong>Sur l’onglet formation :</strong>
             <ul>
               <li>Numéro d’académie,</li>
               <li>SIRET CFA-OFA,</li>
@@ -101,7 +102,7 @@ const HowToModif = () => {
               Du <strong>code commune insee</strong> on déduit numéro d’académie <br />
               <br />
               Du <strong>numéro d’académie</strong> on déduit le nom d’académie
-            </p>
+            </p> */}
           </Col>
         </Row>
         <Row>
