@@ -1,5 +1,11 @@
 [
   {
+    "Header": "Source",
+    "accessor": "source",
+    "width": 200,
+    "editable": false
+  },
+  {
     "Header": "Numéro académie",
     "accessor": "num_academie",
     "width": 200,
@@ -81,12 +87,6 @@
   {
     "Header": "Organisme certifié 2015 ? ",
     "accessor": "etablissement_reference_datadock",
-    "width": 200,
-    "editable": false
-  },
-  {
-    "Header": "Source",
-    "accessor": "source",
     "width": 200,
     "editable": false
   },

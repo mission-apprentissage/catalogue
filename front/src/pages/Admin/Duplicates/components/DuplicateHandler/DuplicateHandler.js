@@ -87,7 +87,7 @@ const Cell = ({ item, id, column }) => {
   };
 
   return (
-    <td>
+    <td className={id.includes("_0") ? "fixedTd" : ""}>
       <div
         style={{
           width: `${edition ? column.width + (column.editorInput === "textarea" ? 150 : 100) : column.width}px`,
@@ -137,13 +137,20 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
-const DuplicateHandler = ({ duplicates }) => {
+const DuplicateHandler = ({ duplicates, attrDiff }) => {
   return (
     <div className="duplicates-result">
       <table className="table table-hover">
         <thead>
           <tr className="result-table-head">
             {columnsDefinition.map((column, i) => {
+              if (attrDiff.includes(column.accessor)) {
+                return (
+                  <th key={i} className="diffTh">
+                    <div style={{ width: `${column.width}px` }}>{column.Header}</div>
+                  </th>
+                );
+              }
               return (
                 <th key={i}>
                   <div style={{ width: `${column.width}px` }}>{column.Header}</div>

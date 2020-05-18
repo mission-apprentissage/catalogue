@@ -13,16 +13,37 @@ export default () => {
   const { router } = useSelector(state => state);
   const { query } = router.location;
   const [duplicates, setDuplicates] = useState([]);
+  const [attrDiff, setAttrDiff] = useState([]);
 
   useEffect(() => {
     async function run() {
       try {
         const duplicateTmp = [];
+        const attrDiffTmp = [];
+        let firstF = null;
         for (let i = 0; i < duplicatesPages[query.page].length; i++) {
           const id = duplicatesPages[query.page][i];
           const resp = await API.get("api", `/formation/${id}`);
           duplicateTmp.push(resp);
+          if (firstF) {
+            for (const key in resp) {
+              if (resp.hasOwnProperty(key)) {
+                let val1 = firstF[key];
+                let val2 = resp[key];
+                if (Array.isArray(val1)) val1 = val1.join(",");
+                if (Array.isArray(val2)) val2 = val2.join(",");
+
+                if (val1 !== val2) {
+                  console.log(firstF[key], resp[key]);
+                  attrDiffTmp.push(key);
+                }
+              }
+            }
+          } else {
+            firstF = resp;
+          }
         }
+        setAttrDiff(attrDiffTmp);
         setDuplicates(duplicateTmp);
       } catch (e) {
         console.log(e);
@@ -37,7 +58,7 @@ export default () => {
       <Container>
         <Row>
           <Col xs="12">
-            <DuplicateHandler duplicates={duplicates} />
+            <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />
           </Col>
         </Row>
       </Container>

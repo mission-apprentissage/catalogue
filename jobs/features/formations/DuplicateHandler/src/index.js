@@ -28,6 +28,7 @@ const attrToCompare = [
   "niveau",
   "uai_formation", // mandatory
   "code_postal", // mandatory
+  "mef_10_code",
 ];
 // etablissement_formateur_uai
 // etablissement_responsable_uai
