@@ -1,11 +1,17 @@
-import React from "react";
-import { Container, Row, Col } from "reactstrap";
+import React, { useState } from "react";
+import { Container, Row, Col, Collapse, Button, CardBody, Card, CardHeader } from "reactstrap";
 
 //import routes from "../../routes.json";
 
 import "./howToReglement.css";
 
 const HowToReglement = () => {
+  const [isOpen, setIsOpen] = useState([false, false]);
+
+  const toggle = part => {
+    isOpen[part] = !isOpen[part];
+    setIsOpen([...isOpen]);
+  };
   return (
     <div className="page howToReglement">
       <Container className="mt-5">
@@ -32,149 +38,180 @@ const HowToReglement = () => {
             </span>
             <br />
             <br />
-            <ul>
-              <li className="mt-1">
-                <span className="underline">Doivent intégrer</span> la plateforme Parcoursup :
-                <ul>
-                  <li>
-                    toutes les formations en apprentissage du premier cycle d'enseignement supérieur, y compris celles
-                    non délivrées au nom de l’Etat pour les établissements publics, privés sous contrat ou labellisés «
-                    EESPIG»
+            <div className="accordion mb-4">
+              <Card>
+                <CardHeader className="card-header" onClick={() => toggle(0)}>
+                  <span className="underline">Doivent intégrer</span> la plateforme Parcoursup :
+                </CardHeader>
+                <Collapse isOpen={isOpen[0]}>
+                  <CardBody>
                     <ul>
-                      <li className="purple">Aucun traitement </li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG qui
-                    attestent d’une convention signée avec la région
-                    <ul>
-                      <li className="purple">Recherche UAI dans fichier DEPP 950</li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG qui
-                    sont déclarés en préfecture et qui attestent de leur qualité au sens du décret du 30 juin 2015
-                    émanant de l’organisme certificateur et référencé sur le site internet du CNEFOP
-                    <ul>
-                      <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
-                      <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage enregistrées au RNCP, ou tout titre ou diplôme délivré au nom
-                    de l’Etat, hors préparation au BTS, dès lors que l’établissement est habilité à délivrer le titre et
-                    que le titre est réalisé par voie d’apprentissage.
-                    <ul>
-                      <li className="purple">Recherche données de France Compétences</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li className="mt-1">
-                <span className="underline">Doivent intégrer</span> la plateforme Affelnet :
-                <ul>
-                  <li>
-                    toutes les formations en apprentissage pré-bac y compris celles non délivrées au nom de l’Etat pour
-                    les établissements publics, privés sous contrat
-                    <ul>
-                      <li className="purple">Aucun traitement </li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés hors contrat qui attestent
-                    d’une convention signée avec la région
-                    <ul>
-                      <li className="purple">Recherche UAI dans fichier DEPP 950</li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés hors contrat qui sont déclarés
-                    en préfecture et qui attestent de leur qualité au sens du décret du 30 juin 2015 émanant de
-                    l’organisme certificateur et référencé sur le site internet du CNEFOP
-                    <ul>
-                      <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
-                      <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
-                    </ul>
-                  </li>
-                  <li>
-                    toutes les formations en apprentissage enregistrées au RNCP, ou tout titre ou diplôme délivré au nom
-                    de l’Etat, dès lors que l’établissement est habilité à délivrer le titre et que le titre est réalisé
-                    par voie d’apprentissage.
-                    <ul>
-                      <li className="purple">Recherche données de France Compétences</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-
-              <li className="mt-4">
-                <span className="underline">Peuvent intégrer</span> la plateforme Parcoursup{" "}
-                <strong>sous réserve de vérifications/ validations de la part des référents en académie </strong>
-                <ul>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG qui
-                    sont déclarés en préfecture et qui sont “inconnus de Datadock” ou “non Datadockés” mais référencés
-                    par un certificateur désigné sur le site internet du CNEFOP
-                    <ul>
-                      <li className="purple">Recherche SIRET dans fichier DGEFP </li>
-                      <li className="purple">
-                        + Recherche via le Siret dans DATADOCK mention inconnu de DATADOCK ou pas datadocké
+                      <li>
+                        toutes les formations en apprentissage du premier cycle d'enseignement supérieur, y compris
+                        celles non délivrées au nom de l’Etat pour les établissements publics, privés sous contrat ou
+                        labellisés « EESPIG»
+                        <ul>
+                          <li className="purple">Aucun traitement </li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG
+                        qui attestent d’une convention signée avec la région
+                        <ul>
+                          <li className="purple">Recherche UAI dans fichier DEPP 950</li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG
+                        qui sont déclarés en préfecture et qui attestent de leur qualité au sens du décret du 30 juin
+                        2015 émanant de l’organisme certificateur et référencé sur le site internet du CNEFOP
+                        <ul>
+                          <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
+                          <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage enregistrées au RNCP, ou tout titre ou diplôme délivré au
+                        nom de l’Etat, hors préparation au BTS, dès lors que l’établissement est habilité à délivrer le
+                        titre et que le titre est réalisé par voie d’apprentissage.
+                        <ul>
+                          <li className="purple">Recherche données de France Compétences</li>
+                        </ul>
                       </li>
                     </ul>
-                  </li>
-                  <li>
-                    toutes les formations enregistrées au RNCP, dont les préparations au BTS, (y compris lorsqu’elles
-                    sont proposées par un établissement non reconnu spécifiquement par l’Etat à ce titre ) et pour
-                    lesquelles l'établissement est soit l’autorité responsable de la certification, soit partenaire de
-                    l’autorité certificatrice <strong>et</strong> que le titre est réalisé par voie d’apprentissage.
-                    <ul>
-                      <li className="purple">Recherche données de France Compétences</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+                  </CardBody>
+                </Collapse>
+              </Card>
 
-              <li className="mt-4">
-                <span className="underline">Peuvent intégrer</span> la plateforme Affelnet{" "}
-                <strong>sous réserve de vérifications/ validations de la part des référents en académie </strong>
-                <ul>
-                  <li>
-                    toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG qui
-                    sont déclarés en préfecture et qui sont “inconnus de Datadock” ou “non Datadockés” mais référencés
-                    par un certificateur désigné sur le site internet du CNEFOP
+              <Card>
+                <CardHeader className="card-header" onClick={() => toggle(1)}>
+                  <span className="underline">Doivent intégrer</span> la plateforme Affelnet :
+                </CardHeader>
+                <Collapse isOpen={isOpen[1]}>
+                  <CardBody>
                     <ul>
-                      <li className="purple">Recherche SIRET dans fichier DGEFP </li>
-                      <li className="purple">
-                        + Recherche via le Siret dans DATADOCK mention inconnu de DATADOCK ou pas datadocké
+                      <li>
+                        toutes les formations en apprentissage pré-bac y compris celles non délivrées au nom de l’Etat
+                        pour les établissements publics, privés sous contrat
+                        <ul>
+                          <li className="purple">Aucun traitement </li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés hors contrat qui attestent
+                        d’une convention signée avec la région
+                        <ul>
+                          <li className="purple">Recherche UAI dans fichier DEPP 950</li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés hors contrat qui sont
+                        déclarés en préfecture et qui attestent de leur qualité au sens du décret du 30 juin 2015
+                        émanant de l’organisme certificateur et référencé sur le site internet du CNEFOP
+                        <ul>
+                          <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
+                          <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations en apprentissage enregistrées au RNCP, ou tout titre ou diplôme délivré au
+                        nom de l’Etat, dès lors que l’établissement est habilité à délivrer le titre et que le titre est
+                        réalisé par voie d’apprentissage.
+                        <ul>
+                          <li className="purple">Recherche données de France Compétences</li>
+                        </ul>
                       </li>
                     </ul>
-                  </li>
-                  <li>
-                    toutes les formations enregistrées au RNCP, (y compris lorsqu’elles sont proposées par un
-                    établissement non reconnu spécifiquement par l’Etat à ce titre) et pour lesquelles l'établissement
-                    est soit l’autorité responsable de la certification, soit partenaire de l’autorité certificatrice{" "}
-                    <strong>et</strong>
-                    que le titre est réalisé par voie d’apprentissage.
-                    <ul>
-                      <li className="purple">Recherche données de France Compétences</li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
+                  </CardBody>
+                </Collapse>
+              </Card>
 
-              <li className="mt-4">
-                <span className="underline">Ne peuvent intégrer</span> les plateformes Parcoursup et Affelnet les
-                formations ne remplissant pas les conditions ci-dessus.
-                <ul>
-                  <li>
+              <Card>
+                <CardHeader className="card-header" onClick={() => toggle(2)}>
+                  <span className="underline">Peuvent intégrer</span> la plateforme Parcoursup{" "}
+                  <strong>sous réserve de vérifications/ validations de la part des référents en académie </strong>
+                </CardHeader>
+                <Collapse isOpen={isOpen[2]}>
+                  <CardBody>
                     <ul>
-                      <li className="purple">Traitement automatiques réalisés ci-dessus</li>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG
+                        qui sont déclarés en préfecture et qui sont “inconnus de Datadock” ou “non Datadockés” mais
+                        référencés par un certificateur désigné sur le site internet du CNEFOP
+                        <ul>
+                          <li className="purple">Recherche SIRET dans fichier DGEFP </li>
+                          <li className="purple">
+                            + Recherche via le Siret dans DATADOCK mention inconnu de DATADOCK ou pas datadocké
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations enregistrées au RNCP, dont les préparations au BTS, (y compris
+                        lorsqu’elles sont proposées par un établissement non reconnu spécifiquement par l’Etat à ce
+                        titre ) et pour lesquelles l'établissement est soit l’autorité responsable de la certification,
+                        soit partenaire de l’autorité certificatrice <strong>et</strong> que le titre est réalisé par
+                        voie d’apprentissage.
+                        <ul>
+                          <li className="purple">Recherche données de France Compétences</li>
+                        </ul>
+                      </li>
                     </ul>
-                  </li>
-                </ul>
-              </li>
-            </ul>
+                  </CardBody>
+                </Collapse>
+              </Card>
+
+              <Card>
+                <CardHeader className="card-header" onClick={() => toggle(3)}>
+                  <span className="underline">Peuvent intégrer</span> la plateforme Affelnet{" "}
+                  <strong>sous réserve de vérifications/ validations de la part des référents en académie </strong>
+                </CardHeader>
+                <Collapse isOpen={isOpen[3]}>
+                  <CardBody>
+                    <ul>
+                      <li>
+                        toutes les formations en apprentissage pour les établissements privés ni sous contrat ni EESPIG
+                        qui sont déclarés en préfecture et qui sont “inconnus de Datadock” ou “non Datadockés” mais
+                        référencés par un certificateur désigné sur le site internet du CNEFOP
+                        <ul>
+                          <li className="purple">Recherche SIRET dans fichier DGEFP </li>
+                          <li className="purple">
+                            + Recherche via le Siret dans DATADOCK mention inconnu de DATADOCK ou pas datadocké
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        toutes les formations enregistrées au RNCP, (y compris lorsqu’elles sont proposées par un
+                        établissement non reconnu spécifiquement par l’Etat à ce titre) et pour lesquelles
+                        l'établissement est soit l’autorité responsable de la certification, soit partenaire de
+                        l’autorité certificatrice <strong>et</strong>
+                        que le titre est réalisé par voie d’apprentissage.
+                        <ul>
+                          <li className="purple">Recherche données de France Compétences</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </CardBody>
+                </Collapse>
+              </Card>
+
+              <Card>
+                <CardHeader className="card-header" onClick={() => toggle(4)}>
+                  <span className="underline">Ne peuvent intégrer</span> les plateformes Parcoursup et Affelnet les
+                  formations ne remplissant pas les conditions ci-dessus.
+                </CardHeader>
+                <Collapse isOpen={isOpen[4]}>
+                  <CardBody>
+                    <ul>
+                      <li>
+                        <ul>
+                          <li className="purple">Traitement automatiques réalisés ci-dessus</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </CardBody>
+                </Collapse>
+              </Card>
+            </div>
 
             <h4>Ressources disponibles pour les vérifications préalables</h4>
             <p>
