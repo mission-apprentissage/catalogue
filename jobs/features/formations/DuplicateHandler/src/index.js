@@ -5,7 +5,7 @@ const logger = require("../../../../common-jobs/Logger").mainLogger;
 const { uniq, remove } = require("lodash");
 const fs = require("fs-extra");
 //const stringSimilarity = require("string-similarity");
-const { detailedDiff } = require("deep-object-diff");
+//const { detailedDiff } = require("deep-object-diff");
 const cluster = require("cluster");
 
 const { Formation } = require("../../../../common-jobs/models");

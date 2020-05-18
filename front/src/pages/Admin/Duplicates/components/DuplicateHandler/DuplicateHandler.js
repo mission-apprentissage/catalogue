@@ -91,7 +91,7 @@ const Cell = ({ item, id, column }) => {
       <div
         style={{
           width: `${edition ? column.width + (column.editorInput === "textarea" ? 150 : 100) : column.width}px`,
-          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 20}px`,
+          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 30}px`,
         }}
         className="cell-content"
       >
@@ -122,7 +122,6 @@ const Cell = ({ item, id, column }) => {
         ) : (
           <div className="cell-text">{getValueAsString()}</div>
         )}
-        {!edition && <FontAwesomeIcon className="invalid-value" icon={faExclamationCircle} size="xs" />}
         {hasRightToEdit && !isEditing && (
           <Button className="edit-btn input-group-text" type="submit" onClick={() => setIsEditing(!isEditing)}>
             <FontAwesomeIcon icon={faPen} size="xs" />
@@ -139,7 +138,6 @@ const Cell = ({ item, id, column }) => {
 };
 
 const DuplicateHandler = ({ duplicates }) => {
-  // duplicates
   return (
     <div className="duplicates-result">
       <table className="table table-hover">
@@ -155,18 +153,15 @@ const DuplicateHandler = ({ duplicates }) => {
           </tr>
         </thead>
         <tbody>
-          {/* {data.map((obj, i) => {
+          {duplicates.map((obj, i) => {
             return (
               <tr key={obj._id}>
                 {columnsDefinition.map((column, j) => {
-                  if (column.debug && !debug) {
-                    return null;
-                  }
                   return <Cell key={j} item={obj} id={`${i}_${j}`} column={column} />;
                 })}
               </tr>
             );
-          })} */}
+          })}
         </tbody>
       </table>
     </div>
