@@ -25,7 +25,7 @@
     "editable": false
   },
   {
-    "Header": "Siret_CFA_OFA",
+    "Header": "Siret Responsable",
     "accessor": "etablissement_responsable_siret",
     "width": 200,
     "editorInput": "text"
@@ -37,8 +37,8 @@
     "editorInput": "text"
   },
   {
-    "Header": "Intitulé SIRET CFA-OFA",
-    "accessor": "etablissement_responsable_siret_intitule",
+    "Header": "Enseigne Responsable",
+    "accessor": "etablissement_responsable_enseigne",
     "width": 200,
     "editable": false
   },
@@ -55,8 +55,8 @@
     "editorInput": "text"
   },
   {
-    "Header": "Intitulé Siret formateur",
-    "accessor": "etablissement_formateur_siret_intitule",
+    "Header": "Eseigne Formateur",
+    "accessor": "etablissement_formateur_enseigne",
     "width": 200,
     "editable": false
   },
@@ -94,7 +94,6 @@
     "Header": "Diplome",
     "accessor": "diplome",
     "width": 200,
-    "editorInput": "textarea",
     "editable": false,
     "editableEmpty": true
   },

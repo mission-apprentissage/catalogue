@@ -48,7 +48,8 @@ class EtablissementChecker {
           if (
             some(
               jsonData,
-              item => `${item.siren}${item.numEtablissment.trim()}` === `${establishment.siret_siege_social}`.trim()
+              item =>
+                `${item.siren}${item.numEtablissment.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
             )
           ) {
             return infosCodes.infoDGEFP.SiretSiegeSocialMatch;
@@ -69,7 +70,7 @@ class EtablissementChecker {
         return (
           `${item.siren}`.trim() === `${establishment.siren}`.trim() ||
           `${item.siret.trim()}` === `${establishment.siret}`.trim() ||
-          `${item.siret_siege_social.trim()}` === `${establishment.siret_siege_social}`.trim()
+          `${item.siret_siege_social.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
         );
       });
       if (!result) return infosCodes.infoDATADOCK.NotFound;

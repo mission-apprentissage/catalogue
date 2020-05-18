@@ -40,6 +40,15 @@ const Filter = React.memo(props => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      defaultQuery={() => {
+        return {
+          query: {
+            match: {
+              published: true,
+            },
+          },
+        };
+      }}
       {...props}
     />
   );
@@ -322,8 +331,34 @@ const SearchResult = ({ data, filters, loading }) => {
                       sortBy="asc"
                     />
                   )}
+                  {column.accessor === "nom_academie" && (
+                    <Filter
+                      componentId="nom_academie"
+                      dataField="nom_academie.keyword"
+                      filterLabel="nom_academie"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n3" && (
+                    <BooleanFilter dataField="formations_n3" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n4" && (
+                    <BooleanFilter dataField="formations_n4" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n5" && (
+                    <BooleanFilter dataField="formations_n5" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n6" && (
+                    <BooleanFilter dataField="formations_n6" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n7" && (
+                    <BooleanFilter dataField="formations_n7" filters={filters} sortBy="count" />
                   )}
                 </th>
               );

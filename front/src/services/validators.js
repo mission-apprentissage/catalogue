@@ -52,28 +52,28 @@ export const validateCell = (accessor, value) => {
   }
 };
 
-export const isValidSiret = (siret) => {
+export const isValidSiret = siret => {
   return /^[0-9]{14}$/g.test(siret) || siret === "";
 };
 
-export const isValidSiren = (siren) => {
+export const isValidSiren = siren => {
   return /^[0-9]{9}$/g.test(siren) || siren === "";
 };
 
-export const isValidCodeEducNat = (codeEducNat) => {
+export const isValidCodeEducNat = codeEducNat => {
   if (/^[0-9A-Z]{8}$/g.test(codeEducNat)) {
     return /^(?!RNCP.*$).*/g.test(codeEducNat);
   }
   return false;
 };
 
-export const isValidNiveau = (niveau) => {
+export const isValidNiveau = niveau => {
   return /(3 \(CAP...\)|4 \(Bac...\)|5 \(BTS, DUT...\)|6 \(Licence...\)|7 \(Master, titre ingénieur...\))/g.test(
     niveau
   );
 };
 
-export const isValidPeriode = (periode) => {
+export const isValidPeriode = periode => {
   // try {
   //   const test = eval(periode);
   //   return Array.isArray(test);
@@ -83,19 +83,19 @@ export const isValidPeriode = (periode) => {
   return true;
 };
 
-export const isValidCapacite = (capacite) => {
+export const isValidCapacite = capacite => {
   return !isNaN(capacite) || capacite === "";
 };
 
-export const isValidDuree = (duree) => {
+export const isValidDuree = duree => {
   return /^[0-9]{1}$/g.test(duree) || duree === "";
 };
 
-export const isValidAnnee = (annee) => {
+export const isValidAnnee = annee => {
   return /^[0-9]{1}$/g.test(annee) || annee === "";
 };
 
-export const isValidEmail = (email) => {
+export const isValidEmail = email => {
   return (
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/g.test(
       email
@@ -103,56 +103,56 @@ export const isValidEmail = (email) => {
   );
 };
 
-export const isValidUAI = (uai) => {
+export const isValidUAI = uai => {
   return /^[0-9]{7}[a-zA-Z]{1}$/g.test(uai);
 };
 
-export const isValidCodePostal = (codePostal) => {
+export const isValidCodePostal = codePostal => {
   return /^[0-9]{5}$/g.test(codePostal);
 };
 
-export const isValidCodeCommuneInsee = (codeCommuneInsee) => {
+export const isValidCodeCommuneInsee = codeCommuneInsee => {
   return /^[0-9]{5}$/g.test(codeCommuneInsee);
 };
 
-export const isValidNumAcademie = (numAcademie) => {
+export const isValidNumAcademie = numAcademie => {
   //console.log("isValidAc ", numAcademie, !isNaN(numAcademie), parseInt(numAcademie) < 50);
   return !isNaN(numAcademie) && parseInt(numAcademie) < 50;
 };
 
-export const isValidNumDepartement = (numDepartement) => {
+export const isValidNumDepartement = numDepartement => {
   return !isNaN(numDepartement);
 };
 
 /* les fonctions de validations ci-dessous ne sont pas faits */
-export const isValidNomAcademie = (value) => {
+export const isValidNomAcademie = value => {
   return true;
 };
-export const isValidDatadock = (value) => {
+export const isValidDatadock = value => {
   return true;
 };
-export const isValidConventionne = (value) => {
+export const isValidConventionne = value => {
   return true;
 };
-export const isValidCapital = (value) => {
+export const isValidCapital = value => {
   return true;
 };
-export const isValidDateCreation = (value) => {
+export const isValidDateCreation = value => {
   return true;
 };
-export const isValidTva = (value) => {
+export const isValidTva = value => {
   return true;
 };
-export const isValidNafCode = (value) => {
+export const isValidNafCode = value => {
   return true;
 };
-export const isValidDiplome = (value) => {
+export const isValidDiplome = value => {
   return value !== "";
 };
-export const isValidIntitule = (value) => {
+export const isValidIntitule = value => {
   return value !== "";
 };
-export const isValidDummy = (value) => {
+export const isValidDummy = value => {
   return true;
 };
 
@@ -181,8 +181,8 @@ const fieldValidators = {
 
   nom_academie: isValidNomAcademie,
   ds_id_dossier: isValidDummy,
-  etablissement_responsable_siret_intitule: isValidDummy,
-  etablissement_formateur_siret_intitule: isValidDummy,
+  etablissement_responsable_enseigne: isValidDummy,
+  etablissement_formateur_enseigne: isValidDummy,
   etablissement_reference_type: isValidDummy,
   etablissement_reference_conventionne: isValidDummy,
   etablissement_reference_declare_prefecture: isValidDummy,
