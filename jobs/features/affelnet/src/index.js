@@ -12,7 +12,8 @@ const run = async () => {
   try {
     logger.info(" -- Start of Psup updater -- ");
     await connectToMongo();
-
+    // WIP --- do not run yet
+    exit;
     const trainings = await Formation.find({ parcoursup_reference: "NON" }).and([
       { educ_nat_code: { $ne: null } },
       { educ_nat_code: { $ne: "" } },

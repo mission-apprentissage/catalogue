@@ -340,6 +340,16 @@ const trainingSchema = {
     default: false,
     description: "La formation doit être ajouter à ParcourSup",
   },
+  affelnet_reference: {
+    type: String,
+    default: "NON",
+    description: "La formation est présent sur affelnet",
+  },
+  affelnet_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à affelnet",
+  },
   info_bcn_code_en: {
     type: Number,
     default: 0,
