@@ -9,7 +9,7 @@ const fileManager = require("./FileManager");
 class AffelnetChecker {
   constructor() {
     this.baseFormation = fileManager.getDataAffelnetFromFile(PATH_FORMATION_APPRENTISSAGE_AFFELNET);
-    this.baseFormation = filter(this.baseFormation, f => f.CODEMEF !== "");
+    this.baseFormation = filter(this.baseFormation, f => f.CODE_FORMATION_ACCUEIL_BAN.trim() !== "AFFECTATION");
   }
 
   findFormation(mef_10_code, mef_8_code, uais, code_commune_insee, code_postal) {
