@@ -12,7 +12,7 @@ execute(() => {
   const codesDiplomesStream = fs.createReadStream(codeDiplomesFile, { encoding: "UTF-8" });
   const fileInputStream = rncpFichesFile
     ? fs.createReadStream(rncpFichesFile, { encoding: "UTF-8" })
-    : getS3ObjectAsStream("mna-services/features/rncp/export_fiches_RNCP_2020-05-19.xml");
+    : getS3ObjectAsStream("mna-services/features/rncp/export_fiches_RNCP_2020-04-30.xml");
 
   return importRNCP(fileInputStream, codesDiplomesStream);
 });
