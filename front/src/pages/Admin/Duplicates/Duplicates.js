@@ -57,7 +57,7 @@ export default () => {
       <Container>
         <Row>
           <Col xs="12">
-            <h6>Indications {JSON.stringify(attrDiff)}</h6>
+            <h6>Indications des champs différents {JSON.stringify(attrDiff)}</h6>
           </Col>
           <Col xs="12">{duplicates.length > 0 && <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />}</Col>
         </Row>

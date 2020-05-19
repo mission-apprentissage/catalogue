@@ -247,6 +247,12 @@
     "editable": false
   },
   {
+    "Header": "-",
+    "accessor": "_id",
+    "width": 2,
+    "editable": false
+  },
+  {
     "Header": "Contact",
     "accessor": "email",
     "width": 200,
