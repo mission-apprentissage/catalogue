@@ -2,7 +2,7 @@ const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 const { infosCodes } = require("./Constants");
 const affelnetChecker = require("./affelnetChecker");
 
-class BcnData {
+class AffelnetData {
   constructor() {
     this.countAffelnet = { uniq: 0, multiple: 0, notFound: 0 };
   }
@@ -12,9 +12,9 @@ class BcnData {
       ...training,
     };
 
-    const pSupUpdated = this.findAndUpdates(updatedTraining, count);
+    const affelnetUpdated = this.findAndUpdates(updatedTraining, count);
 
-    if (!pSupUpdated) {
+    if (!affelnetUpdated) {
       return null;
     }
 
@@ -37,9 +37,7 @@ class BcnData {
       return false;
     }
 
-    // TODO no Updates detection
-
-    const { info: infoPSup } = affelnetChecker.findFormation(
+    const { info: infoAffelnet } = affelnetChecker.findFormation(
       mef_10_code,
       mef_8_code,
       [etablissement_formateur_uai, etablissement_responsable_uai, uai_formation],
@@ -47,17 +45,17 @@ class BcnData {
       code_postal
     );
 
-    if (infoPSup === infosCodes.affelnet.Found) {
+    if (infoAffelnet === infosCodes.affelnet.Found) {
       if (count) this.countAffelnet.uniq++;
-      training.affelnet_reference = "OUI";
-    } else if (infoPSup === infosCodes.affelnet.FoundMultiple) {
+      //training.affelnet_reference = "OUI";
+    } else if (infoAffelnet === infosCodes.affelnet.FoundMultiple) {
       if (count) this.countAffelnet.multiple++; // Goal to be 0
-    } else if (infoPSup === infosCodes.affelnet.NotFound) {
+    } else if (infoAffelnet === infosCodes.affelnet.NotFound) {
       if (count) this.countAffelnet.notFound++;
-      training.affelnet_reference = "NON";
+      //training.affelnet_reference = "NON";
     }
 
-    return true;
+    return false;
   }
 
   stats() {
@@ -70,5 +68,5 @@ class BcnData {
   }
 }
 
-const bcnData = new BcnData();
-module.exports = bcnData;
+const affelnetData = new AffelnetData();
+module.exports = affelnetData;

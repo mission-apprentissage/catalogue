@@ -8,6 +8,7 @@ const locationData = require("./updaters/locationData");
 const academieData = require("./updaters/academieData");
 const bcnData = require("./updaters/bcnData");
 const pSupData = require("./updaters/pSupData");
+const affelnetData = require("./updaters/affelnetData");
 const publishedData = require("./updaters/publishedData");
 
 const UPDATE_ALL = true;
@@ -87,6 +88,16 @@ const run = async () => {
           updatedNeeded = true;
         }
 
+        // Update Affelnet
+        const updatesAffelnetData = await affelnetData.getUpdates(updatedTraining);
+        if (updatesAffelnetData) {
+          updatedTraining = {
+            ...updatedTraining,
+            ...updatesAffelnetData,
+          };
+          updatedNeeded = true;
+        }
+
         const updatesPublishedData = await publishedData.getUpdates(updatedTraining);
         if (updatesPublishedData) {
           updatedTraining = {
@@ -124,6 +135,7 @@ const run = async () => {
     codeEnData.stats();
     bcnData.stats();
     pSupData.stats();
+    affelnetData.stats();
 
     logger.info(" -- End of Trainings updater -- ");
   } catch (err) {
