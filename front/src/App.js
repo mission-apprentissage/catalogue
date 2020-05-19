@@ -20,6 +20,8 @@ import {
   ForgotPassword,
   Stats,
   Journal,
+  HowToModif,
+  HowToReglement,
   Users,
   Duplicates,
 } from "./pages";
@@ -61,6 +63,8 @@ const App = () => {
         <Route exact path={routes.ESTABLISHMENTS} component={Establishments} />
         <Route exact path={routes.SIGNIN} component={SignIn} />
         <RestrictedRoute exact path={routes.PROFILE} component={Profile} />
+        <RestrictedRoute exact path={routes.HOWTO_MODIF} component={HowToModif} />
+        <RestrictedRoute exact path={routes.HOWTO_REGLEMENT} component={HowToReglement} />
         <RestrictedRoute exact path={routes.ADMIN_USERS} component={Users} />
         <RestrictedRoute exact path={routes.ADMIN_DUPLICATE} component={Duplicates} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />
