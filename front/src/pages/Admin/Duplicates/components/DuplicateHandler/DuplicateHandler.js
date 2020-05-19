@@ -138,16 +138,24 @@ const SelectedTraining = ({ training, onValidation, handleDeleteChange, doNotDel
           height: `100px`,
         }}
       >
-        <div className="cell-content padding">
+        <div
+          className="cell-content padding mb-2"
+          style={{
+            flexDirection: `row`,
+          }}
+        >
           <Input
+            style={{
+              position: `relative`,
+              marginRight: "5px",
+            }}
             type="checkbox"
             name="delete"
             value={"new"}
             onChange={e => handleDeleteChange(e, "new")}
             checked={!doNotDeleteTrainings["new"]}
           />
-          Ne pas créer <br />
-          <br />
+          <span>Ne pas créer </span>
         </div>
         <Button color="success" onClick={() => onValidation(selectedTraining)}>
           Valider
