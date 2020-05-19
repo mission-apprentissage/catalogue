@@ -51,9 +51,44 @@ export default () => {
     run();
   }, [query]);
 
-  const onSubmit = (training, doNotDeleteTrainings) => {
-    // DO STUFF API
-    console.log(training, doNotDeleteTrainings);
+  const onSubmit = async (training, doNotDeleteTrainings) => {
+    if (doNotDeleteTrainings.new) {
+      let body = {
+        ...training,
+      };
+      delete body._id;
+      const resp = await API.post("api", `/formation`, {
+        body,
+      });
+      console.log("new ", resp._id);
+    }
+    const toDelete = [];
+    for (let i = 0; i < duplicates.length; i++) {
+      const duplicate = duplicates[i];
+      if (!doNotDeleteTrainings[duplicate._id]) {
+        toDelete.push(duplicate._id);
+        console.log("delete ", duplicate._id);
+      }
+    }
+    console.log(doNotDeleteTrainings);
+    if (!doNotDeleteTrainings.new && toDelete.length === duplicates.length) {
+      console.log("here");
+      // eslint-disable-next-line no-restricted-globals
+      const go = confirm(
+        "Vous etes sur le point de supprimer des formations sans créer en de nouvelle, etes vous certain ?"
+      );
+      if (go) {
+        for (let i = 0; i < toDelete.length; i++) {
+          const id = toDelete[i];
+          await API.del("api", `/formation/${id}`);
+        }
+      }
+    } else {
+      for (let i = 0; i < toDelete.length; i++) {
+        const id = toDelete[i];
+        await API.del("api", `/formation/${id}`);
+      }
+    }
   };
 
   return (
@@ -70,6 +105,13 @@ export default () => {
             )}
           </Col>
           <Col xs="12" className="mt-4">
+            <Button
+              className="mr-2"
+              color="primary"
+              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
+            >
+              Retour à la page {parseInt(query.page) - 1}
+            </Button>
             <Button
               color="primary"
               onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}

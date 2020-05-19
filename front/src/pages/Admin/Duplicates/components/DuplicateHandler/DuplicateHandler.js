@@ -113,7 +113,6 @@ const Cell = ({ item, id, column, edit, onChange }) => {
 
 const SelectedTraining = ({ training, onValidation, handleDeleteChange, doNotDeleteTrainings }) => {
   const [selectedTraining, setSelectedTraining] = useState(training);
-
   useEffect(() => {
     async function run() {
       try {
