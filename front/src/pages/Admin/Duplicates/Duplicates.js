@@ -34,7 +34,7 @@ export default () => {
                 if (Array.isArray(val2)) val2 = val2.join(",");
 
                 if (val1 !== val2) {
-                  attrDiffTmp.push(key);
+                  if (attrDiffTmp.indexOf(key) === -1) attrDiffTmp.push(key);
                 }
               }
             }
@@ -42,6 +42,7 @@ export default () => {
             firstF = { ...resp };
           }
         }
+        console.log(attrDiffTmp);
         setAttrDiff(attrDiffTmp);
         setDuplicates(duplicateTmp);
       } catch (e) {
