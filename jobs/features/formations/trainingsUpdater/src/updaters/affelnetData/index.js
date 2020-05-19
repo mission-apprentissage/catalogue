@@ -4,7 +4,8 @@ const affelnetChecker = require("./affelnetChecker");
 
 class AffelnetData {
   constructor() {
-    this.countAffelnet = { uniq: 0, multiple: 0, notFound: 0 };
+    this.countAffelnet = { uniq: 0, multiple: 0, notFound: 0, perfect: 0, super: 0 };
+    this.countMef = 0;
   }
 
   async getUpdates(training, count = true) {
@@ -31,21 +32,34 @@ class AffelnetData {
       uai_formation,
       code_commune_insee,
       code_postal,
+      intitule_court,
+      nom_academie,
     } = training;
 
-    if (!mef_10_code && !mef_8_code && mef_8_codes.length === 0) {
-      return false;
-    }
+    // if (!mef_10_code) {
+    //   // && !mef_8_code && mef_8_codes.length === 0
+    //   return false;
+    // }
+
+    //this.countMef++;
 
     const { info: infoAffelnet } = affelnetChecker.findFormation(
       mef_10_code,
       mef_8_code,
       [etablissement_formateur_uai, etablissement_responsable_uai, uai_formation],
       code_commune_insee,
-      code_postal
+      code_postal,
+      intitule_court,
+      nom_academie
     );
 
-    if (infoAffelnet === infosCodes.affelnet.Found) {
+    if (infoAffelnet === infosCodes.affelnet.FoundPerfect) {
+      if (count) this.countAffelnet.perfect++;
+      //training.affelnet_reference = "OUI";
+    } else if (infoAffelnet === infosCodes.affelnet.FoundSuper) {
+      if (count) this.countAffelnet.super++;
+      //training.affelnet_reference = "OUI";
+    } else if (infoAffelnet === infosCodes.affelnet.Found) {
       if (count) this.countAffelnet.uniq++;
       //training.affelnet_reference = "OUI";
     } else if (infoAffelnet === infosCodes.affelnet.FoundMultiple) {
@@ -62,7 +76,13 @@ class AffelnetData {
     if (affelnetChecker.baseFormation) {
       logger.info(`${affelnetChecker.baseFormation.length} formations affelnet fournies`);
     }
-    logger.info(`${this.countAffelnet.uniq} affelnet trouvés Unique`);
+    //logger.info(`${this.countMef} ont des codes mefs`);
+    logger.info(
+      `${this.countAffelnet.perfect + this.countAffelnet.super + this.countAffelnet.uniq} affelnet trouvés unique`
+    );
+    logger.info(`${this.countAffelnet.perfect} affelnet trouvés très bon`);
+    logger.info(`${this.countAffelnet.super} affelnet trouvés bon`);
+    logger.info(`${this.countAffelnet.uniq} affelnet trouvés `);
     logger.info(`${this.countAffelnet.multiple} affelnet trouvés multiple`);
     logger.info(`${this.countAffelnet.notFound} affelnet non trouvés`);
   }

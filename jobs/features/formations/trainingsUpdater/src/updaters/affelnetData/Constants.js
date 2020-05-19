@@ -11,11 +11,13 @@ const infosCodes = {
     NothingDoTo: 3,
     Updated: 4,
     FoundMultiple: 5,
+    FoundSuper: 6,
+    FoundPerfect: 7,
   },
 };
 
 const computeCodes = {
-  affelnet: ["Erreur", "Non trouvé", "Trouvé", "Ok", "Mis à jour", "Multiple"],
+  affelnet: ["Erreur", "Non trouvé", "Trouvé", "Ok", "Mis à jour", "Multiple", "Trouvé bon", "Trouvé très bon"],
 };
 
 module.exports = {
