@@ -52,44 +52,47 @@ export default () => {
   }, [query]);
 
   const onSubmit = async (training, doNotDeleteTrainings) => {
-    if (doNotDeleteTrainings.new) {
-      let body = {
-        ...training,
-      };
-      delete body._id;
-      const resp = await API.post("api", `/formation`, {
-        body,
-      });
-      console.log("new ", resp._id);
-    }
-    const toDelete = [];
-    for (let i = 0; i < duplicates.length; i++) {
-      const duplicate = duplicates[i];
-      if (!doNotDeleteTrainings[duplicate._id]) {
-        toDelete.push(duplicate._id);
-        console.log("delete ", duplicate._id);
+    // eslint-disable-next-line no-restricted-globals
+    const go = confirm("Vous etes de vous ?");
+    if (go) {
+      if (doNotDeleteTrainings.new) {
+        let body = {
+          ...training,
+        };
+        delete body._id;
+        const resp = await API.post("api", `/formation`, {
+          body,
+        });
+        console.log("new ", resp._id);
       }
-    }
+      const toDelete = [];
+      for (let i = 0; i < duplicates.length; i++) {
+        const duplicate = duplicates[i];
+        if (!doNotDeleteTrainings[duplicate._id]) {
+          toDelete.push(duplicate._id);
+          console.log("delete ", duplicate._id);
+        }
+      }
 
-    if (!doNotDeleteTrainings.new && toDelete.length === duplicates.length) {
-      console.log("here");
-      // eslint-disable-next-line no-restricted-globals
-      const go = confirm(
-        "Vous etes sur le point de supprimer des formations sans créer en de nouvelle, etes vous certain ?"
-      );
-      if (go) {
+      if (!doNotDeleteTrainings.new && toDelete.length === duplicates.length) {
+        // eslint-disable-next-line no-restricted-globals
+        const sure = confirm(
+          "Vous etes sur le point de supprimer des formations sans créer en de nouvelle, etes vous certain ?"
+        );
+        if (sure) {
+          for (let i = 0; i < toDelete.length; i++) {
+            const id = toDelete[i];
+            await API.del("api", `/formation/${id}`);
+          }
+        }
+      } else {
         for (let i = 0; i < toDelete.length; i++) {
           const id = toDelete[i];
           await API.del("api", `/formation/${id}`);
         }
       }
-    } else {
-      for (let i = 0; i < toDelete.length; i++) {
-        const id = toDelete[i];
-        await API.del("api", `/formation/${id}`);
-      }
+      window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`;
     }
-    window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`;
   };
 
   return (
@@ -115,12 +118,15 @@ export default () => {
                 Retour à la page {parseInt(query.page) - 1}
               </Button>
             )}
+            <span style={{ fontSize: "18px", marginRight: "5px" }}>
+              {query.page} / {duplicatesPages.length - 1}
+            </span>
             {query.page < duplicatesPages.length - 1 && (
               <Button
                 color="primary"
                 onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
               >
-                Aller à la page {parseInt(query.page) + 1} / {duplicatesPages.length - 1}
+                Aller à la page {parseInt(query.page) + 1}
               </Button>
             )}
           </Col>
