@@ -70,7 +70,7 @@ export default () => {
         console.log("delete ", duplicate._id);
       }
     }
-    console.log(doNotDeleteTrainings);
+
     if (!doNotDeleteTrainings.new && toDelete.length === duplicates.length) {
       console.log("here");
       // eslint-disable-next-line no-restricted-globals
@@ -89,6 +89,7 @@ export default () => {
         await API.del("api", `/formation/${id}`);
       }
     }
+    window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`;
   };
 
   return (
