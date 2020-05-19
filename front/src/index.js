@@ -11,6 +11,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "video-react/dist/video-react.css";
 
 const store = configureStore();
 

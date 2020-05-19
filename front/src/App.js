@@ -21,6 +21,8 @@ import {
   Stats,
   Journal,
   Admin,
+  HowToModif,
+  HowToReglement,
 } from "./pages";
 
 import routes from "./routes.json";
@@ -61,6 +63,8 @@ const App = () => {
         <Route exact path={routes.SIGNIN} component={SignIn} />
         <RestrictedRoute exact path={routes.PROFILE} component={Profile} />
         <RestrictedRoute exact path={routes.ADMIN} component={Admin} />
+        <RestrictedRoute exact path={routes.HOWTO_MODIF} component={HowToModif} />
+        <RestrictedRoute exact path={routes.HOWTO_REGLEMENT} component={HowToReglement} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />
         <Route exact path={routes.FORGOTPASSWORD} component={ForgotPassword} />
         <Route exact path={routes.STATISTIQUES} component={Stats} />
