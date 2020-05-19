@@ -19,40 +19,20 @@ import columnsDefinition from "./columnsDefinition.json";
 
 import "./duplicateHandler.css";
 
-const EditionCell = ({ initValue, id, fieldName, fieldType, onClose, onSubmit }) => {
-  const { values, handleSubmit, handleChange } = useFormik({
-    initialValues: {
-      content: initValue,
-    },
-    enableReinitialize: true,
-    onSubmit: ({ content }, { setSubmitting }) => {
-      return new Promise(async (resolve, reject) => {
-        let body = {};
-        body[fieldName] = content;
-        const result = await API.put("api", `/formation/${id}`, { body });
-        console.log(result);
-        setSubmitting(false);
-        onSubmit(content);
-        resolve("onSubmitHandler complete");
-      });
-    },
-  });
+const EditionCell = ({ initValue, id, fieldName, fieldType, onChange }) => {
+  const [value, setValue] = useState(initValue);
+
+  const onChangeHandler = e => {
+    setValue(e.target.value);
+    onChange(e.target.value);
+  };
+
   return (
-    <Form onSubmit={handleSubmit}>
-      <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-        <InputGroup>
-          <Input type={fieldType} name="content" onChange={handleChange} value={values.content} />
-          {/* <InputGroupAddon addonType="prepend">
-            <Button type="submit" color="success">
-              <FontAwesomeIcon icon={faArrowCircleRight} />
-            </Button>
-            <Button type="submit" color="danger" onClick={onClose}>
-              <FontAwesomeIcon icon={faTimes} />
-            </Button>
-          </InputGroupAddon> */}
-        </InputGroup>
-      </FormGroup>
-    </Form>
+    <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+      <InputGroup>
+        <Input type={fieldType} name="content" onChange={onChangeHandler} value={value} />
+      </InputGroup>
+    </FormGroup>
   );
 };
 
@@ -61,7 +41,7 @@ const checkIfHasRightToEdit = (item, column, value, edit = false) => {
   return hasRightToEdit && (column.editable || (column.editableEmpty && value === "") || column.editableInvalid);
 };
 
-const Cell = ({ item, id, column, edit }) => {
+const Cell = ({ item, id, column, edit, onChange }) => {
   const [isEditing, setIsEditing] = useState(edit);
   const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
 
@@ -99,7 +79,7 @@ const Cell = ({ item, id, column, edit }) => {
       <div
         style={{
           width: `${edition ? column.width + (column.editorInput === "textarea" ? 150 : 100) : column.width}px`,
-          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 40}px`,
+          height: `${edition ? (column.editorInput === "textarea" ? 100 : 40) : 60}px`,
         }}
         className="cell-content"
       >
@@ -109,11 +89,9 @@ const Cell = ({ item, id, column, edit }) => {
             id={item._id}
             fieldName={column.accessor}
             fieldType={column.editorInput}
-            onSubmit={val => {
-              setValue(val);
-              setIsEditing(!isEditing);
+            onChange={val => {
+              onChange(column.accessor, val);
             }}
-            onClose={() => setIsEditing(!isEditing)}
           />
         ) : value.length > 20 ? (
           <Button
@@ -145,30 +123,58 @@ const Cell = ({ item, id, column, edit }) => {
   );
 };
 
-const SelectedTraining = ({ training }) => {
+const SelectedTraining = ({ training, onValidation }) => {
+  const [selectedTraining, setSelectedTraining] = useState(training);
+
+  useEffect(() => {
+    async function run() {
+      try {
+        setSelectedTraining(training);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    run();
+  }, [training]);
+
+  const onChangeHandler = (attr, val) => {
+    setSelectedTraining({ ...training, [attr]: val });
+  };
+
   return (
     <tr className="selectedTraining">
-      <td className="">
-        <div
-          style={{
-            width: `200px`,
-            height: `100px`,
-          }}
-          className="cell-content"
-        >
-          A garder
-        </div>
+      <td
+        className="td-validation"
+        style={{
+          width: `200px`,
+          height: `100px`,
+        }}
+      >
+        <div className="cell-content">Garder</div>
+        <Button color="success" onClick={() => onValidation(selectedTraining)}>
+          Valider
+        </Button>
       </td>
       {columnsDefinition.map((column, j) => {
-        return <Cell key={j} item={training} id={`${999999999}_${j}`} column={column} edit={true} />;
+        return (
+          <Cell
+            key={j}
+            item={selectedTraining}
+            id={`${999999999}_${j}`}
+            column={column}
+            edit={true}
+            onChange={onChangeHandler}
+          />
+        );
       })}
     </tr>
   );
 };
 
-const DuplicateHandler = ({ duplicates, attrDiff }) => {
+const DuplicateHandler = ({ duplicates, attrDiff, onSubmit }) => {
   const [rS, setRS] = useState(0);
   const [selectedTraining, setSelectedTraining] = useState(duplicates[0]);
+  const [doNotDeleteTrainings, setDoNotDeleteTrainings] = useState({});
 
   const handleChange = useCallback(
     (e, i) => {
@@ -177,6 +183,17 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
     },
     [duplicates]
   );
+
+  const handleDeleteChange = useCallback(
+    (e, i) => {
+      setDoNotDeleteTrainings({ ...doNotDeleteTrainings, [e.target.value]: !e.target.checked });
+    },
+    [doNotDeleteTrainings]
+  );
+
+  const onValidation = training => {
+    onSubmit(training, doNotDeleteTrainings);
+  };
 
   return (
     <div className="duplicates-result">
@@ -210,12 +227,12 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
                   <div
                     style={{
                       width: `200px`,
-                      height: `40px`,
+                      height: `60px`,
                     }}
                     className="cell-content padding"
                   >
                     {selectedTraining && (
-                      <>
+                      <div>
                         <Input
                           type="radio"
                           name="toKeep"
@@ -225,7 +242,19 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
                         />
                         Selectionner <br />
                         source: {obj.source}
-                      </>
+                      </div>
+                    )}
+                    {selectedTraining && (
+                      <div>
+                        <Input
+                          type="checkbox"
+                          name="delete"
+                          value={obj._id}
+                          onChange={e => handleDeleteChange(e, i)}
+                          checked={!doNotDeleteTrainings[obj._id]}
+                        />
+                        Supprimer <br />
+                      </div>
                     )}
                   </div>
                 </td>
@@ -235,7 +264,7 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
               </tr>
             );
           })}
-          {selectedTraining && <SelectedTraining training={selectedTraining} />}
+          {selectedTraining && <SelectedTraining training={selectedTraining} onValidation={onValidation} />}
         </tbody>
       </table>
     </div>

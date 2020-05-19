@@ -14,7 +14,7 @@ export default () => {
   const { query } = router.location;
   const [duplicates, setDuplicates] = useState([]);
   const [attrDiff, setAttrDiff] = useState([]);
-  console.log(router.location);
+
   useEffect(() => {
     async function run() {
       try {
@@ -51,6 +51,11 @@ export default () => {
     run();
   }, [query]);
 
+  const onSubmit = (training, doNotDeleteTrainings) => {
+    // DO STUFF API
+    console.log(training, doNotDeleteTrainings);
+  };
+
   return (
     <div className="page duplicates">
       <h1 className="mt-3">Liste des doublons</h1>
@@ -59,7 +64,11 @@ export default () => {
           <Col xs="12">
             <h6>Indications des champs différents {JSON.stringify(attrDiff)}</h6>
           </Col>
-          <Col xs="12">{duplicates.length > 0 && <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />}</Col>
+          <Col xs="12">
+            {duplicates.length > 0 && (
+              <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} onSubmit={onSubmit} />
+            )}
+          </Col>
           <Col xs="12" className="mt-4">
             <Button
               color="primary"
