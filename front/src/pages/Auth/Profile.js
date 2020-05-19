@@ -31,8 +31,13 @@ const Profile = () => {
           Changer votre mot de passe
         </Button>
         {user.attributes["custom:access_all"] && (
-          <Button color="primary" onClick={() => dispatch(push(routes.ADMIN))}>
-            Admin
+          <Button color="primary" onClick={() => dispatch(push(routes.ADMIN_USERS))}>
+            Liste des utilisateurs
+          </Button>
+        )}
+        {user.attributes["custom:access_all"] && (
+          <Button color="primary" onClick={() => dispatch(push(`${routes.ADMIN_DUPLICATE}?page=0`))}>
+            Gestion des doublons
           </Button>
         )}
         <Button color="secondary" onClick={() => dispatch(signOut())}>

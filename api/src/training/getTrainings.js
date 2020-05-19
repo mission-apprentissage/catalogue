@@ -7,10 +7,12 @@ export default async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
-    const query = event.queryStringParameters ? event.queryStringParameters.query : {};
-    const page = event.queryStringParameters ? event.queryStringParameters.page : 1;
-    const limit = event.queryStringParameters ? event.queryStringParameters.limit : 10;
+    const qs = event.queryStringParameters || null;
+    const query = qs && qs.query ? qs.query : {};
+    const page = qs && qs.page ? qs.page : 1;
+    const limit = qs && qs.limit ? qs.limit : 10;
 
+    console.log(qs, query, { page, limit });
     await connectToMongo();
     const results = await Formation.paginate(query, { page, limit });
     /**
