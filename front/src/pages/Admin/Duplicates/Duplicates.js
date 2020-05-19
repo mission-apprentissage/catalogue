@@ -106,19 +106,23 @@ export default () => {
             )}
           </Col>
           <Col xs="12" className="mt-4">
-            <Button
-              className="mr-2"
-              color="primary"
-              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) - 1}`)}
-            >
-              Retour à la page {parseInt(query.page) - 1}
-            </Button>
-            <Button
-              color="primary"
-              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
-            >
-              Aller à la page {parseInt(query.page) + 1}
-            </Button>
+            {query.page >= 1 && (
+              <Button
+                className="mr-2"
+                color="primary"
+                onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) - 1}`)}
+              >
+                Retour à la page {parseInt(query.page) - 1}
+              </Button>
+            )}
+            {query.page < duplicatesPages.length - 1 && (
+              <Button
+                color="primary"
+                onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
+              >
+                Aller à la page {parseInt(query.page) + 1} / {duplicatesPages.length - 1}
+              </Button>
+            )}
           </Col>
         </Row>
       </Container>

@@ -36,7 +36,7 @@ const Profile = () => {
           </Button>
         )}
         {user.attributes["custom:access_all"] && (
-          <Button color="primary" onClick={() => dispatch(push(routes.ADMIN_DUPLICATE))}>
+          <Button color="primary" onClick={() => dispatch(push(`${routes.ADMIN_DUPLICATE}?page=0`))}>
             Gestion des doublons
           </Button>
         )}
