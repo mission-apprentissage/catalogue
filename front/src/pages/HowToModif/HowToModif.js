@@ -64,9 +64,9 @@ const HowToModif = () => {
               Une modification d’un champ dans l’onglet établissement (Numéro UAI par exemple) pourra entraîner un
               changement de statut des formations qui s’y rattachent, et ainsi les rendre éligibles.
             </p>
-            <h5>Liste des champs modifiables et des champs en cascade</h5>
+            <h5 className="underline">Liste des champs modifiables et des champs en cascade</h5>
 
-            {/* <strong>Sur l’onglet formation :</strong>
+            <strong>Sur l’onglet formation :</strong>
             <ul>
               <li>Numéro d’académie,</li>
               <li>SIRET CFA-OFA,</li>
@@ -102,7 +102,7 @@ const HowToModif = () => {
               Du <strong>code commune insee</strong> on déduit numéro d’académie <br />
               <br />
               Du <strong>numéro d’académie</strong> on déduit le nom d’académie
-            </p> */}
+            </p>
           </Col>
         </Row>
         <Row>
