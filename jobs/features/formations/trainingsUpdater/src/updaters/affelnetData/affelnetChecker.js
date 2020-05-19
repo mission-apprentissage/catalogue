@@ -1,6 +1,6 @@
 // #region Imports
 
-const { infosCodes, PATH_FORMATION_APPRENTISSAGE_PSUP } = require("./Constants");
+const { infosCodes, PATH_FORMATION_APPRENTISSAGE_AFFELNET } = require("./Constants");
 const { filter } = require("lodash");
 const fileManager = require("./FileManager");
 
@@ -8,7 +8,7 @@ const fileManager = require("./FileManager");
 
 class AffelnetChecker {
   constructor() {
-    this.baseFormation = fileManager.getDataPSupFromFile(PATH_FORMATION_APPRENTISSAGE_PSUP);
+    this.baseFormation = fileManager.getDataAffelnetFromFile(PATH_FORMATION_APPRENTISSAGE_AFFELNET);
     this.baseFormation = filter(this.baseFormation, f => f.CODEMEF !== "");
   }
 
