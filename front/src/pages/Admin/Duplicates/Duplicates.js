@@ -42,7 +42,6 @@ export default () => {
             firstF = { ...resp };
           }
         }
-        console.log(attrDiffTmp);
         setAttrDiff(attrDiffTmp);
         setDuplicates(duplicateTmp);
       } catch (e) {
@@ -57,6 +56,9 @@ export default () => {
       <h1 className="mt-3">Liste des doublons</h1>
       <Container>
         <Row>
+          <Col xs="12">
+            <h6>Indications {JSON.stringify(attrDiff)}</h6>
+          </Col>
           <Col xs="12">{duplicates.length > 0 && <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />}</Col>
         </Row>
       </Container>
