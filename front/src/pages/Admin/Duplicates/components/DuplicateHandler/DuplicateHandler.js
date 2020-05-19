@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   Button,
@@ -19,11 +19,12 @@ import columnsDefinition from "./columnsDefinition.json";
 
 import "./duplicateHandler.css";
 
-const EditionCell = React.memo(({ initValue, id, fieldName, fieldType, onClose, onSubmit }) => {
+const EditionCell = ({ initValue, id, fieldName, fieldType, onClose, onSubmit }) => {
   const { values, handleSubmit, handleChange } = useFormik({
     initialValues: {
       content: initValue,
     },
+    enableReinitialize: true,
     onSubmit: ({ content }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
         let body = {};
@@ -41,38 +42,45 @@ const EditionCell = React.memo(({ initValue, id, fieldName, fieldType, onClose, 
       <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
         <InputGroup>
           <Input type={fieldType} name="content" onChange={handleChange} value={values.content} />
-          <InputGroupAddon addonType="prepend">
+          {/* <InputGroupAddon addonType="prepend">
             <Button type="submit" color="success">
               <FontAwesomeIcon icon={faArrowCircleRight} />
             </Button>
             <Button type="submit" color="danger" onClick={onClose}>
               <FontAwesomeIcon icon={faTimes} />
             </Button>
-          </InputGroupAddon>
+          </InputGroupAddon> */}
         </InputGroup>
       </FormGroup>
     </Form>
   );
-});
+};
 
-const checkIfHasRightToEdit = (item, column, value, userAcm) => {
-  let hasRightToEdit = userAcm.all;
-  if (!hasRightToEdit) {
-    hasRightToEdit = userAcm.academie.includes(`${item.num_academie}`);
-  }
+const checkIfHasRightToEdit = (item, column, value, edit = false) => {
+  let hasRightToEdit = edit;
   return hasRightToEdit && (column.editable || (column.editableEmpty && value === "") || column.editableInvalid);
 };
 
-const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector(state => state.user);
-  const [isEditing, setIsEditing] = useState(false);
+const Cell = ({ item, id, column, edit }) => {
+  const [isEditing, setIsEditing] = useState(edit);
   const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
+
+  useEffect(() => {
+    async function run() {
+      try {
+        setValue(item[column.accessor] === null ? "" : item[column.accessor]);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    run();
+  }, [column, item]);
 
   if (value === undefined) {
     throw new Error(`Unable to render Cell for "${column.accessor}" because value is undefined`);
   }
 
-  const hasRightToEdit = checkIfHasRightToEdit(item, column, value, userAcm);
+  const hasRightToEdit = checkIfHasRightToEdit(item, column, value, edit);
   const edition = hasRightToEdit && isEditing;
 
   let getValueAsString = () => {
@@ -137,20 +145,35 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
+const SelectedTraining = ({ training }) => {
+  return (
+    <tr className="selectedTraining">
+      <td className="">
+        <div
+          style={{
+            width: `200px`,
+            height: `100px`,
+          }}
+          className="cell-content"
+        >
+          A garder
+        </div>
+      </td>
+      {columnsDefinition.map((column, j) => {
+        return <Cell key={j} item={training} id={`${999999999}_${j}`} column={column} edit={true} />;
+      })}
+    </tr>
+  );
+};
+
 const DuplicateHandler = ({ duplicates, attrDiff }) => {
   const [rS, setRS] = useState(0);
   const [selectedTraining, setSelectedTraining] = useState(duplicates[0]);
 
-  // const handleChange = (e, i) => {
-  //   setRS(i);
-  //   setSelectedTraining(duplicates.find(d => d._id === e.target.value));
-  // };
-
   const handleChange = useCallback(
     (e, i) => {
       setRS(i);
-      console.log(duplicates.find(d => d._id === e.target.value));
-      setSelectedTraining(duplicates.find(d => d._id === e.target.value));
+      setSelectedTraining(duplicates[i]);
     },
     [duplicates]
   );
@@ -189,7 +212,7 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
                       width: `200px`,
                       height: `40px`,
                     }}
-                    className="cell-content"
+                    className="cell-content padding"
                   >
                     {selectedTraining && (
                       <>
@@ -212,24 +235,7 @@ const DuplicateHandler = ({ duplicates, attrDiff }) => {
               </tr>
             );
           })}
-          {selectedTraining && (
-            <tr className="selectedTraining">
-              <td className="fixedTd">
-                <div
-                  style={{
-                    width: `200px`,
-                    height: `40px`,
-                  }}
-                  className="cell-content"
-                >
-                  A garder
-                </div>
-              </td>
-              {columnsDefinition.map((column, j) => {
-                return <Cell key={j} item={selectedTraining} id={`${999999999}_${j}`} column={column} />;
-              })}
-            </tr>
-          )}
+          {selectedTraining && <SelectedTraining training={selectedTraining} />}
         </tbody>
       </table>
     </div>

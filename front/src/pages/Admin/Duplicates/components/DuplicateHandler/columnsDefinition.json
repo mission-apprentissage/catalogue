@@ -245,7 +245,7 @@
     "Header": "CodeCommuneInsee",
     "accessor": "code_commune_insee",
     "width": 200,
-    "editable": false
+    "editable": true
   },
   {
     "Header": "NumAcademie Siege",
