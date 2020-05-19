@@ -1,19 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { useSelector } from "react-redux";
-import {
-  Button,
-  Form,
-  FormGroup,
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  UncontrolledPopover,
-  PopoverBody,
-} from "reactstrap";
+import { Button, FormGroup, InputGroup, Input, UncontrolledPopover, PopoverBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowCircleRight, faPen, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useFormik } from "formik";
-import { API } from "aws-amplify";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 import columnsDefinition from "./columnsDefinition.json";
 
@@ -123,7 +111,7 @@ const Cell = ({ item, id, column, edit, onChange }) => {
   );
 };
 
-const SelectedTraining = ({ training, onValidation }) => {
+const SelectedTraining = ({ training, onValidation, handleDeleteChange, doNotDeleteTrainings }) => {
   const [selectedTraining, setSelectedTraining] = useState(training);
 
   useEffect(() => {
@@ -150,7 +138,17 @@ const SelectedTraining = ({ training, onValidation }) => {
           height: `100px`,
         }}
       >
-        <div className="cell-content">Garder</div>
+        <div className="cell-content padding">
+          <Input
+            type="checkbox"
+            name="delete"
+            value={"new"}
+            onChange={e => handleDeleteChange(e, "new")}
+            checked={!doNotDeleteTrainings["new"]}
+          />
+          Ne pas créer <br />
+          <br />
+        </div>
         <Button color="success" onClick={() => onValidation(selectedTraining)}>
           Valider
         </Button>
@@ -174,7 +172,7 @@ const SelectedTraining = ({ training, onValidation }) => {
 const DuplicateHandler = ({ duplicates, attrDiff, onSubmit }) => {
   const [rS, setRS] = useState(0);
   const [selectedTraining, setSelectedTraining] = useState(duplicates[0]);
-  const [doNotDeleteTrainings, setDoNotDeleteTrainings] = useState({});
+  const [doNotDeleteTrainings, setDoNotDeleteTrainings] = useState({ new: true });
 
   const handleChange = useCallback(
     (e, i) => {
@@ -264,7 +262,14 @@ const DuplicateHandler = ({ duplicates, attrDiff, onSubmit }) => {
               </tr>
             );
           })}
-          {selectedTraining && <SelectedTraining training={selectedTraining} onValidation={onValidation} />}
+          {selectedTraining && (
+            <SelectedTraining
+              training={selectedTraining}
+              onValidation={onValidation}
+              handleDeleteChange={handleDeleteChange}
+              doNotDeleteTrainings={doNotDeleteTrainings}
+            />
+          )}
         </tbody>
       </table>
     </div>
