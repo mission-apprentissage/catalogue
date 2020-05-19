@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Container, Row, Col } from "reactstrap";
+import { Container, Row, Col, Button } from "reactstrap";
 import { API } from "aws-amplify";
 
 import DuplicateHandler from "./components/DuplicateHandler";
@@ -14,7 +14,7 @@ export default () => {
   const { query } = router.location;
   const [duplicates, setDuplicates] = useState([]);
   const [attrDiff, setAttrDiff] = useState([]);
-
+  console.log(router.location);
   useEffect(() => {
     async function run() {
       try {
@@ -60,6 +60,14 @@ export default () => {
             <h6>Indications des champs différents {JSON.stringify(attrDiff)}</h6>
           </Col>
           <Col xs="12">{duplicates.length > 0 && <DuplicateHandler duplicates={duplicates} attrDiff={attrDiff} />}</Col>
+          <Col xs="12" className="mt-4">
+            <Button
+              color="primary"
+              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
+            >
+              Aller à la page {parseInt(query.page) + 1}
+            </Button>
+          </Col>
         </Row>
       </Container>
     </div>
