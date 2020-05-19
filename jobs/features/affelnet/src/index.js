@@ -2,7 +2,7 @@ const { connectToMongo } = require("../../../../common/mongo");
 const { Formation, Establishment } = require("../../../common-jobs/models");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
-const affelnetChecker = require("./updaters/pSupData/affelnetChecker");
+const affelnetChecker = require("./updaters/affelnetData/affelnetChecker");
 const { uniq } = require("lodash");
 
 //const UPDATE_ALL = true;
