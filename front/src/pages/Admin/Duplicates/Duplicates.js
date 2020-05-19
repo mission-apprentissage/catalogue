@@ -109,7 +109,7 @@ export default () => {
             <Button
               className="mr-2"
               color="primary"
-              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) + 1}`)}
+              onClick={() => (window.location = `${router.location.pathname}?page=${parseInt(query.page) - 1}`)}
             >
               Retour à la page {parseInt(query.page) - 1}
             </Button>
