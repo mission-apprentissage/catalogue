@@ -22,7 +22,15 @@ const HowToReglement = () => {
             <h5>
               Rappel des conditions d’intégration de l’offre de formation en Apprentissage sur Parcoursup et Affelnet{" "}
             </h5>
-            <h6>(cf note Dgesip 18.02.2020)</h6>
+            <h6>
+              <a
+                href="https://mna-bucket.s3.eu-west-3.amazonaws.com/20200218_FicheOFA-RetourASB_v2.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                (cf note Dgesip 18.02.2020)
+              </a>
+            </h6>
             <br />
             <p>
               <strong>
