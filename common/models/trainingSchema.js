@@ -49,6 +49,21 @@ const trainingSchema = {
     default: false,
     description: "Etablissement formateur entre dans le catalogue",
   },
+  etablissement_formateur_localisation_coordonnees_lon: {
+    type: Number,
+    default: 0,
+    description: "Localisation coordonnees Longitude de l'établissement formateur",
+  },
+  etablissement_formateur_localisation_coordonnees_lat: {
+    type: Number,
+    default: 0,
+    description: "Localisation coordonnees Latitude de l'établissement formateur",
+  },
+  etablissement_formateur_localisation_geojson: {
+    type: Object,
+    default: {},
+    description: "Localisation GeoJson de l'établissement formateur",
+  },
   etablissement_responsable_id: {
     type: Object,
     default: {},
