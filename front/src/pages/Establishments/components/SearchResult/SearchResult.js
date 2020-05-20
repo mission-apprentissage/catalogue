@@ -213,14 +213,14 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
-const SearchResult = ({ data, filters, loading }) => {
+const SearchResult = ({ data, filters, loading, debug }) => {
   return (
     <div className="search-result">
       <table className="table table-hover">
         <thead>
           <tr className="result-table-head">
             {columnsDefinition.map((column, i) => {
-              if (column.debug) {
+              if (column.debug && !debug) {
                 return null;
               }
               return (
@@ -373,7 +373,7 @@ const SearchResult = ({ data, filters, loading }) => {
             return (
               <tr key={obj._id}>
                 {columnsDefinition.map((column, j) => {
-                  if (column.debug) {
+                  if (column.debug && !debug) {
                     return null;
                   }
                   return <Cell key={j} item={obj} id={`${i}_${j}`} column={column} />;
