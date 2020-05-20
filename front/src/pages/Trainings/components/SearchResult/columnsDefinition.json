@@ -55,8 +55,14 @@
     "editorInput": "text"
   },
   {
-    "Header": "Eseigne Formateur",
+    "Header": "Enseigne Formateur",
     "accessor": "etablissement_formateur_enseigne",
+    "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "Raidson sociale de l'entreprise",
+    "accessor": "entreprise_raison_sociale",
     "width": 200,
     "editable": false
   },
