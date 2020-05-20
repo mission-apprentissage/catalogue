@@ -140,6 +140,11 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference est publié",
   },
+  entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale de l'entreprise",
+  },
   siren: {
     type: String,
     default: null,
