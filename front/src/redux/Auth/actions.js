@@ -16,17 +16,17 @@ export const fetchUserRequest = () => ({
   type: types.FETCH_USER_REQUEST,
 });
 
-export const fetchUserSuccess = (user) => ({
+export const fetchUserSuccess = user => ({
   type: types.FETCH_USER_SUCCESS,
   user,
 });
 
-export const fetchUserFailure = (error) => ({
+export const fetchUserFailure = error => ({
   type: types.FETCH_USER_FAILURE,
   error,
 });
 
-export const informUser = (info) => ({
+export const informUser = info => ({
   type: types.INFO,
   info,
 });
@@ -35,7 +35,7 @@ export const signOutUserSuccess = () => ({
   type: types.FETCH_USER_SUCCESS,
 });
 
-export const changeUserPassword = (user) => ({
+export const changeUserPassword = user => ({
   type: types.CHANGE_PASSWORD,
   user,
 });
@@ -69,7 +69,7 @@ export const setUserAcm = (user = null) => {
 /** ASYNC ACTIONS **/
 
 export const signIn = ({ username, password }) => {
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(fetchUserRequest());
 
     try {
@@ -107,7 +107,13 @@ export const signIn = ({ username, password }) => {
         // Please check the Forgot Password part.
       } else if (err.code === "NotAuthorizedException") {
         // The error happens when the incorrect password is provided
-        dispatch(fetchUserFailure("Identifiant ou mot de passe incorrect."));
+        if (err.message === "Temporary password has expired and must be reset by an administrator.") {
+          dispatch(
+            fetchUserFailure("Votre mot de passe temporaire a expiré et doit être réinitialisé par un administrateur.")
+          );
+        } else {
+          dispatch(fetchUserFailure("Identifiant ou mot de passe incorrect."));
+        }
       } else if (err.code === "UserNotFoundException") {
         // The error happens when the supplied username/email does not exist in the Cognito user pool
         dispatch(fetchUserFailure("Identifiant ou mot de passe incorrect."));
@@ -120,7 +126,7 @@ export const signIn = ({ username, password }) => {
 };
 
 export const signOut = () => {
-  return async (dispatch) => {
+  return async dispatch => {
     dispatch(fetchUserRequest());
     try {
       await Auth.signOut();
@@ -132,8 +138,8 @@ export const signOut = () => {
   };
 };
 
-export const forgotPassword = (user) => {
-  return async (dispatch) => {
+export const forgotPassword = user => {
+  return async dispatch => {
     try {
       await Auth.forgotPassword(user);
     } catch (e) {
@@ -149,7 +155,7 @@ export const forgotPassword = (user) => {
 };
 
 export const changePassword = ({ user, email, newPassword, code }) => {
-  return async (dispatch) => {
+  return async dispatch => {
     try {
       if (!user && code !== "") {
         await Auth.forgotPasswordSubmit(email, code, newPassword);

@@ -8,5 +8,8 @@
     "PROFILE": "/profile",
     "STATISTIQUES": "/stats",
     "CHANGELOG": "/journal",
-    "ADMIN": "/admin"
+    "ADMIN_USERS": "/admin-users",
+    "ADMIN_DUPLICATE": "/admin-doublons",
+    "HOWTO_MODIF": "/guide-modification",
+    "HOWTO_REGLEMENT": "/guide-reglementaire"
 }

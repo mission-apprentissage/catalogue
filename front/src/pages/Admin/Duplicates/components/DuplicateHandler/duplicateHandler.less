@@ -1,0 +1,120 @@
+.duplicates {
+     .duplicates-result {
+
+        //width: 1350px;
+        max-height: 600px;
+        overflow-x: auto;
+        overflow-y: auto;
+        font-size: 12px;
+
+        .filter {
+            ul {
+                width: auto;
+            }
+        }
+
+        table {
+            border-spacing: 0;
+            border: 1px solid black;
+            margin-bottom: 0;
+
+            tr {
+                :last-child {
+                td {
+                    border-bottom: 0;
+                }
+                }
+            }
+
+            .cell-content {
+                overflow: hidden;
+                text-overflow: ellipsis; 
+                white-space: nowrap;
+                display: flex;
+
+                &.padding {
+                    padding-left: 20px;
+                    flex-direction: column;
+                }
+
+                .cell-text{
+                    flex-grow: 1;
+                }
+
+                .edit-btn{
+                    padding: 3px;
+                }
+
+                .popover-btn {
+                    padding: 0;
+                    overflow: hidden;
+                    text-overflow: ellipsis; 
+                    white-space: nowrap;
+                    text-align: left;
+                    color: #212529;
+                    font-size: 12px;
+                }
+
+                .input-group-prepend .btn
+                {
+                    max-height: 38px;
+                }
+
+                textarea
+                {
+                    height: 100px;
+                }
+            }
+
+            .invalid-value
+            {
+                font-size: 20px;
+                margin-right: 5px;
+                color: #dc3545;
+            }
+
+            th,
+            td {
+                margin: 0;
+                padding: 0.5rem;
+                border-bottom: 1px solid black;
+                border-right: 1px solid black;
+
+                :last-child {
+                border-right: 0;
+                }
+            }
+
+            th {
+                position: sticky; 
+                top: 0;
+                background-color: #e8e8e8;
+                z-index: 3;
+            }
+
+            .diffTh {
+                background-color: red;
+            }
+
+            .fixedTd {
+                position: fixed;
+            }
+
+            td {
+                background-color:white;
+            }
+
+            .selectedTraining{
+                background-color: #8ee28e;
+                td {
+                    background-color:#8ee28e;
+                }
+                .td-validation {
+                    background-color:#ffffff;
+                }
+            }
+            
+
+        }
+    }
+}
