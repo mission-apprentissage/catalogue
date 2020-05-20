@@ -10,8 +10,18 @@ import content from "../../CHANGELOG";
 import routes from "../../routes.json";
 import "./landing.css";
 
-const getCount = async (index) => {
-  const resp = await API.get("api", `/${index}/count`);
+const getCount = async (index, filter = null) => {
+  let resp = null;
+  if (filter) {
+    resp = await API.get("api", `/${index}/count`, {
+      queryStringParameters: {
+        ...filter,
+      },
+    });
+  } else {
+    resp = await API.get("api", `/${index}/count`);
+  }
+
   return resp.count;
 };
 
@@ -23,8 +33,8 @@ export default () => {
   useEffect(() => {
     async function run() {
       try {
-        setCountEstablishments(await getCount("etablissements"));
-        setCountFormations(await getCount("formations"));
+        setCountEstablishments(await getCount("etablissements", { published: true }));
+        setCountFormations(await getCount("formations", { published: true }));
         setLoading(false);
       } catch (e) {
         console.log(e);

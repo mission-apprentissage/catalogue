@@ -21,7 +21,7 @@ import columnsDefinition from "./columnsDefinition.json";
 
 import "./searchResult.css";
 
-const Filter = React.memo((props) => {
+const Filter = React.memo(props => {
   const { componentId, dataField, filterLabel, filters } = props;
   return (
     <MultiDropdownList
@@ -40,6 +40,15 @@ const Filter = React.memo((props) => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      defaultQuery={() => {
+        return {
+          query: {
+            match: {
+              published: true,
+            },
+          },
+        };
+      }}
       {...props}
     />
   );
@@ -51,7 +60,7 @@ const BooleanFilter = React.memo(({ dataField, ...props }) => {
       dataField={dataField}
       componentId={dataField}
       filterLabel={dataField}
-      customQuery={(data) => {
+      customQuery={data => {
         return !data || data.length === 0
           ? {}
           : {
@@ -62,8 +71,8 @@ const BooleanFilter = React.memo(({ dataField, ...props }) => {
               },
             };
       }}
-      transformData={(data) => {
-        return data.map((d) => ({ ...d, key: d.key === "1" ? "OUI" : "NON" }));
+      transformData={data => {
+        return data.map(d => ({ ...d, key: d.key === "1" ? "OUI" : "NON" }));
       }}
       {...props}
     />
@@ -124,7 +133,7 @@ const checkIfHasRightToEdit = (item, column, value, userAcm) => {
 };
 
 const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector((state) => state.user);
+  const { acm: userAcm } = useSelector(state => state.user);
   const [isEditing, setIsEditing] = useState(false);
   const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
 
@@ -166,7 +175,7 @@ const Cell = ({ item, id, column }) => {
             id={item._id}
             fieldName={column.accessor}
             fieldType={column.editorInput}
-            onSubmit={(val) => {
+            onSubmit={val => {
               setValue(val);
               setIsEditing(!isEditing);
             }}
@@ -287,7 +296,7 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="niveau"
                       dataField="niveau.keyword"
                       filterLabel="niveau"
-                      filters={filters.filter((e) => e !== "niveau")}
+                      filters={filters.filter(e => e !== "niveau")}
                       sortBy="count"
                       // showMissing={true}
                       // missingLabel="(Vide)"
@@ -476,6 +485,9 @@ const SearchResult = ({ data, filters, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
+                  {column.accessor === "parcoursup_a_charger" && (
+                    <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
+                  )}
                   {column.accessor === "rncp_etablissement_reference_habilite" && (
                     <BooleanFilter dataField="rncp_etablissement_reference_habilite" filters={filters} sortBy="count" />
                   )}
@@ -542,6 +554,17 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="parcoursup_reference"
                       dataField="parcoursup_reference.keyword"
                       filterLabel="parcoursup_reference"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "diplome" && (
+                    <Filter
+                      componentId="diplome"
+                      dataField="diplome.keyword"
+                      filterLabel="diplome"
                       filters={filters}
                       sortBy="count"
                       showMissing={true}

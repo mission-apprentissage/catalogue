@@ -31,7 +31,7 @@ class ConventionnementData {
       computed_type: computeCodes.type.ToCheck,
       computed_conventionne: computeCodes.conventionne.No,
       computed_declare_prefecture: computeCodes.declarePrefecture.No,
-      published: true,
+      catalogue_published: true,
     };
 
     // Check In DEPP
@@ -70,7 +70,7 @@ class ConventionnementData {
       result.computed_declare_prefecture === computeCodes.declarePrefecture.No
     ) {
       // To Remove Trainings - Établissements can't be in EducNat SI
-      result.published = false;
+      result.catalogue_published = false;
     }
 
     return result;

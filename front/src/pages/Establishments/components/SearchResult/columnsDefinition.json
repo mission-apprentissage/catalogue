@@ -12,6 +12,18 @@
         "editable": false
     },
     {
+        "Header": "Nom / Enseigne",
+        "accessor": "enseigne",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Raison sociale de l'entreprise",
+        "accessor": "entreprise_raison_sociale",
+        "width": 200,
+        "editable": false
+    },
+    {
         "Header": "Uai",
         "accessor": "uai",
         "width": 200,
@@ -23,64 +35,34 @@
         "accessor": "computed_type",
         "width": 200,
         "editable": false
-      },
-      {
+    },
+    {
         "Header": "CFA conventionné ? ",
         "accessor": "computed_conventionne",
         "width": 200,
         "editable": false
-      },
-      {
+    },
+    {
         "Header": "CFA déclaré en préfecture ? ",
         "accessor": "computed_declare_prefecture",
         "width": 200,
         "editable": false
-      },
-      {
+    },
+    {
         "Header": "Organisme certifié 2015 ? ",
         "accessor": "computed_info_datadock",
         "width": 200,
         "editable": false
-      },
-    {
-        "Header": "Nom commercial",
-        "accessor": "ds_questions_nom",
-        "width": 200,
-        "editorInput":"textarea"
     },
     {
-        "Header": "Raison sociale",
-        "accessor": "raison_sociale",
+        "Header": "Est le siége de l'entreprise",
+        "accessor": "siege_social",
         "width": 200,
         "editable": false
     },
     {
         "Header": "Siret Siège social",
-        "accessor": "siret_siege_social",
-        "width": 200,
-        "editable": false
-    },
-    {
-        "Header": "Code entreprise",
-        "accessor": "code_effectif_entreprise",
-        "width": 80,
-        "editorInput":"text"
-    },
-    {
-        "Header": "Date de création",
-        "accessor": "date_creation",
-        "width": 200,
-        "editable": false
-    },
-    {
-        "Header": "Code NAF",
-        "accessor": "naf_code",
-        "width": 100,
-        "editable": false
-    },
-    {
-        "Header": "Libellé code NAF",
-        "accessor": "naf_libelle",
+        "accessor": "etablissement_siege_siret",
         "width": 200,
         "editable": false
     },
@@ -115,27 +97,87 @@
         "editable": false
     }, 
     {
-        "Header": "Numéro académie",
-        "accessor": "num_academie",
-        "width": 200,
-        "editorInput":"text"
-    },   
-    {
         "Header": "Code postal",
         "accessor": "code_postal",
         "width": 120,
-        "editorInput":"text"
+        "editable": false
+    },
+    {
+        "Header": "Numéro de département",
+        "accessor": "num_departement",
+        "width": 120,
+        "editable": false
     },
     {
         "Header": "Localité",
         "accessor": "localite",
         "width": 200,
-        "editorInput":"text"
+        "editable": false
     },
     {
         "Header": "Code commune INSEE",
         "accessor": "code_insee_localite",
         "width": 200,
-        "editorInput":"text"
+        "editable": false
+    },
+    {
+        "Header": "Cedex",
+        "accessor": "cedex",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Région",
+        "accessor": "region_implantation_nom",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Numéro académie",
+        "accessor": "num_academie",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "Nom de l'académie",
+        "accessor": "nom_academie",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "À charger dans ParcourSup",
+        "accessor": "parcoursup_a_charger",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "A des formations de niveau 3",
+        "accessor": "formations_n3",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "A des formations de niveau 4",
+        "accessor": "formations_n4",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "A des formations de niveau 5",
+        "accessor": "formations_n5",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "A des formations de niveau 6",
+        "accessor": "formations_n6",
+        "width": 200,
+        "editable": false
+    },
+    {
+        "Header": "A des formations de niveau 7",
+        "accessor": "formations_n7",
+        "width": 200,
+        "editable": false
     }
 ]

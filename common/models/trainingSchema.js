@@ -9,10 +9,10 @@ const trainingSchema = {
     default: null,
     description: "Numéro siret formateur",
   },
-  etablissement_formateur_siret_intitule: {
+  etablissement_formateur_enseigne: {
     type: String,
     default: null,
-    description: "Raison social établissement formateur",
+    description: "Enseigne établissement formateur",
   },
   etablissement_formateur_uai: {
     type: String,
@@ -42,6 +42,11 @@ const trainingSchema = {
   etablissement_formateur_published: {
     type: Boolean,
     default: false,
+    description: "Etablissement formateur est publié",
+  },
+  etablissement_formateur_catalogue_published: {
+    type: Boolean,
+    default: false,
     description: "Etablissement formateur entre dans le catalogue",
   },
   etablissement_responsable_id: {
@@ -54,10 +59,10 @@ const trainingSchema = {
     default: null,
     description: "Numéro siret responsable",
   },
-  etablissement_responsable_siret_intitule: {
+  etablissement_responsable_enseigne: {
     type: String,
     default: null,
-    description: "Raison social établissement responsable",
+    description: "Enseigne établissement responsable",
   },
   etablissement_responsable_uai: {
     type: String,
@@ -85,6 +90,11 @@ const trainingSchema = {
     description: "Etablissement responsable est connu de datadock",
   },
   etablissement_responsable_published: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement responsable est publié",
+  },
+  etablissement_responsable_catalogue_published: {
     type: Boolean,
     default: false,
     description: "Etablissement responsable entre dans le catalogue",
@@ -120,15 +130,15 @@ const trainingSchema = {
     default: null,
     description: "Etablissement reference est connu de datadock",
   },
+  etablissement_reference_catalogue_published: {
+    type: Boolean,
+    default: false,
+    description: "Etablissement reference entre dans le catalogue général",
+  },
   etablissement_reference_published: {
     type: Boolean,
     default: false,
-    description: "Etablissement reference entre dans le catalogue",
-  },
-  etablissement_reference_api_entreprise_reference: {
-    type: Boolean,
-    default: false,
-    description: "Etablissement reference bien référencé dans l'API Entreprise",
+    description: "Etablissement reference est publié",
   },
   siren: {
     type: String,
@@ -325,7 +335,11 @@ const trainingSchema = {
     default: "NON",
     description: "La formation est présent sur parcourSup",
   },
-
+  parcoursup_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à ParcourSup",
+  },
   info_bcn_code_en: {
     type: Number,
     default: 0,
@@ -414,7 +428,7 @@ const trainingSchema = {
   published: {
     type: Boolean,
     default: false,
-    description: "Est publiée, la formation est éligible pour le catalogue général",
+    description: "Est publiée, la formation est éligible pour le catalogue",
   },
   created_at: {
     type: Date,

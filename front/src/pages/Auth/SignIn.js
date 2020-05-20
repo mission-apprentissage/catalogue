@@ -14,8 +14,8 @@ import "./signIn.css";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const { user, isLoading, error, info } = useSelector((state) => state.user);
-  const { location } = useSelector((state) => state.router);
+  const { user, isLoading, error, info } = useSelector(state => state.user);
+  const { location } = useSelector(state => state.router);
 
   useEffect(() => {
     async function run() {
@@ -24,7 +24,7 @@ const SignIn = () => {
           dispatch(push(routes.CHANGEPASSWORD));
         } else if (user) {
           if (location.state && location.state.referrer) {
-            dispatch(push(location.state.referrer.pathname));
+            dispatch(push(`${location.state.referrer.pathname}${location.state.referrer.search}`));
           } else {
             dispatch(push("/"));
           }

@@ -3,8 +3,9 @@ const { connectToMongo, closeMongoConnection } = require("../../../../../common/
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 //const asyncForEach = require("../../../../common/utils").asyncForEach;
 const { uniq, remove } = require("lodash");
+const fs = require("fs-extra");
 //const stringSimilarity = require("string-similarity");
-const { detailedDiff } = require("deep-object-diff");
+//const { detailedDiff } = require("deep-object-diff");
 const cluster = require("cluster");
 
 const { Formation } = require("../../../../common-jobs/models");
@@ -27,6 +28,7 @@ const attrToCompare = [
   "niveau",
   "uai_formation", // mandatory
   "code_postal", // mandatory
+  "mef_10_code",
 ];
 // etablissement_formateur_uai
 // etablissement_responsable_uai
@@ -130,9 +132,12 @@ const workersLifecycle = jobs =>
         data: jobs[worker.process.pid],
       });
 
-      worker.on("message", function({ pid, duplicates: duplicatesArray }) {
+      worker.on("message", async function({ pid }) {
         //console.log(`Worker ${pid} terminated`);
         workers[pid].terminated = true;
+
+        const duplicatesArray = await fs.readJson(`./tmp/duplicates_${pid}.json`);
+
         const workerDuplicates = new Map(duplicatesArray);
 
         //Merge
@@ -183,6 +188,8 @@ const run = async () => {
   try {
     if (cluster.isMaster) {
       logger.info(" -- Start Duplicate handler matser thread -- ");
+      await fs.ensureDir(`./tmp`);
+
       await connectToMongo();
 
       let trainings = await Formation.find({});
@@ -221,6 +228,8 @@ const run = async () => {
 
       const duplicates = mergeDuplicates(resultsWorkers);
 
+      await fs.remove("./tmp");
+
       // console.log(duplicates.size);
       // let count = 0;
       // for (const ids of duplicates.values()) {
@@ -228,26 +237,32 @@ const run = async () => {
       // }
       // console.log(count + duplicates.size);
 
+      const exportDuplicateIds = [];
       for (const [cid, ids] of duplicates) {
-        const currentTraining = trainingsById.get(cid);
-        for (let i = 0; i < ids.length; i++) {
-          const id = ids[i];
-          const training = trainingsById.get(id);
-          console.log(detailedDiff(currentTraining, training).updated);
-        }
+        // const currentTraining = trainingsById.get(cid);
+        // for (let i = 0; i < ids.length; i++) {
+        //   const id = ids[i];
+        //   const training = trainingsById.get(id);
+        //   console.log(detailedDiff(currentTraining, training).updated);
+        // }
+        exportDuplicateIds.push([cid, ...ids]);
       }
-      //await pressAnyKey();
+      console.log(exportDuplicateIds.length);
+
+      await fs.writeJson(`./duplicates.json`, exportDuplicateIds);
 
       closeMongoConnection();
       logger.info(" -- end Duplicate handler master thread -- ");
     } else {
-      process.on("message", message => {
+      process.on("message", async message => {
         //console.log(`Worker ${process.pid} starts`);
         const { lookUp, trainings } = message.data;
 
         const { statistics, duplicates } = findDuplicate(lookUp, trainings);
 
-        process.send({ pid: process.pid, statistics, duplicates: Array.from(duplicates) });
+        await fs.writeJson(`./tmp/duplicates_${process.pid}.json`, Array.from(duplicates));
+
+        process.send({ pid: process.pid, statistics });
 
         // eslint-disable-next-line no-process-exit
         process.exit(0);

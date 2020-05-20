@@ -21,7 +21,7 @@ import columnsDefinition from "./columnsDefinition.json";
 
 import "./searchResult.css";
 
-const Filter = React.memo((props) => {
+const Filter = React.memo(props => {
   const { componentId, dataField, filterLabel, filters } = props;
   return (
     <MultiDropdownList
@@ -40,6 +40,40 @@ const Filter = React.memo((props) => {
       filterLabel={filterLabel}
       URLParams={true}
       loader="Chargement ..."
+      defaultQuery={() => {
+        return {
+          query: {
+            match: {
+              published: true,
+            },
+          },
+        };
+      }}
+      {...props}
+    />
+  );
+});
+
+const BooleanFilter = React.memo(({ dataField, ...props }) => {
+  return (
+    <Filter
+      dataField={dataField}
+      componentId={dataField}
+      filterLabel={dataField}
+      customQuery={data => {
+        return !data || data.length === 0
+          ? {}
+          : {
+              query: {
+                match: {
+                  [dataField]: data[0] === "OUI",
+                },
+              },
+            };
+      }}
+      transformData={data => {
+        return data.map(d => ({ ...d, key: d.key === "1" ? "OUI" : "NON" }));
+      }}
       {...props}
     />
   );
@@ -85,25 +119,46 @@ const checkIsValid = (hasRightToEdit, accessor, value) => {
   return hasRightToEdit ? validateCell(accessor, value) : true;
 };
 
-const Cell = ({ item, id, column }) => {
-  const { acm: userAcm } = useSelector((state) => state.user);
-
+const checkIfHasRightToEdit = (item, column, value, userAcm) => {
   let hasRightToEdit = userAcm.all;
   if (!hasRightToEdit) {
     hasRightToEdit = userAcm.academie.includes(`${item.num_academie}`);
   }
+  return (
+    hasRightToEdit &&
+    (column.editable ||
+      (column.editableEmpty && value === "") ||
+      (column.editableInvalid && !validateCell(column.accessor, value)))
+  );
+};
 
+const Cell = ({ item, id, column }) => {
+  const { acm: userAcm } = useSelector(state => state.user);
   const [isEditing, setIsEditing] = useState(false);
-  const [value, setValue] = useState(item[column.accessor] || "");
+  const [value, setValue] = useState(item[column.accessor] === null ? "" : item[column.accessor]);
 
-  hasRightToEdit = hasRightToEdit && (column.editable || (column.editableEmpty && value === ""));
+  if (value === undefined) {
+    throw new Error(`Unable to render Cell for "${column.accessor}" because value is undefined`);
+  }
 
+  const hasRightToEdit = checkIfHasRightToEdit(item, column, value, userAcm);
   const edition = hasRightToEdit && isEditing;
   const isValid = React.useMemo(() => checkIsValid(hasRightToEdit, column.accessor, value), [
     hasRightToEdit,
     column.accessor,
     value,
   ]);
+
+  let getValueAsString = () => {
+    if (typeof value === "boolean") {
+      return value ? "OUI" : "NON";
+    }
+    if (Array.isArray(value)) {
+      return value.join(",");
+    }
+
+    return value;
+  };
 
   return (
     <td>
@@ -120,7 +175,7 @@ const Cell = ({ item, id, column }) => {
             id={item._id}
             fieldName={column.accessor}
             fieldType={column.editorInput}
-            onSubmit={(val) => {
+            onSubmit={val => {
               setValue(val);
               setIsEditing(!isEditing);
             }}
@@ -139,7 +194,7 @@ const Cell = ({ item, id, column }) => {
             {value}
           </Button>
         ) : (
-          <div className="cell-text"> {value}</div>
+          <div className="cell-text">{getValueAsString()}</div>
         )}
 
         {!edition && !isValid && <FontAwesomeIcon className="invalid-value" icon={faExclamationCircle} size="xs" />}
@@ -275,6 +330,35 @@ const SearchResult = ({ data, filters, loading }) => {
                       filters={filters}
                       sortBy="asc"
                     />
+                  )}
+                  {column.accessor === "nom_academie" && (
+                    <Filter
+                      componentId="nom_academie"
+                      dataField="nom_academie.keyword"
+                      filterLabel="nom_academie"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "parcoursup_a_charger" && (
+                    <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n3" && (
+                    <BooleanFilter dataField="formations_n3" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n4" && (
+                    <BooleanFilter dataField="formations_n4" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n5" && (
+                    <BooleanFilter dataField="formations_n5" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n6" && (
+                    <BooleanFilter dataField="formations_n6" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "formations_n7" && (
+                    <BooleanFilter dataField="formations_n7" filters={filters} sortBy="count" />
                   )}
                 </th>
               );

@@ -13,7 +13,7 @@ const mapNewModelFormation = (oldModel, pFormateur, pResponsable) => {
   return {
     etablissement_formateur_id: formateur._id,
     etablissement_formateur_siret: oldModel.siret_formateur,
-    etablissement_formateur_siret_intitule: oldModel.intitule_siret_formateur,
+    etablissement_formateur_enseigne: oldModel.intitule_siret_formateur,
     etablissement_formateur_uai: oldModel.uaiEtablissementFormateur || "",
     etablissement_formateur_type: formateur.computed_type,
     etablissement_formateur_conventionne: formateur.computed_conventionne,
@@ -23,7 +23,7 @@ const mapNewModelFormation = (oldModel, pFormateur, pResponsable) => {
     etablissement_formateur_published: formateur.published,
     etablissement_responsable_id: responsable._id,
     etablissement_responsable_siret: oldModel.siret_CFA_OFA,
-    etablissement_responsable_siret_intitule: oldModel.intitule_siret_cfa_ofa,
+    etablissement_responsable_enseigne: oldModel.intitule_siret_cfa_ofa,
     etablissement_responsable_uai: oldModel.uaiEtablissementResponsable || "",
     etablissement_responsable_type: responsable.computed_type,
     etablissement_responsable_conventionne: responsable.computed_conventionne,

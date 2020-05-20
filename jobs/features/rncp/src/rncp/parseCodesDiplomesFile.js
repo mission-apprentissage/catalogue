@@ -10,7 +10,7 @@ module.exports = async inputStream => {
       delimiter: ";",
       skip_lines_with_error: true,
       skip_empty_lines: true,
-      columns: ["CodeDiplome", "Intitule", "CodeRNCP", "Niveau2019", "Diplome"],
+      columns: ["CodeDiplome", "Intitule", "CodeRNCP", "Niveau2019", "Diplome", "DerniereMaJ"],
     }),
     writeObject(line => {
       codesDiplomes[line["CodeRNCP"]] = line["CodeDiplome"];
