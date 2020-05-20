@@ -220,6 +220,9 @@ const SearchResult = ({ data, filters, loading }) => {
         <thead>
           <tr className="result-table-head">
             {columnsDefinition.map((column, i) => {
+              if (column.debug) {
+                return null;
+              }
               return (
                 <th key={i}>
                   <div style={{ width: `${column.width}px` }}>{column.Header}</div>
@@ -370,6 +373,9 @@ const SearchResult = ({ data, filters, loading }) => {
             return (
               <tr key={obj._id}>
                 {columnsDefinition.map((column, j) => {
+                  if (column.debug) {
+                    return null;
+                  }
                   return <Cell key={j} item={obj} id={`${i}_${j}`} column={column} />;
                 })}
               </tr>
