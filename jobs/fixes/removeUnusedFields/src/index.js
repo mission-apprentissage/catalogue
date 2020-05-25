@@ -10,12 +10,11 @@ const run = async () => {
     logger.info(" -- Start Remove Unused Fields -- ");
     await connectToMongo();
 
-    // Remove initule fields
-    await Formation.collection.updateMany({}, { $unset: { intitule: "" } });
-    await rebuildIndex("formations", Formation);
-
-    // Remove siren fields
-    await Formation.collection.updateMany({}, { $unset: { siren: "" } });
+    // Remove fields
+    await Formation.collection.updateMany(
+      {},
+      { $unset: { etablissement_formateur_siret_intitule: "", etablissement_reference_api_entreprise_reference: 1 } }
+    );
     await rebuildIndex("formations", Formation);
 
     logger.info(" -- End Remove Unused Fields -- ");
