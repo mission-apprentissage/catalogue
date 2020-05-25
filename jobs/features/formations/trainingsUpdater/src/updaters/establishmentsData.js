@@ -60,6 +60,15 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
+      etablissement_reference_localisation_coordonnees_lon: referenceEstablishment
+        ? referenceEstablishment.localisation_coordonnees_lon
+        : null,
+      etablissement_reference_localisation_coordonnees_lat: referenceEstablishment
+        ? referenceEstablishment.localisation_coordonnees_lat
+        : null,
+      etablissement_reference_localisation_geojson: referenceEstablishment
+        ? referenceEstablishment.localisation_geojson
+        : null,
     };
   }
 
