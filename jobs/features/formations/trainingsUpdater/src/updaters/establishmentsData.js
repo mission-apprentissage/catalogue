@@ -52,15 +52,6 @@ class EstablishmentsData {
       etablissement_formateur_enseigne: attachedEstablishments.formateur
         ? attachedEstablishments.formateur.enseigne
         : null,
-      etablissement_formateur_localisation_coordonnees_lon: attachedEstablishments.formateur
-        ? attachedEstablishments.formateur.localisation_coordonnees_lon
-        : null,
-      etablissement_formateur_localisation_coordonnees_lat: attachedEstablishments.formateur
-        ? attachedEstablishments.formateur.localisation_coordonnees_lat
-        : null,
-      etablissement_formateur_localisation_geojson: attachedEstablishments.formateur
-        ? attachedEstablishments.formateur.localisation_geojson
-        : null,
 
       etablissement_reference,
       etablissement_reference_catalogue_published: referenceEstablishment.catalogue_published,
@@ -69,6 +60,15 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
+      etablissement_reference_localisation_coordonnees_lon: attachedEstablishments.reference
+        ? attachedEstablishments.reference.localisation_coordonnees_lon
+        : null,
+      etablissement_reference_localisation_coordonnees_lat: attachedEstablishments.reference
+        ? attachedEstablishments.reference.localisation_coordonnees_lat
+        : null,
+      etablissement_reference_localisation_geojson: attachedEstablishments.reference
+        ? attachedEstablishments.reference.localisation_geojson
+        : null,
     };
   }
 
