@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure } from "../common-api/response";
 import { Formation } from "../models";
 
@@ -15,6 +15,7 @@ export default async (event, context) => {
     console.log(qs, query, { page, limit });
     await connectToMongo();
     const results = await Formation.paginate(query, { page, limit });
+    closeMongoConnection();
     /**
      *  Response
      * */
