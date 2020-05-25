@@ -61,7 +61,7 @@
     "editable": false
   },
   {
-    "Header": "Raidson sociale de l'entreprise",
+    "Header": "Raison sociale de l'entreprise",
     "accessor": "entreprise_raison_sociale",
     "width": 200,
     "editable": false
