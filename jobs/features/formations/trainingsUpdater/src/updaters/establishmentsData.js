@@ -34,6 +34,7 @@ class EstablishmentsData {
     }
 
     return {
+      entreprise_raison_sociale: referenceEstablishment.entreprise_raison_sociale,
       etablissement_responsable_published: attachedEstablishments.responsable
         ? attachedEstablishments.responsable.published
         : false,
