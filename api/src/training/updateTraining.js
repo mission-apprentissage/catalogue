@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure, badRequest } from "../common-api/response";
 import { Formation } from "../models";
 import { findUserByAttribute } from "../common-api/cognito";
@@ -46,7 +46,7 @@ export default async (event, context) => {
     }
 
     await Formation.findOneAndUpdate({ _id: idFormation }, body, { new: true });
-
+    closeMongoConnection();
     /**
      *  Response
      * */
