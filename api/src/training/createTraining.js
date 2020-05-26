@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure, badRequest } from "../common-api/response";
 import { Formation } from "../models";
 import { findUserByAttribute } from "../common-api/cognito";
@@ -41,6 +41,7 @@ export default async (event, context) => {
     const formation = Formation(body);
     await formation.save();
     console.log("Training created", formation);
+    closeMongoConnection();
     /**
      *  RESPONSE
      * */

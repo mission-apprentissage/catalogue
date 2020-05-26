@@ -10,6 +10,17 @@ import "./duplicateHandler.css";
 const EditionCell = ({ initValue, id, fieldName, fieldType, onChange }) => {
   const [value, setValue] = useState(initValue);
 
+  useEffect(() => {
+    async function run() {
+      try {
+        setValue(initValue);
+      } catch (e) {
+        console.log(e);
+      }
+    }
+    run();
+  }, [initValue]);
+
   const onChangeHandler = e => {
     setValue(e.target.value);
     onChange(e.target.value);
