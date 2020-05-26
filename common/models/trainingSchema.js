@@ -140,7 +140,7 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference est publié",
   },
-  etablissement_reference_localisation_coordonnees_lon: {
+  /*etablissement_reference_localisation_coordonnees_lon: {
     type: Number,
     default: 0,
     description: "Localisation coordonnees Longitude de l'établissement de référence",
@@ -149,7 +149,7 @@ const trainingSchema = {
     type: Number,
     default: 0,
     description: "Localisation coordonnees Latitude de l'établissement de référence",
-  },
+  },*/
   etablissement_reference_localisation_geojson: {
     type: Object,
     default: {},
