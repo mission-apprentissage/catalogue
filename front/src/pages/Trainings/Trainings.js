@@ -80,7 +80,7 @@ export default () => {
           <Row>
             <Col xs="12">
               <Switch onChange={handleSwitchChange} checked={debug} />
-              <span className="debug-text-button">Vue recette (afficher MEF8, MEF10, Psup, RNCP etc... )</span>
+              <span className="debug-text-button">Vue recette</span>
             </Col>
           </Row>
         )}
@@ -93,6 +93,11 @@ export default () => {
                 columns={columnsDefinition
                   .filter(def => !def.debug || debug)
                   .map(def => ({ header: def.Header, fieldName: def.accessor }))}
+                defaultQuery={{
+                  match: {
+                    published: true,
+                  },
+                }}
               />
               <ReactiveList
                 componentId="result"
