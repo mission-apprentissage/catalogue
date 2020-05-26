@@ -27,7 +27,7 @@ const run = async () => {
     //console.log(trainings.length);
     const formationsToload = trainings.filter(trainingItem => {
       if (
-        //trainingItem._doc.niveau === "4 (Bac...)" ||
+        trainingItem._doc.niveau === "4 (Bac...)" ||
         trainingItem._doc.niveau === "5 (BTS, DUT...)" ||
         trainingItem._doc.niveau === "6 (Licence...)"
       ) {
