@@ -5,7 +5,7 @@ const changelog = {
       date: "Prochainement",
       about: `<h5>Les actions à venir :</h5>
       <ul>
-        <li></li>
+        <li>Formations éligiblent AFFELNET</li>
       </ul>`,
       fixes: [],
       features: [],
