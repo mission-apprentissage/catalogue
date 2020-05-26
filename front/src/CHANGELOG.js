@@ -14,7 +14,7 @@ const changelog = {
     {
       version: "1.3.4",
       date: "26 Mai 2020",
-      about: `<<h5>A propos de cette version :</h5>
+      about: `<h5>A propos de cette version :</h5>
       Cette version porte des améliorations et quelques correctifs qui sont détaillés ci après.`,
       fixes: ["[Catalogue] Suppression de 780 formations doublons"],
       features: [],
