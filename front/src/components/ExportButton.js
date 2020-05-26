@@ -6,7 +6,7 @@ import { Button, Progress } from "reactstrap";
 const CSV_SEPARATOR = ";";
 
 const serializeObject = (columns, obj) => {
-  const fieldNames = columns.map((c) => c.fieldName);
+  const fieldNames = columns.map(c => c.fieldName);
   const res = [];
   for (let i = 0; i < fieldNames.length; i++) {
     let value = obj[fieldNames[i]];
@@ -21,7 +21,12 @@ const serializeObject = (columns, obj) => {
     } else if (typeof value === "object") {
       value = JSON.stringify(value);
     } else {
-      value = `${value}`.trim().replace(/"/g, "'").replace(/;/g, ",").replace(/\n/g, "").replace(/\r/g, "");
+      value = `${value}`
+        .trim()
+        .replace(/"/g, "'")
+        .replace(/;/g, ",")
+        .replace(/\n/g, "")
+        .replace(/\r/g, "");
     }
     res.push(value !== "" ? `="${value}"` : "");
   }
@@ -70,9 +75,9 @@ let scroll = (index, scrollId) => {
 
 let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
   let data = [];
-  let pushAll = (hits) => {
+  let pushAll = hits => {
     let total = hits.total.value;
-    data = [...data, ...hits.hits.map((h) => h._source)];
+    data = [...data, ...hits.hits.map(h => h._source)];
     setProgress(Math.round((data.length * 100) / total));
   };
 
@@ -84,16 +89,16 @@ let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
     pushAll(hits);
   }
 
-  let headers = columns.map((c) => c.header).join(CSV_SEPARATOR) + "\n";
-  let lines = data.map((obj) => serializeObject(columns, obj)).join("\n");
+  let headers = columns.map(c => c.header).join(CSV_SEPARATOR) + "\n";
+  let lines = data.map(obj => serializeObject(columns, obj)).join("\n");
   setProgress(100);
   return `${headers}${lines}`;
 };
 
-const ExportButton = ({ index, filters, columns }) => {
+const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} } }) => {
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [query, setQuery] = useState({ query: { match_all: {} } });
+  const [query, setQuery] = useState({ query: defaultQuery });
 
   return (
     <ReactiveComponent

@@ -58,6 +58,11 @@ export default () => {
                 index={"etablissements"}
                 filters={FILTERS}
                 columns={columnsDefinition.map(def => ({ header: def.Header, fieldName: def.accessor }))}
+                defaultQuery={{
+                  match: {
+                    published: true,
+                  },
+                }}
               />
               <ReactiveList
                 componentId="result"

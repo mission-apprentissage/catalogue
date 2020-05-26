@@ -242,7 +242,7 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       componentId="SIRET"
                       dataField="siret.keyword"
                       filterLabel="Sirets"
-                      filters={filters}
+                      filters={filters.filter(e => e !== "SIRET")}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"
