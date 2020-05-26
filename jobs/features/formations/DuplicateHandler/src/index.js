@@ -21,7 +21,7 @@ const { Formation } = require("../../../../common-jobs/models");
 const NB_THREAD = 64;
 const attrToCompare = [
   "etablissement_formateur_siret",
-  "etablissement_responsable_siret",
+  // "etablissement_responsable_siret",
   "diplome",
   "intitule",
   "educ_nat_code", // 8 char mandatory
@@ -34,7 +34,7 @@ const attrToCompare = [
 // etablissement_responsable_uai
 // code_commune_insee
 // nom?
-// source privilege DS
+// source privilegier DS
 
 const findDuplicate = (lookUp, trainings) => {
   const statistics = {
