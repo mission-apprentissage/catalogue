@@ -69,7 +69,7 @@ class AffelnetData {
       training.affelnet_reference = "Non trouvé";
     }
 
-    return false;
+    return true;
   }
 
   stats() {
