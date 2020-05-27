@@ -140,20 +140,9 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference est publié",
   },
-  etablissement_reference_localisation_coordonnees_lon: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Longitude de l'établissement de référence",
-  },
-  etablissement_reference_localisation_coordonnees_lat: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Latitude de l'établissement de référence",
-  },
-  etablissement_reference_localisation_geojson: {
-    type: Object,
-    default: {},
-    description: "Localisation GeoJson de l'établissement de référence",
+  geo_coords_etablissement_reference: {
+    type: String,
+    es_type: "geo_point",
   },
   entreprise_raison_sociale: {
     type: String,
