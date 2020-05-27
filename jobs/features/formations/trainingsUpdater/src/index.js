@@ -20,6 +20,8 @@ const run = async () => {
 
     const trainings = await Formation.find({});
 
+    Formation.createMapping();
+
     await asyncForEach(trainings, async trainingItem => {
       if (UPDATE_ALL || trainingItem._doc[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
         let updatedTraining = {
