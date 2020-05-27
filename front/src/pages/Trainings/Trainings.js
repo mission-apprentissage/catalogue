@@ -43,6 +43,7 @@ const FILTERS = [
   "mef_10_code",
   "mef_8_code",
   "mef_8_codes",
+  "affelnet_reference",
   "parcoursup_reference",
   "parcoursup_a_charger",
   "diplome",

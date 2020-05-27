@@ -26,7 +26,7 @@ class AffelnetData {
     const {
       mef_10_code,
       mef_8_code,
-      mef_8_codes,
+      // mef_8_codes,
       etablissement_formateur_uai,
       etablissement_responsable_uai,
       uai_formation,
@@ -55,18 +55,18 @@ class AffelnetData {
 
     if (infoAffelnet === infosCodes.affelnet.FoundPerfect) {
       if (count) this.countAffelnet.perfect++;
-      //training.affelnet_reference = "OUI";
+      training.affelnet_reference = "Très bonne correspondance";
     } else if (infoAffelnet === infosCodes.affelnet.FoundSuper) {
       if (count) this.countAffelnet.super++;
-      //training.affelnet_reference = "OUI";
+      training.affelnet_reference = "Bonne correspondance";
     } else if (infoAffelnet === infosCodes.affelnet.Found) {
       if (count) this.countAffelnet.uniq++;
-      //training.affelnet_reference = "OUI";
+      training.affelnet_reference = "Possible correspondance";
     } else if (infoAffelnet === infosCodes.affelnet.FoundMultiple) {
       if (count) this.countAffelnet.multiple++; // Goal to be 0
     } else if (infoAffelnet === infosCodes.affelnet.NotFound) {
       if (count) this.countAffelnet.notFound++;
-      //training.affelnet_reference = "NON";
+      training.affelnet_reference = "Non trouvé";
     }
 
     return false;

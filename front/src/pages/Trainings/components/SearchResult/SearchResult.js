@@ -560,6 +560,17 @@ const SearchResult = ({ data, filters, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
+                  {column.accessor === "affelnet_reference" && (
+                    <Filter
+                      componentId="affelnet_reference"
+                      dataField="affelnet_reference.keyword"
+                      filterLabel="affelnet_reference"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
                   {column.accessor === "diplome" && (
                     <Filter
                       componentId="diplome"
