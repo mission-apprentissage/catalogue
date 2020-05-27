@@ -83,15 +83,24 @@ function Mongoosastic(schema, options) {
   schema.statics.createMapping = async function createMapping() {
     try {
       const exists = await esClient.indices.exists({ index: indexName });
-      console.log("exists", exists);
-      if (!exists) {
-        await esClient.indices.create({ index: indexName });
+      if (!exists.body) {
+        await esClient.indices.create({ index: indexName, include_type_name: true });
       }
       const completeMapping = {};
       completeMapping[typeName] = getMapping(schema);
-      await esClient.indices.putMapping({ index: indexName, type: typeName, body: completeMapping });
+
+      await esClient.indices.putMapping({
+        index: indexName,
+        include_type_name: true,
+        type: typeName,
+        body: completeMapping,
+      });
+
+      //console.log("result put : ",a);
     } catch (e) {
-      console.log("Error update mapping", e.message || e);
+      let errorMsg = e.message;
+      if (e.meta && e.meta.body) errorMsg = e.meta.body.error;
+      console.log("Error update mapping", errorMsg || e);
     }
   };
 
