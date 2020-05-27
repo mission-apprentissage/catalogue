@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure } from "../common-api/response";
 import { Establishment } from "../models";
 import { findUserByAttribute } from "../common-api/cognito";
@@ -41,7 +41,7 @@ export default async (event, context) => {
     }
 
     await Establishment.findOneAndRemove({ _id: idEtablissement });
-
+    closeMongoConnection();
     /**
      *  Response
      * */
