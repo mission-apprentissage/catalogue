@@ -109,20 +109,9 @@ const establishmentSchema = {
     default: null,
     description: "Cedex",
   },
-  localisation_coordonnees_lon: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Longitude",
-  },
-  localisation_coordonnees_lat: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Latitude",
-  },
-  localisation_geojson: {
-    type: Object,
-    default: {},
-    description: "Localisation GeoJson",
+  geo_coords: {
+    type: String,
+    es_type: 'geo_point'
   },
   date_fermeture: {
     type: Date,
