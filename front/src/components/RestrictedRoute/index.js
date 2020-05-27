@@ -5,11 +5,11 @@ import { useSelector } from "react-redux";
 import routes from "../../routes.json";
 
 const RestrictedRoute = ({ component: Component, ...rest }) => {
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
   return (
     <Route
       {...rest}
-      render={(props) =>
+      render={props =>
         user ? (
           <Component {...props} />
         ) : (

@@ -1,8 +1,14 @@
 [
   {
+    "Header": "Source",
+    "accessor": "source",
+    "width": 200,
+    "editable": true
+  },
+  {
     "Header": "Numéro académie",
     "accessor": "num_academie",
-    "width": 200,
+    "width": 100,
     "editorInput": "text",
     "editable": true
   },
@@ -15,7 +21,7 @@
   {
     "Header": "Numéro département",
     "accessor": "num_departement",
-    "width": 200,
+    "width": 100,
     "editable": false
   },
   {
@@ -28,7 +34,8 @@
     "Header": "Siret Responsable",
     "accessor": "etablissement_responsable_siret",
     "width": 200,
-    "editorInput": "text"
+    "editorInput": "text",
+    "editable": true
   },
   {
     "Header": "Uai Responsable",
@@ -55,14 +62,8 @@
     "editorInput": "text"
   },
   {
-    "Header": "Enseigne Formateur",
+    "Header": "Eseigne Formateur",
     "accessor": "etablissement_formateur_enseigne",
-    "width": 200,
-    "editable": false
-  },
-  {
-    "Header": "Raison sociale du siret formateur",
-    "accessor": "entreprise_raison_sociale",
     "width": 200,
     "editable": false
   },
@@ -87,12 +88,6 @@
   {
     "Header": "Organisme certifié 2015 ? ",
     "accessor": "etablissement_reference_datadock",
-    "width": 200,
-    "editable": false
-  },
-  {
-    "Header": "Source",
-    "accessor": "source",
     "width": 200,
     "editable": false
   },
@@ -134,12 +129,6 @@
     "editable": false
   },
   {
-    "Header": "Intitulé du code RNCP",
-    "accessor": "rncp_intitule",
-    "width": 200,
-    "editable": false
-  },
-  {
     "Header": "Codes ROME",
     "accessor": "rome_codes",
     "width": 200,
@@ -148,7 +137,7 @@
   {
     "Header": "Code du diplôme ou du titre suivant la nomenclature de l'Education nationale (CodeEN)",
     "accessor": "educ_nat_code",
-    "width": 400,
+    "width": 300,
     "editorInput": "text",
     "editable": false,
     "editableInvalid": true
@@ -156,46 +145,43 @@
   {
     "Header": "Code MEF 10 caractères",
     "accessor": "mef_10_code",
-    "width": 400,
+    "width": 100,
+    "debug": true,
     "editable": false
   },
   {
     "Header": "Code MEF 8 caractères",
     "accessor": "mef_8_code",
-    "width": 400,
+    "width": 100,
     "debug": true,
-    "editable": false
-  },
-  {
-    "Header": "Liste codes MEF 8 caractères",
-    "accessor": "mef_8_codes",
-    "debug": true,
-    "width": 400,
     "editable": false
   },
   {
     "Header": "Liste codes MEF 10 caractères",
     "accessor": "mef_10_codes",
-    "width": 400,
+    "debug": true,
+    "width": 200,
     "editable": false
   },
   {
     "Header": "Liste codes MEF 8 caractères",
     "accessor": "mef_8_codes",
     "debug": true,
-    "width": 400,
+    "width": 200,
     "editable": false
   },
   {
     "Header": "Référencé dans ParcourSup",
     "accessor": "parcoursup_reference",
-    "width": 200,
+    "width": 100,
+    "debug": true,
     "editable": false
   },
   {
     "Header": "À charger dans ParcourSup",
     "accessor": "parcoursup_a_charger",
-    "width": 200,
+    "width": 100,
+    "debug": true,
     "editable": false
   },
   {
@@ -221,12 +207,14 @@
     "Header": "Duree",
     "accessor": "duree",
     "width": 200,
+    "debug": true,
     "editable": false
   },
   {
     "Header": "Annee",
     "accessor": "annee",
     "width": 200,
+    "debug": true,
     "editable": false
   },
   {
@@ -244,8 +232,8 @@
   {
     "Header": "CodeCommuneInsee",
     "accessor": "code_commune_insee",
-    "width": 200,
-    "editable": false
+    "width": 100,
+    "editable": true
   },
   {
     "Header": "NumAcademie Siege",
@@ -260,9 +248,34 @@
     "editable": false
   },
   {
-    "Header": "Url ONISEP",
-    "accessor": "onisep_url",
-    "width": 300,
+    "Header": "-",
+    "accessor": "_id",
+    "width": 2,
+    "editable": false
+  },
+  {
+    "Header": "Contact",
+    "accessor": "email",
+    "width": 200,
+    "editorInput": "textarea",
+    "editable": true
+  },
+  {
+    "Header": "Siren",
+    "accessor": "siren",
+    "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "published",
+    "accessor": "published",
+    "width": 200,
+    "editable": false
+  },
+  {
+    "Header": "etablissement_reference_published",
+    "accessor": "etablissement_reference_published",
+    "width": 200,
     "editable": false
   }
 ]

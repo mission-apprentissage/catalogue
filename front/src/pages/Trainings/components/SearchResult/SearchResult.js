@@ -241,7 +241,7 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="etablissement_responsable_siret"
                       dataField="etablissement_responsable_siret.keyword"
                       filterLabel="etablissement_responsable_siret"
-                      filters={filters}
+                      filters={filters.filter(e => e !== "etablissement_responsable_siret")}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"
@@ -252,7 +252,7 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="etablissement_formateur_siret"
                       dataField="etablissement_formateur_siret.keyword"
                       filterLabel="etablissement_formateur_siret"
-                      filters={filters}
+                      filters={filters.filter(e => e !== "etablissement_formateur_siret")}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"

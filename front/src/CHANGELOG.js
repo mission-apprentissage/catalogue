@@ -1,16 +1,36 @@
 const changelog = {
   list: [
     {
-      version: "1.3.3",
+      version: "1.3.5",
       date: "Prochainement",
       about: `<h5>Les actions à venir :</h5>
       <ul>
-        <li>l'affichage du code MEF et de l'indication de la formation est présente sur Parcoursup et / ou Affelnet</li>
-        <li>travail sur l’ergonomie de la base : affichage des champs, modalités de recherche et navigation, informations contenues dans certains champs.</li>
+        <li>Formations éligiblent AFFELNET</li>
       </ul>`,
       fixes: [],
       features: [],
       improvements: [],
+    },
+    {
+      version: "1.3.4",
+      date: "26 Mai 2020",
+      about: `<h5>A propos de cette version :</h5>
+      Cette version porte des améliorations et quelques correctifs qui sont détaillés ci après.`,
+      fixes: ["[Catalogue] Suppression de 780 formations doublons"],
+      features: [],
+      improvements: [
+        "[Catalogue] Ajout des colonnes Modalités de foramtion.",
+        "[Catalogue] Ajout des colonnes relativent à ParcourSup (Déjà référencé et à charger)",
+      ],
+    },
+    {
+      version: "1.3.3",
+      date: "19 Mai 2020",
+      about: `<h5>A propos de cette version :</h5>
+      Cette version porte des améliorations et quelques correctifs qui sont détaillés ci après.`,
+      fixes: [],
+      features: ["[Page] Ajout des guides utilisateurs en mode connecté"],
+      improvements: ["[Catalogue] Nettoyage des données établissements"],
     },
     {
       version: "1.3.2",

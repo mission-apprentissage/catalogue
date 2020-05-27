@@ -213,13 +213,16 @@ const Cell = ({ item, id, column }) => {
   );
 };
 
-const SearchResult = ({ data, filters, loading }) => {
+const SearchResult = ({ data, filters, loading, debug }) => {
   return (
     <div className="search-result">
       <table className="table table-hover">
         <thead>
           <tr className="result-table-head">
             {columnsDefinition.map((column, i) => {
+              if (column.debug && !debug) {
+                return null;
+              }
               return (
                 <th key={i}>
                   <div style={{ width: `${column.width}px` }}>{column.Header}</div>
@@ -239,7 +242,7 @@ const SearchResult = ({ data, filters, loading }) => {
                       componentId="SIRET"
                       dataField="siret.keyword"
                       filterLabel="Sirets"
-                      filters={filters}
+                      filters={filters.filter(e => e !== "SIRET")}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"
@@ -370,6 +373,9 @@ const SearchResult = ({ data, filters, loading }) => {
             return (
               <tr key={obj._id}>
                 {columnsDefinition.map((column, j) => {
+                  if (column.debug && !debug) {
+                    return null;
+                  }
                   return <Cell key={j} item={obj} id={`${i}_${j}`} column={column} />;
                 })}
               </tr>
