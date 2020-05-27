@@ -34,7 +34,8 @@
     "Header": "Siret Responsable",
     "accessor": "etablissement_responsable_siret",
     "width": 200,
-    "editorInput": "text"
+    "editorInput": "text",
+    "editable": true
   },
   {
     "Header": "Uai Responsable",

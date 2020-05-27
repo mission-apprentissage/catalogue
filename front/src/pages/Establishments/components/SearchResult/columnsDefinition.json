@@ -148,7 +148,6 @@
         "Header": "À charger dans ParcourSup",
         "accessor": "parcoursup_a_charger",
         "width": 200,
-        "debug": true,
         "editable": false
     },
     {

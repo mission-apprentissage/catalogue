@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure } from "../common-api/response";
 import { Establishment } from "../models";
 
@@ -11,7 +11,7 @@ export default async (event, context) => {
   try {
     await connectToMongo();
     const count = await Establishment.countDocuments(filter);
-
+    closeMongoConnection();
     return success({
       count,
     });
