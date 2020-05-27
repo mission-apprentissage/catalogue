@@ -35,36 +35,39 @@ function getMapping(schema) {
       continue;
     }
 
-    switch (mongooseType) {
-      case "ObjectID":
-      case "String":
-        properties[key] = {
-          type: "text",
-          fields: { keyword: { type: "keyword", ignore_above: 256 } },
-        };
-        break;
-      case "Date":
-        properties[key] = { type: "date" };
-        break;
-      case "Number":
-        properties[key] = { type: "double" };
-        break;
-      case "Boolean":
-        properties[key] = { type: "boolean" };
-        break;
-
-      case "Array":
-        if (schema.paths[key].caster.instance === "String") {
+    if (key.startsWith("geo_coords")) {
+      properties[key] = { type: "geo_point" };
+    } else
+      switch (mongooseType) {
+        case "ObjectID":
+        case "String":
           properties[key] = {
             type: "text",
             fields: { keyword: { type: "keyword", ignore_above: 256 } },
           };
-        }
+          break;
+        case "Date":
+          properties[key] = { type: "date" };
+          break;
+        case "Number":
+          properties[key] = { type: "long" };
+          break;
+        case "Boolean":
+          properties[key] = { type: "boolean" };
+          break;
 
-        break;
-      default:
-        break;
-    }
+        case "Array":
+          if (schema.paths[key].caster.instance === "String") {
+            properties[key] = {
+              type: "text",
+              fields: { keyword: { type: "keyword", ignore_above: 256 } },
+            };
+          }
+
+          break;
+        default:
+          break;
+      }
   }
 
   return { properties };
