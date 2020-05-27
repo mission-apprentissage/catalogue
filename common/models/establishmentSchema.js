@@ -443,7 +443,7 @@ const establishmentSchema = {
     description: 'Réponse à la question "Avez vous demandé la certification" dans Démarche Simplifiée',
   },
   ds_questions_ask_for_certificaton_date: {
-    type: String,
+    type: Date,
     default: null,
     description: 'Réponse à la question "Date de votre demande de certification" dans Démarche Simplifiée',
   },
