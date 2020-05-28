@@ -35,7 +35,7 @@ function getMapping(schema) {
       continue;
     }
 
-    if (key.startsWith("geo_coords")) {
+    if (/^geo-*/.test(key)) {
       properties[key] = { type: "geo_point" };
     } else
       switch (mongooseType) {
