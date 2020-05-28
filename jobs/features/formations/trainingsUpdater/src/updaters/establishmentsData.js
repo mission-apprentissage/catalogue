@@ -60,7 +60,7 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
-      geo_coords_etablissement_reference: referenceEstablishment ? referenceEstablishment.geo_coords : null,
+      geo_coordonnees_etablissement_reference: referenceEstablishment ? referenceEstablishment.geo_coordonnees : null,
     };
   }
 
