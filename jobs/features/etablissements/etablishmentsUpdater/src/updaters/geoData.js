@@ -11,7 +11,7 @@ class GeoData {
     const geojson = { ...responseApiAdresse };
 
     return {
-      geo_coords: `${geojson.features[0].geometry.coordinates[1]},${geojson.features[0].geometry.coordinates[0]}`,  // format "lat,long"
+      geo_coordonnees: `${geojson.features[0].geometry.coordinates[1]},${geojson.features[0].geometry.coordinates[0]}`, // format "lat,long"
     };
   }
 }
