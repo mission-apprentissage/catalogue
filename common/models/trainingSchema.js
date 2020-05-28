@@ -140,9 +140,8 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference est publié",
   },
-  geo_coords_etablissement_reference: {
+  geo_coordonnees_etablissement_reference: {
     type: String,
-    es_type: "geo_point",
   },
   entreprise_raison_sociale: {
     type: String,
