@@ -14,6 +14,8 @@ const serialize = require("./serialize");
 
 // https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/bulk_examples.html
 
+let isMappingNeedingGeoPoint = false;
+
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -37,6 +39,7 @@ function getMapping(schema) {
 
     if (/^geo-*/.test(key)) {
       properties[key] = { type: "geo_point" };
+      isMappingNeedingGeoPoint = true;
     } else
       switch (mongooseType) {
         case "ObjectID":
@@ -86,17 +89,20 @@ function Mongoosastic(schema, options) {
   schema.statics.createMapping = async function createMapping() {
     try {
       const exists = await esClient.indices.exists({ index: indexName });
+
+      let includeTypeNameParameters = isMappingNeedingGeoPoint ? { include_type_name: true } : {};
+
       if (!exists.body) {
-        await esClient.indices.create({ index: indexName, include_type_name: true });
+        await esClient.indices.create({ index: indexName, ...includeTypeNameParameters });
       }
       const completeMapping = {};
       completeMapping[typeName] = getMapping(schema);
 
       await esClient.indices.putMapping({
         index: indexName,
-        include_type_name: true,
         type: typeName,
         body: completeMapping,
+        ...includeTypeNameParameters,
       });
 
       //console.log("result put : ",a);
