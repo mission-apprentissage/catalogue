@@ -1,7 +1,7 @@
 // #region Imports
 const csvToJson = require("convert-csv-to-json");
 const { PATH_FORMATION_APPRENTISSAGE_AFFELNET } = require("./Constants");
-const logger = require("../../../../../common-jobs/Logger").mainLogger;
+const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

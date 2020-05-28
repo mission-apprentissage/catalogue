@@ -10,11 +10,10 @@ const { uniq } = require("lodash");
 
 const run = async () => {
   try {
-    logger.info(" -- Start of Psup updater -- ");
+    logger.info(" -- Start of Afflenet updater -- ");
     await connectToMongo();
-    // WIP --- do not run yet
-    exit;
-    const trainings = await Formation.find({ parcoursup_reference: "NON" }).and([
+
+    const trainings = await Formation.find({ affelnet_reference: "Non trouvé" }).and([
       { educ_nat_code: { $ne: null } },
       { educ_nat_code: { $ne: "" } },
       { intitule_long: { $ne: null } },
@@ -27,11 +26,7 @@ const run = async () => {
     let countRNCPhabiliteDiff = 0;
     //console.log(trainings.length);
     const formationsToload = trainings.filter(trainingItem => {
-      if (
-        //trainingItem._doc.niveau === "4 (Bac...)" ||
-        trainingItem._doc.niveau === "5 (BTS, DUT...)" ||
-        trainingItem._doc.niveau === "6 (Licence...)"
-      ) {
+      if (trainingItem._doc.niveau === "3 (CAP...)" || trainingItem._doc.niveau === "4 (Bac...)") {
         if (
           trainingItem._doc.etablissement_formateur_uai !== null ||
           trainingItem._doc.etablissement_responsable_uai !== null ||
@@ -73,7 +68,7 @@ const run = async () => {
       let updatedTraining = {
         ...trainingItem._doc,
       };
-      updatedTraining.parcoursup_a_charger = true;
+      updatedTraining.affelnet_a_charger = true;
       updatedTraining.last_update_at = Date.now();
       await Formation.findOneAndUpdate({ _id: trainingItem._id }, updatedTraining, { new: true });
       logger.info(`Training ${trainingItem._id} has been updated`);
@@ -116,7 +111,7 @@ const run = async () => {
               (establishmentToAdd.computed_declare_prefecture === "OUI" &&
                 establishmentToAdd.computed_info_datadock === "datadocké")
             ) {
-              establishmentToAdd.parcoursup_a_charger = true;
+              establishmentToAdd.affelnet_a_charger = true;
               establishmentsToAdd.set(establishmentToAdd._id, establishmentToAdd);
             }
           }
@@ -128,7 +123,7 @@ const run = async () => {
           (establishmentToAdd.computed_declare_prefecture === "OUI" &&
             establishmentToAdd.computed_info_datadock === "datadocké")
         ) {
-          establishmentToAdd.parcoursup_a_charger = true;
+          establishmentToAdd.affelnet_a_charger = true;
           establishmentsToAdd.set(establishmentToAdd._id, establishmentToAdd);
         }
       }
@@ -145,7 +140,7 @@ const run = async () => {
       logger.info(`Establishment ${establishmentToAdd._id} has been updated`);
     });
 
-    logger.info(" -- End of Psup updater -- ");
+    logger.info(" -- End of Afflenet updater -- ");
   } catch (err) {
     logger.error(err);
   }
