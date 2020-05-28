@@ -194,6 +194,13 @@
     "editable": false
   },
   {
+    "Header": "À charger dans Affelnet",
+    "accessor": "affelnet_a_charger",
+    "width": 200,
+    "debug": true,
+    "editable": false
+  },
+  {
     "Header": "Référencé dans ParcourSup",
     "accessor": "parcoursup_reference",
     "width": 200,

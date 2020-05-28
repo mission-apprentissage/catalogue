@@ -46,6 +46,7 @@ const FILTERS = [
   "affelnet_reference",
   "parcoursup_reference",
   "parcoursup_a_charger",
+  "affelnet_a_charger",
   "diplome",
 ];
 
