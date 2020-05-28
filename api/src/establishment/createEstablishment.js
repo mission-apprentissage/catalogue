@@ -1,4 +1,4 @@
-import { connectToMongo } from "../../../common/mongo";
+import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
 import { success, failure, badRequest } from "../common-api/response";
 import { Establishment } from "../models";
 import { findUserByAttribute } from "../common-api/cognito";
@@ -42,6 +42,7 @@ export default async (event, context) => {
     const establishment = Establishment(body);
     await establishment.save();
     console.log("Etablissement created", establishment);
+    closeMongoConnection();
     /**
      *  RESPONSE
      * */
