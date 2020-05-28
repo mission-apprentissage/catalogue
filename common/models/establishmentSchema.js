@@ -109,9 +109,8 @@ const establishmentSchema = {
     default: null,
     description: "Cedex",
   },
-  geo_coords: {
+  geo_coordonnees: {
     type: String,
-    es_type: 'geo_point'
   },
   date_fermeture: {
     type: Date,
