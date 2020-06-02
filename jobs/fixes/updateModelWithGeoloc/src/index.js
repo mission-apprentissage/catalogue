@@ -8,36 +8,34 @@ let rebuildIndex = async (index, schema) => {
   let client = getElasticInstance();
 
   logger.info(`Removing '${index}' index...`);
-  //await client.indices.delete({ index });
+  await client.indices.delete({ index });
 
   logger.info(`Re-creating '${index}' index with mapping...`);
-  //await schema.createMapping();
+  await schema.createMapping();
 };
 
-let migrateFormations = async () => {
-  logger.info("Migrating 'Formation' collection in MongoDB...");
+let indexingFormations = async () => {
+  logger.info("Indexing 'Formation' collection from MongoDB...");
 
   await rebuildIndex("formations", Formation);
 
   await runTrainingUpdater();
-
-  // Formation.synchronize();   // <- utile ou implicite
 };
 
-let migrateEtablissements = async () => {
-  logger.info("Migrating 'etablissements' collection in MongoDB...");
+let indexingEtablissements = async () => {
+  logger.info("Indexing 'etablissements' collection from MongoDB...");
 
   await rebuildIndex("etablissements", Establishment);
 
   await runEstablishmentUpdater();
-
-  // Establishment.synchronize();   // <- utile ou implicite
 };
 
 const run = async () => {
-  await migrateEtablissements();
+  await indexingEtablissements();
 
-  await migrateFormations();
+  await indexingFormations();
 
   logger.info("Fin de la reconstruction d'index");
 };
+
+run();

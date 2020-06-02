@@ -13,6 +13,11 @@ const publishedData = require("./updaters/publishedData");
 const UPDATE_ALL = true;
 const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
 
+const runTrainingUpdater = async () => 
+{
+  await run();
+};
+
 const run = async () => {
   try {
     logger.info(" -- Start of Trainings updater -- ");
@@ -137,6 +142,6 @@ const run = async () => {
   }
 };
 
-run();
+//run();
 
-module.exports = run;
+module.exports = { runTrainingUpdater };

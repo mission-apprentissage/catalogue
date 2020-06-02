@@ -119,6 +119,11 @@ const proccess = async updatedEstablishment => {
   }
 };
 
+const runEstablishmentUpdater = async () => 
+{
+  await run();
+};
+
 const run = async () => {
   try {
     logger.info(" -- Start of Establishments updater -- ");
@@ -145,4 +150,6 @@ const run = async () => {
   }
 };
 
-run();
+//run();
+
+module.exports = { runEstablishmentUpdater };
