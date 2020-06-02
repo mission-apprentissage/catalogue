@@ -20,7 +20,7 @@ const run = async () => {
 
     const trainings = await Formation.find({});
 
-    Formation.createMapping();
+    //Formation.createMapping();
 
     await asyncForEach(trainings, async trainingItem => {
       if (UPDATE_ALL || trainingItem._doc[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
@@ -138,3 +138,5 @@ const run = async () => {
 };
 
 run();
+
+module.exports = run;
