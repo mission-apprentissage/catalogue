@@ -129,7 +129,7 @@ const run = async () => {
 
     const establishments = await Establishment.find({});
 
-    Establishment.createMapping();
+    //Establishment.createMapping();
 
     await asyncForEach(establishments, async establishmentItem => {
       if (UPDATE_ALL || establishmentItem[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
