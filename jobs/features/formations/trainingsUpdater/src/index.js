@@ -98,6 +98,10 @@ const run = async () => {
 
         delete updatedTraining.etablissement_responsable_siret_intitule;
         delete updatedTraining.etablissement_formateur_siret_intitule;
+        // suppression des anciens champs de localisation
+        delete updatedTraining.etablissement_reference_localisation_coordonnees_lon;
+        delete updatedTraining.etablissement_reference_localisation_coordonnees_lat;
+        delete updatedTraining.etablissement_reference_localisation_geojson;
 
         // Update training
         if (updatedNeeded) {

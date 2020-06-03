@@ -95,6 +95,10 @@ const proccess = async updatedEstablishment => {
     delete updatedEstablishment.prenom;
     delete updatedEstablishment.uais_formations;
     delete updatedEstablishment.siret_siege_social;
+    // effacement ancien bloc localisation remplacé par geo_coords
+    delete updatedEstablishment.localisation_coordonnees_lon;
+    delete updatedEstablishment.localisation_coordonnees_lat;
+    delete updatedEstablishment.localisation_geojson;
 
     // Update establishment
     if (updatedNeeded) {

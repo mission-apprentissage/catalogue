@@ -14,6 +14,8 @@ const serialize = require("./serialize");
 
 // https://www.elastic.co/guide/en/elasticsearch/client/javascript-api/current/bulk_examples.html
 
+let isMappingNeedingGeoPoint = false;
+
 function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -35,36 +37,40 @@ function getMapping(schema) {
       continue;
     }
 
-    switch (mongooseType) {
-      case "ObjectID":
-      case "String":
-        properties[key] = {
-          type: "text",
-          fields: { keyword: { type: "keyword", ignore_above: 256 } },
-        };
-        break;
-      case "Date":
-        properties[key] = { type: "date" };
-        break;
-      case "Number":
-        properties[key] = { type: "double" };
-        break;
-      case "Boolean":
-        properties[key] = { type: "boolean" };
-        break;
-
-      case "Array":
-        if (schema.paths[key].caster.instance === "String") {
+    if (/^geo-*/.test(key)) {
+      properties[key] = { type: "geo_point" };
+      isMappingNeedingGeoPoint = true;
+    } else
+      switch (mongooseType) {
+        case "ObjectID":
+        case "String":
           properties[key] = {
             type: "text",
             fields: { keyword: { type: "keyword", ignore_above: 256 } },
           };
-        }
+          break;
+        case "Date":
+          properties[key] = { type: "date" };
+          break;
+        case "Number":
+          properties[key] = { type: "long" };
+          break;
+        case "Boolean":
+          properties[key] = { type: "boolean" };
+          break;
 
-        break;
-      default:
-        break;
-    }
+        case "Array":
+          if (schema.paths[key].caster.instance === "String") {
+            properties[key] = {
+              type: "text",
+              fields: { keyword: { type: "keyword", ignore_above: 256 } },
+            };
+          }
+
+          break;
+        default:
+          break;
+      }
   }
 
   return { properties };
@@ -83,15 +89,27 @@ function Mongoosastic(schema, options) {
   schema.statics.createMapping = async function createMapping() {
     try {
       const exists = await esClient.indices.exists({ index: indexName });
-      console.log("exists", exists);
-      if (!exists) {
-        await esClient.indices.create({ index: indexName });
+
+      let includeTypeNameParameters = isMappingNeedingGeoPoint ? { include_type_name: true } : {};
+
+      if (!exists.body) {
+        await esClient.indices.create({ index: indexName, ...includeTypeNameParameters });
       }
       const completeMapping = {};
       completeMapping[typeName] = getMapping(schema);
-      await esClient.indices.putMapping({ index: indexName, type: typeName, body: completeMapping });
+
+      await esClient.indices.putMapping({
+        index: indexName,
+        type: typeName,
+        body: completeMapping,
+        ...includeTypeNameParameters,
+      });
+
+      //console.log("result put : ",a);
     } catch (e) {
-      console.log("Error update mapping", e.message || e);
+      let errorMsg = e.message;
+      if (e.meta && e.meta.body) errorMsg = e.meta.body.error;
+      console.log("Error update mapping", errorMsg || e);
     }
   };
 
