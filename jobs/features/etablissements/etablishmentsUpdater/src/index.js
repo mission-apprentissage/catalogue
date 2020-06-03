@@ -119,11 +119,6 @@ const proccess = async updatedEstablishment => {
   }
 };
 
-const runEstablishmentUpdater = async () => 
-{
-  await run();
-};
-
 const run = async () => {
   try {
     logger.info(" -- Start of Establishments updater -- ");
@@ -133,8 +128,6 @@ const run = async () => {
     await connectToMongo();
 
     const establishments = await Establishment.find({});
-
-    //Establishment.createMapping();
 
     await asyncForEach(establishments, async establishmentItem => {
       if (UPDATE_ALL || establishmentItem[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
@@ -150,6 +143,4 @@ const run = async () => {
   }
 };
 
-//run();
-
-module.exports = { runEstablishmentUpdater };
+run();

@@ -13,19 +13,12 @@ const publishedData = require("./updaters/publishedData");
 const UPDATE_ALL = true;
 const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
 
-const runTrainingUpdater = async () => 
-{
-  await run();
-};
-
 const run = async () => {
   try {
     logger.info(" -- Start of Trainings updater -- ");
     await connectToMongo();
 
     const trainings = await Formation.find({});
-
-    //Formation.createMapping();
 
     await asyncForEach(trainings, async trainingItem => {
       if (UPDATE_ALL || trainingItem._doc[UPDATE_ONLY.attr] === UPDATE_ONLY.value) {
@@ -142,6 +135,4 @@ const run = async () => {
   }
 };
 
-//run();
-
-module.exports = { runTrainingUpdater };
+run();
