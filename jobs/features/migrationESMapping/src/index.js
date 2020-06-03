@@ -1,8 +1,11 @@
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const { Establishment, Formation } = require("../../../common-jobs/models");
 const { getElasticInstance } = require("../../../../common/esClient");
-const { runEstablishmentUpdater } = require("../../../features/etablissements/etablishmentsUpdater/src");
-const { runTrainingUpdater } = require("../../../features/formations/trainingsUpdater/src");
+const { execute } = require("../../../../common/scriptWrapper");
+
+/*
+  WARNING : this script is MANDATORY in order to use geo location. 
+*/
 
 let rebuildIndex = async (index, schema) => {
   let client = getElasticInstance();
@@ -11,7 +14,10 @@ let rebuildIndex = async (index, schema) => {
   await client.indices.delete({ index });
 
   logger.info(`Re-creating '${index}' index with mapping...`);
-  await schema.createMapping();
+  await schema.createMapping(); // this explicit call of createMapping insures that the geo points fields will be treated accordingly during indexing
+
+  logger.info(`Synching '${index}' index ...`);
+  await schema.synchronize();
 };
 
 let indexingFormations = async () => {
@@ -19,7 +25,7 @@ let indexingFormations = async () => {
 
   await rebuildIndex("formations", Formation);
 
-  await runTrainingUpdater();
+  logger.info("Index Formation rebuilt with mapping");
 };
 
 let indexingEtablissements = async () => {
@@ -27,15 +33,10 @@ let indexingEtablissements = async () => {
 
   await rebuildIndex("etablissements", Establishment);
 
-  await runEstablishmentUpdater();
+  logger.info("Index Etablissement rebuilt with mapping");
 };
 
-const run = async () => {
-  await indexingEtablissements();
-
-  await indexingFormations();
-
-  logger.info("Fin de la reconstruction d'index");
-};
-
-run();
+execute(async () => {
+  await Promise.all([indexingFormations(), indexingEtablissements()]);
+  logger.info("migrationESMapping has finished");
+});

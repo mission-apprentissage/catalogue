@@ -1,5 +1,5 @@
 {
-  "name": "ma-services-update-model-for-geoloc",
+  "name": "ma-services-migration-es-mapping",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
