@@ -253,6 +253,16 @@ functions:
           path: es/search/{index}/_msearch
           cors:
             origin: '*'
+  esMultiSearchNoindex:
+    handler: src/index.esMultiSearchNoindexHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: search/_msearch
+          cors:
+            origin: '*'
   esSearch:
     handler: src/index.esSearchHandler
     memorySize: 3008
