@@ -348,6 +348,9 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
                   )}
+                  {column.accessor === "affelnet_a_charger" && (
+                    <BooleanFilter dataField="affelnet_a_charger" filters={filters} sortBy="count" />
+                  )}
                   {column.accessor === "formations_n3" && (
                     <BooleanFilter dataField="formations_n3" filters={filters} sortBy="count" />
                   )}

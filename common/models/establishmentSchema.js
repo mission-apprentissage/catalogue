@@ -281,6 +281,11 @@ const establishmentSchema = {
     default: false,
     description: "L'établissement doit être ajouter à ParcourSup",
   },
+  affelnet_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à affelnet",
+  },
 
   //
   entreprise_siren: {
