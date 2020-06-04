@@ -28,7 +28,7 @@
             word-wrap: break-word;
             white-space: pre-line;
             margin-bottom: 0px;
-            text-align: justify;
+            //text-align: justify;
         }
         .field h3 {
             font-size: 1rem;
@@ -92,6 +92,29 @@
         border-radius: 5px;
         box-shadow: 0 2px 2px 0 rgba(215, 215, 215, 0.5);
         margin-bottom: 20px;
+
+        &.sidebar-section-edit {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+
+          .btn-warning, .btn-danger, .btn-success {
+            color: white;
+            width: 80%;
+          }
+        }
+
+        .sidebar-section-seemore {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          .btn {
+            width: 80%;
+          }
+          
+        }
       }
       .notice .sidebar-section.links .card {
         display: flex;

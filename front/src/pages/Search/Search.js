@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ReactiveBase, ReactiveList, ToggleButton, DataSearch, SingleList } from "@appbaseio/reactivesearch";
-import { Container, Row, Col } from "reactstrap";
+import { ReactiveBase, ReactiveList, DataSearch, SingleList } from "@appbaseio/reactivesearch";
+import { Container, Row } from "reactstrap";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
 
