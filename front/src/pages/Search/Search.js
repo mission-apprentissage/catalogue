@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReactiveBase, ReactiveList, ToggleButton, DataSearch } from "@appbaseio/reactivesearch";
+import { ReactiveBase, ReactiveList, ToggleButton, DataSearch, SingleList } from "@appbaseio/reactivesearch";
 import { Container, Row, Col } from "reactstrap";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
@@ -53,9 +53,39 @@ const FILTERS = [
   "diplome",
 ];
 
+const ToggleCatalogue = () => {
+  const [values, setValues] = useState("Catalogue général");
+  return (
+    <SingleList
+      componentId="catalogue_published"
+      dataField="etablissement_reference_catalogue_published"
+      value={values}
+      onChange={setValues}
+      transformData={data => {
+        return data.map(d => ({
+          ...d,
+          key: d.key === 1 ? "Catalogue général" : "Catalogue non-éligible",
+        }));
+      }}
+      customQuery={data => {
+        return !data || data.length === 0
+          ? {}
+          : {
+              query: {
+                match: {
+                  etablissement_reference_catalogue_published: data === "Catalogue général",
+                },
+              },
+            };
+      }}
+      showFilter={true}
+      showSearch={false}
+    />
+  );
+};
+
 export default ({ match }) => {
   const [base, setBase] = useState(match.params.base || "formations");
-  const [publishedTrainings, setPublishedTrainings] = useState("true");
   const [countFormations, setCountFormations] = useState(0);
   const [debug, setDebug] = useState(false);
   const [mode, setMode] = useState("simple");
@@ -86,7 +116,7 @@ export default ({ match }) => {
 
   return (
     <div className="page search-page">
-      <h1 className="mt-3">Liste des formations en apprentissage</h1>
+      <h1 className="mt-3">Catalogue de l'apprentissage</h1>
       <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app={base}>
         <div className="search">
           <Container fluid style={{ maxWidth: 1860 }}>
@@ -100,7 +130,7 @@ export default ({ match }) => {
               <Switch onChange={handleSearchSwitchChange} checked={mode !== "simple"} />
               <span>Recherche avancée</span>
             </label>
-            <h1 className="title">Votre recherche</h1>
+            <h1 className="title">Votre recherche {match.params.base === "formations" ? "de formations" : ""}</h1>
             <Row className="search-row">
               <div className={`search-sidebar`}>
                 <Facet
@@ -130,25 +160,7 @@ export default ({ match }) => {
                   filters={FILTERS}
                   sortBy="asc"
                 />
-                <ToggleButton
-                  componentId="catalogue_published"
-                  className="published-btn"
-                  dataField="etablissement_reference_catalogue_published"
-                  data={[
-                    { label: "Catalogue général", value: "true" },
-                    { label: "Catalogue non-éligible", value: "false" },
-                  ]}
-                  //defaultValue={"true"}
-                  //value={publishedTrainings}
-                  multiSelect={false}
-                  showFilter={true}
-                  URLParams={false}
-                  // onChange={e => {
-                  //   if (e.value && e.value !== publishedTrainings) {
-                  //     setPublishedTrainings(publishedTrainings === "true" ? "false" : "true");
-                  //   }
-                  // }}
-                />
+                <ToggleCatalogue />
               </div>
               <div className="search-results">
                 {mode !== "simple" && (
