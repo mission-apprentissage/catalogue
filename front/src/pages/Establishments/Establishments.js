@@ -25,6 +25,7 @@ const FILTERS = [
   "numAcademie",
   "nom_academie",
   "parcoursup_a_charger",
+  "affelnet_a_charger",
   "formations_n3",
   "formations_n4",
   "formations_n5",
