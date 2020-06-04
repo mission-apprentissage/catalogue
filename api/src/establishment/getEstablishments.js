@@ -7,7 +7,7 @@ export default async (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   const qs = event.queryStringParameters || null;
-  const query = qs && qs.query ? qs.query : {};
+  const query = qs && qs.query ? JSON.parse(qs.query) : {};
   const page = qs && qs.page ? qs.page : 1;
   const limit = qs && qs.limit ? qs.limit : 10;
 
