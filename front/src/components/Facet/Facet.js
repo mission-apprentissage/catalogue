@@ -13,9 +13,10 @@ const Layout = props => {
   };
 
   return (
-    <Card>
+    <Card className="facet">
       <CardHeader onClick={toggle}>
-        <h5 className="mb-0">{title}</h5>
+        <div className="card-header-title">{title}</div>
+        <div className="card-header-icon">⌄</div>
       </CardHeader>
       <Collapse isOpen={isOpen}>
         <CardBody>

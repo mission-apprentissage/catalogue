@@ -108,7 +108,7 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
       render={() => {
         if (exporting) {
           return (
-            <Progress min={0} max={100} value={progress}>
+            <Progress min={0} max={100} value={progress} style={{ width: "100%", position: "absolute" }}>
               {progress}%
             </Progress>
           );
@@ -117,6 +117,7 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
         return (
           <Button
             size="sm"
+            color="primary"
             onClick={async () => {
               setExporting(true);
               let csv = await getDataAsCSV(index, query, columns, setProgress);

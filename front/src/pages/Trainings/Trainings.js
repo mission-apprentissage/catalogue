@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReactiveBase, ReactiveList, ToggleButton } from "@appbaseio/reactivesearch";
+import { ReactiveBase, ReactiveList, ToggleButton, DataSearch } from "@appbaseio/reactivesearch";
 import { Container, Row, Col } from "reactstrap";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
@@ -18,6 +18,7 @@ const STAGE = getEnvName();
 
 const FILTERS = [
   "QUERYBUILDER",
+  "SEARCH",
   "etablissement_formateur_siret",
   "etablissement_responsable_siret",
   "num_academie",
@@ -163,14 +164,26 @@ export default () => {
                       { text: "Référencé datadock", value: "etablissement_reference_datadock.keyword" },
                       { text: "Code diplôme (Éducation nationale)", value: "educ_nat_code.keyword" },
                       { text: "Numéero de département", value: "num_departement" },
-                      { text: "Nom de l'académie", value: "nomAcademie.keyword" },
+                      { text: "Nom de l'académie", value: "nom_academie.keyword" },
                       { text: "Uai du lieu de formation", value: "uai_formation.keyword" },
                       { text: "Diplôme", value: "diplome.keyword" },
                       { text: "Mef 10", value: "mef_10_code.keyword" },
                     ]}
                   />
                 )}
-                {mode === "simple" && <div className={`search-container search-container-${mode}`}></div>}
+                {mode === "simple" && (
+                  <div className={`search-container search-container-${mode}`}>
+                    <DataSearch
+                      componentId="SEARCH"
+                      placeholder="Saisissez un diplome, un UAI ou un numéro de Siret"
+                      dataField={["etablissement_formateur_siret", "diplome", "uai_formation"]}
+                      autosuggest={true}
+                      queryFormat="or"
+                      size={20}
+                      showFilter={true}
+                    />
+                  </div>
+                )}
                 <div className={`result-view`}>
                   <ReactiveList
                     componentId="result"
@@ -194,12 +207,12 @@ export default () => {
                     renderItem={data => <CardList data={data} key={data._id} />}
                     renderResultStats={stats => {
                       return (
-                        <>
-                          <p style={{ fontSize: 14 }}>
+                        <div className="summary-stats">
+                          <span className="summary-text">
                             {`${stats.numberOfResults} formations affichées sur ${
                               countFormations !== 0 ? countFormations : ""
                             } formations au total`}
-                          </p>
+                          </span>
                           <ExportButton
                             index={"formations"}
                             filters={FILTERS}
@@ -212,7 +225,7 @@ export default () => {
                               },
                             }}
                           />
-                        </>
+                        </div>
                       );
                     }}
                     react={{ and: FILTERS }}

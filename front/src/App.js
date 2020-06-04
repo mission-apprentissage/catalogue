@@ -24,6 +24,7 @@ import {
   HowToReglement,
   Users,
   Duplicates,
+  Formation,
 } from "./pages";
 
 import routes from "./routes.json";
@@ -67,6 +68,7 @@ const App = () => {
         <RestrictedRoute exact path={routes.HOWTO_REGLEMENT} component={HowToReglement} />
         <RestrictedRoute exact path={routes.ADMIN_USERS} component={Users} />
         <RestrictedRoute exact path={routes.ADMIN_DUPLICATE} component={Duplicates} />
+        <Route exact path={`/formation/:id`} component={Formation} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />
         <Route exact path={routes.FORGOTPASSWORD} component={ForgotPassword} />
         <Route exact path={routes.STATISTIQUES} component={Stats} />
