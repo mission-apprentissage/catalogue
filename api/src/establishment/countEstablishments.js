@@ -6,11 +6,12 @@ export default async (event, context) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const filter = event.queryStringParameters ? event.queryStringParameters : {};
+  const qs = event.queryStringParameters || null;
+  const query = qs && qs.query ? JSON.parse(qs.query) : {};
 
   try {
     await connectToMongo();
-    const count = await Establishment.countDocuments(filter);
+    const count = await Establishment.countDocuments(query);
     closeMongoConnection();
     return success({
       count,
