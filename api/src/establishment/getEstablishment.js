@@ -6,7 +6,8 @@ export default async (event, context) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const query = event.queryStringParameters ? event.queryStringParameters.query : {};
+  const qs = event.queryStringParameters || null;
+  const query = qs && qs.query ? JSON.parse(qs.query) : {};
 
   try {
     await connectToMongo();

@@ -10,17 +10,11 @@ import content from "../../CHANGELOG";
 import routes from "../../routes.json";
 import "./landing.css";
 
-const getCount = async (index, filter = null) => {
-  let resp = null;
-  if (filter) {
-    resp = await API.get("api", `/${index}/count`, {
-      queryStringParameters: {
-        ...filter,
-      },
-    });
-  } else {
-    resp = await API.get("api", `/${index}/count`);
-  }
+const getCount = async (index, filter = {}) => {
+  const params = new window.URLSearchParams({
+    query: JSON.stringify(filter),
+  });
+  const resp = await API.get("api", `/${index}/count?${params}`);
 
   return resp.count;
 };
