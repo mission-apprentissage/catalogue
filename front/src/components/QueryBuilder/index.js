@@ -3,6 +3,7 @@ import { ReactiveComponent } from "@appbaseio/reactivesearch";
 import { useHistory } from "react-router-dom";
 
 import { defaultOperators, defaultCombinators, mergedQueries, uuidv4, withUniqueKey } from "./utils";
+import { operators as frOperators, combinators as frCombinators } from "./utils_fr";
 import Rule from "./rule";
 
 function QueryBuilder({
@@ -14,11 +15,12 @@ function QueryBuilder({
   onQuery,
   autoComplete,
   collection,
+  lang,
 }) {
   let history = useHistory();
 
-  operators = operators || defaultOperators;
-  combinators = combinators || defaultCombinators;
+  operators = operators || (lang === "fr" ? frOperators : defaultOperators);
+  combinators = combinators || (lang === "fr" ? frCombinators : defaultCombinators);
   templateRule = templateRule || {
     field: fields[0].value,
     operator: operators[0].value,
@@ -76,19 +78,19 @@ function QueryBuilder({
   );
 }
 
-export default ({ react, fields, collection }) => {
+export default ({ react, fields, collection, lang = "en" }) => {
   return (
     <ReactiveComponent
       componentId="QUERYBUILDER"
       react={react}
       URLParams={true}
       value="qb"
-      render={data => <SubComponent collection={collection} fields={fields} {...data} />}
+      render={data => <SubComponent collection={collection} fields={fields} {...data} lang={lang} />}
     />
   );
 };
 
-const SubComponent = ({ setQuery, fields, collection }) => {
+const SubComponent = ({ setQuery, fields, collection, lang }) => {
   const [initialValue, setInitialValue] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -112,6 +114,7 @@ const SubComponent = ({ setQuery, fields, collection }) => {
         collection={collection}
         initialValue={initialValue}
         fields={fields}
+        lang={lang}
         onQuery={queries => {
           if (
             !queries.must.length &&

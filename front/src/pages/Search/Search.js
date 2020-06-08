@@ -104,6 +104,7 @@ export default ({ match }) => {
       }
     }
     run();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSwitchChange = () => {
@@ -165,6 +166,7 @@ export default ({ match }) => {
               <div className="search-results">
                 {mode !== "simple" && (
                   <QueryBuilder
+                    lang="fr"
                     collection={base}
                     fields={[
                       { text: "Siret formateur", value: "etablissement_formateur_siret.keyword" },
