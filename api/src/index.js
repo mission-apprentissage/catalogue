@@ -21,3 +21,5 @@ export {
 export { createUserHandler, updateUserHandler, getUsersHandler, deleteUserHandler } from "./admin/user";
 
 export { esMultiSearchHandler, esSearchHandler, esScrollHandler, esMultiSearchNoindexHandler } from "./search";
+
+export { servicesHandler } from "./services";

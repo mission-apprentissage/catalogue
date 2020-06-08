@@ -283,6 +283,16 @@ functions:
           path: es/search/{index}/scroll
           cors:
             origin: '*'
+  services:
+    handler: src/index.servicesHandler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: services
+          cors:
+            origin: '*'
   getUsers:
     handler: src/index.getUsersHandler
     memorySize: 3008
