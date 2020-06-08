@@ -7,6 +7,7 @@ import Journal from "./Journal";
 import HowToModif from "./HowToModif";
 import HowToReglement from "./HowToReglement";
 import Formation from "./Formation";
+import AddFormation from "./AddFormation";
 import Search from "./Search";
 
 import SignIn from "./Auth/SignIn";
@@ -33,4 +34,5 @@ export {
   Duplicates,
   Formation,
   Search,
+  AddFormation,
 };
