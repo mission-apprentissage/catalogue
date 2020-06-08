@@ -43,8 +43,10 @@ const FILTERS = [
   "mef_10_code",
   "mef_8_code",
   "mef_8_codes",
+  "affelnet_reference",
   "parcoursup_reference",
   "parcoursup_a_charger",
+  "affelnet_a_charger",
   "diplome",
 ];
 
@@ -55,11 +57,10 @@ export default () => {
   useEffect(() => {
     async function run() {
       try {
-        const resp = await API.get("api", `/formations/count`, {
-          queryStringParameters: {
-            published: true,
-          },
+        const params = new window.URLSearchParams({
+          query: JSON.stringify({ published: true }),
         });
+        const resp = await API.get("api", `/formations/count?${params}`);
         setCountFormations(resp.count);
       } catch (e) {
         console.log(e);

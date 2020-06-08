@@ -488,6 +488,9 @@ const SearchResult = ({ data, filters, debug }) => {
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
                   )}
+                  {column.accessor === "affelnet_a_charger" && (
+                    <BooleanFilter dataField="affelnet_a_charger" filters={filters} sortBy="count" />
+                  )}
                   {column.accessor === "rncp_etablissement_reference_habilite" && (
                     <BooleanFilter dataField="rncp_etablissement_reference_habilite" filters={filters} sortBy="count" />
                   )}
@@ -554,6 +557,17 @@ const SearchResult = ({ data, filters, debug }) => {
                       componentId="parcoursup_reference"
                       dataField="parcoursup_reference.keyword"
                       filterLabel="parcoursup_reference"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
+                  {column.accessor === "affelnet_reference" && (
+                    <Filter
+                      componentId="affelnet_reference"
+                      dataField="affelnet_reference.keyword"
+                      filterLabel="affelnet_reference"
                       filters={filters}
                       sortBy="count"
                       showMissing={true}

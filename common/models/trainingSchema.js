@@ -140,20 +140,8 @@ const trainingSchema = {
     default: false,
     description: "Etablissement reference est publié",
   },
-  etablissement_reference_localisation_coordonnees_lon: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Longitude de l'établissement de référence",
-  },
-  etablissement_reference_localisation_coordonnees_lat: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Latitude de l'établissement de référence",
-  },
-  etablissement_reference_localisation_geojson: {
-    type: Object,
-    default: {},
-    description: "Localisation GeoJson de l'établissement de référence",
+  geo_coordonnees_etablissement_reference: {
+    type: String,
   },
   entreprise_raison_sociale: {
     type: String,
@@ -359,6 +347,16 @@ const trainingSchema = {
     type: Boolean,
     default: false,
     description: "La formation doit être ajouter à ParcourSup",
+  },
+  affelnet_reference: {
+    type: String,
+    default: "NON",
+    description: "La formation est présent sur affelnet",
+  },
+  affelnet_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à affelnet",
   },
   info_bcn_code_en: {
     type: Number,
