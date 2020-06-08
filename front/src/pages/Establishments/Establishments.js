@@ -31,6 +31,7 @@ const FILTERS = [
   "formations_n5",
   "formations_n6",
   "formations_n7",
+  "naf_code",
 ];
 
 export default () => {
