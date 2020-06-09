@@ -1,25 +1,29 @@
-import { success, failure, badRequest } from "../common-api/response";
-import { getElasticInstance } from "../common-api/es";
+const { success, failure, badRequest } = require("../common-api/response");
+const { getElasticInstance } = require("../common-api/es");
 
 const esClient = getElasticInstance();
 
-export default async event => {
+module.exports.handler = async (event, context, callback) => {
   const { body } = event;
 
   try {
     if (!body || body === "") {
-      return badRequest({ message: "something went wrong" });
+      callback(null, badRequest({ message: "something went wrong" }));
     }
+
     console.log({ body: [body] });
     const result = await esClient.msearch({ body: [body] });
 
     /**
      *  Response
      * */
-    return success(result.body);
+    callback(null, success(result.body));
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

@@ -1,8 +1,10 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure } from "../common-api/response";
-import { Establishment } from "../models";
+const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+const { success, failure } = require("../common-api/response");
 
-export default async (event, context) => {
+global.usePaginate = true;
+const { Establishment } = require("../../../jobs/common-jobs/models");
+
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -12,24 +14,29 @@ export default async (event, context) => {
   const limit = qs && qs.limit ? qs.limit : 10;
 
   try {
+    console.log(qs, query, { page, limit });
     await connectToMongo();
     const results = await Establishment.paginate(query, { page, limit });
     closeMongoConnection();
-    /**
-     *  Response
-     * */
-    return success({
-      etablissements: results.docs,
-      pagination: {
-        page: results.page,
-        resultats_par_page: limit,
-        nombre_de_page: results.pages,
-        total: results.total,
-      },
-    });
+
+    callback(
+      null,
+      success({
+        etablissements: results.docs,
+        pagination: {
+          page: results.page,
+          resultats_par_page: limit,
+          nombre_de_page: results.pages,
+          total: results.total,
+        },
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

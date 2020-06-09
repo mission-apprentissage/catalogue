@@ -1,7 +1,7 @@
-import { success, failure } from "../../common-api/response";
-import { getUserFromToken, userIsSuperAdmin, listUsers } from "../../common-api/cognito";
+const { success, failure } = require("../../common-api/response");
+const { getUserFromToken, userIsSuperAdmin, listUsers } = require("../../common-api/cognito");
 
-export default async event => {
+module.exports.handler = async (event, context, callback) => {
   try {
     const refreshToken = event.queryStringParameters ? event.queryStringParameters.refreshToken : null;
 
@@ -21,13 +21,19 @@ export default async event => {
     /**
      *  Response
      * */
-    return success({
-      users: resp,
-      isAdmin,
-    });
+    callback(
+      null,
+      success({
+        users: resp,
+        isAdmin,
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };
