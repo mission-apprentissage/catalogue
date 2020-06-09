@@ -1,53 +1,67 @@
-// import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-// import { success, failure, notFound } from "../common-api/response";
-// import { Formation } from "../models";
-const { run } = require("../../../jobs/features/etablissements/etablishmentsUpdater/src/etablishmentsUpdater");
-
-// console.log(run);
+const { success, failure, notFound } = require("../common-api/response");
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  await run({ _id: "5e8df8c220ff3b2161267f26" });
+  const qs = event.queryStringParameters || null;
+  const job = qs && qs.job ? qs.job : "";
+  const id = qs && qs.id ? qs.id : "";
 
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify("Hello from Lambda!"),
-  };
-  callback(null, response);
+  const result = {};
+  try {
+    switch (job) {
+      case "etablissement":
+        {
+          if (id === "") {
+            throw new Error("Something went wrong: id missing");
+          }
+          // eslint-disable-next-line no-case-declarations
+          const {
+            run,
+            // eslint-disable-next-line global-require
+          } = require("../../../jobs/features/etablissements/etablishmentsUpdater/src/etablishmentsUpdater");
+          await run({ _id: id });
+        }
+        break;
+      case "formation":
+        {
+          if (id === "") {
+            throw new Error("Something went wrong: id missing");
+          }
+          // eslint-disable-next-line no-case-declarations
+          const {
+            run,
+            // eslint-disable-next-line global-require
+          } = require("../../../jobs/features/formations/trainingsUpdater/src/trainingsUpdater");
+          await run({ _id: id });
+        }
+        break;
+      case "":
+      default:
+        throw new Error("Job not found");
+    }
+    callback(
+      null,
+      success({
+        ...result,
+      })
+    );
+  } catch (error) {
+    if (error.message === "Job not found") {
+      callback(
+        null,
+        notFound({
+          error: "Job not found",
+        })
+      );
+    } else {
+      callback(
+        null,
+        failure({
+          error: error.message,
+        })
+      );
+    }
+  }
 };
-
-// const services = async (event, context) => {
-//   // eslint-disable-next-line no-param-reassign
-//   context.callbackWaitsForEmptyEventLoop = false;
-
-//   const qs = event.queryStringParameters || null;
-//   const job = qs && qs.job ? qs.job : "etablissement";
-
-//   const result = {};
-//   try {
-//     switch (job) {
-//       case "etablissement":
-//         // run({ _id: "5e8df8c220ff3b2161267f26" });
-//         break;
-//       case "":
-//       default:
-//         return notFound({
-//           error: "Not found",
-//         });
-//     }
-//     // await connectToMongo();
-//     // const formation = await Formation.findById(idFormation);
-//     // closeMongoConnection();
-//     return success({
-//       ...result,
-//     });
-//   } catch (error) {
-//     return failure({
-//       error,
-//     });
-//   }
-// };
-
-// export const servicesHandler = services;

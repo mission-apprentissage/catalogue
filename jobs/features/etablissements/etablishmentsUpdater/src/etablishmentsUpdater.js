@@ -129,12 +129,10 @@ const run = async (updateOnly = null) => {
     const establishments = await Establishment.find(filter);
 
     await asyncForEach(establishments, async establishmentItem => {
-      //if (updateAll || establishmentItem[updateOnly.attr] === updateOnly.value) {
       let updatedEstablishment = {
         ...establishmentItem._doc,
       };
       await proccess(updatedEstablishment);
-      //}
     });
 
     closeMongoConnection();

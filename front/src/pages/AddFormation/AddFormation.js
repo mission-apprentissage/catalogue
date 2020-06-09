@@ -1,360 +1,294 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { Container, Row, Col, Button, Spinner, Input, FormGroup, Label, Form } from "reactstrap";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
 
-import trainingSchema from "@trainingSchema";
-
-import Section from "./components/Section";
+import Formation from "../Formation";
 
 import "./addFormation.css";
 
-const checkIfHasRightToEdit = (item, userAcm) => {
-  let hasRightToEdit = userAcm.all;
-  if (!hasRightToEdit) {
-    hasRightToEdit = userAcm.academie.includes(`${item.num_academie}`);
-  }
-  return hasRightToEdit;
-};
+const Step2 = ({ etablissement, onComplete }) => {
+  const [formation, setFormation] = useState(null);
 
-const EditSection = ({ edition, onEdit, handleSubmit }) => {
-  const onDeleteClicked = () => {
-    // do stuff
-  };
-
+  const { values, handleSubmit, handleChange, isSubmitting } = useFormik({
+    initialValues: {
+      educ_nat_code: "",
+      code_postal: "",
+      uai_formation: "",
+    },
+    onSubmit: ({ educ_nat_code, code_postal, uai_formation }, { setSubmitting }) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          let resp = await API.post("api", `/formation`, {
+            body: {
+              educ_nat_code,
+              etablissement_responsable_siret: etablissement.siret,
+              etablissement_formateur_siret: etablissement.siret,
+              code_postal,
+              uai_formation,
+              draft: true,
+            },
+          });
+          console.log(resp);
+          await API.get("api", `/services?job=formation&id=${resp._id}`);
+          resp = await API.get("api", `/formation/${resp._id}`);
+          console.log(resp);
+          onComplete(resp);
+          // const params = new window.URLSearchParams({
+          //   query: JSON.stringify({ siret }),
+          // });
+          // const resp = await API.get("api", `/etablissement?${params}`);
+          // // console.log(resp);
+          // setFormation(resp);
+        } catch (e) {
+          // const {
+          //   response: { status },
+          // } = e;
+          // if (status === 404) {
+          //   let resp = await API.post("api", `/etablissement`, {
+          //     body: {
+          //       siret,
+          //     },
+          //   });
+          //   await API.get("api", `/services?job=etablissement&id=${resp._id}`);
+          //   resp = await API.get("api", `/etablissement/${resp._id}`);
+          //   // console.log(resp);
+          //   if (!resp.api_entreprise_reference) {
+          //     resp = await API.del("api", `/etablissement/${resp._id}`);
+          //   } else {
+          //     setFormation(resp);
+          //   }
+          // } else {
+          console.log(e);
+          //}
+        }
+        resolve("onSubmitHandler complete");
+        setSubmitting(false);
+      });
+    },
+  });
   return (
-    <div className="sidebar-section info sidebar-section-edit">
-      {edition && (
-        <>
-          <Button className="mb-3" color="success" onClick={handleSubmit}>
-            Valider
-          </Button>
-          <Button
-            color="danger"
-            onClick={() => {
-              onEdit();
-            }}
-          >
-            Annuler
-          </Button>
-        </>
-      )}
-      {!edition && (
-        <>
-          <Button
-            className="mb-3"
-            color="warning"
-            onClick={() => {
-              onEdit();
-            }}
-          >
-            Éditer
-          </Button>
-          <Button color="danger" onClick={onDeleteClicked}>
-            Supprimer
-          </Button>
-        </>
-      )}
+    <div className="notice mt-5">
+      <Container>
+        <Row>
+          <Col>
+            <Form>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="educ_nat_code" className="mr-sm-2 label-form">
+                  <strong>Code diplôme Education Nationale</strong>
+                </Label>
+                <Input
+                  type="text"
+                  name="educ_nat_code"
+                  onChange={handleChange}
+                  value={values.educ_nat_code}
+                  disabled={isSubmitting || formation}
+                />
+              </FormGroup>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="uai_formation" className="mr-sm-2 label-form">
+                  <strong>Code UAI de la formation</strong>
+                </Label>
+                <Input
+                  type="text"
+                  name="uai_formation"
+                  onChange={handleChange}
+                  value={values.uai_formation}
+                  disabled={isSubmitting || formation}
+                />
+              </FormGroup>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="code_postal" className="mr-sm-2 label-form">
+                  <strong>Code postal</strong>
+                </Label>
+                <Input
+                  type="text"
+                  name="code_postal"
+                  onChange={handleChange}
+                  value={values.code_postal}
+                  disabled={isSubmitting || formation}
+                />
+              </FormGroup>
+              <Button color="primary" onClick={handleSubmit} disabled={!(!isSubmitting && !formation)}>
+                Valider
+              </Button>
+            </Form>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 };
 
-const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, values }) => {
-  const { acm: userAcm } = useSelector(state => state.user);
-  const oneEstablishment = formation.etablissement_responsable_siret === formation.etablissement_formateur_siret;
-  const hasRightToEdit = checkIfHasRightToEdit(formation, userAcm);
+const Step1 = ({ onComplete }) => {
+  const [etablissement, setEtablissement] = useState(null);
+
+  const { values, handleSubmit, handleChange, isSubmitting } = useFormik({
+    initialValues: {
+      siret: "",
+    },
+    onSubmit: ({ siret }, { setSubmitting }) => {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const params = new window.URLSearchParams({
+            query: JSON.stringify({ siret }),
+          });
+          const resp = await API.get("api", `/etablissement?${params}`);
+          console.log(resp);
+          setEtablissement(resp);
+        } catch (e) {
+          const {
+            response: { status },
+          } = e;
+          if (status === 404) {
+            let resp = await API.post("api", `/etablissement`, {
+              body: {
+                siret,
+              },
+            });
+            await API.get("api", `/services?job=etablissement&id=${resp._id}`);
+            resp = await API.get("api", `/etablissement/${resp._id}`);
+            // console.log(resp);
+            if (!resp.api_entreprise_reference) {
+              resp = await API.del("api", `/etablissement/${resp._id}`);
+            } else {
+              setEtablissement(resp);
+            }
+          } else {
+            console.log(e);
+          }
+        }
+        resolve("onSubmitHandler complete");
+        setSubmitting(false);
+      });
+    },
+  });
+
+  const onCancel = () => {
+    setEtablissement(null);
+  };
 
   return (
-    <Row>
-      <Col md="7">
-        <div className="notice-details">
-          <h2 className="small">Détails</h2>
-          <div className="field">
-            <h3>Intitulé court de la formation</h3>
-            <p>{formation.intitule_court}</p>
-          </div>
-          <div className="field">
-            <h3>Diplôme ou titre visé</h3>
-            <p>{formation.diplome}</p>
-          </div>
-          <div className="field">
-            <h3>Niveau de la formation</h3>
-            <p>{formation.niveau}</p>
-          </div>
-          <div className="field">
-            <h3>
-              Code diplôme (Éducation Nationale)
-              {hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}
-            </h3>
-            <p>
-              {!edition && <>{formation.educ_nat_code}</>}
-              {edition && (
-                <Input type="text" name="educ_nat_code" onChange={handleChange} value={values.educ_nat_code} />
-              )}
-            </p>
-          </div>
-          <div className="field">
-            <h3>Code MEF 10 caractères</h3>
-            <p>{formation.mef_10_code}</p>
-          </div>
-          <div className="field">
-            <h3>
-              Période d'inscription{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}
-            </h3>
-            <p>
-              {!edition && <>{formation.periode}</>}
-              {edition && <Input type="text" name="periode" onChange={handleChange} value={values.periode} />}
-            </p>
-          </div>
-          <div className="field">
-            <h3>
-              Capacite d'accueil{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}
-            </h3>
-            <p>
-              {!edition && <>{formation.capacite}</>}
-              {edition && <Input type="text" name="capacite" onChange={handleChange} value={values.capacite} />}
-            </p>
-          </div>
-          <div className="field">
-            <h3>Durée de la formation</h3>
-            <p>{formation.duree}</p>
-          </div>
-          <div className="field">
-            <h3>Année</h3>
-            <p>{formation.annee}</p>
-          </div>
-        </div>
-        <Section title="Information ParcourSup">
-          <div className="field">
-            <h3>Référencé dans ParcourSup</h3>
-            <p>{formation.parcoursup_reference}</p>
-          </div>
-          <div className="field">
-            <h3>À charger dans ParcourSup</h3>
-            <p>{formation.parcoursup_a_charger ? "OUI" : "NON"}</p>
-          </div>
-        </Section>
-        <Section title="Information RNCP">
-          <div className="field">
-            <h3>Code RNCP</h3>
-            <p>{formation.rncp_code}</p>
-          </div>
-          <div className="field">
-            <h3>Organisme Habilité (RNCP)</h3>
-            <p>{formation.rncp_etablissement_reference_habilite}</p>
-          </div>
-          <div className="field">
-            <h3>Éligible apprentissage (RNCP)</h3>
-            <p>{formation.rncp_eligible_apprentissage}</p>
-          </div>
-          <div className="field">
-            <h3>Intitulé RNCP</h3>
-            <p>{formation.rncp_intitule}</p>
-          </div>
-        </Section>
-        <Section title="Information ROME">
-          <div className="field">
-            <h3>Codes ROME</h3>
-            <p>{formation.rome_codes}</p>
-          </div>
-        </Section>
-      </Col>
-      <Col md="5">
-        {hasRightToEdit && <EditSection edition={edition} onEdit={onEdit} handleSubmit={handleSubmit} />}
-        <div className="sidebar-section info">
-          <h2>À propos</h2>
-          <div>
-            <div className="field multiple">
-              <div>
-                <h3>Type</h3>
-                <p>{formation.etablissement_reference_type}</p>
-              </div>
-              <div>
-                <h3>UAI{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}</h3>
-                <p>
-                  {!edition && <>{formation.uai_formation}</>}
-                  {edition && (
-                    <Input type="text" name="uai_formation" onChange={handleChange} value={values.uai_formation} />
-                  )}
-                </p>
-              </div>
-            </div>
-            <div className="field">
-              <h3>Établissement conventionné ?</h3>
-              <p>{formation.etablissement_reference_conventionne}</p>
-            </div>
-            <div className="field">
-              <h3>Établissement déclaré en préfecture ?</h3>
-              <p>{formation.etablissement_reference_declare_prefecture}</p>
-            </div>
-            <div className="field">
-              <h3>Organisme certifié 2015 - datadock ?</h3>
-              <p>{formation.etablissement_reference_datadock}</p>
-            </div>
-            <div className="field">
-              <h3>Académie{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}</h3>
-              <p>
-                {!edition && (
-                  <>
-                    {formation.nom_academie} ({formation.num_academie})
-                  </>
-                )}
-                {edition && (
-                  <>
-                    {formation.nom_academie}{" "}
-                    <Input type="text" name="num_academie" onChange={handleChange} value={values.num_academie} />
-                  </>
-                )}
-              </p>
-            </div>
-            <div className="field multiple">
-              <div>
-                <h3>Code postal{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}</h3>
-                <p>
-                  {!edition && <>{formation.code_postal}</>}
-                  {edition && (
-                    <Input type="text" name="code_postal" onChange={handleChange} value={values.code_postal} />
-                  )}
-                </p>
-              </div>
-              <div>
-                <h3>Code commune</h3>
-                <p>{formation.code_commune_insee}</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="sidebar-section info">
-          <h2>Organisme {!oneEstablishment && "Formateur"}</h2>
-          <div>
-            {formation.entreprise_raison_sociale && (
-              <div className="field">
-                <h3>Raison sociale</h3>
-                <p>{formation.entreprise_raison_sociale}</p>
-              </div>
-            )}
-            {formation.etablissement_formateur_enseigne && (
-              <div className="field">
-                <h3>Enseigne</h3>
-                <p>{formation.etablissement_formateur_enseigne}</p>
-              </div>
-            )}
-            <div className="field">
-              <h3>Uai</h3>
-              <p>{formation.etablissement_formateur_uai}</p>
-            </div>
-            <div className="sidebar-section-seemore">
-              <Button color="primary">Voir plus de détails</Button>
-            </div>
-          </div>
-        </div>
-        {!oneEstablishment && (
-          <div className="sidebar-section info">
-            <h2>Organisme Responsable</h2>
-            <div>
-              {formation.entreprise_raison_sociale && (
-                <div className="field">
-                  <h3>Raison sociale</h3>
-                  <p>{formation.entreprise_raison_sociale}</p>
+    <div className="notice mt-5">
+      <Container>
+        <Row>
+          <Col>
+            <Form inline>
+              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                <Label for="siret" className="mr-sm-2 label-form">
+                  <strong>Numéro de siret</strong>&nbsp;établissement
+                </Label>
+                <Input
+                  type="text"
+                  name="siret"
+                  onChange={handleChange}
+                  value={values.siret}
+                  disabled={isSubmitting || etablissement}
+                />
+              </FormGroup>
+              <Button color="primary" onClick={handleSubmit} disabled={!(!isSubmitting && !etablissement)}>
+                Recherche
+              </Button>
+            </Form>
+
+            {isSubmitting && <Spinner color="secondary" />}
+          </Col>
+        </Row>
+        {etablissement && (
+          <Row className="mt-3 mb-3">
+            <Col md="12">
+              <div className="notice-details">
+                <h2 className="small">Établissement</h2>
+                <div className="field multiple">
+                  <div>
+                    <h3>Raison sociale</h3>
+                    <p>{etablissement.entreprise_raison_sociale}</p>
+                  </div>
+                  <div>
+                    <h3>Type</h3>
+                    <p>{etablissement.computed_type}</p>
+                  </div>
                 </div>
-              )}
-              {formation.etablissement_responsable_enseigne && (
-                <div className="field">
-                  <h3>Enseigne</h3>
-                  <p>{formation.etablissement_responsable_enseigne}</p>
+                <div className="field multiple">
+                  <div>
+                    <h3>Siret</h3>
+                    <p>{etablissement.siret}</p>
+                  </div>
+                  <div>
+                    <h3>UAI</h3>
+                    <p>{etablissement.uai}</p>
+                  </div>
                 </div>
-              )}
-              <div className="field">
-                <h3>Uai</h3>
-                <p>{formation.etablissement_responsable_uai}</p>
+                <div className="field multiple">
+                  <div>
+                    <h3>Adresse</h3>
+                    <p>{etablissement.adresse}</p>
+                  </div>
+                  <div>
+                    <h3>Académie</h3>
+                    <p>
+                      {etablissement.nom_academie} ({etablissement.num_academie})
+                    </p>
+                  </div>
+                </div>
+                <div className="field">
+                  <h3>Établissement conventionné ?</h3>
+                  <p>{etablissement.computed_conventionne}</p>
+                </div>
+                <div className="field">
+                  <h3>Établissement déclaré en préfecture ?</h3>
+                  <p>{etablissement.computed_declare_prefecture}</p>
+                </div>
+                <div className="field">
+                  <h3>Organisme certifié 2015 - datadock ?</h3>
+                  <p>{etablissement.computed_info_datadock}</p>
+                </div>
+                <div className="field">
+                  <h3>Contact</h3>
+                  <p>{etablissement.ds_questions_email}</p>
+                </div>
               </div>
-              <div className="sidebar-section-seemore">
-                <Button color="primary">Voir plus de détails</Button>
+              <div>
+                <Button className="mt-2" color="danger" size="lg" style={{ marginRight: "3rem" }} onClick={onCancel}>
+                  Choisir un autre établissement
+                </Button>
+                <Button className="mt-2" color="success" size="lg" onClick={() => onComplete(etablissement)}>
+                  Sélectionner et aller à l'étape suivante >
+                </Button>
               </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
         )}
-      </Col>
-    </Row>
+      </Container>
+    </div>
   );
 };
 
-export default ({ match }) => {
+export default () => {
+  const [etablissement, setEtablissement] = useState(null);
   const [formation, setFormation] = useState(null);
-  const [edition, setEdition] = useState(false);
+  const [step1, setStep1] = useState(true);
+  const [step2, setStep2] = useState(false);
+  const [step3, setStep3] = useState(false);
 
-  console.log(trainingSchema);
-  // const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
-  //   initialValues: {
-  //     uai_formation: "",
-  //     code_postal: "",
-  //     capacite: "",
-  //     periode: "",
-  //     educ_nat_code: "",
-  //     num_academie: 0,
-  //   },
-  //   onSubmit: ({ uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie }, { setSubmitting }) => {
-  //     return new Promise(async (resolve, reject) => {
-  //       console.log(uai_formation);
-  //       console.log(code_postal);
-  //       console.log(capacite);
-  //       console.log(periode);
-  //       console.log(educ_nat_code);
-  //       console.log(num_academie);
-  //       setEdition(false);
-  //       resolve("onSubmitHandler complete");
-  //     });
-  //   },
-  // });
+  const onStep1Complete = etablissement => {
+    setStep1(false);
+    setStep2(true);
+    setEtablissement(etablissement);
+  };
 
-  // useEffect(() => {
-  //   async function run() {
-  //     try {
-  //       const form = await API.get("api", `/formation/${match.params.id}`);
-  //       setFormation(form);
-  //       setFieldValue("uai_formation", form.uai_formation);
-  //       setFieldValue("code_postal", form.code_postal);
-  //       setFieldValue("periode", form.periode);
-  //       setFieldValue("capacite", form.capacite);
-  //       setFieldValue("educ_nat_code", form.educ_nat_code);
-  //       setFieldValue("num_academie", form.num_academie);
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   }
-  //   run();
-  // }, [match, setFieldValue]);
-
-  // const onEdit = () => {
-  //   setEdition(!edition);
-  // };
-
-  // if (!formation) {
-  //   return (
-  //     <div>
-  //       <Spinner color="secondary" />
-  //     </div>
-  //   );
-  // }
+  const onStep2Complete = formation => {
+    setStep2(false);
+    setFormation(formation);
+    setStep3(true);
+  };
 
   return (
     <div className="page add-formation">
-      <div className="notice">
-        <Container>
-          {/* <h1 className="heading">{formation.intitule_long}</h1>
-          <Formation
-            formation={formation}
-            edition={edition}
-            onEdit={onEdit}
-            values={values}
-            handleSubmit={handleSubmit}
-            handleChange={handleChange}
-          /> */}
-        </Container>
-      </div>
+      <h2 className="mt-3">Référencer une offre de formation</h2>
+      {step1 && <Step1 onComplete={onStep1Complete} />}
+      {step2 && <Step2 etablissement={etablissement} onComplete={onStep2Complete} />}
+      {step3 && formation && <Formation presetFormation={formation} />}
     </div>
   );
 };

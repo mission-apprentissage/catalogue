@@ -280,8 +280,8 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
   );
 };
 
-export default ({ match }) => {
-  const [formation, setFormation] = useState(null);
+export default ({ match, presetFormation = null }) => {
+  const [formation, setFormation] = useState(presetFormation);
   const [edition, setEdition] = useState(false);
 
   const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
@@ -310,8 +310,14 @@ export default ({ match }) => {
   useEffect(() => {
     async function run() {
       try {
-        const form = await API.get("api", `/formation/${match.params.id}`);
-        setFormation(form);
+        let form = null;
+        if (!presetFormation) {
+          form = await API.get("api", `/formation/${match.params.id}`);
+          setFormation(form);
+        } else {
+          form = presetFormation;
+        }
+
         setFieldValue("uai_formation", form.uai_formation);
         setFieldValue("code_postal", form.code_postal);
         setFieldValue("periode", form.periode);
@@ -323,7 +329,7 @@ export default ({ match }) => {
       }
     }
     run();
-  }, [match, setFieldValue]);
+  }, [match, setFieldValue, presetFormation]);
 
   const onEdit = () => {
     setEdition(!edition);
