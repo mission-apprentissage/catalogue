@@ -33,7 +33,7 @@ jobs:
                 name: Install serverless
                 command: sudo yarn global add serverless@1.64.0
             - run: cd api && yarn run deploy:prepare
-            - run: cd api && yarn run deploy:dev --mongodb_url_dev $MONGODB_URL_DEV --mongodb_dbname_dev $MONGODB_DBNAME_DEV
+            - run: cd api && yarn run deploy:dev
     serverless_deploy_prod:
         working_directory: ~/repo
         docker:

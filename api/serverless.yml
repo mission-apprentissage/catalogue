@@ -6,6 +6,7 @@ plugins:
   #- serverless-webpack
   - serverless-offline
   - serverless-aws-documentation
+  - serverless-dotenv-plugin
 
 package:
   individually: true
@@ -19,12 +20,14 @@ provider:
     PAGE_LOAD_TIMEOUT: 20000
     LOGGING: true
     STAGE: '${opt:stage}'
-    MONGODB_URL_DEV: '${opt:mongodb_url_dev}'
-    MONGODB_DBNAME_DEV: '${opt:mongodb_dbname_dev}'
-    MONGODB_URL_PROD: '${opt:mongodb_url_prod}'
-    MONGODB_DBNAME_PROD: '${opt:mongodb_dbname_prod}'
+    MONGODB_URL_DEV: '${env:MONGODB_URL_DEV}'
+    MONGODB_DBNAME_DEV: '${env:MONGODB_DBNAME_DEV}'
+    MONGODB_URL_PROD: '${env:MONGODB_URL_PROD}'
+    MONGODB_DBNAME_PROD: '${env:MONGODB_DBNAME_PROD}'
 
 custom:
+  dotenv:
+    path: ../.env
   # webpack:
   #   webpackConfig: ./webpack.config.js
   #   packager: 'yarn'
