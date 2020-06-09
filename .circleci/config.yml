@@ -47,7 +47,7 @@ jobs:
             - run:
                 name: Install serverless
                 command: sudo yarn global add serverless@1.64.0
-            - run: cd api && yarn run deploy:prod --mongodb_url_prod $MONGODB_URL_PROD --mongodb_dbname_prod $MONGODB_DBNAME_PROD
+            - run: cd api && yarn run deploy:prod
 
 workflows:
     version: 2
