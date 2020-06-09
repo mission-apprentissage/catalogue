@@ -24,6 +24,20 @@
         "editable": false
     },
     {
+        "Header": "Code NAF",
+        "accessor": "naf_code",
+        "width": 200,
+        "debug": true,
+        "editable": false
+    },
+    {
+        "Header": "Libellé du code NAT",
+        "accessor": "naf_libelle",
+        "width": 200,
+        "debug": true,
+        "editable": false
+    },
+    {
         "Header": "Uai",
         "accessor": "uai",
         "width": 200,
