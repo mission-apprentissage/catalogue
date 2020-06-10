@@ -121,12 +121,14 @@ const run = async (updateOnly = null) => {
           logger.info(`Training ${trainingItem._id} has been updated`);
 
           // Add trainings
-          await asyncForEach(trainingsToCreate, async trainingToAdd => {
-            delete trainingToAdd._id;
-            const doc = new Formation(trainingToAdd);
-            await doc.save();
-            logger.info(`Training ${doc._id} has been added`);
-          });
+          if (!updateOnly) {
+            await asyncForEach(trainingsToCreate, async trainingToAdd => {
+              delete trainingToAdd._id;
+              const doc = new Formation(trainingToAdd);
+              await doc.save();
+              logger.info(`Training ${doc._id} has been added`);
+            });
+          }
         } catch (error) {
           logger.error(error);
         }
