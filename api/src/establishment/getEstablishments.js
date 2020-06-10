@@ -1,4 +1,6 @@
-const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+// const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+// eslint-disable-next-line import/no-unresolved
+const { connectToMongo, closeMongoConnection } = require("../../common/mongo");
 const { success, failure } = require("../common-api/response");
 const { Establishment } = require("../../../jobs/common-jobs/models");
 
