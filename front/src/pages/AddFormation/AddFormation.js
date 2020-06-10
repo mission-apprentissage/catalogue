@@ -301,7 +301,7 @@ export default () => {
 
   return (
     <div className="page add-formation">
-      <h2 className="mt-3">Référencer une offre de formation</h2>
+      <h2 className="mt-5">Référencer une offre de formation</h2>
       {step1 && <Step1 onComplete={onStep1Complete} />}
       {step2 && <Step2 etablissement={etablissement} onComplete={onStep2Complete} />}
       {step3 && formation && <Formation presetFormation={formation} />}
