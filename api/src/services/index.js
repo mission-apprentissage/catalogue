@@ -24,7 +24,7 @@ module.exports.handler = async (event, context, callback) => {
           await run({ _id: id });
         }
         break;
-      case "formation":
+      case "formation-update":
         {
           if (id === "") {
             throw new Error("Something went wrong: id missing");
@@ -35,6 +35,32 @@ module.exports.handler = async (event, context, callback) => {
             // eslint-disable-next-line global-require
           } = require("../../../jobs/features/formations/trainingsUpdater/src/trainingsUpdater");
           await run({ _id: id });
+        }
+        break;
+      case "rncp":
+        {
+          if (id === "") {
+            throw new Error("Something went wrong: id missing");
+          }
+          // eslint-disable-next-line no-case-declarations
+          const {
+            run,
+            // eslint-disable-next-line global-require
+          } = require("../../../jobs/features/rncp/src/index");
+          await run({ query: { _id: id } });
+        }
+        break;
+      case "onisep":
+        {
+          if (id === "") {
+            throw new Error("Something went wrong: id missing");
+          }
+          // eslint-disable-next-line no-case-declarations
+          const {
+            run,
+            // eslint-disable-next-line global-require
+          } = require("../../../jobs/features/onisep/src/index");
+          await run({ query: { _id: id } });
         }
         break;
       case "":

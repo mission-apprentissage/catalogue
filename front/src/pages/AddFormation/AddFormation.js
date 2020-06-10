@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button, Spinner, Input, FormGroup, Label, Form } from "reactstrap";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
 import Formation from "../Formation";
 
 import "./addFormation.css";
 
-const Step2 = ({ etablissement, onComplete }) => {
-  const [formation, setFormation] = useState(null);
+const sleep = m => new Promise(r => setTimeout(r, m));
 
+const Step2 = ({ etablissement, onComplete }) => {
+  const [gatherData, setGatherData] = useState(0);
   const { values, handleSubmit, handleChange, isSubmitting } = useFormik({
     initialValues: {
       educ_nat_code: "",
@@ -19,7 +22,8 @@ const Step2 = ({ etablissement, onComplete }) => {
     onSubmit: ({ educ_nat_code, code_postal, uai_formation }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
         try {
-          let resp = await API.post("api", `/formation`, {
+          setGatherData(1);
+          let formation = await API.post("api", `/formation`, {
             body: {
               educ_nat_code,
               etablissement_responsable_siret: etablissement.siret,
@@ -29,38 +33,22 @@ const Step2 = ({ etablissement, onComplete }) => {
               draft: true,
             },
           });
-          console.log(resp);
-          await API.get("api", `/services?job=formation&id=${resp._id}`);
-          resp = await API.get("api", `/formation/${resp._id}`);
-          console.log(resp);
-          onComplete(resp);
-          // const params = new window.URLSearchParams({
-          //   query: JSON.stringify({ siret }),
-          // });
-          // const resp = await API.get("api", `/etablissement?${params}`);
-          // // console.log(resp);
-          // setFormation(resp);
+          setGatherData(2);
+          console.log(formation);
+          await API.get("api", `/services?job=formation-update&id=${formation._id}`);
+          setGatherData(3);
+          await API.get("api", `/services?job=rncp&id=${formation._id}`);
+          setGatherData(4);
+          await API.get("api", `/services?job=onisep&id=${formation._id}`);
+          setGatherData(5);
+          formation = await API.get("api", `/formation/${formation._id}`);
+          console.log(formation);
+          await API.del("api", `/formation/${formation._id}`);
+          setGatherData(6);
+          await sleep(500);
+          onComplete(formation);
         } catch (e) {
-          // const {
-          //   response: { status },
-          // } = e;
-          // if (status === 404) {
-          //   let resp = await API.post("api", `/etablissement`, {
-          //     body: {
-          //       siret,
-          //     },
-          //   });
-          //   await API.get("api", `/services?job=etablissement&id=${resp._id}`);
-          //   resp = await API.get("api", `/etablissement/${resp._id}`);
-          //   // console.log(resp);
-          //   if (!resp.api_entreprise_reference) {
-          //     resp = await API.del("api", `/etablissement/${resp._id}`);
-          //   } else {
-          //     setFormation(resp);
-          //   }
-          // } else {
           console.log(e);
-          //}
         }
         resolve("onSubmitHandler complete");
         setSubmitting(false);
@@ -72,47 +60,73 @@ const Step2 = ({ etablissement, onComplete }) => {
       <Container>
         <Row>
           <Col>
-            <Form>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                <Label for="educ_nat_code" className="mr-sm-2 label-form">
-                  <strong>Code diplôme Education Nationale</strong>
-                </Label>
-                <Input
-                  type="text"
-                  name="educ_nat_code"
-                  onChange={handleChange}
-                  value={values.educ_nat_code}
-                  disabled={isSubmitting || formation}
-                />
-              </FormGroup>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                <Label for="uai_formation" className="mr-sm-2 label-form">
-                  <strong>Code UAI de la formation</strong>
-                </Label>
-                <Input
-                  type="text"
-                  name="uai_formation"
-                  onChange={handleChange}
-                  value={values.uai_formation}
-                  disabled={isSubmitting || formation}
-                />
-              </FormGroup>
-              <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                <Label for="code_postal" className="mr-sm-2 label-form">
-                  <strong>Code postal</strong>
-                </Label>
-                <Input
-                  type="text"
-                  name="code_postal"
-                  onChange={handleChange}
-                  value={values.code_postal}
-                  disabled={isSubmitting || formation}
-                />
-              </FormGroup>
-              <Button color="primary" onClick={handleSubmit} disabled={!(!isSubmitting && !formation)}>
-                Valider
-              </Button>
-            </Form>
+            {!isSubmitting && (
+              <Form>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Label for="educ_nat_code" className="mr-sm-2 label-form">
+                    <strong>Code diplôme Education Nationale</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="educ_nat_code"
+                    onChange={handleChange}
+                    value={values.educ_nat_code}
+                    disabled={isSubmitting}
+                  />
+                </FormGroup>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Label for="uai_formation" className="mr-sm-2 label-form">
+                    <strong>Code UAI de la formation</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="uai_formation"
+                    onChange={handleChange}
+                    value={values.uai_formation}
+                    disabled={isSubmitting}
+                  />
+                </FormGroup>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Label for="code_postal" className="mr-sm-2 label-form">
+                    <strong>Code postal</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="code_postal"
+                    onChange={handleChange}
+                    value={values.code_postal}
+                    disabled={isSubmitting}
+                  />
+                </FormGroup>
+                <Button color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                  Valider
+                </Button>
+              </Form>
+            )}
+            {gatherData !== 0 && (
+              <div>
+                <div>
+                  Ajout de la fornation {gatherData === 1 && <Spinner color="secondary" />}
+                  {gatherData > 1 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                </div>
+                <div>
+                  Recherche des informations générale {gatherData === 2 && <Spinner color="secondary" />}
+                  {gatherData > 2 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                </div>
+                <div>
+                  Recherche des informations RNCP {gatherData === 3 && <Spinner color="secondary" />}
+                  {gatherData > 3 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                </div>
+                <div>
+                  Recherche des informations Onisep {gatherData === 4 && <Spinner color="secondary" />}
+                  {gatherData > 4 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                </div>
+                <div>
+                  Vérification {gatherData === 5 && <Spinner color="secondary" />}
+                  {gatherData > 5 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                </div>
+              </div>
+            )}
           </Col>
         </Row>
       </Container>
@@ -149,11 +163,13 @@ const Step1 = ({ onComplete }) => {
             await API.get("api", `/services?job=etablissement&id=${resp._id}`);
             resp = await API.get("api", `/etablissement/${resp._id}`);
             // console.log(resp);
-            if (!resp.api_entreprise_reference) {
-              resp = await API.del("api", `/etablissement/${resp._id}`);
-            } else {
-              setEtablissement(resp);
-            }
+            setEtablissement(resp);
+            await API.del("api", `/etablissement/${resp._id}`);
+            // if (!resp.api_entreprise_reference) {
+            //   resp = await API.del("api", `/etablissement/${resp._id}`);
+            // } else {
+            //   setEtablissement(resp);
+            // }
           } else {
             console.log(e);
           }
