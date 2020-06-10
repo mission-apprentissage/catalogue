@@ -1,6 +1,6 @@
 const { Client } = require("@elastic/elasticsearch");
 const { AmazonConnection } = require("aws-elasticsearch-connector");
-const mongoosasticHandler = require("../../../../common/esClient/mongoosastic");
+const { mongoosasticHandler } = require("../getDependencies");
 const { config } = require("../../../../config");
 
 const { STAGE } = process.env;
