@@ -1,7 +1,5 @@
 const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
 const { success, failure } = require("../common-api/response");
-
-global.usePaginate = true;
 const { Formation } = require("../../../jobs/common-jobs/models");
 
 module.exports.handler = async (event, context, callback) => {

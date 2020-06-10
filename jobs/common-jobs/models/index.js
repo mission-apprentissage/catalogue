@@ -6,9 +6,7 @@ const { establishmentSchema, trainingSchema } = require("../../../common/models"
 const getModel = (MODELNAME, schema, mongooseInstance = mongooseInst, stage = null) => {
   const Schema = new mongooseInstance.Schema(schema);
   Schema.plugin(mongoosastic, { esClient: getElasticInstance(stage), index: MODELNAME });
-  if (global.usePaginate) {
-    Schema.plugin(require("mongoose-paginate"));
-  }
+  Schema.plugin(require("mongoose-paginate"));
   return mongooseInstance.model(MODELNAME, Schema);
 };
 
