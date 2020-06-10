@@ -1,4 +1,8 @@
+/* eslint-disable import/no-dynamic-require */
+/* eslint-disable global-require */
 const { success, failure, notFound } = require("../common-api/response");
+
+const basePath = process.env.STAGE === "local" ? "../../.." : "../..";
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
@@ -19,8 +23,7 @@ module.exports.handler = async (event, context, callback) => {
           // eslint-disable-next-line no-case-declarations
           const {
             run,
-            // eslint-disable-next-line global-require
-          } = require("../../../jobs/features/etablissements/etablishmentsUpdater/src/etablishmentsUpdater");
+          } = require(`${basePath}/jobs/features/etablissements/etablishmentsUpdater/src/etablishmentsUpdater`);
           await run({ _id: id });
         }
         break;
@@ -30,10 +33,7 @@ module.exports.handler = async (event, context, callback) => {
             throw new Error("Something went wrong: id missing");
           }
           // eslint-disable-next-line no-case-declarations
-          const {
-            run,
-            // eslint-disable-next-line global-require
-          } = require("../../../jobs/features/formations/trainingsUpdater/src/trainingsUpdater");
+          const { run } = require(`${basePath}/jobs/features/formations/trainingsUpdater/src/trainingsUpdater`);
           await run({ _id: id });
         }
         break;

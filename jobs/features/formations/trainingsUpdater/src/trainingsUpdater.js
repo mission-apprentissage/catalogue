@@ -1,5 +1,6 @@
 const { connectToMongo } = require("../../../../../common/mongo");
 const { Formation } = require("../../../../../common/models2");
+
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 const establishmentsData = require("./updaters/establishmentsData");
