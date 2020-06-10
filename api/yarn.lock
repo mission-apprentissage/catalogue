@@ -2462,6 +2462,11 @@ ecdsa-sig-formatter@1.0.11:
   dependencies:
     safe-buffer "^5.0.1"
 
+elasticsearch-scroll-stream@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/elasticsearch-scroll-stream/-/elasticsearch-scroll-stream-1.2.2.tgz#7c373ee6081c085417ade2f2909b98ceda54cbf9"
+  integrity sha512-RL4nnEf73+0xwj7JuLDlMLs9+QgJmxHNEkcWuFLrB17M8pHzQA5cxPz64hxX2qLwR1lyiGqI/c5IyzAOUR/Lmg==
+
 electron-to-chromium@^1.3.349:
   version "1.3.360"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.3.360.tgz#1db9cb8d43f4c772546d94ea9be8b677a8ecb483"
