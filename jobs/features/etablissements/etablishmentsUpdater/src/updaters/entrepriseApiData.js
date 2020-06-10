@@ -1,5 +1,5 @@
 const apiEntreprise = require("../services/apiEntreprise");
-const { Establishment } = require("../../../../../common-jobs/models");
+const { Establishment } = require("../../../../../../common/models2");
 
 class EntrepriseApiData {
   constructor() {}

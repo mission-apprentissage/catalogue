@@ -1,5 +1,6 @@
 const { connectToMongo, closeMongoConnection } = require("../../../../../common/mongo");
-const { Establishment } = require("../../../../common-jobs/models");
+const { Establishment } = require("../../../../../common/models2");
+
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 const referentielGeographique = require("../../../../common-jobs/referentielGeographique");

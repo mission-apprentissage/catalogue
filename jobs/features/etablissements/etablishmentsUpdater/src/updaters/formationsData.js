@@ -1,5 +1,5 @@
 //const logger = require("../../../../../common-jobs/Logger").mainLogger;
-const { Formation } = require("../../../../../common-jobs/models");
+const { Formation } = require("../../../../../../common/models2");
 
 const niveaux = [
   "3 (CAP...)",

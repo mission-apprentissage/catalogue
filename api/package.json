@@ -46,6 +46,7 @@
     "title-case": "^3.0.2",
     "uuid": "^7.0.0",
     "winston": "^3.2.1",
+    "xlsx": "^0.16.2",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
