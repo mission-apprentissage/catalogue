@@ -13,6 +13,8 @@ import CardList from "../../components/CardList";
 
 import "./search.css";
 
+import exportTrainingColumns from "./exportTrainingColumns.json";
+
 const STAGE = getEnvName();
 
 const FILTERS = [
@@ -54,13 +56,14 @@ const FILTERS = [
 ];
 
 const ToggleCatalogue = () => {
-  const [values, setValues] = useState("Catalogue général");
+  //const [values, setValues] = useState("Catalogue général");
   return (
     <SingleList
       componentId="catalogue_published"
       dataField="etablissement_reference_catalogue_published"
-      value={values}
-      onChange={setValues}
+      // value={values}
+      // onChange={setValues}
+      defaultValue="Catalogue général"
       transformData={data => {
         return data.map(d => ({
           ...d,
@@ -78,14 +81,14 @@ const ToggleCatalogue = () => {
               },
             };
       }}
-      showFilter={true}
+      //showFilter={true}
       showSearch={false}
     />
   );
 };
 
 export default ({ match }) => {
-  const [base, setBase] = useState(match.params.base || "formations");
+  const base = match.params.base || "formations";
   const [countFormations, setCountFormations] = useState(0);
   const [debug, setDebug] = useState(false);
   const [mode, setMode] = useState("simple");
@@ -231,9 +234,9 @@ export default ({ match }) => {
                           <ExportButton
                             index={base}
                             filters={FILTERS}
-                            // columns={columnsDefinition
-                            //   .filter(def => !def.debug || debug)
-                            //   .map(def => ({ header: def.Header, fieldName: def.accessor }))}
+                            columns={exportTrainingColumns
+                              .filter(def => !def.debug || debug)
+                              .map(def => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {
                                 published: true,
