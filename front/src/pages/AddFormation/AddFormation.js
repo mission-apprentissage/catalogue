@@ -36,11 +36,11 @@ const Step2 = ({ etablissement, onComplete }) => {
           setGatherData(2);
           console.log(formation);
           await API.get("api", `/services?job=formation-update&id=${formation._id}`);
-          setGatherData(3);
-          await API.get("api", `/services?job=rncp&id=${formation._id}`);
-          setGatherData(4);
-          await API.get("api", `/services?job=onisep&id=${formation._id}`);
-          setGatherData(5);
+          // setGatherData(3);
+          // await API.get("api", `/services?job=rncp&id=${formation._id}`);
+          // setGatherData(4);
+          // await API.get("api", `/services?job=onisep&id=${formation._id}`);
+          // setGatherData(5);
           formation = await API.get("api", `/formation/${formation._id}`);
           console.log(formation);
           await API.del("api", `/formation/${formation._id}`);
@@ -301,7 +301,7 @@ export default () => {
 
   return (
     <div className="page add-formation">
-      <h2 className="mt-3">Référencer une offre de formation</h2>
+      <h2 className="mt-5">Référencer une offre de formation</h2>
       {step1 && <Step1 onComplete={onStep1Complete} />}
       {step2 && <Step2 etablissement={etablissement} onComplete={onStep2Complete} />}
       {step3 && formation && <Formation presetFormation={formation} />}
