@@ -10,9 +10,19 @@ const getModel = (MODELNAME, schema, mongooseInstance = mongooseInst, stage = nu
   return mongooseInstance.model(MODELNAME, Schema);
 };
 
+let e = null;
+if (!e) {
+  e = getModel("etablissements", establishmentSchema);
+}
+
+let f = null;
+if (!f) {
+  f = getModel("formations", trainingSchema);
+}
+
 module.exports = {
-  Establishment: getModel("etablissements", establishmentSchema, mongooseInst, null),
-  Formation: getModel("formations", trainingSchema, mongooseInst, null),
+  Establishment: e,
+  Formation: f,
   attachFormationTo: (minst, stage) => getModel("formations", trainingSchema, minst, stage),
   attachEstablishmentTo: (minst, stage) => getModel("etablissements", establishmentSchema, minst, stage),
 };
