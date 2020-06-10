@@ -44,7 +44,7 @@ module.exports.handler = async (event, context, callback) => {
           if (id === "") {
             throw new Error("Something went wrong: id missing");
           }
-          // console.log(await execShellCommand(`ls -l`));
+          console.log(await execShellCommand(`ls -l`));
           // eslint-disable-next-line no-case-declarations
           const { run } = require(`${basePath}/jobs/features/formations/trainingsUpdater/src/trainingsUpdater`);
           await run({ _id: id });
