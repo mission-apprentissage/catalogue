@@ -96,15 +96,45 @@ let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
 };
 
 const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} } }) => {
+  const [requestExport, setRequestExport] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [query, setQuery] = useState({ query: defaultQuery });
+
+  if (!requestExport) {
+    return (
+      <Button
+        size="sm"
+        color="primary"
+        onClick={async () => {
+          setRequestExport(true);
+          setExporting(true);
+        }}
+      >
+        Exporter
+      </Button>
+    );
+  }
+
+  const onQueryChange = async (prevQuery, nextQuery) => {
+    console.log(nextQuery);
+    let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
+    let fileName = `${index}_${new Date().toJSON()}.csv`;
+    downloadCSV(fileName, csv);
+    setExporting(false);
+    setRequestExport(false);
+    setProgress(0);
+  };
 
   return (
     <ReactiveComponent
       componentId={`${index}-export`}
       react={{ and: filters }}
-      onQueryChange={(prevQuery, nextQuery) => setQuery(nextQuery)}
+      onQueryChange={onQueryChange}
+      // defaultQuery={() => {
+      //   return {
+      //     query: defaultQuery,
+      //   };
+      // }}
       render={() => {
         if (exporting) {
           return (
@@ -113,23 +143,7 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
             </Progress>
           );
         }
-
-        return (
-          <Button
-            size="sm"
-            color="primary"
-            onClick={async () => {
-              setExporting(true);
-              let csv = await getDataAsCSV(index, query, columns, setProgress);
-              let fileName = `${index}_${new Date().toJSON()}.csv`;
-              downloadCSV(fileName, csv);
-              setExporting(false);
-              setProgress(0);
-            }}
-          >
-            Exporter
-          </Button>
-        );
+        return <div />;
       }}
     />
   );
