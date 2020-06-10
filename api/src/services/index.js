@@ -82,6 +82,7 @@ module.exports.handler = async (event, context, callback) => {
         })
       );
     } else {
+      console.log(error);
       callback(
         null,
         failure({

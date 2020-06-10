@@ -1,5 +1,5 @@
 const AWS = require("aws-sdk");
-const { config } = require("../../../config");
+const { config } = require("./getDependencies");
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
   region: config.aws.cognito.region,
