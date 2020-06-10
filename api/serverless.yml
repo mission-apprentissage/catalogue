@@ -31,8 +31,8 @@ custom:
     path: ../.env
   packageExternal:
     external:
-      - '../common'
-      - '../config'
+      - '../../common'
+      - '../../config'
   # webpack:
   #   webpackConfig: ./webpack.config.js
   #   packager: 'yarn'
