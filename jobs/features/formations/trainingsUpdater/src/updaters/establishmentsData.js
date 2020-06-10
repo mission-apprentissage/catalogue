@@ -12,7 +12,7 @@ class EstablishmentsData {
     // Check etablissement responsable found
     if (!referenceEstablishment) {
       logger.info(
-        `No etablissements found for training ${training._id} - siret_CFA_OFA : ${training.etablissement_responsable_siret}`
+        `No etablissements found for training ${training._id} - siret responsable : ${training.etablissement_responsable_siret}`
       );
       return null;
     }
@@ -35,6 +35,7 @@ class EstablishmentsData {
 
     return {
       entreprise_raison_sociale: referenceEstablishment.entreprise_raison_sociale,
+      //////////////////////
       etablissement_responsable_published: attachedEstablishments.responsable
         ? attachedEstablishments.responsable.published
         : false,
@@ -43,7 +44,19 @@ class EstablishmentsData {
       etablissement_responsable_enseigne: attachedEstablishments.responsable
         ? attachedEstablishments.responsable.enseigne
         : null,
-
+      etablissement_responsable_type: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.computed_type
+        : null,
+      etablissement_responsable_conventionne: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.computed_conventionne
+        : null,
+      etablissement_responsable_declare_prefecture: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.computed_declare_prefecture
+        : null,
+      etablissement_responsable_datadock: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.computed_info_datadock
+        : null,
+      //////////////////////
       etablissement_formateur_published: attachedEstablishments.formateur
         ? attachedEstablishments.formateur.published
         : false,
@@ -52,7 +65,19 @@ class EstablishmentsData {
       etablissement_formateur_enseigne: attachedEstablishments.formateur
         ? attachedEstablishments.formateur.enseigne
         : null,
-
+      etablissement_formateur_type: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.computed_type
+        : null,
+      etablissement_formateur_conventionne: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.computed_conventionne
+        : null,
+      etablissement_formateur_declare_prefecture: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.computed_declare_prefecture
+        : null,
+      etablissement_formateur_datadock: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.computed_info_datadock
+        : null,
+      //////////////////////
       etablissement_reference,
       etablissement_reference_catalogue_published: referenceEstablishment.catalogue_published,
       etablissement_reference_published: referenceEstablishment.published,
@@ -60,7 +85,7 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
-      geo_coordonnees_etablissement_reference: referenceEstablishment ? referenceEstablishment.geo_coordonnees : null,
+      geo_coordonnees_etablissement_reference: referenceEstablishment.geo_coordonnees,
     };
   }
 

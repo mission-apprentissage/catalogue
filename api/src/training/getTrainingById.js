@@ -1,8 +1,8 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure, notFound } from "../common-api/response";
-import { Formation } from "../models";
+const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+const { success, failure, notFound } = require("../common-api/response");
+const { Formation } = require("../../../jobs/common-jobs/models");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -12,18 +12,27 @@ export default async (event, context) => {
     await connectToMongo();
     const formation = await Formation.findById(idFormation);
     closeMongoConnection();
-    return success({
-      // eslint-disable-next-line no-underscore-dangle
-      ...formation._doc,
-    });
+    callback(
+      null,
+      success({
+        // eslint-disable-next-line no-underscore-dangle
+        ...formation._doc,
+      })
+    );
   } catch (error) {
     if (error.meta.statusCode === 404) {
-      return notFound({
-        error: "Not found",
-      });
+      callback(
+        null,
+        notFound({
+          error: "Not found",
+        })
+      );
     }
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

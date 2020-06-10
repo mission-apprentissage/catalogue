@@ -8,12 +8,14 @@ const { uniq } = require("lodash");
 //const UPDATE_ALL = true;
 //const UPDATE_ONLY = { attr: "ds_id_dossier", value: "1202774" };
 
-const run = async () => {
+const run = async (updateOnly = null) => {
   try {
     logger.info(" -- Start of Psup updater -- ");
     await connectToMongo();
 
-    const trainings = await Formation.find({ parcoursup_reference: "NON" }).and([
+    const filter = !updateOnly ? {} : updateOnly;
+
+    const trainings = await Formation.find({ parcoursup_reference: "NON", ...filter }).and([
       { educ_nat_code: { $ne: null } },
       { educ_nat_code: { $ne: "" } },
       { intitule_long: { $ne: null } },

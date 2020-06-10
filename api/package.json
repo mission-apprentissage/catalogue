@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "serverless offline -v --httpPort 3001 --mongodb_url_dev $MONGODB_URL_DEV --mongodb_dbname_dev $MONGODB_DBNAME_DEV --mongodb_url_prod $MONGODB_URL_PROD --mongodb_dbname_prod $MONGODB_DBNAME_PROD",
+    "start": "serverless offline -v --httpPort 3001",
     "deploy:dev": "serverless deploy -v --stage dev",
     "deploy:prod": "serverless deploy -v --stage prod",
     "deploy:prepare": "node tools/generateJsonSchema.js",
@@ -30,6 +30,7 @@
     "aws-sdk": "^2.625.0",
     "mongoose": "^5.9.4",
     "mongoose-paginate": "^5.0.3",
+    "serverless-dotenv-plugin": "^2.4.2",
     "uuid": "^7.0.0"
   },
   "devDependencies": {

@@ -14,7 +14,7 @@
     "es:dump": "bash tools/elasticsearch/es-dump.sh",
     "mongodb:backup": "bash tools/mongodb/mongodb-backup.sh",
     "mongodb:dump": "bash tools/mongodb/mongodb-dump.sh",
-    "start": "source setEnv.sh && yarn run docker:start && run-p -ncr start:api start:front",
+    "start": "yarn run docker:start && run-p -ncr start:api start:front",
     "start:api": "cd api && yarn start --stage local",
     "start:front": "cd front &&  yarn start"
   },
@@ -45,6 +45,7 @@
   "dependencies": {
     "@elastic/elasticsearch": "7.6.1",
     "aws-elasticsearch-connector": "8.2.0",
+    "dotenv": "^8.2.0",
     "elasticsearch-scroll-stream": "1.2.1",
     "env-var": "6.0.4",
     "fs-extra": "^8.1.0",

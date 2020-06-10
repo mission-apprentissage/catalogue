@@ -45,6 +45,11 @@ const TopBar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
+              <Link to={routes.SEARCH_FORMATIONS} className={"nav-link link"}>
+                Recherche de formations
+              </Link>
+            </NavItem>
+            <NavItem>
               <Link to={routes.FORMATIONS} className={"nav-link link"}>
                 Formations
               </Link>

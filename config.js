@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const config = {
   local: {
     urls: ["localhost:3000"],
