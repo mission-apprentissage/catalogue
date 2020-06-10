@@ -4,17 +4,17 @@ const { success, failure, notFound } = require("../common-api/response");
 
 const basePath = process.env.STAGE === "local" ? "../../.." : "../..";
 
-function execShellCommand(cmd) {
-  const { exec } = require("child_process");
-  return new Promise(resolve => {
-    exec(cmd, (error, stdout, stderr) => {
-      if (error) {
-        console.warn(error);
-      }
-      resolve(stdout || stderr);
-    });
-  });
-}
+// function execShellCommand(cmd) {
+//   const { exec } = require("child_process");
+//   return new Promise(resolve => {
+//     exec(cmd, (error, stdout, stderr) => {
+//       if (error) {
+//         console.warn(error);
+//       }
+//       resolve(stdout || stderr);
+//     });
+//   });
+// }
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
@@ -44,7 +44,7 @@ module.exports.handler = async (event, context, callback) => {
           if (id === "") {
             throw new Error("Something went wrong: id missing");
           }
-          console.log(await execShellCommand(`ls -l`));
+          // console.log(await execShellCommand(`ls -l`));
           // eslint-disable-next-line no-case-declarations
           const { run } = require(`${basePath}/jobs/features/formations/trainingsUpdater/src/trainingsUpdater`);
           await run({ _id: id });
@@ -59,7 +59,7 @@ module.exports.handler = async (event, context, callback) => {
           const {
             run,
             // eslint-disable-next-line global-require
-          } = require("../../../jobs/features/rncp/src/index");
+          } = require(`${basePath}/jobs/features/rncp/src/index`);
           await run({ query: { _id: id } });
         }
         break;
@@ -72,7 +72,7 @@ module.exports.handler = async (event, context, callback) => {
           const {
             run,
             // eslint-disable-next-line global-require
-          } = require("../../../jobs/features/onisep/src/index");
+          } = require(`${basePath}/jobs/features/onisep/src/index`);
           await run({ query: { _id: id } });
         }
         break;
