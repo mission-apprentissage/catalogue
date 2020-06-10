@@ -35,7 +35,6 @@
     "mongoose": "^5.9.4",
     "mongoose-paginate": "^5.0.3",
     "multipipe": "^4.0.0",
-    "serverless-dotenv-plugin": "^2.4.2",
     "uuid": "^7.0.0"
   },
   "devDependencies": {
@@ -59,6 +58,7 @@
     "serverless-offline": "^6.1.4",
     "serverless-package-external": "^1.2.0",
     "serverless-webpack": "^5.3.1",
+    "serverless-dotenv-plugin": "^2.4.2",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
     "webpack-merge": "^4.2.2",

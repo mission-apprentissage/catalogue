@@ -1,6 +1,8 @@
-const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
 const { success, failure, notFound } = require("../common-api/response");
-const { Formation } = require("../../../jobs/common-jobs/models");
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign

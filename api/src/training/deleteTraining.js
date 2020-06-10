@@ -1,6 +1,8 @@
-const { connectToMongo, closeMongoConnection } = require("../../../common/mongo");
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
 const { success, failure } = require("../common-api/response");
-const { Formation } = require("../../../jobs/common-jobs/models");
 const { findUserByAttribute } = require("../common-api/cognito");
 
 module.exports.handler = async (event, context, callback) => {
