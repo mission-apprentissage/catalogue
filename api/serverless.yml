@@ -7,6 +7,7 @@ plugins:
   - serverless-offline
   - serverless-aws-documentation
   - serverless-dotenv-plugin
+  - serverless-package-external
 
 package:
   individually: true
@@ -28,6 +29,10 @@ provider:
 custom:
   dotenv:
     path: ../.env
+  packageExternal:
+    external:
+      - '../common'
+      - '../config'
   # webpack:
   #   webpackConfig: ./webpack.config.js
   #   packager: 'yarn'

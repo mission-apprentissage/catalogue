@@ -52,6 +52,7 @@
     "prettier": "^1.19.1",
     "serverless-aws-documentation": "^1.1.0",
     "serverless-offline": "^6.1.4",
+    "serverless-package-external": "^1.2.0",
     "serverless-webpack": "^5.3.1",
     "webpack": "^4.41.6",
     "webpack-cli": "^3.3.11",
