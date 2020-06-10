@@ -2,7 +2,9 @@
 // eslint-disable-next-line import/no-unresolved
 const { connectToMongo, closeMongoConnection } = require("../../common/mongo");
 const { success, failure } = require("../common-api/response");
-const { Establishment } = require("../../../jobs/common-jobs/models");
+// const { Establishment } = require("../../../jobs/common-jobs/models");
+// eslint-disable-next-line import/no-unresolved
+const { Establishment } = require("../../common/models2");
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
