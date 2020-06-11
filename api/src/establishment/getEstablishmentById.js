@@ -2,7 +2,7 @@ const {
   mongo: { connectToMongo, closeMongoConnection },
   model: { Establishment },
 } = require("../common-api/getDependencies");
-const { success, failure, notFound } = require("../common-api/response");
+const { success, failure } = require("../common-api/response");
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
@@ -22,18 +22,10 @@ module.exports.handler = async (event, context, callback) => {
       })
     );
   } catch (error) {
-    if (error.meta.statusCode === 404) {
-      callback(
-        null,
-        notFound({
-          error: "Not found",
-        })
-      );
-    }
     callback(
       null,
       failure({
-        error,
+        error: error.message,
       })
     );
   }

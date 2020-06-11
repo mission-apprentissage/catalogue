@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPen } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "reactstrap";
-import { API } from "aws-amplify";
+//import { API } from "aws-amplify";
 import "./cardList.css";
 
 //import image_preview from "./noimage.png";
@@ -61,10 +61,10 @@ const CardList = ({ data }) => {
             <span className="edition-btns">
               {hasRightToEdit && (
                 <>
-                  <Button color="warning" onClick={onEditClicked}>
+                  <Button outline color="warning" onClick={onEditClicked}>
                     <FontAwesomeIcon icon={faPen} size="xs" />
                   </Button>
-                  <Button color="danger" onClick={onDeleteClicked}>
+                  <Button outline color="danger" onClick={onDeleteClicked}>
                     <FontAwesomeIcon icon={faTimes} />
                   </Button>
                 </>

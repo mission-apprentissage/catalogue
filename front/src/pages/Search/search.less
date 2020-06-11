@@ -77,6 +77,28 @@
 
     }
 
+    .react-autosuggest__suggestions-container--open{
+      position: absolute;
+      background: #fff;
+      margin-top: -5px;
+      margin-left: 3px;
+      padding: 5px;
+
+      ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-indent: 0;
+
+        li {
+          cursor: pointer;
+          &:hover {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+
     .summary-stats {
         font-size: 1em;
         display: flex;

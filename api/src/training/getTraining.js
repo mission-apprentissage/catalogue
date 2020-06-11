@@ -39,7 +39,7 @@ module.exports.handler = async (event, context, callback) => {
     callback(
       null,
       failure({
-        error,
+        error: error.message,
       })
     );
   }
