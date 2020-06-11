@@ -10,6 +10,7 @@ import Formation from "./Formation";
 import AddFormation from "./AddFormation";
 import Search from "./Search";
 import Etablissement from "./Etablissement";
+import SearchEtablissement from "./SearchEtablissement";
 
 import SignIn from "./Auth/SignIn";
 import Profile from "./Auth/Profile";
@@ -37,4 +38,5 @@ export {
   Search,
   AddFormation,
   Etablissement,
+  SearchEtablissement,
 };

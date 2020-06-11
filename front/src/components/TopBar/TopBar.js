@@ -49,21 +49,23 @@ const TopBar = () => {
                 Accueil
               </Link>
             </NavItem>
-            <NavItem>
-              <Link to={routes.SEARCH_FORMATIONS} className={"nav-link link"}>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
                 Recherche
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to={routes.FORMATIONS} className={"nav-link link"}>
-                Formations
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to={routes.ESTABLISHMENTS} className={"nav-link link"}>
-                Établissements
-              </Link>
-            </NavItem>
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <Link to={routes.SEARCH_FORMATIONS} className={"nav-link link"}>
+                    Formations
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link to={routes.SEARCH_ETABLISSEMENTS} className={"nav-link link"}>
+                    Établissements
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
             {user && (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

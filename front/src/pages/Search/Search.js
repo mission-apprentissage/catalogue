@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ReactiveBase, ReactiveList, DataSearch, SingleList } from "@appbaseio/reactivesearch";
-import { Container, Row } from "reactstrap";
+import { Container, Row, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
+import { useSelector } from "react-redux";
 
 import ExportButton from "../../components/ExportButton";
 import config from "../../config";
+
+import routes from "../../routes.json";
 
 import QueryBuilder from "../../components/QueryBuilder";
 import Facet from "../../components/Facet";
@@ -97,12 +101,15 @@ export default ({ match }) => {
   const [countFormations, setCountFormations] = useState(0);
   const [mode, setMode] = useState("simple");
 
+  const { acm: userAcm } = useSelector(state => state.user);
+  const hasRightToEdit = userAcm.all;
+
   useEffect(() => {
     async function run() {
       try {
         const resp = await API.get("api", `/${base}/count`, {
           queryStringParameters: {
-            published: true,
+            query: JSON.stringify({ published: true }),
           },
         });
         setCountFormations(resp.count);
@@ -128,7 +135,7 @@ export default ({ match }) => {
               <Switch onChange={handleSearchSwitchChange} checked={mode !== "simple"} />
               <span>Recherche avancée</span>
             </label>
-            <h1 className="title">Votre recherche {match.params.base === "formations" ? "de formations" : ""}</h1>
+            <h1 className="title">Votre recherche {base === "formations" ? "de formations" : ""}</h1>
             <Row className="search-row">
               <div className={`search-sidebar`}>
                 <Facet
@@ -177,6 +184,16 @@ export default ({ match }) => {
                   sortBy="count"
                 />
                 <ToggleCatalogue filters={FILTERS} />
+                <a href={`/formations`}>Aller à l'ancienne interface</a>
+                {hasRightToEdit && (
+                  <div className="mt-3 add-btn">
+                    <Button color="primary" outline>
+                      <Link to={routes.ADD_FORMATION} className={"nav-link link"}>
+                        Ajouter une formation
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </div>
               <div className="search-results">
                 {mode !== "simple" && (
@@ -230,16 +247,16 @@ export default ({ match }) => {
                     pagination={true}
                     showResultStats={true}
                     sortBy="asc"
-                    // defaultQuery={() => {
-                    //   return {
-                    //     _source: columnsDefinition.map(def => def.accessor),
-                    //     query: {
-                    //       match: {
-                    //         published: true,
-                    //       },
-                    //     },
-                    //   };
-                    // }}
+                    defaultQuery={() => {
+                      return {
+                        //_source: exportTrainingColumns.map(def => def.accessor),
+                        query: {
+                          match: {
+                            published: true,
+                          },
+                        },
+                      };
+                    }}
                     renderItem={data => <CardList data={data} key={data._id} />}
                     renderResultStats={stats => {
                       return (
