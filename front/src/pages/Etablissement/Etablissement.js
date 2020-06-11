@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { push } from "connected-react-router";
 
-import Section from "./components/Section";
+//import Section from "./components/Section";
 import routes from "../../routes.json";
 
 import "./etablissement.css";
