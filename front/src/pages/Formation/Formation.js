@@ -262,7 +262,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             </div>
             <div className="field field-button mt-3">
               <a href={routes.SEARCH_FORMATIONS} target="_blank" rel="noreferrer noopener">
-                <Button color="primary">Voir les détails de l'organisme</Button>
+                <Button color="primary">Voir l'organisme {!oneEstablishment && "formateur"}</Button>
               </a>
             </div>
           </div>
@@ -289,7 +289,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               </div>
               <div className="field field-button mt-3">
                 <a href={routes.SEARCH_FORMATIONS} target="_blank" rel="noreferrer noopener">
-                  <Button color="primary">Voir les détails de l'organisme</Button>
+                  <Button color="primary">Voir l'organisme responsable</Button>
                 </a>
               </div>
             </div>
@@ -413,12 +413,12 @@ export default ({ match, presetFormation = null }) => {
             handleChange={handleChange}
           />
           <Modal isOpen={modal}>
-            <ModalHeader>Vérification des informations</ModalHeader>
+            <ModalHeader>Mise à jour, merci ne pas fermer cette page</ModalHeader>
             <ModalBody>
               {gatherData !== 0 && (
                 <div>
                   <div>
-                    Mise à jour {gatherData === 1 && <Spinner color="secondary" />}
+                    Vérification ddes information {gatherData === 1 && <Spinner color="secondary" />}
                     {gatherData > 1 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                   </div>
                   <div>
