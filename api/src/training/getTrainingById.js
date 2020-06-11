@@ -14,6 +14,11 @@ module.exports.handler = async (event, context, callback) => {
     await connectToMongo();
     const formation = await Formation.findById(idFormation);
     closeMongoConnection();
+
+    if (!formation) {
+      throw new Error("Not found");
+    }
+
     callback(
       null,
       success({
@@ -22,7 +27,7 @@ module.exports.handler = async (event, context, callback) => {
       })
     );
   } catch (error) {
-    if (error.meta.statusCode === 404) {
+    if (error.message === "Not found") {
       callback(
         null,
         notFound({
@@ -33,7 +38,7 @@ module.exports.handler = async (event, context, callback) => {
     callback(
       null,
       failure({
-        error,
+        error: error.message,
       })
     );
   }

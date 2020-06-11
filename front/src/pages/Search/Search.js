@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ReactiveBase, ReactiveList, DataSearch, SingleList } from "@appbaseio/reactivesearch";
-import { Container, Row } from "reactstrap";
+import { Container, Row, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
+import { useSelector } from "react-redux";
 
 import ExportButton from "../../components/ExportButton";
-import config, { getEnvName } from "../../config";
+import config from "../../config";
+
+import routes from "../../routes.json";
 
 import QueryBuilder from "../../components/QueryBuilder";
 import Facet from "../../components/Facet";
@@ -14,8 +18,6 @@ import CardList from "../../components/CardList";
 import "./search.css";
 
 import exportTrainingColumns from "./exportTrainingColumns.json";
-
-const STAGE = getEnvName();
 
 const FILTERS = [
   "QUERYBUILDER",
@@ -55,14 +57,20 @@ const FILTERS = [
   "diplome",
 ];
 
-const ToggleCatalogue = () => {
-  //const [values, setValues] = useState("Catalogue général");
+const ToggleCatalogue = React.memo(({ filters }) => {
+  const [values, setValues] = useState("Catalogue général");
+
+  const onChange = val => {
+    setValues(val || "Catalogue général");
+  };
+
   return (
     <SingleList
       componentId="catalogue_published"
       dataField="etablissement_reference_catalogue_published"
-      // value={values}
-      // onChange={setValues}
+      react={{ and: filters.filter(e => e !== "catalogue_published") }}
+      value={values}
+      onChange={onChange}
       defaultValue="Catalogue général"
       transformData={data => {
         return data.map(d => ({
@@ -81,24 +89,27 @@ const ToggleCatalogue = () => {
               },
             };
       }}
-      //showFilter={true}
+      showFilter={true}
       showSearch={false}
+      showCount={true}
     />
   );
-};
+});
 
 export default ({ match }) => {
   const base = match.params.base || "formations";
   const [countFormations, setCountFormations] = useState(0);
-  const [debug, setDebug] = useState(false);
   const [mode, setMode] = useState("simple");
+
+  const { acm: userAcm } = useSelector(state => state.user);
+  const hasRightToEdit = userAcm.all;
 
   useEffect(() => {
     async function run() {
       try {
         const resp = await API.get("api", `/${base}/count`, {
           queryStringParameters: {
-            published: true,
+            query: JSON.stringify({ published: true }),
           },
         });
         setCountFormations(resp.count);
@@ -110,10 +121,6 @@ export default ({ match }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handleSwitchChange = () => {
-    setDebug(!debug);
-  };
-
   const handleSearchSwitchChange = () => {
     setMode(mode === "simple" ? "advanced" : "simple");
   };
@@ -124,27 +131,39 @@ export default ({ match }) => {
       <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app={base}>
         <div className="search">
           <Container fluid style={{ maxWidth: 1860 }}>
-            {STAGE !== "prod" && (
-              <label className="react-switch" style={{ right: "285px" }}>
-                <Switch onChange={handleSwitchChange} checked={debug} />
-                <span>Vue recette</span>
-              </label>
-            )}
             <label className="react-switch" style={{ right: "70px" }}>
               <Switch onChange={handleSearchSwitchChange} checked={mode !== "simple"} />
               <span>Recherche avancée</span>
             </label>
-            <h1 className="title">Votre recherche {match.params.base === "formations" ? "de formations" : ""}</h1>
+            <h1 className="title">Votre recherche {base === "formations" ? "de formations" : ""}</h1>
             <Row className="search-row">
               <div className={`search-sidebar`}>
                 <Facet
-                  componentId="etablissement_responsable_siret"
-                  dataField="etablissement_responsable_siret.keyword"
-                  title="Siret responsable"
-                  filterLabel="etablissement_responsable_siret"
-                  selectAllLabel="Tous les sirets"
+                  componentId="nom_academie"
+                  dataField="nom_academie.keyword"
+                  title="Académie"
+                  filterLabel="nom_academie"
+                  selectAllLabel="Toutes les académies"
                   filters={FILTERS}
-                  sortBy="count"
+                  sortBy="asc"
+                />
+                <Facet
+                  componentId="num_departement"
+                  dataField="num_departement.keyword"
+                  title="Département"
+                  filterLabel="num_departement"
+                  selectAllLabel="Tous"
+                  filters={FILTERS}
+                  sortBy="asc"
+                />
+                <Facet
+                  componentId="educ_nat_code"
+                  dataField="educ_nat_code.keyword"
+                  title="Code diplôme"
+                  filterLabel="educ_nat_code"
+                  selectAllLabel="Tous"
+                  filters={FILTERS}
+                  sortBy="asc"
                 />
                 <Facet
                   componentId="niveau"
@@ -156,33 +175,40 @@ export default ({ match }) => {
                   sortBy="count"
                 />
                 <Facet
-                  componentId="nom_academie"
-                  dataField="nom_academie.keyword"
-                  title="Nom Académie"
-                  filterLabel="nom_academie"
-                  selectAllLabel="Toutes les académies"
+                  componentId="rncp_code"
+                  dataField="rncp_code.keyword"
+                  title="Code RNCP"
+                  filterLabel="rncp_code"
+                  selectAllLabel="Tous"
                   filters={FILTERS}
-                  sortBy="asc"
+                  sortBy="count"
                 />
-                <ToggleCatalogue />
+                <ToggleCatalogue filters={FILTERS} />
+                <a href={`/formations`}>Aller à l'ancienne interface</a>
+                {hasRightToEdit && (
+                  <div className="mt-3 add-btn">
+                    <Button color="primary" outline>
+                      <Link to={routes.ADD_FORMATION} className={"nav-link link"}>
+                        Ajouter une formation
+                      </Link>
+                    </Button>
+                  </div>
+                )}
               </div>
               <div className="search-results">
                 {mode !== "simple" && (
                   <QueryBuilder
                     lang="fr"
                     collection={base}
+                    react={{ and: FILTERS.filter(e => e !== "QUERYBUILDER") }}
                     fields={[
+                      { text: "Raison sociale", value: "entreprise_raison_sociale.keyword" },
                       { text: "Siret formateur", value: "etablissement_formateur_siret.keyword" },
                       { text: "Siret responsable", value: "etablissement_responsable_siret.keyword" },
-                      { text: "Numéro d'académie", value: "num_academie" },
-                      { text: "Niveau", value: "niveau.keyword" },
                       { text: "Type d'établissement", value: "etablissement_reference_type.keyword" },
                       { text: "Conventionné", value: "etablissement_reference_conventionne.keyword" },
                       { text: "Déclaré en prefecture", value: "etablissement_reference_declare_prefecture.keyword" },
                       { text: "Référencé datadock", value: "etablissement_reference_datadock.keyword" },
-                      { text: "Code diplôme (Éducation nationale)", value: "educ_nat_code.keyword" },
-                      { text: "Numéero de département", value: "num_departement" },
-                      { text: "Nom de l'académie", value: "nom_academie.keyword" },
                       { text: "Uai du lieu de formation", value: "uai_formation.keyword" },
                       { text: "Diplôme", value: "diplome.keyword" },
                       { text: "Mef 10", value: "mef_10_code.keyword" },
@@ -193,10 +219,19 @@ export default ({ match }) => {
                   <div className={`search-container search-container-${mode}`}>
                     <DataSearch
                       componentId="SEARCH"
-                      placeholder="Saisissez un diplome, un UAI ou un numéro de Siret"
-                      dataField={["etablissement_formateur_siret", "diplome", "uai_formation"]}
+                      placeholder="Saisissez une raison sociale, un diplome, un UAI, ou un numéro de Siret"
+                      fieldWeights={[4, 3, 2, 2, 2, 1, 1]}
+                      dataField={[
+                        "entreprise_raison_sociale",
+                        "diplome",
+                        "uai_formation",
+                        "etablissement_responsable_uai",
+                        "etablissement_formateur_uai",
+                        "etablissement_formateur_siret",
+                        "etablissement_responsable_siret",
+                      ]}
                       autosuggest={true}
-                      queryFormat="or"
+                      queryFormat="and"
                       size={20}
                       showFilter={true}
                     />
@@ -212,16 +247,16 @@ export default ({ match }) => {
                     pagination={true}
                     showResultStats={true}
                     sortBy="asc"
-                    // defaultQuery={() => {
-                    //   return {
-                    //     _source: columnsDefinition.map(def => def.accessor),
-                    //     query: {
-                    //       match: {
-                    //         published: true,
-                    //       },
-                    //     },
-                    //   };
-                    // }}
+                    defaultQuery={() => {
+                      return {
+                        //_source: exportTrainingColumns.map(def => def.accessor),
+                        query: {
+                          match: {
+                            published: true,
+                          },
+                        },
+                      };
+                    }}
                     renderItem={data => <CardList data={data} key={data._id} />}
                     renderResultStats={stats => {
                       return (
@@ -235,7 +270,7 @@ export default ({ match }) => {
                             index={base}
                             filters={FILTERS}
                             columns={exportTrainingColumns
-                              .filter(def => !def.debug || debug)
+                              .filter(def => !def.debug)
                               .map(def => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {

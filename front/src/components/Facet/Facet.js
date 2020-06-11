@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MultiList } from "@appbaseio/reactivesearch";
-import { Collapse, Button, CardBody, Card, CardHeader } from "reactstrap";
+import { Collapse, CardBody, Card, CardHeader } from "reactstrap";
 
 import "./facet.css";
 

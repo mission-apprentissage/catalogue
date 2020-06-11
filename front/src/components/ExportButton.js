@@ -95,6 +95,8 @@ let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
   return `${headers}${lines}`;
 };
 
+let countMount = 0;
+
 const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} } }) => {
   const [requestExport, setRequestExport] = useState(false);
   const [exporting, setExporting] = useState(false);
@@ -116,13 +118,18 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
   }
 
   const onQueryChange = async (prevQuery, nextQuery) => {
-    console.log(nextQuery);
-    let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
-    let fileName = `${index}_${new Date().toJSON()}.csv`;
-    downloadCSV(fileName, csv);
-    setExporting(false);
-    setRequestExport(false);
-    setProgress(0);
+    if (countMount === 1) {
+      console.log(nextQuery);
+      let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
+      let fileName = `${index}_${new Date().toJSON()}.csv`;
+      downloadCSV(fileName, csv);
+      setExporting(false);
+      setRequestExport(false);
+      setProgress(0);
+      countMount = 0;
+    } else if (countMount === 0) {
+      countMount++;
+    }
   };
 
   return (
@@ -130,11 +137,11 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
       componentId={`${index}-export`}
       react={{ and: filters }}
       onQueryChange={onQueryChange}
-      // defaultQuery={() => {
-      //   return {
-      //     query: defaultQuery,
-      //   };
-      // }}
+      defaultQuery={() => {
+        return {
+          query: defaultQuery,
+        };
+      }}
       render={() => {
         if (exporting) {
           return (

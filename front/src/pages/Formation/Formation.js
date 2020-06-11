@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { useSelector, useDispatch } from "react-redux";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { push } from "connected-react-router";
 
 import Section from "./components/Section";
+import routes from "../../routes.json";
 
 import "./formation.css";
+const sleep = m => new Promise(r => setTimeout(r, m));
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;
@@ -19,8 +22,14 @@ const checkIfHasRightToEdit = (item, userAcm) => {
 };
 
 const EditSection = ({ edition, onEdit, handleSubmit }) => {
-  const onDeleteClicked = () => {
-    // do stuff
+  const dispatch = useDispatch();
+  const onDeleteClicked = async e => {
+    // eslint-disable-next-line no-restricted-globals
+    const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
+    if (areYousure) {
+      //await API.del("api", `/formation/${data._id}`);
+      dispatch(push(routes.SEARCH_FORMATIONS));
+    }
   };
 
   return (
@@ -49,7 +58,7 @@ const EditSection = ({ edition, onEdit, handleSubmit }) => {
               onEdit();
             }}
           >
-            Éditer
+            Modifier
           </Button>
           <Button color="danger" onClick={onDeleteClicked}>
             Supprimer
@@ -223,6 +232,13 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
                 <p>{formation.code_commune_insee}</p>
               </div>
             </div>
+            {formation.onisep_url !== "" && (
+              <div className="field field-button mt-3">
+                <a href={formation.onisep_url} target="_blank" rel="noreferrer noopener">
+                  <Button color="primary">Voir la fiche descriptive Onisep</Button>
+                </a>
+              </div>
+            )}
           </div>
         </div>
         <div className="sidebar-section info">
@@ -244,8 +260,14 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               <h3>Uai</h3>
               <p>{formation.etablissement_formateur_uai}</p>
             </div>
-            <div className="sidebar-section-seemore">
-              <Button color="primary">Voir plus de détails</Button>
+            <div className="field field-button mt-3">
+              <a
+                href={`/etablissement/${formation.etablissement_formateur_id}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <Button color="primary">Voir l'organisme {!oneEstablishment && "formateur"}</Button>
+              </a>
             </div>
           </div>
         </div>
@@ -269,8 +291,14 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
                 <h3>Uai</h3>
                 <p>{formation.etablissement_responsable_uai}</p>
               </div>
-              <div className="sidebar-section-seemore">
-                <Button color="primary">Voir plus de détails</Button>
+              <div className="field field-button mt-3">
+                <a
+                  href={`/etablissement/${formation.etablissement_responsable_id}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
+                  <Button color="primary">Voir l'organisme responsable</Button>
+                </a>
               </div>
             </div>
           </div>
@@ -282,7 +310,10 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
 
 export default ({ match, presetFormation = null }) => {
   const [formation, setFormation] = useState(presetFormation);
+  const [gatherData, setGatherData] = useState(0);
   const [edition, setEdition] = useState(false);
+  const [modal, setModal] = useState(false);
+  const dispatch = useDispatch();
 
   const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
@@ -295,12 +326,45 @@ export default ({ match, presetFormation = null }) => {
     },
     onSubmit: ({ uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
-        console.log(uai_formation);
-        console.log(code_postal);
-        console.log(capacite);
-        console.log(periode);
-        console.log(educ_nat_code);
-        console.log(num_academie);
+        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie };
+        if (!presetFormation) {
+          let result = null;
+          if (uai_formation !== formation.uai_formation || educ_nat_code !== formation.educ_nat_code) {
+            setModal(true);
+            setGatherData(1);
+            result = await API.put("api", `/formation/${formation._id}`, { body });
+
+            setGatherData(2);
+            await API.get("api", `/services?job=formation-update&id=${result._id}`);
+            setGatherData(3);
+            await API.get("api", `/services?job=rncp&id=${result._id}`);
+            setGatherData(4);
+            await API.get("api", `/services?job=onisep&id=${result._id}`);
+            setGatherData(5);
+            result = await API.get("api", `/formation/${result._id}`);
+            setGatherData(6);
+            await sleep(500);
+
+            setModal(false);
+          } else if (
+            code_postal !== formation.code_postal ||
+            capacite !== formation.capacite ||
+            periode !== formation.periode ||
+            num_academie !== formation.num_academie
+          ) {
+            result = await API.put("api", `/formation/${formation._id}`, { body });
+          }
+
+          if (result) {
+            setFormation(result);
+            setFieldValue("uai_formation", result.uai_formation);
+            setFieldValue("code_postal", result.code_postal);
+            setFieldValue("periode", result.periode);
+            setFieldValue("capacite", result.capacite);
+            setFieldValue("educ_nat_code", result.educ_nat_code);
+            setFieldValue("num_academie", result.num_academie);
+          }
+        }
         setEdition(false);
         resolve("onSubmitHandler complete");
       });
@@ -321,15 +385,15 @@ export default ({ match, presetFormation = null }) => {
         setFieldValue("uai_formation", form.uai_formation);
         setFieldValue("code_postal", form.code_postal);
         setFieldValue("periode", form.periode);
-        setFieldValue("capacite", form.capacite);
+        setFieldValue("capacite", form.capacite || "");
         setFieldValue("educ_nat_code", form.educ_nat_code);
         setFieldValue("num_academie", form.num_academie);
       } catch (e) {
-        console.log(e);
+        dispatch(push(routes.NOTFOUND));
       }
     }
     run();
-  }, [match, setFieldValue, presetFormation]);
+  }, [match, setFieldValue, presetFormation, dispatch]);
 
   const onEdit = () => {
     setEdition(!edition);
@@ -337,7 +401,7 @@ export default ({ match, presetFormation = null }) => {
 
   if (!formation) {
     return (
-      <div>
+      <div className="page formation">
         <Spinner color="secondary" />
       </div>
     );
@@ -356,6 +420,35 @@ export default ({ match, presetFormation = null }) => {
             handleSubmit={handleSubmit}
             handleChange={handleChange}
           />
+          <Modal isOpen={modal}>
+            <ModalHeader>Merci ne pas fermer cette page</ModalHeader>
+            <ModalBody>
+              {gatherData !== 0 && (
+                <div>
+                  <div>
+                    Mise à jour des informations {gatherData === 1 && <Spinner color="secondary" />}
+                    {gatherData > 1 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                  </div>
+                  <div>
+                    Recherche des informations générale {gatherData === 2 && <Spinner color="secondary" />}
+                    {gatherData > 2 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                  </div>
+                  <div>
+                    Recherche des informations RNCP {gatherData === 3 && <Spinner color="secondary" />}
+                    {gatherData > 3 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                  </div>
+                  <div>
+                    Recherche des informations Onisep {gatherData === 4 && <Spinner color="secondary" />}
+                    {gatherData > 4 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                  </div>
+                  <div>
+                    Vérification {gatherData === 5 && <Spinner color="secondary" />}
+                    {gatherData > 5 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
+                  </div>
+                </div>
+              )}
+            </ModalBody>
+          </Modal>
         </Container>
       </div>
     </div>

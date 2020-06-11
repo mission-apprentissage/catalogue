@@ -27,6 +27,8 @@ import {
   Formation,
   Search,
   AddFormation,
+  Etablissement,
+  SearchEtablissement,
 } from "./pages";
 
 import routes from "./routes.json";
@@ -70,8 +72,10 @@ const App = () => {
         <RestrictedRoute exact path={routes.HOWTO_REGLEMENT} component={HowToReglement} />
         <RestrictedRoute exact path={routes.ADMIN_USERS} component={Users} />
         <RestrictedRoute exact path={routes.ADMIN_DUPLICATE} component={Duplicates} />
-        <Route exact path={`/search/:base`} component={Search} />
+        <Route exact path={routes.SEARCH_FORMATIONS} component={Search} />
+        <Route exact path={routes.SEARCH_ETABLISSEMENTS} component={SearchEtablissement} />
         <Route exact path={`/formation/:id`} component={Formation} />
+        <Route exact path={`/etablissement/:id`} component={Etablissement} />
         <Route exact path={routes.ADD_FORMATION} component={AddFormation} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />
         <Route exact path={routes.FORGOTPASSWORD} component={ForgotPassword} />

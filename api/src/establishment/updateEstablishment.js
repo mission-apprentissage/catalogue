@@ -60,12 +60,13 @@ module.exports.handler = async (event, context, callback) => {
       );
     }
 
-    await Establishment.findOneAndUpdate({ _id: idEtablissement }, body, { new: true });
+    const result = await Establishment.findOneAndUpdate({ _id: idEtablissement }, body, { new: true });
     closeMongoConnection();
     /**
      *  Response
      * */
-    callback(null, success({ success: true }));
+    // eslint-disable-next-line no-underscore-dangle
+    callback(null, success({ ...result._doc }));
   } catch (error) {
     callback(
       null,

@@ -3,7 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "reactstrap";
 //import { API } from "aws-amplify";
 import "./cardList.css";
@@ -24,16 +24,16 @@ const CardList = ({ data }) => {
 
   const hasRightToEdit = checkIfHasRightToEdit(data, userAcm);
 
-  const onDeleteClicked = async e => {
-    e.preventDefault();
-    e.stopPropagation();
-    // eslint-disable-next-line no-restricted-globals
-    const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
-    if (areYousure) {
-      //await API.del("api", `/formation/${data._id}`);
-      window.location.reload();
-    }
-  };
+  // const onDeleteClicked = async e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   // eslint-disable-next-line no-restricted-globals
+  //   const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
+  //   if (areYousure) {
+  //     //await API.del("api", `/formation/${data._id}`);
+  //     window.location.reload();
+  //   }
+  // };
   const onEditClicked = async e => {
     e.preventDefault();
     e.stopPropagation();
@@ -41,22 +41,22 @@ const CardList = ({ data }) => {
   };
 
   return (
-    <Link to={`/formation/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
+    <Link to={`/etablissement/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
       <div className="list-card-container ">
         <div className="thumbnail">
           <div className="field">
-            <p>Niveau: {data.niveau}</p>
+            <p>UAI: {data.uai}</p>
           </div>
           <div className="field">
-            <p>Code diplôme: {data.educ_nat_code}</p>
+            <p>Localité: {data.localite}</p>
           </div>
         </div>
         <div className="content">
           <div style={{ display: "flex" }}>
             <h2>
-              {data.intitule_long}
+              {data.entreprise_raison_sociale}
               <br />
-              <small>{data.diplome}</small>
+              <small>{data.enseigne}</small>
             </h2>
             <span className="edition-btns">
               {hasRightToEdit && (
@@ -64,9 +64,9 @@ const CardList = ({ data }) => {
                   <Button outline color="warning" onClick={onEditClicked}>
                     <FontAwesomeIcon icon={faPen} size="xs" />
                   </Button>
-                  <Button outline color="danger" onClick={onDeleteClicked}>
+                  {/* <Button outline color="danger" onClick={onDeleteClicked}>
                     <FontAwesomeIcon icon={faTimes} />
-                  </Button>
+                  </Button> */}
                 </>
               )}
             </span>
@@ -74,8 +74,7 @@ const CardList = ({ data }) => {
           <div>
             <p>{data.nom_academie}</p>
             <p>{data.code_postal}</p>
-            <p>{data.entreprise_raison_sociale}</p>
-            <p>{data.etablissement_formateur_enseigne}</p>
+            <p>{data.adresse}</p>
           </div>
         </div>
       </div>
