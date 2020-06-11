@@ -2,7 +2,7 @@ const {
   mongo: { connectToMongo, closeMongoConnection },
   model: { Formation },
 } = require("../common-api/getDependencies");
-const { success, failure } = require("../common-api/response");
+const { success, failure, notFound } = require("../common-api/response");
 
 module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
@@ -14,6 +14,11 @@ module.exports.handler = async (event, context, callback) => {
     await connectToMongo();
     const formation = await Formation.findById(idFormation);
     closeMongoConnection();
+
+    if (!formation) {
+      throw new Error("Not found");
+    }
+
     callback(
       null,
       success({
@@ -22,6 +27,14 @@ module.exports.handler = async (event, context, callback) => {
       })
     );
   } catch (error) {
+    if (error.message === "Not found") {
+      callback(
+        null,
+        notFound({
+          error: "Not found",
+        })
+      );
+    }
     callback(
       null,
       failure({

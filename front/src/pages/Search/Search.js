@@ -167,6 +167,15 @@ export default ({ match }) => {
                   filters={FILTERS}
                   sortBy="count"
                 />
+                <Facet
+                  componentId="rncp_code"
+                  dataField="rncp_code.keyword"
+                  title="Code RNCP"
+                  filterLabel="rncp_code"
+                  selectAllLabel="Tous"
+                  filters={FILTERS}
+                  sortBy="count"
+                />
                 <ToggleCatalogue filters={FILTERS} />
               </div>
               <div className="search-results">

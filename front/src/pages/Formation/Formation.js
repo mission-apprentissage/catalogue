@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Spinner, Input } from "reactstrap";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
+import { push } from "connected-react-router";
 
 import Section from "./components/Section";
+import routes from "../../routes.json";
 
 import "./formation.css";
 
@@ -19,8 +21,14 @@ const checkIfHasRightToEdit = (item, userAcm) => {
 };
 
 const EditSection = ({ edition, onEdit, handleSubmit }) => {
-  const onDeleteClicked = () => {
-    // do stuff
+  const dispatch = useDispatch();
+  const onDeleteClicked = async e => {
+    // eslint-disable-next-line no-restricted-globals
+    const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
+    if (areYousure) {
+      //await API.del("api", `/formation/${data._id}`);
+      dispatch(push(routes.SEARCH_FORMATIONS));
+    }
   };
 
   return (
@@ -49,7 +57,7 @@ const EditSection = ({ edition, onEdit, handleSubmit }) => {
               onEdit();
             }}
           >
-            Éditer
+            Modifier
           </Button>
           <Button color="danger" onClick={onDeleteClicked}>
             Supprimer
@@ -223,6 +231,13 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
                 <p>{formation.code_commune_insee}</p>
               </div>
             </div>
+            {formation.onisep_url !== "" && (
+              <div className="field field-button mt-3">
+                <a href={formation.onisep_url} target="_blank" rel="noreferrer noopener">
+                  <Button color="primary">Voir la fiche descriptive Onisep</Button>
+                </a>
+              </div>
+            )}
           </div>
         </div>
         <div className="sidebar-section info">
@@ -244,8 +259,10 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               <h3>Uai</h3>
               <p>{formation.etablissement_formateur_uai}</p>
             </div>
-            <div className="sidebar-section-seemore">
-              <Button color="primary">Voir plus de détails</Button>
+            <div className="field field-button mt-3">
+              <a href={routes.SEARCH_FORMATIONS} target="_blank" rel="noreferrer noopener">
+                <Button color="primary">Voir les détails de l'organisme</Button>
+              </a>
             </div>
           </div>
         </div>
@@ -283,6 +300,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
 export default ({ match, presetFormation = null }) => {
   const [formation, setFormation] = useState(presetFormation);
   const [edition, setEdition] = useState(false);
+  const dispatch = useDispatch();
 
   const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
@@ -295,12 +313,18 @@ export default ({ match, presetFormation = null }) => {
     },
     onSubmit: ({ uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
-        console.log(uai_formation);
-        console.log(code_postal);
-        console.log(capacite);
-        console.log(periode);
-        console.log(educ_nat_code);
-        console.log(num_academie);
+        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie };
+        if (!presetFormation) {
+          const result = await API.put("api", `/formation/${formation._id}`, { body });
+
+          setFormation(result);
+          setFieldValue("uai_formation", result.uai_formation);
+          setFieldValue("code_postal", result.code_postal);
+          setFieldValue("periode", result.periode);
+          setFieldValue("capacite", result.capacite);
+          setFieldValue("educ_nat_code", result.educ_nat_code);
+          setFieldValue("num_academie", result.num_academie);
+        }
         setEdition(false);
         resolve("onSubmitHandler complete");
       });
@@ -325,11 +349,11 @@ export default ({ match, presetFormation = null }) => {
         setFieldValue("educ_nat_code", form.educ_nat_code);
         setFieldValue("num_academie", form.num_academie);
       } catch (e) {
-        console.log(e);
+        dispatch(push(routes.NOTFOUND));
       }
     }
     run();
-  }, [match, setFieldValue, presetFormation]);
+  }, [match, setFieldValue, presetFormation, dispatch]);
 
   const onEdit = () => {
     setEdition(!edition);

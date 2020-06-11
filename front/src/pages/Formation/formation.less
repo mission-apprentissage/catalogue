@@ -23,6 +23,27 @@
                     flex: 1;
                 }
             }
+
+            &.field-button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+
+              a {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                width: 80%;
+              }
+    
+              .btn-primary {
+                background-color: #377C88;
+                border-color: #377C88;
+                width: 100%;
+              }
+            }
         }
         .field p {
             font-weight: normal;
@@ -110,17 +131,6 @@
             color: white;
             width: 80%;
           }
-        }
-
-        .sidebar-section-seemore {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          flex-direction: column;
-          .btn {
-            width: 80%;
-          }
-          
         }
       }
       .notice .sidebar-section.links .card {
