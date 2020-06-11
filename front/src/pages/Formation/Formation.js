@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
@@ -261,7 +261,11 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               <p>{formation.etablissement_formateur_uai}</p>
             </div>
             <div className="field field-button mt-3">
-              <a href={routes.SEARCH_FORMATIONS} target="_blank" rel="noreferrer noopener">
+              <a
+                href={`/etablissement/${formation.etablissement_formateur_id}`}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
                 <Button color="primary">Voir l'organisme {!oneEstablishment && "formateur"}</Button>
               </a>
             </div>
@@ -288,7 +292,11 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
                 <p>{formation.etablissement_responsable_uai}</p>
               </div>
               <div className="field field-button mt-3">
-                <a href={routes.SEARCH_FORMATIONS} target="_blank" rel="noreferrer noopener">
+                <a
+                  href={`/etablissement/${formation.etablissement_responsable_id}`}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                >
                   <Button color="primary">Voir l'organisme responsable</Button>
                 </a>
               </div>
@@ -393,7 +401,7 @@ export default ({ match, presetFormation = null }) => {
 
   if (!formation) {
     return (
-      <div>
+      <div className="page formation">
         <Spinner color="secondary" />
       </div>
     );
@@ -413,12 +421,12 @@ export default ({ match, presetFormation = null }) => {
             handleChange={handleChange}
           />
           <Modal isOpen={modal}>
-            <ModalHeader>Mise à jour, merci ne pas fermer cette page</ModalHeader>
+            <ModalHeader>Merci ne pas fermer cette page</ModalHeader>
             <ModalBody>
               {gatherData !== 0 && (
                 <div>
                   <div>
-                    Vérification ddes information {gatherData === 1 && <Spinner color="secondary" />}
+                    Mise à jour des informations {gatherData === 1 && <Spinner color="secondary" />}
                     {gatherData > 1 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                   </div>
                   <div>
