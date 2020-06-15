@@ -68,12 +68,12 @@ export default () => {
         </Row>
         <Row className="mt-3">
           <Col xs="12" sm="6" md="4" className="mt-2">
-            <Button color="primary" onClick={() => dispatch(push(routes.FORMATIONS))}>
+            <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_FORMATIONS))}>
               Consulter la liste des formations
             </Button>
           </Col>
           <Col xs="12" sm="6" md="4" className="mt-2">
-            <Button color="primary" onClick={() => dispatch(push(routes.ESTABLISHMENTS))}>
+            <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_ETABLISSEMENTS))}>
               Consulter la liste des établissements
             </Button>
           </Col>
