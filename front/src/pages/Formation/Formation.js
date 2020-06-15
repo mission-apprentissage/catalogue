@@ -232,7 +232,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
                 <p>{formation.code_commune_insee}</p>
               </div>
             </div>
-            {formation.onisep_url !== "" && (
+            {formation.onisep_url !== "" && formation.onisep_url !== null && (
               <div className="field field-button mt-3">
                 <a href={formation.onisep_url} target="_blank" rel="noreferrer noopener">
                   <Button color="primary">Voir la fiche descriptive Onisep</Button>
