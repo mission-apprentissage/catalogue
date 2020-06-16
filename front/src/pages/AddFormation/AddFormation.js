@@ -18,8 +18,9 @@ const Step2 = ({ etablissement, onComplete }) => {
       educ_nat_code: "",
       code_postal: "",
       uai_formation: "",
+      num_academie: 0,
     },
-    onSubmit: ({ educ_nat_code, code_postal, uai_formation }, { setSubmitting }) => {
+    onSubmit: ({ educ_nat_code, code_postal, uai_formation, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
         try {
           setGatherData(1);
@@ -29,12 +30,13 @@ const Step2 = ({ etablissement, onComplete }) => {
               etablissement_responsable_siret: etablissement.siret,
               etablissement_formateur_siret: etablissement.siret,
               code_postal,
+              num_academie,
               uai_formation,
               draft: true,
             },
           });
           setGatherData(2);
-          console.log(formation);
+          //console.log(formation);
           await API.get("api", `/services?job=formation-update&id=${formation._id}`);
           setGatherData(3);
           await API.get("api", `/services?job=rncp&id=${formation._id}`);
@@ -42,7 +44,7 @@ const Step2 = ({ etablissement, onComplete }) => {
           await API.get("api", `/services?job=onisep&id=${formation._id}`);
           setGatherData(5);
           formation = await API.get("api", `/formation/${formation._id}`);
-          console.log(formation);
+          //console.log(formation);
           await API.del("api", `/formation/${formation._id}`);
           setGatherData(6);
           await sleep(500);
@@ -61,7 +63,7 @@ const Step2 = ({ etablissement, onComplete }) => {
         <Row>
           <Col>
             {!isSubmitting && (
-              <Form>
+              <Form style={{ width: "50%" }}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                   <Label for="educ_nat_code" className="mr-sm-2 label-form">
                     <strong>Code diplôme Education Nationale</strong>
@@ -98,7 +100,25 @@ const Step2 = ({ etablissement, onComplete }) => {
                     disabled={isSubmitting}
                   />
                 </FormGroup>
-                <Button color="primary" onClick={handleSubmit} disabled={isSubmitting}>
+                <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+                  <Label for="num_academie" className="mr-sm-2 label-form">
+                    <strong>Numéro d'académie</strong>
+                  </Label>
+                  <Input
+                    type="text"
+                    name="num_academie"
+                    onChange={handleChange}
+                    value={values.num_academie}
+                    disabled={isSubmitting}
+                  />
+                </FormGroup>
+                <Button
+                  color="primary"
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="submit-formation-attr"
+                  style={{ width: "99%" }}
+                >
                   Valider
                 </Button>
               </Form>
@@ -114,7 +134,13 @@ const Step2 = ({ etablissement, onComplete }) => {
                   {gatherData > 2 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                 </div>
                 <div>
-                  Recherche des informations RNCP {gatherData === 3 && <Spinner color="secondary" />}
+                  Recherche des informations RNCP{" "}
+                  {gatherData === 3 && (
+                    <>
+                      <Spinner color="secondary" />
+                      <span style={{ fontSize: "1rem" }}>Cette étape peut prendre du temps</span>
+                    </>
+                  )}
                   {gatherData > 3 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                 </div>
                 <div>
@@ -148,7 +174,7 @@ const Step1 = ({ onComplete }) => {
             query: JSON.stringify({ siret }),
           });
           const resp = await API.get("api", `/etablissement?${params}`);
-          console.log(resp);
+          //console.log(resp);
           setEtablissement(resp);
         } catch (e) {
           const {
@@ -265,10 +291,10 @@ const Step1 = ({ onComplete }) => {
                 </div>
               </div>
               <div>
-                <Button className="mt-2" color="danger" size="lg" style={{ marginRight: "3rem" }} onClick={onCancel}>
+                <Button className="mt-2" color="danger" style={{ marginRight: "3rem" }} onClick={onCancel}>
                   Choisir un autre établissement
                 </Button>
-                <Button className="mt-2" color="success" size="lg" onClick={() => onComplete(etablissement)}>
+                <Button className="mt-2" color="success" onClick={() => onComplete(etablissement)}>
                   Sélectionner et aller à l'étape suivante >
                 </Button>
               </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody, Alert } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
@@ -21,17 +21,7 @@ const checkIfHasRightToEdit = (item, userAcm) => {
   return hasRightToEdit;
 };
 
-const EditSection = ({ edition, onEdit, handleSubmit }) => {
-  const dispatch = useDispatch();
-  const onDeleteClicked = async e => {
-    // eslint-disable-next-line no-restricted-globals
-    const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
-    if (areYousure) {
-      //await API.del("api", `/formation/${data._id}`);
-      dispatch(push(routes.SEARCH_FORMATIONS));
-    }
-  };
-
+const EditSection = ({ edition, onEdit, handleSubmit, onDeleteClicked }) => {
   return (
     <div className="sidebar-section info sidebar-section-edit">
       {edition && (
@@ -73,6 +63,16 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
   const { acm: userAcm } = useSelector(state => state.user);
   const oneEstablishment = formation.etablissement_responsable_siret === formation.etablissement_formateur_siret;
   const hasRightToEdit = checkIfHasRightToEdit(formation, userAcm);
+
+  const dispatch = useDispatch();
+  const onDeleteClicked = async e => {
+    // eslint-disable-next-line no-restricted-globals
+    const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
+    if (areYousure) {
+      await API.del("api", `/formation/${formation._id}`);
+      dispatch(push(routes.SEARCH_FORMATIONS));
+    }
+  };
 
   return (
     <Row>
@@ -170,7 +170,14 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         </Section>
       </Col>
       <Col md="5">
-        {hasRightToEdit && <EditSection edition={edition} onEdit={onEdit} handleSubmit={handleSubmit} />}
+        {hasRightToEdit && (
+          <EditSection
+            edition={edition}
+            onEdit={onEdit}
+            handleSubmit={handleSubmit}
+            onDeleteClicked={onDeleteClicked}
+          />
+        )}
         <div className="sidebar-section info">
           <h2>À propos</h2>
           <div>
@@ -311,7 +318,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
 export default ({ match, presetFormation = null }) => {
   const [formation, setFormation] = useState(presetFormation);
   const [gatherData, setGatherData] = useState(0);
-  const [edition, setEdition] = useState(false);
+  const [edition, setEdition] = useState(presetFormation ? true : false);
   const [modal, setModal] = useState(false);
   const dispatch = useDispatch();
 
@@ -327,43 +334,58 @@ export default ({ match, presetFormation = null }) => {
     onSubmit: ({ uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
         const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie };
-        if (!presetFormation) {
-          let result = null;
-          if (uai_formation !== formation.uai_formation || educ_nat_code !== formation.educ_nat_code) {
-            setModal(true);
-            setGatherData(1);
-            result = await API.put("api", `/formation/${formation._id}`, { body });
+        let prevStateFormation = formation;
+        if (presetFormation) {
+          prevStateFormation = await API.post("api", `/formation`, {
+            body: {
+              ...formation,
+            },
+          });
+        }
 
-            setGatherData(2);
-            await API.get("api", `/services?job=formation-update&id=${result._id}`);
-            setGatherData(3);
-            await API.get("api", `/services?job=rncp&id=${result._id}`);
-            setGatherData(4);
-            await API.get("api", `/services?job=onisep&id=${result._id}`);
-            setGatherData(5);
-            result = await API.get("api", `/formation/${result._id}`);
-            setGatherData(6);
-            await sleep(500);
+        let result = null;
+        if (
+          uai_formation !== prevStateFormation.uai_formation ||
+          educ_nat_code !== prevStateFormation.educ_nat_code ||
+          presetFormation
+        ) {
+          setModal(true);
+          setGatherData(1);
+          result = await API.put("api", `/formation/${prevStateFormation._id}`, { body });
 
-            setModal(false);
-          } else if (
-            code_postal !== formation.code_postal ||
-            capacite !== formation.capacite ||
-            periode !== formation.periode ||
-            num_academie !== formation.num_academie
-          ) {
-            result = await API.put("api", `/formation/${formation._id}`, { body });
-          }
+          setGatherData(2);
+          await API.get("api", `/services?job=formation-update&id=${result._id}`);
+          setGatherData(3);
+          await API.get("api", `/services?job=rncp&id=${result._id}`);
+          setGatherData(4);
+          await API.get("api", `/services?job=onisep&id=${result._id}`);
+          setGatherData(5);
+          result = await API.get("api", `/formation/${result._id}`);
+          setGatherData(6);
+          await sleep(500);
 
-          if (result) {
-            setFormation(result);
-            setFieldValue("uai_formation", result.uai_formation);
-            setFieldValue("code_postal", result.code_postal);
-            setFieldValue("periode", result.periode);
-            setFieldValue("capacite", result.capacite);
-            setFieldValue("educ_nat_code", result.educ_nat_code);
-            setFieldValue("num_academie", result.num_academie);
-          }
+          setModal(false);
+        } else if (
+          code_postal !== prevStateFormation.code_postal ||
+          capacite !== prevStateFormation.capacite ||
+          periode !== prevStateFormation.periode ||
+          num_academie !== prevStateFormation.num_academie
+        ) {
+          result = await API.put("api", `/formation/${prevStateFormation._id}`, { body });
+        }
+
+        if (result) {
+          setFormation(result);
+          setFieldValue("uai_formation", result.uai_formation);
+          setFieldValue("code_postal", result.code_postal);
+          setFieldValue("periode", result.periode);
+          setFieldValue("capacite", result.capacite);
+          setFieldValue("educ_nat_code", result.educ_nat_code);
+          setFieldValue("num_academie", result.num_academie);
+        }
+
+        if (presetFormation) {
+          dispatch(push(`/formation/${prevStateFormation._id}`));
         }
         setEdition(false);
         resolve("onSubmitHandler complete");
@@ -377,17 +399,19 @@ export default ({ match, presetFormation = null }) => {
         let form = null;
         if (!presetFormation) {
           form = await API.get("api", `/formation/${match.params.id}`);
-          setFormation(form);
         } else {
           form = presetFormation;
         }
+        setFormation(form);
 
-        setFieldValue("uai_formation", form.uai_formation);
-        setFieldValue("code_postal", form.code_postal);
-        setFieldValue("periode", form.periode);
+        console.log(form);
+
+        setFieldValue("uai_formation", form.uai_formation || "");
+        setFieldValue("code_postal", form.code_postal || "");
+        setFieldValue("periode", form.periode || "");
         setFieldValue("capacite", form.capacite || "");
-        setFieldValue("educ_nat_code", form.educ_nat_code);
-        setFieldValue("num_academie", form.num_academie);
+        setFieldValue("educ_nat_code", form.educ_nat_code || "");
+        setFieldValue("num_academie", form.num_academie || "");
       } catch (e) {
         dispatch(push(routes.NOTFOUND));
       }
@@ -411,6 +435,12 @@ export default ({ match, presetFormation = null }) => {
     <div className="page formation">
       <div className="notice">
         <Container>
+          {presetFormation && (
+            <Alert color="info" style={{ fontSize: "1rem", fontWeight: "bolder" }}>
+              Cette formation est à l'état de brouillon. <br />
+              Pour confirmer vos modifications, veuillez cliquer sur le bouton "Valider".
+            </Alert>
+          )}
           <h1 className="heading">{formation.intitule_long}</h1>
           <Formation
             formation={formation}
@@ -434,7 +464,12 @@ export default ({ match, presetFormation = null }) => {
                     {gatherData > 2 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                   </div>
                   <div>
-                    Recherche des informations RNCP {gatherData === 3 && <Spinner color="secondary" />}
+                    Recherche des informations RNCP{" "}
+                    {gatherData === 3 && (
+                      <>
+                        <Spinner color="secondary" />
+                      </>
+                    )}
                     {gatherData > 3 && <FontAwesomeIcon icon={faCheck} className="check-icon" />}
                   </div>
                   <div>

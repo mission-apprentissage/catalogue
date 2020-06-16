@@ -3,9 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faTimes } from "@fortawesome/free-solid-svg-icons"; // faPen
 import { Button } from "reactstrap";
-//import { API } from "aws-amplify";
+import { API } from "aws-amplify";
 import "./cardList.css";
 
 //import image_preview from "./noimage.png";
@@ -30,15 +30,15 @@ const CardList = ({ data }) => {
     // eslint-disable-next-line no-restricted-globals
     const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
     if (areYousure) {
-      //await API.del("api", `/formation/${data._id}`);
+      await API.del("api", `/formation/${data._id}`);
       window.location.reload();
     }
   };
-  const onEditClicked = async e => {
-    e.preventDefault();
-    e.stopPropagation();
-    // DO STUFF
-  };
+  // const onEditClicked = async e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   // DO STUFF
+  // };
 
   return (
     <Link to={`/formation/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
@@ -61,9 +61,9 @@ const CardList = ({ data }) => {
             <span className="edition-btns">
               {hasRightToEdit && (
                 <>
-                  <Button outline color="warning" onClick={onEditClicked}>
+                  {/* <Button outline color="warning" onClick={onEditClicked}>
                     <FontAwesomeIcon icon={faPen} size="xs" />
-                  </Button>
+                  </Button> */}
                   <Button outline color="danger" onClick={onDeleteClicked}>
                     <FontAwesomeIcon icon={faTimes} />
                   </Button>

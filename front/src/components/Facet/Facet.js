@@ -26,10 +26,10 @@ const Layout = props => {
             dataField={dataField}
             filterLabel={filterLabel}
             react={{ and: filters.filter(e => e !== componentId) }}
-            showMissing={true}
+            //showMissing={true}
             showCount={true}
             queryFormat="or"
-            missingLabel="(Vide)"
+            //missingLabel="(Vide)"
             size={20000}
             selectAllLabel={selectAllLabel}
             showCheckbox={true}

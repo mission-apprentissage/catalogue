@@ -101,8 +101,7 @@ export default ({ match }) => {
   const [countFormations, setCountFormations] = useState(0);
   const [mode, setMode] = useState("simple");
 
-  const { acm: userAcm } = useSelector(state => state.user);
-  const hasRightToEdit = userAcm.all;
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     async function run() {
@@ -185,7 +184,7 @@ export default ({ match }) => {
                 />
                 <ToggleCatalogue filters={FILTERS} />
                 <a href={`/formations`}>Aller à l'ancienne interface</a>
-                {hasRightToEdit && (
+                {user && (
                   <div className="mt-3 add-btn">
                     <Button color="primary" outline>
                       <Link to={routes.ADD_FORMATION} className={"nav-link link"}>
@@ -219,11 +218,11 @@ export default ({ match }) => {
                   <div className={`search-container search-container-${mode}`}>
                     <DataSearch
                       componentId="SEARCH"
-                      placeholder="Saisissez une raison sociale, un diplome, un UAI, ou un numéro de Siret"
+                      placeholder="Saisissez une raison sociale, un intitulé, un UAI, ou un numéro de Siret"
                       fieldWeights={[4, 3, 2, 2, 2, 1, 1]}
                       dataField={[
                         "entreprise_raison_sociale",
-                        "diplome",
+                        "intitule_long",
                         "uai_formation",
                         "etablissement_responsable_uai",
                         "etablissement_formateur_uai",

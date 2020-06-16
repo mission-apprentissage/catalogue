@@ -138,6 +138,22 @@ const Etablissement = ({ etablissement, edition, onEdit, handleChange, handleSub
                 <p>{etablissement.code_insee_localite}</p>
               </div>
             </div>
+            <div className="field">
+              <h3>Académie{hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}</h3>
+              <p>
+                {!edition && (
+                  <>
+                    {etablissement.nom_academie} ({etablissement.num_academie})
+                  </>
+                )}
+                {edition && (
+                  <>
+                    {etablissement.nom_academie}{" "}
+                    <Input type="text" name="num_academie" onChange={handleChange} value={values.num_academie} />
+                  </>
+                )}
+              </p>
+            </div>
           </div>
         </div>
         {!etablissement.siege_social && (
@@ -179,27 +195,29 @@ export default ({ match }) => {
   const { values, handleSubmit, handleChange, setFieldValue } = useFormik({
     initialValues: {
       uai: "",
+      num_academie: "",
     },
-    onSubmit: ({ uai }, { setSubmitting }) => {
+    onSubmit: ({ uai, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
-        const body = { uai };
+        const body = { uai, num_academie };
 
         let result = null;
-        if (uai !== etablissement.uai) {
-          setModal(true);
-          setGatherData(1);
-          result = await API.put("api", `/etablissement/${etablissement._id}`, { body });
-          await API.get("api", `/services?job=etablissement&id=${result._id}`);
-          result = await API.get("api", `/etablissement/${result._id}`);
-          setGatherData(2);
-          await sleep(500);
+        //if (uai !== etablissement.uai) {
+        setModal(true);
+        setGatherData(1);
+        result = await API.put("api", `/etablissement/${etablissement._id}`, { body });
+        await API.get("api", `/services?job=etablissement&id=${result._id}`);
+        result = await API.get("api", `/etablissement/${result._id}`);
+        setGatherData(2);
+        await sleep(500);
 
-          setModal(false);
-        }
+        setModal(false);
+        //}
 
         if (result) {
           setEtablissement(result);
           setFieldValue("uai", result.uai);
+          setFieldValue("num_academie", result.num_academie);
         }
 
         setEdition(false);
@@ -215,6 +233,7 @@ export default ({ match }) => {
         setEtablissement(eta);
 
         setFieldValue("uai", eta.uai);
+        setFieldValue("num_academie", eta.num_academie);
       } catch (e) {
         dispatch(push(routes.NOTFOUND));
       }
