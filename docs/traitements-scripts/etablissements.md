@@ -1,5 +1,14 @@
 # Traitements liés aux établissements
 
+#### Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock
+
+* Etablissement en capacité de proposer des actions de formations par apprentissage, c’est-à-dire
+
+  soit un CFA précédemment conventionné avec un conseil régional, présent dans la liste établie par la DEPP \(vérification sur l'UAI\)
+
+* soit un établissement connu entant qu'organisme de formation dûment déclaré en préfecture \(vérification sur le SIRET\)...
+* ...qui, s’il n’est pas un CFA conventionné avec un conseil régional, a pu faire attester la qualité de ses actions de formation suivant les termes du décret du décret du 30 juin 2015. À cette fin, la mission a utilisé la base de données du groupement d’intérêt économique DATADOCK réunissant les OPCO \(vérification sur le SIRET\).
+
 #### Vérification des codes UAI
 
 * s’assurer que le code UAI partie établissement existe et correspond à un “numéro UAI CFA”.

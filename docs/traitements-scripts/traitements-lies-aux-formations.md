@@ -1,5 +1,15 @@
 # Traitements liés aux formations
 
+#### Vérification des données Diplôme Niveau Intitulé
+
+* vérifier que le code diplôme existe
+* vérifier que le code diplôme est valide \(encore actif sur la période affichage offre de formation\)
+* s'assurer que le niveau de formation est bien celui délivré par le diplôme/titre visé
+* s'assurer que la nomenclature européenne des niveaux est affichée
+* afficher l'intitulé diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
+* afficher des intitulés court, long normalisés
+* mettre en place des traitements spécifiques pour les Mentions Complémentaires
+
 #### Vérification des UAI
 
 * s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
