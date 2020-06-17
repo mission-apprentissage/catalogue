@@ -2,9 +2,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPen } from "@fortawesome/free-solid-svg-icons";
-import { Button } from "reactstrap";
+//import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+//import { faPen } from "@fortawesome/free-solid-svg-icons";
+//import { Button } from "reactstrap";
 //import { API } from "aws-amplify";
 import "./cardList.css";
 
@@ -34,11 +34,11 @@ const CardList = ({ data }) => {
   //     window.location.reload();
   //   }
   // };
-  const onEditClicked = async e => {
-    e.preventDefault();
-    e.stopPropagation();
-    // DO STUFF
-  };
+  // const onEditClicked = async e => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   // DO STUFF
+  // };
 
   return (
     <Link to={`/etablissement/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
@@ -61,9 +61,9 @@ const CardList = ({ data }) => {
             <span className="edition-btns">
               {hasRightToEdit && (
                 <>
-                  <Button outline color="warning" onClick={onEditClicked}>
+                  {/* <Button outline color="warning" onClick={onEditClicked}>
                     <FontAwesomeIcon icon={faPen} size="xs" />
-                  </Button>
+                  </Button> */}
                   {/* <Button outline color="danger" onClick={onDeleteClicked}>
                     <FontAwesomeIcon icon={faTimes} />
                   </Button> */}

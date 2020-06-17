@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Button, Spinner, Input, FormGroup, Label, Form } from "reactstrap";
+import { Container, Row, Col, Button, Spinner, Input, FormGroup, Label, Form, Alert } from "reactstrap";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
@@ -11,8 +12,19 @@ import "./addFormation.css";
 
 const sleep = m => new Promise(r => setTimeout(r, m));
 
-const Step2 = ({ etablissement, onComplete }) => {
+const checkIfHasRightToEdit = (num_academie, userAcm) => {
+  let hasRightToEdit = userAcm.all;
+  if (!hasRightToEdit) {
+    hasRightToEdit = userAcm.academie.includes(`${num_academie}`);
+  }
+  return hasRightToEdit;
+};
+
+const Step2 = ({ etablissementF, etablissementR, onComplete }) => {
   const [gatherData, setGatherData] = useState(0);
+  const { acm: userAcm } = useSelector(state => state.user);
+  const [noRights, setNoRights] = useState(false);
+
   const { values, handleSubmit, handleChange, isSubmitting } = useFormik({
     initialValues: {
       educ_nat_code: "",
@@ -23,32 +35,38 @@ const Step2 = ({ etablissement, onComplete }) => {
     onSubmit: ({ educ_nat_code, code_postal, uai_formation, num_academie }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
         try {
-          setGatherData(1);
-          let formation = await API.post("api", `/formation`, {
-            body: {
-              educ_nat_code,
-              etablissement_responsable_siret: etablissement.siret,
-              etablissement_formateur_siret: etablissement.siret,
-              code_postal,
-              num_academie,
-              uai_formation,
-              draft: true,
-            },
-          });
-          setGatherData(2);
-          //console.log(formation);
-          await API.get("api", `/services?job=formation-update&id=${formation._id}`);
-          setGatherData(3);
-          await API.get("api", `/services?job=rncp&id=${formation._id}`);
-          setGatherData(4);
-          await API.get("api", `/services?job=onisep&id=${formation._id}`);
-          setGatherData(5);
-          formation = await API.get("api", `/formation/${formation._id}`);
-          //console.log(formation);
-          await API.del("api", `/formation/${formation._id}`);
-          setGatherData(6);
-          await sleep(500);
-          onComplete(formation);
+          const hasRightToEdit = checkIfHasRightToEdit(num_academie, userAcm);
+          if (hasRightToEdit) {
+            setNoRights(false);
+            setGatherData(1);
+            let formation = await API.post("api", `/formation`, {
+              body: {
+                educ_nat_code,
+                etablissement_responsable_siret: etablissementR.siret,
+                etablissement_formateur_siret: etablissementF.siret,
+                code_postal,
+                num_academie,
+                uai_formation,
+                draft: true,
+              },
+            });
+            setGatherData(2);
+            //console.log(formation);
+            await API.get("api", `/services?job=formation-update&id=${formation._id}`);
+            setGatherData(3);
+            await API.get("api", `/services?job=rncp&id=${formation._id}`);
+            setGatherData(4);
+            await API.get("api", `/services?job=onisep&id=${formation._id}`);
+            setGatherData(5);
+            formation = await API.get("api", `/formation/${formation._id}`);
+            //console.log(formation);
+            await API.del("api", `/formation/${formation._id}`);
+            setGatherData(6);
+            await sleep(500);
+            onComplete(formation);
+          } else {
+            setNoRights(true);
+          }
         } catch (e) {
           console.log(e);
         }
@@ -62,6 +80,11 @@ const Step2 = ({ etablissement, onComplete }) => {
       <Container>
         <Row>
           <Col>
+            {noRights && (
+              <Alert color="danger" style={{ fontSize: "1rem", fontWeight: "bolder" }}>
+                Vous ne pouvez pas ajouter une formation hors de votre académie
+              </Alert>
+            )}
             {!isSubmitting && (
               <Form style={{ width: "50%" }}>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
@@ -160,7 +183,7 @@ const Step2 = ({ etablissement, onComplete }) => {
   );
 };
 
-const Step1 = ({ onComplete }) => {
+const Step1 = ({ onComplete, title }) => {
   const [etablissement, setEtablissement] = useState(null);
 
   const { values, handleSubmit, handleChange, isSubmitting } = useFormik({
@@ -218,7 +241,7 @@ const Step1 = ({ onComplete }) => {
             <Form inline>
               <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
                 <Label for="siret" className="mr-sm-2 label-form">
-                  <strong>Numéro de siret</strong>&nbsp;établissement
+                  <strong>Numéro de siret</strong>&nbsp;établissement {title}
                 </Label>
                 <Input
                   type="text"
@@ -295,7 +318,7 @@ const Step1 = ({ onComplete }) => {
                   Choisir un autre établissement
                 </Button>
                 <Button className="mt-2" color="success" onClick={() => onComplete(etablissement)}>
-                  Sélectionner et aller à l'étape suivante >
+                  Sélectionner
                 </Button>
               </div>
             </Col>
@@ -307,30 +330,39 @@ const Step1 = ({ onComplete }) => {
 };
 
 export default () => {
-  const [etablissement, setEtablissement] = useState(null);
+  const [etablissementF, setEtablissementF] = useState(null);
+  const [etablissementR, setEtablissementR] = useState(null);
   const [formation, setFormation] = useState(null);
   const [step1, setStep1] = useState(true);
   const [step2, setStep2] = useState(false);
   const [step3, setStep3] = useState(false);
+  const [step4, setStep4] = useState(false);
 
-  const onStep1Complete = etablissement => {
+  const onStep1Complete = etablissementF => {
     setStep1(false);
     setStep2(true);
-    setEtablissement(etablissement);
+    setEtablissementF(etablissementF);
   };
 
-  const onStep2Complete = formation => {
+  const onStep2Complete = etablissementR => {
     setStep2(false);
-    setFormation(formation);
     setStep3(true);
+    setEtablissementR(etablissementR);
+  };
+
+  const onStep3Complete = formation => {
+    setStep3(false);
+    setFormation(formation);
+    setStep4(true);
   };
 
   return (
     <div className="page add-formation">
       <h2 className="mt-5">Référencer une offre de formation</h2>
-      {step1 && <Step1 onComplete={onStep1Complete} />}
-      {step2 && <Step2 etablissement={etablissement} onComplete={onStep2Complete} />}
-      {step3 && formation && <Formation presetFormation={formation} />}
+      {step1 && <Step1 onComplete={onStep1Complete} title="Formateur" />}
+      {step2 && <Step1 onComplete={onStep2Complete} title="Responsable" />}
+      {step3 && <Step2 etablissementF={etablissementF} etablissementR={etablissementR} onComplete={onStep3Complete} />}
+      {step4 && formation && <Formation presetFormation={formation} />}
     </div>
   );
 };
