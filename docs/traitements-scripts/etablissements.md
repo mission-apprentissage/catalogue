@@ -22,6 +22,13 @@ Vérifier que l'établissement est présent dans la liste des certificateurs pou
 
 Vérifier que l'établissement est habilité à délivrer des titres professionnels au RNCP \(Organisme certifié 2015\) : Vérification sur les fiches RNCP.
 
+#### Identification des établissements principaux vs secondaires
+
+* identifier les établissements secondaires 
+* identifier les liens établissements principaux - établissements secondaires sur les SIRET 
+* identifier les liens établissements sur les UAI CFA et UAI site 
+* identifier les liens établissements sur les OF responsable, OF formateur
+
 #### Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup
 
 Besoins :   

@@ -8,6 +8,14 @@
 retrouvez le code source de ce script sur : 
 {% endhint %}
 
+#### Consolidation des données
+
+* API Sirène 
+* API Entreprise 
+* API Enseignement Supérieur 
+* Fichiers de la DEPP 
+* Fichier DGER - Agriculture
+
 #### Traitements réalisés en cascade au moment de la collecte
 
 #### Intégration des données collectées par d'autres opérateurs
