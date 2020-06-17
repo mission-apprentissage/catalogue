@@ -34,3 +34,8 @@ Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
 
+#### Vérification des liens OPCO - CFA
+
+* identifier les CFA dépendants d'un OPCO
+* identifier les formations sur les métiers du secteur des entreprises de l'OPCO
+
