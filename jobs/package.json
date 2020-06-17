@@ -46,9 +46,10 @@
     "mocha": "7.1.1",
     "moment": "2.24.0",
     "mongoose": "^5.9.7",
+    "mongoose-paginate": "^5.0.3",
     "multipipe": "4.0.0",
+    "title-case": "3.0.2",
     "uuid": "7.0.3",
-    "winston": "^3.2.1",
-    "title-case": "3.0.2"
+    "winston": "^3.2.1"
   }
 }

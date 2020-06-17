@@ -1,7 +1,6 @@
-import { Client } from "@elastic/elasticsearch";
-import { AmazonConnection } from "aws-elasticsearch-connector";
-import mongoosasticHandler from "./mongoosastic";
-import { config } from "../../../../config";
+const { Client } = require("@elastic/elasticsearch");
+const { AmazonConnection } = require("aws-elasticsearch-connector");
+const { mongoosasticHandler, config } = require("../getDependencies");
 
 const { STAGE } = process.env;
 
@@ -20,5 +19,10 @@ const es = new Client({
   ...(STAGE !== "local" ? awsOptions : localOptions),
 });
 
-export const getElasticInstance = () => es;
-export const mongoosastic = mongoosasticHandler;
+const getElasticInstance = () => es;
+const mongoosastic = mongoosasticHandler;
+
+module.exports = {
+  getElasticInstance,
+  mongoosastic,
+};

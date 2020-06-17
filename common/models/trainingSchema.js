@@ -448,6 +448,11 @@ const trainingSchema = {
     default: false,
     description: "Est publiée, la formation est éligible pour le catalogue",
   },
+  draft: {
+    type: Boolean,
+    default: false,
+    description: "Est publiée, la formation est éligible pour le catalogue",
+  },
   created_at: {
     type: Date,
     default: Date.now,

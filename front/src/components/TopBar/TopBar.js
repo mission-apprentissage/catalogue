@@ -45,15 +45,27 @@ const TopBar = () => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link to={routes.FORMATIONS} className={"nav-link link"}>
-                Formations
+              <Link to={`/`} className={"nav-link link"}>
+                Accueil
               </Link>
             </NavItem>
-            <NavItem>
-              <Link to={routes.ESTABLISHMENTS} className={"nav-link link"}>
-                Établissements
-              </Link>
-            </NavItem>
+            <UncontrolledDropdown nav inNavbar>
+              <DropdownToggle nav caret>
+                Recherche
+              </DropdownToggle>
+              <DropdownMenu right>
+                <DropdownItem>
+                  <Link to={routes.SEARCH_FORMATIONS} className={"nav-link link"}>
+                    Formations
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
+                  <Link to={routes.SEARCH_ETABLISSEMENTS} className={"nav-link link"}>
+                    Établissements
+                  </Link>
+                </DropdownItem>
+              </DropdownMenu>
+            </UncontrolledDropdown>
             {user && (
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>

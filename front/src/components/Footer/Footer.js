@@ -12,8 +12,8 @@ const Footer = () => {
       <section className="sitemap">
         <div>
           <h5>Catalogue</h5>
-          <Link to={routes.FORMATIONS}>Liste des formations</Link>
-          <Link to={routes.ESTABLISHMENTS}>Liste des établissements</Link>
+          <Link to={routes.SEARCH_FORMATIONS}>Liste des formations</Link>
+          <Link to={routes.SEARCH_ETABLISSEMENTS}>Liste des établissements</Link>
         </div>
         <div>
           <h5>Support</h5>

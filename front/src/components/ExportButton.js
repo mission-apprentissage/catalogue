@@ -95,40 +95,62 @@ let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
   return `${headers}${lines}`;
 };
 
+let countMount = 0;
+
 const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} } }) => {
+  const [requestExport, setRequestExport] = useState(false);
   const [exporting, setExporting] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [query, setQuery] = useState({ query: defaultQuery });
+
+  if (!requestExport) {
+    return (
+      <Button
+        size="sm"
+        color="primary"
+        onClick={async () => {
+          setRequestExport(true);
+          setExporting(true);
+        }}
+      >
+        Exporter
+      </Button>
+    );
+  }
+
+  const onQueryChange = async (prevQuery, nextQuery) => {
+    if (countMount === 1) {
+      console.log(nextQuery);
+      let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
+      let fileName = `${index}_${new Date().toJSON()}.csv`;
+      downloadCSV(fileName, csv);
+      setExporting(false);
+      setRequestExport(false);
+      setProgress(0);
+      countMount = 0;
+    } else if (countMount === 0) {
+      countMount++;
+    }
+  };
 
   return (
     <ReactiveComponent
       componentId={`${index}-export`}
       react={{ and: filters }}
-      onQueryChange={(prevQuery, nextQuery) => setQuery(nextQuery)}
+      onQueryChange={onQueryChange}
+      defaultQuery={() => {
+        return {
+          query: defaultQuery,
+        };
+      }}
       render={() => {
         if (exporting) {
           return (
-            <Progress min={0} max={100} value={progress}>
+            <Progress min={0} max={100} value={progress} style={{ width: "100%", position: "absolute" }}>
               {progress}%
             </Progress>
           );
         }
-
-        return (
-          <Button
-            size="sm"
-            onClick={async () => {
-              setExporting(true);
-              let csv = await getDataAsCSV(index, query, columns, setProgress);
-              let fileName = `${index}_${new Date().toJSON()}.csv`;
-              downloadCSV(fileName, csv);
-              setExporting(false);
-              setProgress(0);
-            }}
-          >
-            Exporter
-          </Button>
-        );
+        return <div />;
       }}
     />
   );

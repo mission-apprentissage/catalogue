@@ -6,7 +6,7 @@
   "license": "ISC",
   "author": "",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "RNCP_EXEC=1 node src/index.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
     "test:integration": "mocha --recursive --exit --timeout 5000 test/integration"

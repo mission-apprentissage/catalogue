@@ -1,8 +1,10 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure } from "../common-api/response";
-import { Formation } from "../models";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
+const { success, failure } = require("../common-api/response");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -13,12 +15,19 @@ export default async (event, context) => {
     await connectToMongo();
     const count = await Formation.countDocuments(query);
     closeMongoConnection();
-    return success({
-      count,
-    });
+
+    callback(
+      null,
+      success({
+        count,
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };
