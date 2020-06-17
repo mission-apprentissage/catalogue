@@ -2,7 +2,7 @@ const logger = require("../../../../../../common-jobs/Logger").mainLogger;
 const { infosCodes } = require("./Constants");
 const pSupChecker = require("./pSupChecker");
 
-class BcnData {
+class PsupData {
   constructor() {
     this.countPsup = { uniq: 0, multiple: 0, notFound: 0 };
   }
@@ -70,5 +70,5 @@ class BcnData {
   }
 }
 
-const bcnData = new BcnData();
-module.exports = bcnData;
+const psupData = new PsupData();
+module.exports = psupData;

@@ -1,9 +1,11 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure } from "../common-api/response";
-import { Formation } from "../models";
-import { findUserByAttribute } from "../common-api/cognito";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
+const { success, failure } = require("../common-api/response");
+const { findUserByAttribute } = require("../common-api/cognito");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
@@ -12,17 +14,23 @@ export default async (event, context) => {
 
   try {
     if (!token || token === "") {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     const user = await findUserByAttribute({ name: "custom:apiKey", value: token });
 
     if (!user) {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     await connectToMongo();
@@ -35,9 +43,13 @@ export default async (event, context) => {
       hasRightToEdit = listAcademie.includes(`${formation.num_academie}`);
     }
     if (!hasRightToEdit) {
-      return success({
-        error: "Not authorize",
-      });
+      closeMongoConnection();
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     await Formation.findOneAndRemove({ _id: idFormation });
@@ -45,10 +57,13 @@ export default async (event, context) => {
     /**
      *  Response
      * */
-    return success({ success: true });
+    callback(null, success({ success: true }));
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

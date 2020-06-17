@@ -345,8 +345,22 @@ const SearchResult = ({ data, filters, loading, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
+                  {column.accessor === "naf_code" && (
+                    <Filter
+                      componentId="naf_code"
+                      dataField="naf_code.keyword"
+                      filterLabel="naf_code"
+                      filters={filters}
+                      sortBy="count"
+                      showMissing={true}
+                      missingLabel="(Vide)"
+                    />
+                  )}
                   {column.accessor === "parcoursup_a_charger" && (
                     <BooleanFilter dataField="parcoursup_a_charger" filters={filters} sortBy="count" />
+                  )}
+                  {column.accessor === "affelnet_a_charger" && (
+                    <BooleanFilter dataField="affelnet_a_charger" filters={filters} sortBy="count" />
                   )}
                   {column.accessor === "formations_n3" && (
                     <BooleanFilter dataField="formations_n3" filters={filters} sortBy="count" />

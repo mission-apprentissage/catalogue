@@ -5,7 +5,7 @@ const changelog = {
       date: "Prochainement",
       about: `<h5>Les actions à venir :</h5>
       <ul>
-        <li>Formations éligiblent AFFELNET</li>
+        <li>Formations éligibles AFFELNET</li>
       </ul>`,
       fixes: [],
       features: [],
@@ -19,8 +19,8 @@ const changelog = {
       fixes: ["[Catalogue] Suppression de 780 formations doublons"],
       features: [],
       improvements: [
-        "[Catalogue] Ajout des colonnes Modalités de foramtion.",
-        "[Catalogue] Ajout des colonnes relativent à ParcourSup (Déjà référencé et à charger)",
+        "[Catalogue] Ajout des colonnes Modalités de formation.",
+        "[Catalogue] Ajout des colonnes relatives à ParcourSup (Déjà référencée et à charger)",
       ],
     },
     {

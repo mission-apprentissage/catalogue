@@ -1,6 +1,9 @@
 {
     "ESTABLISHMENTS": "/etablissements",
     "FORMATIONS": "/formations",
+    "SEARCH_FORMATIONS": "/search/formations",
+    "SEARCH_ETABLISSEMENTS": "/search/etablissements",
+    "ADD_FORMATION": "/ajout-formation",
     "NOTFOUND": "/404",
     "SIGNIN": "/connexion",
     "CHANGEPASSWORD": "/changepassword",

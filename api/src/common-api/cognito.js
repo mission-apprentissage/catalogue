@@ -1,11 +1,11 @@
-import AWS from "aws-sdk";
-import { config } from "../../../config";
+const AWS = require("aws-sdk");
+const { config } = require("./getDependencies");
 
 const cognitoIdentityServiceProvider = new AWS.CognitoIdentityServiceProvider({
   region: config.aws.cognito.region,
 });
 
-export const getUserFromToken = AccessToken =>
+const getUserFromToken = AccessToken =>
   new Promise((resolve, reject) => {
     const params = {
       AccessToken,
@@ -15,8 +15,9 @@ export const getUserFromToken = AccessToken =>
       resolve(data);
     });
   });
+module.exports.getUserFromToken = getUserFromToken;
 
-export const userIsSuperAdmin = user =>
+const userIsSuperAdmin = user =>
   new Promise((resolve, reject) => {
     const params = {
       UserPoolId: config.aws.cognito.userPoolId,
@@ -30,8 +31,9 @@ export const userIsSuperAdmin = user =>
       resolve(true);
     });
   });
+module.exports.userIsSuperAdmin = userIsSuperAdmin;
 
-export const listUsers = (attributesToGet = []) =>
+const listUsers = (attributesToGet = []) =>
   new Promise((resolve, reject) => {
     const params = {
       UserPoolId: config.aws.cognito.userPoolId,
@@ -44,8 +46,9 @@ export const listUsers = (attributesToGet = []) =>
       resolve(data);
     });
   });
+module.exports.listUsers = listUsers;
 
-export async function getAllUsersByAttributes(attributesToGet = []) {
+const getAllUsersByAttributes = async (attributesToGet = []) => {
   try {
     const response = await listUsers(attributesToGet);
     return response.Users;
@@ -53,9 +56,10 @@ export async function getAllUsersByAttributes(attributesToGet = []) {
     console.log(error);
   }
   return [];
-}
+};
+module.exports.getAllUsersByAttributes = getAllUsersByAttributes;
 
-export async function findUserByAttribute(lookup, attributesToGet = []) {
+const findUserByAttribute = async (lookup, attributesToGet = []) => {
   try {
     const allUsers = await getAllUsersByAttributes(attributesToGet);
     const user =
@@ -74,9 +78,10 @@ export async function findUserByAttribute(lookup, attributesToGet = []) {
     console.log(error);
   }
   return null;
-}
+};
+module.exports.findUserByAttribute = findUserByAttribute;
 
-export async function getUserInformation(token = null) {
+const getUserInformation = async (token = null) => {
   let userId = "Guest";
   let user = {};
   let session = null;
@@ -92,9 +97,10 @@ export async function getUserInformation(token = null) {
     userId,
     session,
   };
-}
+};
+module.exports.getUserInformation = getUserInformation;
 
-export const updateUser = (username, attr) =>
+const updateUser = (username, attr) =>
   new Promise((resolve, reject) => {
     const params = {
       UserAttributes: [
@@ -112,8 +118,9 @@ export const updateUser = (username, attr) =>
       resolve(data);
     });
   });
+module.exports.updateUser = updateUser;
 
-export const deleteUser = username =>
+const deleteUser = username =>
   new Promise((resolve, reject) => {
     const params = {
       UserPoolId: config.aws.cognito.userPoolId /* required */,
@@ -124,8 +131,9 @@ export const deleteUser = username =>
       resolve(data);
     });
   });
+module.exports.deleteUser = deleteUser;
 
-export const createUser = user =>
+const createUser = user =>
   new Promise((resolve, reject) => {
     const params = {
       UserPoolId: config.aws.cognito.userPoolId /* required */,
@@ -160,3 +168,4 @@ export const createUser = user =>
       resolve(data);
     });
   });
+module.exports.createUser = createUser;

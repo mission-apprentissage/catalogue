@@ -109,20 +109,8 @@ const establishmentSchema = {
     default: null,
     description: "Cedex",
   },
-  localisation_coordonnees_lon: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Longitude",
-  },
-  localisation_coordonnees_lat: {
-    type: Number,
-    default: 0,
-    description: "Localisation coordonnees Latitude",
-  },
-  localisation_geojson: {
-    type: Object,
-    default: {},
-    description: "Localisation GeoJson",
+  geo_coordonnees: {
+    type: String,
   },
   date_fermeture: {
     type: Date,
@@ -293,6 +281,11 @@ const establishmentSchema = {
     default: false,
     description: "L'établissement doit être ajouter à ParcourSup",
   },
+  affelnet_a_charger: {
+    type: Boolean,
+    default: false,
+    description: "La formation doit être ajouter à affelnet",
+  },
 
   //
   entreprise_siren: {
@@ -443,7 +436,7 @@ const establishmentSchema = {
     description: 'Réponse à la question "Avez vous demandé la certification" dans Démarche Simplifiée',
   },
   ds_questions_ask_for_certificaton_date: {
-    type: String,
+    type: Date,
     default: null,
     description: 'Réponse à la question "Date de votre demande de certification" dans Démarche Simplifiée',
   },

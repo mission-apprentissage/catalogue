@@ -1,23 +1,33 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure } from "../common-api/response";
-import { Establishment } from "../models";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Establishment },
+} = require("../common-api/getDependencies");
+const { success, failure } = require("../common-api/response");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  const filter = event.queryStringParameters ? event.queryStringParameters : {};
+  const qs = event.queryStringParameters || null;
+  const query = qs && qs.query ? JSON.parse(qs.query) : {};
 
   try {
     await connectToMongo();
-    const count = await Establishment.countDocuments(filter);
+    const count = await Establishment.countDocuments(query);
     closeMongoConnection();
-    return success({
-      count,
-    });
+
+    callback(
+      null,
+      success({
+        count,
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

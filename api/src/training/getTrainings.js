@@ -1,36 +1,41 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure } from "../common-api/response";
-import { Formation } from "../models";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
+const { success, failure } = require("../common-api/response");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
-  try {
-    const qs = event.queryStringParameters || null;
-    const query = qs && qs.query ? qs.query : {};
-    const page = qs && qs.page ? qs.page : 1;
-    const limit = qs && qs.limit ? qs.limit : 10;
+  const qs = event.queryStringParameters || null;
+  const query = qs && qs.query ? JSON.parse(qs.query) : {};
+  const page = qs && qs.page ? qs.page : 1;
+  const limit = qs && qs.limit ? parseInt(qs.limit, 10) : 10;
 
-    console.log(qs, query, { page, limit });
+  try {
     await connectToMongo();
     const results = await Formation.paginate(query, { page, limit });
     closeMongoConnection();
-    /**
-     *  Response
-     * */
-    return success({
-      formations: results.docs,
-      pagination: {
-        page: results.page,
-        resultats_par_page: limit,
-        nombre_de_page: results.pages,
-        total: results.total,
-      },
-    });
+
+    callback(
+      null,
+      success({
+        formations: results.docs,
+        pagination: {
+          page: results.page,
+          resultats_par_page: limit,
+          nombre_de_page: results.pages,
+          total: results.total,
+        },
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };
