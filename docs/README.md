@@ -8,6 +8,8 @@ description: >-
 
 ## Un catalogue élargi de formations en Apprentissage
 
+{% page-ref page="./" %}
+
 ### Détails 
 
 Ce service est « consommable » à travers les principaux outils numériques d’orientation \(sites de l’État ou de ses opérateurs ou des régions ou d’associations ou d’entreprises privées\) par tous les jeunes, les prescripteurs, les employeurs. 
