@@ -48,8 +48,7 @@ export default () => {
             <br />
           </Col>
           <Col xs="12" className="mission-summary">
-            Vous avez collaboré avec nous à la constitution du catalogue des offres de formation en apprentissage qui
-            recense aujourd’hui près de
+            Le catalogue des offres de formation en apprentissage recense aujourd’hui près de
             <br /> &nbsp;
             {loading && <div>chargement...</div>}
             {!loading && (
@@ -68,12 +67,12 @@ export default () => {
         </Row>
         <Row className="mt-3">
           <Col xs="12" sm="6" md="4" className="mt-2">
-            <Button color="primary" onClick={() => dispatch(push(routes.FORMATIONS))}>
+            <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_FORMATIONS))}>
               Consulter la liste des formations
             </Button>
           </Col>
           <Col xs="12" sm="6" md="4" className="mt-2">
-            <Button color="primary" onClick={() => dispatch(push(routes.ESTABLISHMENTS))}>
+            <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_ETABLISSEMENTS))}>
               Consulter la liste des établissements
             </Button>
           </Col>
@@ -91,7 +90,7 @@ export default () => {
         <Row className="mt-1 mb-4">
           <Col xs={{ size: 3, offset: 9 }} className="mission-summary">
             <Button color="primary" onClick={() => dispatch(push(routes.CHANGELOG))}>
-              Voir les précedentes versions
+              Voir les précédentes versions
             </Button>
           </Col>
         </Row>

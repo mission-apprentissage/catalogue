@@ -38,8 +38,8 @@ const logger = () => {
       new transports.Console({
         level,
       }),
-      new transports.File({ filename: "logs/Errors.log", level: "error" }),
-      new transports.File({ filename: "logs/Logger.log", level }),
+      //new transports.File({ filename: "logs/Errors.log", level: "error" }),
+      //new transports.File({ filename: "logs/Logger.log", level }),
     ],
   });
 };

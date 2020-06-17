@@ -3,9 +3,11 @@ service:
 
 # Add the serverless-webpack plugin
 plugins:
-  - serverless-webpack
+  #- serverless-webpack
   - serverless-offline
   - serverless-aws-documentation
+  - serverless-dotenv-plugin
+  - serverless-package-external
 
 package:
   individually: true
@@ -19,18 +21,25 @@ provider:
     PAGE_LOAD_TIMEOUT: 20000
     LOGGING: true
     STAGE: '${opt:stage}'
-    MONGODB_URL_DEV: '${opt:mongodb_url_dev}'
-    MONGODB_DBNAME_DEV: '${opt:mongodb_dbname_dev}'
-    MONGODB_URL_PROD: '${opt:mongodb_url_prod}'
-    MONGODB_DBNAME_PROD: '${opt:mongodb_dbname_prod}'
+    MONGODB_URL_DEV: '${env:MONGODB_URL_DEV}'
+    MONGODB_DBNAME_DEV: '${env:MONGODB_DBNAME_DEV}'
+    MONGODB_URL_PROD: '${env:MONGODB_URL_PROD}'
+    MONGODB_DBNAME_PROD: '${env:MONGODB_DBNAME_PROD}'
+    API_ENTREPRISE_KEY: '${env:API_ENTREPRISE_KEY}'
 
 custom:
-  webpack:
-    webpackConfig: ./webpack.config.js
-    packager: 'yarn'
-    includeModules:
-      forceExclude:
-        - aws-sdk
+  dotenv:
+    path: ../.env
+  packageExternal:
+    external:
+      - '../common'
+      - '../jobs'
+  # webpack:
+  #   webpackConfig: ./webpack.config.js
+  #   packager: 'yarn'
+  #   includeModules:
+  #     forceExclude:
+  #       - aws-sdk
   documentation:
     # this is general info about the API
     api:
@@ -80,7 +89,7 @@ custom:
 
 functions:
   createTraining:
-    handler: src/index.createTrainingHandler
+    handler: src/training/createTraining.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -90,7 +99,7 @@ functions:
           cors:
             origin: '*'
   getTrainingById:
-    handler: src/index.getTrainingByIdHandler
+    handler: src/training/getTrainingById.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -112,7 +121,7 @@ functions:
             methodResponses:
               - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonFormation}
   getTraining:
-    handler: src/index.getTrainingHandler
+    handler: src/training/getTraining.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -122,7 +131,7 @@ functions:
           cors:
             origin: '*'
   getTrainings:
-    handler: src/index.getTrainingsHandler
+    handler: src/training/getTrainings.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -132,7 +141,7 @@ functions:
           cors:
             origin: '*'
   countTrainings:
-    handler: src/index.countTrainingsHandler
+    handler: src/training/countTrainings.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -142,7 +151,7 @@ functions:
           cors:
             origin: '*'
   updateTraining:
-    handler: src/index.updateTrainingHandler
+    handler: src/training/updateTraining.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -152,7 +161,7 @@ functions:
           cors:
             origin: '*'
   deleteTraining:
-    handler: src/index.deleteTrainingHandler
+    handler: src/training/deleteTraining.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -162,7 +171,7 @@ functions:
           cors:
             origin: '*'
   createEstablishment:
-    handler: src/index.createEstablishmentHandler
+    handler: src/establishment/createEstablishment.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -172,7 +181,7 @@ functions:
           cors:
             origin: '*'
   getEstablishmentById:
-    handler: src/index.getEstablishmentByIdHandler
+    handler: src/establishment/getEstablishmentById.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -194,7 +203,7 @@ functions:
             methodResponses:
               - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonEstablisment}
   getEstablishment:
-    handler: src/index.getEstablishmentHandler
+    handler: src/establishment/getEstablishment.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -204,7 +213,7 @@ functions:
           cors:
             origin: '*'
   getEstablishments:
-    handler: src/index.getEstablishmentsHandler
+    handler: src/establishment/getEstablishments.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -214,7 +223,7 @@ functions:
           cors:
             origin: '*'
   countEstablishments:
-    handler: src/index.countEstablishmentsHandler
+    handler: src/establishment/countEstablishments.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -224,7 +233,7 @@ functions:
           cors:
             origin: '*'
   updateEstablishment:
-    handler: src/index.updateEstablishmentHandler
+    handler: src/establishment/updateEstablishment.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -234,7 +243,7 @@ functions:
           cors:
             origin: '*'
   deleteEstablishment:
-    handler: src/index.deleteEstablishmentHandler
+    handler: src/establishment/deleteEstablishment.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -244,7 +253,7 @@ functions:
           cors:
             origin: '*'
   esMultiSearch:
-    handler: src/index.esMultiSearchHandler
+    handler: src/search/esMultiSearch.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -253,8 +262,18 @@ functions:
           path: es/search/{index}/_msearch
           cors:
             origin: '*'
+  esMultiSearchNoindex:
+    handler: src/search/esMultiSearchNoindex.handler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: post
+          path: search/_msearch
+          cors:
+            origin: '*'
   esSearch:
-    handler: src/index.esSearchHandler
+    handler: src/search/esSearch.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -264,7 +283,7 @@ functions:
           cors:
             origin: '*'
   esScroll:
-    handler: src/index.esScrollHandler
+    handler: src/search/esScroll.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -273,8 +292,18 @@ functions:
           path: es/search/{index}/scroll
           cors:
             origin: '*'
+  services:
+    handler: src/services/index.handler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: services
+          cors:
+            origin: '*'
   getUsers:
-    handler: src/index.getUsersHandler
+    handler: src/admin/user/getUsers.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -284,7 +313,7 @@ functions:
           cors:
             origin: '*'
   updateUser:
-    handler: src/index.updateUserHandler
+    handler: src/admin/user/updateUser.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -294,7 +323,7 @@ functions:
           cors:
             origin: '*'
   deleteUser:
-    handler: src/index.deleteUserHandler
+    handler: src/admin/user/deleteUser.handler
     memorySize: 3008
     timeout: 30
     events:
@@ -304,7 +333,7 @@ functions:
           cors:
             origin: '*'
   createUser:
-    handler: src/index.createUserHandler
+    handler: src/admin/user/createUser.handler
     memorySize: 3008
     timeout: 30
     events:

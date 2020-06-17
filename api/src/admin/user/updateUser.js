@@ -1,11 +1,14 @@
-import { success, failure, badRequest } from "../../common-api/response";
-import { getUserFromToken, userIsSuperAdmin, updateUser } from "../../common-api/cognito";
+const { success, failure, badRequest } = require("../../common-api/response");
+const { getUserFromToken, userIsSuperAdmin, updateUser } = require("../../common-api/cognito");
 
-export default async event => {
+module.exports.handler = async (event, context, callback) => {
   if (!event.body || event.body === "") {
-    return badRequest({
-      message: "something went wrong",
-    });
+    callback(
+      null,
+      badRequest({
+        message: "something went wrong",
+      })
+    );
   }
   const body = JSON.parse(event.body);
   const { username } = event.pathParameters;
@@ -36,10 +39,13 @@ export default async event => {
     /**
      *  Response
      * */
-    return success({ success: true });
+    callback(null, success({ success: true }));
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

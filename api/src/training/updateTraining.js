@@ -1,16 +1,21 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure, badRequest } from "../common-api/response";
-import { Formation } from "../models";
-import { findUserByAttribute } from "../common-api/cognito";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
+const { success, failure, badRequest } = require("../common-api/response");
+const { findUserByAttribute } = require("../common-api/cognito");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
   if (!event.body || event.body === "") {
-    return badRequest({
-      message: "something went wrong",
-    });
+    callback(
+      null,
+      badRequest({
+        message: "something went wrong",
+      })
+    );
   }
   const body = JSON.parse(event.body);
   const { id: idFormation } = event.pathParameters;
@@ -18,17 +23,23 @@ export default async (event, context) => {
 
   try {
     if (!token || token === "") {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     const user = await findUserByAttribute({ name: "custom:apiKey", value: token });
 
     if (!user) {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     await connectToMongo();
@@ -40,20 +51,28 @@ export default async (event, context) => {
       hasRightToEdit = listAcademie.includes(`${formation.num_academie}`);
     }
     if (!hasRightToEdit) {
-      return success({
-        error: "Not authorize",
-      });
+      closeMongoConnection();
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
-    await Formation.findOneAndUpdate({ _id: idFormation }, body, { new: true });
+    const result = await Formation.findOneAndUpdate({ _id: idFormation }, body, { new: true });
     closeMongoConnection();
     /**
      *  Response
      * */
-    return success({ success: true });
+    // eslint-disable-next-line no-underscore-dangle
+    callback(null, success({ ...result._doc }));
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

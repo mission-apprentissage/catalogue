@@ -1,40 +1,54 @@
-import { connectToMongo, closeMongoConnection } from "../../../common/mongo";
-import { success, failure, badRequest } from "../common-api/response";
-import { Formation } from "../models";
-import { findUserByAttribute } from "../common-api/cognito";
+const {
+  mongo: { connectToMongo, closeMongoConnection },
+  model: { Formation },
+} = require("../common-api/getDependencies");
+const { success, failure, badRequest } = require("../common-api/response");
+const { findUserByAttribute } = require("../common-api/cognito");
 
-export default async (event, context) => {
+module.exports.handler = async (event, context, callback) => {
   // eslint-disable-next-line no-param-reassign
   context.callbackWaitsForEmptyEventLoop = false;
 
   if (!event.body || event.body === "") {
-    return badRequest({
-      message: "something went wrong",
-    });
+    callback(
+      null,
+      badRequest({
+        message: "something went wrong",
+      })
+    );
   }
   const body = JSON.parse(event.body);
   const { Authorization: token } = event.headers;
 
   try {
     if (!token || token === "") {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     const user = await findUserByAttribute({ name: "custom:apiKey", value: token });
 
     if (!user) {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     const listAcademie = user.Attributes["custom:access_academie"].split(",");
     if (!user.Attributes["custom:access_all"] && !listAcademie.includes(`${body.num_academie}`)) {
-      return success({
-        error: "Not authorize",
-      });
+      callback(
+        null,
+        success({
+          error: "Not authorize",
+        })
+      );
     }
 
     await connectToMongo();
@@ -45,13 +59,19 @@ export default async (event, context) => {
     /**
      *  RESPONSE
      * */
-    return success({
-      // eslint-disable-next-line no-underscore-dangle
-      ...formation._doc,
-    });
+    callback(
+      null,
+      success({
+        // eslint-disable-next-line no-underscore-dangle
+        ...formation._doc,
+      })
+    );
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };

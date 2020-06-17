@@ -6,6 +6,11 @@ import Stats from "./Stats";
 import Journal from "./Journal";
 import HowToModif from "./HowToModif";
 import HowToReglement from "./HowToReglement";
+import Formation from "./Formation";
+import AddFormation from "./AddFormation";
+import Search from "./Search";
+import Etablissement from "./Etablissement";
+import SearchEtablissement from "./SearchEtablissement";
 
 import SignIn from "./Auth/SignIn";
 import Profile from "./Auth/Profile";
@@ -29,4 +34,9 @@ export {
   HowToReglement,
   Users,
   Duplicates,
+  Formation,
+  Search,
+  AddFormation,
+  Etablissement,
+  SearchEtablissement,
 };

@@ -1,9 +1,9 @@
-import { success, failure, badRequest } from "../common-api/response";
-import { getElasticInstance } from "../common-api/es";
+const { success, failure, badRequest } = require("../common-api/response");
+const { getElasticInstance } = require("../common-api/es");
 
 const esClient = getElasticInstance();
 
-export default async event => {
+module.exports.handler = async (event, context, callback) => {
   try {
     const { index } = event.pathParameters;
 
@@ -17,13 +17,11 @@ export default async event => {
         scrollId,
         scroll: "1m",
       });
-      return success(response.body);
+      callback(null, success(response.body));
     }
 
     if (!event.body || event.body === "") {
-      return badRequest({
-        message: "something went wrong",
-      });
+      callback(null, badRequest({ message: "something went wrong" }));
     }
 
     const response = await esClient.search({
@@ -36,10 +34,13 @@ export default async event => {
     /**
      *  Response
      * */
-    return success(response.body);
+    callback(null, success(response.body));
   } catch (error) {
-    return failure({
-      error,
-    });
+    callback(
+      null,
+      failure({
+        error,
+      })
+    );
   }
 };
