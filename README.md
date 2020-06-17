@@ -42,13 +42,17 @@ aws configure --profile mna-devops
 export AWS_PROFILE=mna-devops
 ```
 
+```bash
+yarn global add dotenv-cli
+```
+
 ### tl;dr mount local env
 
 ```bash
 yarn
 npm run docker:start
-npm run mongodb:dump
-npm run es:dump
+STAGE=dev dotenv npm run mongodb:dump
+STAGE=dev dotenv npm run es:dump
 ```
 
 ### Accéder en local
