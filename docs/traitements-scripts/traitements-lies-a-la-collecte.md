@@ -10,7 +10,5 @@ retrouvez le code source de ce script sur :
 
 #### Traitements réalisés en cascade au moment de la collecte
 
-Liste des champs modifiables et des champs en cascade 
-
 #### Intégration des données collectées par d'autres opérateurs
 
