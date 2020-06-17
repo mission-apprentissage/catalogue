@@ -54,3 +54,10 @@ Note DGESCO du 13 janvier 2020
 identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
 dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
 
+#### Intégration de données complémentaires
+
+* ONISEP \(descriptif formation\)
+* Coordonnées GPS \(API BAN\)
+
+
+
