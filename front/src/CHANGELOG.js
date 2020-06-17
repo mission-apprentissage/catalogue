@@ -1,11 +1,22 @@
 const changelog = {
   list: [
     {
-      version: "1.3.5",
+      version: "2.0.1",
       date: "Prochainement",
       about: `<h5>Les actions à venir :</h5>
       <ul>
-        <li>Formations éligibles AFFELNET</li>
+        <li></li>
+      </ul>`,
+      fixes: [],
+      features: [],
+      improvements: [],
+    },
+    {
+      version: "2.0.0",
+      date: "17 Juin 2020",
+      about: `<h5>A propos de cette version :</h5>
+      <ul>
+        <li>Changement d'interface majeur</li>
       </ul>`,
       fixes: [],
       features: [],
