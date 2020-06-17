@@ -7,6 +7,12 @@
 * identifier les erreurs de mariage entre UAI CFA et UAI site
 * s’assurer de la complétude des UAI site dans le catalogue des formations
 
+#### Vérification RNCP
+
+Vérifier que l'établissement est présent dans la liste des certificateurs pour délivrer ce titre, dans la fiche RNCP de la certification consultable via Répertoire national des certifications professionnelles \(RNCP\)
+
+Vérifier que l'établissement est habilité à délivrer des titres professionnels au RNCP \(Organisme certifié 2015\) : Vérification sur les fiches RNCP.
+
 #### Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup
 
 Besoins :   

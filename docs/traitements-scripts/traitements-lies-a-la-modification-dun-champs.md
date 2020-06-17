@@ -1,6 +1,12 @@
 # Traitements liés à la modification d'un champs
 
+#### Modifications unitaires
+
+#### Modifications en masse
+
 #### Liste des champs modifiables et des informations en cascade
+
+Une modification d’un champ dans l’onglet établissement \(Numéro UAI par exemple\) pourra entraîner un changement de statut des formations qui s’y rattachent, et ainsi les rendre éligibles.
 
 Sur l’onglet formation : 
 

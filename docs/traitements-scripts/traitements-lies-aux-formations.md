@@ -7,7 +7,7 @@
 
 #### Vérifications RNCP
 
-* savoir si la formation peut être réalisée en Apprentissage, et que l'établissement est bien habilité par le certificateur à délivrer cette certification \(également dans les scripts établissements\)
+* vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage.
 * vérifier le niveau de formation nomenclature européenne à partir du RNCP
 * déterminer les différents code ROME accessibles pour chaque fiche RNCP
 * distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN 
