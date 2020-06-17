@@ -1,5 +1,10 @@
 # Traitements liés aux formations
 
+#### Vérification des UAI
+
+* s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
+* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\) 
+
 #### Vérifications RNCP
 
 * savoir si la formation peut être réalisée en Apprentissage, et que l'établissement est bien habilité par le certificateur à délivrer cette certification \(également dans les scripts établissements\)
@@ -22,4 +27,9 @@ Cette spécification répond au besoin de chargement des formations en apprentis
 Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
+
+#### Table de correspondance Code MEF - Code diplôme formation
+
+identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
+dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
 

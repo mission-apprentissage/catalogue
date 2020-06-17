@@ -1,5 +1,12 @@
 # Traitements liés aux établissements
 
+#### Vérification des codes UAI
+
+* s’assurer que le code UAI partie établissement existe et correspond à un “numéro UAI CFA”.
+* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
+* identifier les erreurs de mariage entre UAI CFA et UAI site
+* s’assurer de la complétude des UAI site dans le catalogue des formations
+
 #### Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup
 
 Besoins :   
