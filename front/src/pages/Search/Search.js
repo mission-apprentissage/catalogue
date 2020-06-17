@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ReactiveBase, ReactiveList, DataSearch, SingleList } from "@appbaseio/reactivesearch";
+import Pagination from "./Pagination";
 import { Container, Row, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import Switch from "react-switch";
@@ -244,6 +245,10 @@ export default ({ match }) => {
                     loader="Chargement des résultats.."
                     size={8}
                     pagination={true}
+                    showEndPage={true}
+                    renderPagination={paginationProp => {
+                      return <Pagination {...paginationProp} />;
+                    }}
                     showResultStats={true}
                     sortBy="asc"
                     defaultQuery={() => {
