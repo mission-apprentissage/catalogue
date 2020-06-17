@@ -1,6 +1,6 @@
 # Traitements liés à la collecte
 
-#### Mise en place de contrôle de cohérence - conformité des champs ouverts à la saisie
+#### Mise en place de contrôles ****de cohérence - conformité des champs ouverts à la saisie
 
 #### Vérification du SIRET
 
