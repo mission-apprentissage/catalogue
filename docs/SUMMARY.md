@@ -2,9 +2,12 @@
 
 * [Présentation catalogue](README.md)
 
-## Règles métiers
+## Traitements et scripts <a id="traitements-scripts"></a>
 
-* [Conventionnement](regles-metiers/conventionnement.md)
+* [Traitements liés aux établissements](traitements-scripts/etablissements.md)
+* [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations.md)
+* [Traitements liés à la collecte](traitements-scripts/traitements-lies-a-la-collecte.md)
+* [Traitements liés à la modification d'un champs](traitements-scripts/traitements-lies-a-la-modification-dun-champs.md)
 
 ## Intégration
 
