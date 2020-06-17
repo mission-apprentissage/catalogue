@@ -16,6 +16,12 @@
 * identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome
 * établir une correspondance code MEF -Code RNCP pour identifier les formations délivrant strictement des RNCP
 
+#### Permettre de rechercher une formation à partir d'une appellation du Rome, de son libellé ou du libellé du RNCP ou du Diplôme
+
+* s'assurer de la capacité d'appel des formations à partir d'appellations du Rome
+* pouvoir rechercher une formation dans le catalogue à partir du libellé du Rome ou du libellé du RNCP ou du Diplôme
+* permettre la saisie approximative d’une appellation du Rome, de son libellé ou du libellé du RNCP ou du Diplôme
+
 #### Conditions d'entrée d'une formation au sein des SI Affelnet et Parcoursup
 
 Besoins :   
