@@ -117,6 +117,12 @@ export const signIn = ({ username, password }) => {
       } else if (err.code === "UserNotFoundException") {
         // The error happens when the supplied username/email does not exist in the Cognito user pool
         dispatch(fetchUserFailure("Identifiant ou mot de passe incorrect."));
+      } else if (err.message === "User password cannot be reset in the current state.") {
+        dispatch(
+          fetchUserFailure(
+            "Votre compte n'a pas été activé, merci d'utiliser de votre mot de passe temporaire ou contacter un administrateur."
+          )
+        );
       } else {
         console.error(err);
         dispatch(fetchUserFailure(err.message || "Unexpected error"));
