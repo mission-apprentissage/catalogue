@@ -44,7 +44,7 @@ custom:
     # this is general info about the API
     api:
       info:
-        version: '2'
+        version: '2.0.1'
         title: MNA API
         description: mission apprentissage API
         termsOfService: https://www.beta.gouv.fr
