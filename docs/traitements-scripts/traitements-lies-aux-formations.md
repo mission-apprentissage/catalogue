@@ -15,6 +15,11 @@
 * s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
 * identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\) 
 
+#### Vérification du rattachement académique
+
+* s'assurer que la formation est rattachée à son académie
+* vérifier la cohérence entre le code académie et son libellé
+
 #### Vérifications RNCP
 
 * vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage.
@@ -48,4 +53,11 @@ Note DGESCO du 13 janvier 2020
 
 identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
 dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
+
+#### Intégration de données complémentaires
+
+* ONISEP \(descriptif formation\)
+* Coordonnées GPS \(API BAN\)
+
+
 

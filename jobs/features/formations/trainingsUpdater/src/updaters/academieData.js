@@ -28,9 +28,9 @@ class AcademieData {
   }
 
   async cleanEmptyNomAcademies(training) {
-    if (training.nom_academie !== null) {
-      return training.nom_academie;
-    }
+    // if (training.nom_academie !== null) {
+    //   return training.nom_academie;
+    // }
 
     if (!training.num_academie || training.num_academie === -1) {
       logger.error(`No num_academie for formation ${training._id}`);
@@ -48,9 +48,9 @@ class AcademieData {
   }
 
   async cleanEmtpyNomAcademiesSiege(training) {
-    if (training.nom_academie_siege !== null) {
-      return training.nom_academie_siege;
-    }
+    // if (training.nom_academie_siege !== null) {
+    //   return training.nom_academie_siege;
+    // }
 
     if (!training.num_academie_siege || training.num_academie_siege === -1) {
       logger.error(`No num_academie_siege for formation ${training._id}`);
