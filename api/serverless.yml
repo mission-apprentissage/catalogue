@@ -44,7 +44,7 @@ custom:
     # this is general info about the API
     api:
       info:
-        version: '2'
+        version: '2.0.1'
         title: MNA API
         description: mission apprentissage API
         termsOfService: https://www.beta.gouv.fr
@@ -62,6 +62,12 @@ custom:
         -
           name: Etablissement
           description: CRUD établissement
+        -
+          name: Recherche
+          description: Elastic search routes
+        -
+          name: Services
+          description: Les services / WS
     models:
       -
         name: "EstablishmentSchema"
@@ -130,6 +136,13 @@ functions:
           path: formation
           cors:
             origin: '*'
+          documentation:
+            summary: "Accèder à une formation avec des critéres"
+            description: "Avec filtres de recherche"
+            tags:
+              - Formation
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonFormation}
   getTrainings:
     handler: src/training/getTrainings.handler
     memorySize: 3008
@@ -140,6 +153,11 @@ functions:
           path: formations
           cors:
             origin: '*'
+          documentation:
+            summary: "Get formations avec des critéres"
+            description: "Avec filtres de recherche"
+            tags:
+              - Formation
   countTrainings:
     handler: src/training/countTrainings.handler
     memorySize: 3008
@@ -150,6 +168,11 @@ functions:
           path: formations/count
           cors:
             origin: '*'
+          documentation:
+            summary: "Nombre de formations"
+            description: "Retourne le nombre total de formation avec ou sans critéres"
+            tags:
+              - Formation
   updateTraining:
     handler: src/training/updateTraining.handler
     memorySize: 3008
@@ -160,6 +183,11 @@ functions:
           path: formation/{id}
           cors:
             origin: '*'
+          documentation:
+            summary: "Mise à jour d'une formation"
+            description: "Update"
+            tags:
+              - Formation
   deleteTraining:
     handler: src/training/deleteTraining.handler
     memorySize: 3008
@@ -170,6 +198,11 @@ functions:
           path: formation/{id}
           cors:
             origin: '*'
+          documentation:
+            summary: "Supprimer une formation"
+            description: "Delete by id"
+            tags:
+              - Formation
   createEstablishment:
     handler: src/establishment/createEstablishment.handler
     memorySize: 3008
@@ -212,6 +245,13 @@ functions:
           path: etablissement
           cors:
             origin: '*'
+          documentation:
+            summary: "Accèder à un établissement avec des critéres"
+            description: "Avec filtres de recherche"
+            tags:
+              - Etablissement
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonEstablisment}
   getEstablishments:
     handler: src/establishment/getEstablishments.handler
     memorySize: 3008
@@ -222,6 +262,11 @@ functions:
           path: etablissements
           cors:
             origin: '*'
+          documentation:
+            summary: "Get etablissements avec des critéres"
+            description: "Avec filtres de recherche"
+            tags:
+              - Etablissement
   countEstablishments:
     handler: src/establishment/countEstablishments.handler
     memorySize: 3008
@@ -232,6 +277,11 @@ functions:
           path: etablissements/count
           cors:
             origin: '*'
+          documentation:
+            summary: "Nombre d'etablissements"
+            description: "Retourne le nombre total d'etablissements avec ou sans critéres"
+            tags:
+              - Etablissement
   updateEstablishment:
     handler: src/establishment/updateEstablishment.handler
     memorySize: 3008
@@ -242,6 +292,11 @@ functions:
           path: etablissement/{id}
           cors:
             origin: '*'
+          documentation:
+            summary: "Mise à jour d'un établissement"
+            description: "Update by id"
+            tags:
+              - Etablissement
   deleteEstablishment:
     handler: src/establishment/deleteEstablishment.handler
     memorySize: 3008
@@ -252,6 +307,11 @@ functions:
           path: etablissement/{id}
           cors:
             origin: '*'
+          documentation:
+            summary: "Supprimer un établissement"
+            description: "Delete by id"
+            tags:
+              - Etablissement
   esMultiSearch:
     handler: src/search/esMultiSearch.handler
     memorySize: 3008
@@ -262,6 +322,9 @@ functions:
           path: es/search/{index}/_msearch
           cors:
             origin: '*'
+          documentation:
+            tags:
+              - Recherche
   esMultiSearchNoindex:
     handler: src/search/esMultiSearchNoindex.handler
     memorySize: 3008
@@ -272,6 +335,9 @@ functions:
           path: search/_msearch
           cors:
             origin: '*'
+          documentation:
+            tags:
+              - Recherche
   esSearch:
     handler: src/search/esSearch.handler
     memorySize: 3008
@@ -282,6 +348,9 @@ functions:
           path: es/search/{index}/_search
           cors:
             origin: '*'
+          documentation:
+            tags:
+              - Recherche
   esScroll:
     handler: src/search/esScroll.handler
     memorySize: 3008
@@ -292,6 +361,9 @@ functions:
           path: es/search/{index}/scroll
           cors:
             origin: '*'
+          documentation:
+            tags:
+              - Recherche
   services:
     handler: src/services/index.handler
     memorySize: 3008
@@ -302,6 +374,9 @@ functions:
           path: services
           cors:
             origin: '*'
+          documentation:
+            tags:
+              - Services
   getUsers:
     handler: src/admin/user/getUsers.handler
     memorySize: 3008
