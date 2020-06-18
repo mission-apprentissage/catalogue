@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { MultiList } from "@appbaseio/reactivesearch";
 import { Collapse, CardBody, Card, CardHeader } from "reactstrap";
+import { useSelector } from "react-redux";
 
 import "./facet.css";
 
 const Layout = props => {
   const { componentId, dataField, filterLabel, filters, title, selectAllLabel, sortBy } = props;
   const [isOpen, setIsOpen] = useState(false);
+  const { acm: userAcm } = useSelector(state => state.user);
 
   const toggle = () => {
     setIsOpen(!isOpen);
@@ -26,10 +28,10 @@ const Layout = props => {
             dataField={dataField}
             filterLabel={filterLabel}
             react={{ and: filters.filter(e => e !== componentId) }}
-            //showMissing={true}
+            showMissing={userAcm.all}
             showCount={true}
             queryFormat="or"
-            //missingLabel="(Vide)"
+            missingLabel="(Vide)"
             size={20000}
             selectAllLabel={selectAllLabel}
             showCheckbox={true}
