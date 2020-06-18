@@ -8,19 +8,24 @@ const changelog = {
         <li></li>
       </ul>`,
       fixes: [],
-      features: [],
-      improvements: [],
+      features: ["[Catalogue] Ajout des colonnes relatives à Affelnet (Déjà référencée et à charger)"],
+      improvements: ["[Catalogue] Nettoyage des données vides ou manquantes"],
+      improvements: ["[Catalogue] Mise à jour possible des données collectées depuis mars 2020"],
     },
     {
       version: "2.0.0",
       date: "17 Juin 2020",
       about: `<h5>A propos de cette version :</h5>
       <ul>
-        <li>Changement d'interface majeur</li>
+        <li>Changement d'interface majeure</li>, 
+      features: []
       </ul>`,
       fixes: [],
-      features: [],
-      improvements: [],
+      features: ["[Catalogue] Ajout de filtres et d'un module de recherche"],
+      features: ["[Catalogue] Mise en place d'un module de recherche avancée"],
+      features: ["[Catalogue] Ajout de la fonctionnalité suppression"],
+      features: ["[Catalogue] Ajout de la fonctionnalité ajout"],
+      improvements: ["[Catalogue] Pagination en Français"],
     },
     {
       version: "1.3.4",
