@@ -9,8 +9,7 @@ const changelog = {
       </ul>`,
       fixes: [],
       features: ["[Catalogue] Ajout des colonnes relatives à Affelnet (Déjà référencée et à charger)"],
-      improvements: ["[Catalogue] Nettoyage des données vides ou manquantes"],
-      improvements: ["[Catalogue] Mise à jour possible des données collectées depuis mars 2020"],
+      improvements: ["[Catalogue] Nettoyage des données vides ou manquantes", "[Catalogue] Mise à jour possible des données collectées depuis mars 2020"],
     },
     {
       version: "2.0.0",
