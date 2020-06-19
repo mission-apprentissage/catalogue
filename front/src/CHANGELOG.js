@@ -18,13 +18,9 @@ const changelog = {
       about: `<h5>A propos de cette version :</h5>
       <ul>
         <li>Changement d'interface majeure</li>, 
-      features: []
       </ul>`,
       fixes: [],
-      features: ["[Catalogue] Ajout de filtres et d'un module de recherche"],
-      features: ["[Catalogue] Mise en place d'un module de recherche avancée"],
-      features: ["[Catalogue] Ajout de la fonctionnalité suppression"],
-      features: ["[Catalogue] Ajout de la fonctionnalité ajout"],
+      features: ["[Catalogue] Ajout de filtres et d'un module de recherche", "[Catalogue] Mise en place d'un module de recherche avancée", "[Catalogue] Ajout de la fonctionnalité suppression", "[Catalogue] Ajout de la fonctionnalité ajout"],
       improvements: ["[Catalogue] Pagination en Français"],
     },
     {
