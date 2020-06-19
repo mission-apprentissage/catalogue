@@ -42,8 +42,7 @@ export default () => {
         <Row>
           <Col xs="8" className="mission-summary">
             <h4>
-              La mission apprentissage a pour vocation de collecter ainsi que rendre visible les offres de formations en
-              apprentissage en France.
+              Catalogue des offres de formations en apprentissage en France.
             </h4>
             <br />
           </Col>
