@@ -44,7 +44,7 @@ custom:
     # this is general info about the API
     api:
       info:
-        version: '2.0.1'
+        version: '2.0.2'
         title: MNA API
         description: mission apprentissage API
         termsOfService: https://www.beta.gouv.fr
@@ -104,6 +104,18 @@ functions:
           path: formation
           cors:
             origin: '*'
+          documentation:
+            summary: "Créer une formation"
+            description: "Ajout d'une nouvelle formation"
+            tags:
+              - Formation
+            requestHeaders:
+              -
+                name: Authorization
+                description: "Api key"
+                required: true
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonFormation}
   getTrainingById:
     handler: src/training/getTrainingById.handler
     memorySize: 3008
@@ -141,6 +153,11 @@ functions:
             description: "Avec filtres de recherche"
             tags:
               - Formation
+            queryParams:
+              -
+                name: query
+                description: "Filtre de recherche"
+                required: false
             methodResponses:
               - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonFormation}
   getTrainings:
@@ -213,6 +230,18 @@ functions:
           path: etablissement
           cors:
             origin: '*'
+          documentation:
+            summary: "Créer un établissement"
+            description: "Ajout d'un nouvel établissement"
+            tags:
+              - Etablissement
+            requestHeaders:
+              -
+                name: Authorization
+                description: "Api key"
+                required: true
+            methodResponses:
+              - ${self:custom.commonModelSchemaFragments.MethodResponse200JsonEstablisment}
   getEstablishmentById:
     handler: src/establishment/getEstablishmentById.handler
     memorySize: 3008
