@@ -2,7 +2,7 @@ const fs = require("fs");
 const mongoose = require("mongoose");
 // eslint-disable-next-line import/no-extraneous-dependencies
 require("mongoose-schema-jsonschema")(mongoose);
-const { establishmentSchema, formationSchema } = require("../../common/models");
+const { establishmentSchema, trainingSchema } = require("../../common/models");
 
 const { Schema } = mongoose;
 
@@ -24,7 +24,7 @@ const eJsonSchema = eSchema.jsonSchema();
 const edata = JSON.stringify(eJsonSchema, null, 2);
 fs.writeFileSync("establishmentSchema.json", edata);
 
-const fSchema = new Schema(replaceNullDefault(formationSchema));
+const fSchema = new Schema(replaceNullDefault(trainingSchema));
 const fJsonSchema = fSchema.jsonSchema();
 const fdata = JSON.stringify(fJsonSchema, null, 2);
 fs.writeFileSync("formationSchema.json", fdata);
