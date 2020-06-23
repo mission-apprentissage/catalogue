@@ -102,14 +102,12 @@
 
 ## **Correspondances**
 
-**légende : les correspondance existantes entre 2 codes sont indiqués en vert**
-
 |  | CFD | MEF | NSF | RNCP | ROME | NAF |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Code Formation Diplôme |  |  |  |  |  |  |
-| Code MEF |  |  |  |  |  |  |
-| Code NSF |  |  |  |  |  |  |
-| Code fiche RNCP |  |  |  |  |  |  |
-| Code ROME |  |  |  |  |  |  |
-| Code NAF |  |  |  |  |  |  |
+| CFD | / | **oui** | **oui** | **oui** | **oui** | non |
+| Code MEF | **oui** | / | **oui** | **oui** | non | non |
+| Code NSF | **oui** | **oui** | / | **oui** | non | non |
+| Code fiche RNCP | **oui** | **oui** | **oui** | / | **oui** | non |
+| Code ROME | **oui** | non | non | **oui** | / | **oui** |
+| Code NAF | non | non | non | non | **oui** | / |
 
