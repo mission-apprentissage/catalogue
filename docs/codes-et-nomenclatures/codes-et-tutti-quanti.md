@@ -1,6 +1,6 @@
 # Codes et tutti quanti
 
-## **Code formation diplôme \(code Éducation Nationale\)**
+## **Code formation diplôme \(CFD - code Éducation Nationale\)**
 
 * liste les formations qui existent de droit et reconnue par l'état
 * dépend du ministère de l'Education Nationale
