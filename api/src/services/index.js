@@ -63,6 +63,19 @@ module.exports.handler = async (event, context, callback) => {
           await run({ query: { _id: id } });
         }
         break;
+      case "rncp-inverse":
+        {
+          if (id === "") {
+            throw new Error("Something went wrong: id missing");
+          }
+          // eslint-disable-next-line no-case-declarations
+          const {
+            run,
+            // eslint-disable-next-line global-require
+          } = require(`${basePath}/jobs/features/rncpToCodeEn/src/index`);
+          await run({ query: { _id: id } });
+        }
+        break;
       case "onisep":
         {
           if (id === "") {
