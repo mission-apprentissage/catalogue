@@ -48,10 +48,12 @@ class CodeEnData {
 
     if (newCode !== training.educ_nat_code || newSpeciality) {
       training.educ_nat_code = newCode;
-      if (newSpeciality.letter !== training.educ_nat_speciality_letter) {
-        training.educ_nat_specialite_lettre = newSpeciality.letter;
-        training.educ_nat_specialite_libelle = newSpeciality.label;
-        training.educ_nat_specialite_libelle_court = newSpeciality.shortLabel;
+      if (newSpeciality) {
+        if (newSpeciality.letter !== training.educ_nat_speciality_letter) {
+          training.educ_nat_specialite_lettre = newSpeciality.letter;
+          training.educ_nat_specialite_libelle = newSpeciality.label;
+          training.educ_nat_specialite_libelle_court = newSpeciality.shortLabel;
+        }
       }
       return true;
     }

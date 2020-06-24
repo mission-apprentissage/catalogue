@@ -144,10 +144,33 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             <p>{formation.parcoursup_a_charger ? "OUI" : "NON"}</p>
           </div>
         </Section>
+        <Section title="Information Affelnet">
+          <div className="field">
+            <h3>Référencé dans Affelnet</h3>
+            <p>{formation.affelnet_reference}</p>
+          </div>
+          <div className="field">
+            <h3>À charger dans Affelnet</h3>
+            <p>{formation.affelnet_a_charger ? "OUI" : "NON"}</p>
+          </div>
+        </Section>
         <Section title="Information RNCP">
           <div className="field">
-            <h3>Code RNCP</h3>
-            <p>{formation.rncp_code}</p>
+            {!formation.rncp_code && (
+              <>
+                <h3>Code RNCP {hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}</h3>
+                <p>
+                  {!edition && <>{formation.rncp_code}</>}
+                  {edition && <Input type="text" name="rncp_code" onChange={handleChange} value={values.rncp_code} />}
+                </p>
+              </>
+            )}
+            {formation.rncp_code && (
+              <>
+                <h3>Code RNCP</h3>
+                <p>{formation.rncp_code}</p>
+              </>
+            )}
           </div>
           <div className="field">
             <h3>Organisme Habilité (RNCP)</h3>
@@ -329,11 +352,15 @@ export default ({ match, presetFormation = null }) => {
       capacite: "",
       periode: "",
       educ_nat_code: "",
+      rncp_code: "",
       num_academie: 0,
     },
-    onSubmit: ({ uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie }, { setSubmitting }) => {
+    onSubmit: (
+      { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code },
+      { setSubmitting }
+    ) => {
       return new Promise(async (resolve, reject) => {
-        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie };
+        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code };
         let prevStateFormation = formation;
         if (presetFormation) {
           prevStateFormation = await API.post("api", `/formation`, {
@@ -347,6 +374,7 @@ export default ({ match, presetFormation = null }) => {
         if (
           uai_formation !== prevStateFormation.uai_formation ||
           educ_nat_code !== prevStateFormation.educ_nat_code ||
+          rncp_code !== prevStateFormation.rncp_code ||
           presetFormation
         ) {
           setModal(true);
@@ -356,7 +384,11 @@ export default ({ match, presetFormation = null }) => {
           setGatherData(2);
           await API.get("api", `/services?job=formation-update&id=${result._id}`);
           setGatherData(3);
-          await API.get("api", `/services?job=rncp&id=${result._id}`);
+          if (!prevStateFormation.rncp_code && educ_nat_code !== "") {
+            await API.get("api", `/services?job=rncp&id=${result._id}`);
+          } else if (!prevStateFormation.educ_nat_code && rncp_code !== "") {
+            await API.get("api", `/services?job=rncp-inverse&id=${result._id}`);
+          }
           setGatherData(4);
           await API.get("api", `/services?job=onisep&id=${result._id}`);
           setGatherData(5);
@@ -382,6 +414,7 @@ export default ({ match, presetFormation = null }) => {
           setFieldValue("capacite", result.capacite);
           setFieldValue("educ_nat_code", result.educ_nat_code);
           setFieldValue("num_academie", result.num_academie);
+          setFieldValue("rncp_code", result.rncp_code);
         }
 
         if (presetFormation) {
@@ -404,14 +437,13 @@ export default ({ match, presetFormation = null }) => {
         }
         setFormation(form);
 
-        console.log(form);
-
         setFieldValue("uai_formation", form.uai_formation || "");
         setFieldValue("code_postal", form.code_postal || "");
         setFieldValue("periode", form.periode || "");
         setFieldValue("capacite", form.capacite || "");
         setFieldValue("educ_nat_code", form.educ_nat_code || "");
         setFieldValue("num_academie", form.num_academie || "");
+        setFieldValue("rncp_code", form.rncp_code || "");
       } catch (e) {
         dispatch(push(routes.NOTFOUND));
       }

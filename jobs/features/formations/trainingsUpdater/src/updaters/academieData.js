@@ -77,7 +77,7 @@ class AcademieData {
       };
     }
 
-    if (training.num_departement.length !== 2) {
+    if (!training.num_departement || training.num_departement.length !== 2) {
       logger.error(`Error num_departement for formation ${training._id}`);
       return {
         nom_academie: null,

@@ -17,7 +17,7 @@ L'api mission apprentissage est une API au format REST.
 
 ## Détails et documentation
 
-### Vous trouverez la documentation détaillée ici:  [API v2 sur swagger](https://app.swaggerhub.com/apis-docs/Gethi/prod-mna_api/v2)
+### Vous trouverez la documentation détaillée ici:  [API v2 sur swagger](https://app.swaggerhub.com/apis-docs/Gethi/prod-mna_api/v2.2)
 
 
 
