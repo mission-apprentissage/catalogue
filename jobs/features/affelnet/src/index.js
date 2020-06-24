@@ -26,34 +26,49 @@ const run = async () => {
     let countRNCPhabiliteDiff = 0;
     //console.log(trainings.length);
     const formationsToload = trainings.filter(trainingItem => {
-      if (trainingItem._doc.niveau === "3 (CAP...)" || trainingItem._doc.niveau === "4 (Bac...)") {
-        if (
-          trainingItem._doc.etablissement_formateur_uai !== null ||
-          trainingItem._doc.etablissement_responsable_uai !== null ||
-          trainingItem._doc.uai_formation !== null
-        ) {
+      if (
+        trainingItem._doc.diplome !== "AUTRES DIPLOMES DE NIVEAU IV" &&
+        trainingItem._doc.diplome !== "AUTRES DIPLOMES DE NIVEAU V" &&
+        trainingItem._doc.diplome !== "BREVET PROFESSIONNEL AGRICOLE DE NIVEAU IV" &&
+        trainingItem._doc.diplome !== "CERTIFICAT DE SPECIALISATION AGRICOLE DE NIVEAU 4" &&
+        trainingItem._doc.diplome !== "BREVET PROFESSIONNEL" &&
+        trainingItem._doc.diplome !== "CERTIFICAT DE SPECIALISATION AGRICOLE DE NIVEAU 5" &&
+        trainingItem._doc.diplome !== "MENTION COMPLEMENTAIRE" &&
+        trainingItem._doc.diplome !== "BREVET DES METIERS D'ART - BREVET DES METIERS DU SPECTACLE" &&
+        trainingItem._doc.diplome !== "BREVET PROFESSIONNEL AGRICOLE DE NIVEAU V" &&
+        trainingItem._doc.diplome !== "BREVET D'ETUDES PROFESSIONNELLES" &&
+        trainingItem._doc.diplome !== "BREVET D'ETUDES PROFESSIONNELLES AGRICOLES" &&
+        trainingItem._doc.diplome !== "BAC TECHNOLOGIQUE"
+      ) {
+        if (trainingItem._doc.niveau === "3 (CAP...)" || trainingItem._doc.niveau === "4 (Bac...)") {
           if (
-            trainingItem._doc.etablissement_formateur_conventionne === "OUI" ||
-            (trainingItem._doc.etablissement_reference_declare_prefecture === "OUI" &&
-              trainingItem._doc.etablissement_reference_datadock === "datadocké")
+            trainingItem._doc.etablissement_formateur_uai !== null ||
+            trainingItem._doc.etablissement_responsable_uai !== null ||
+            trainingItem._doc.uai_formation !== null
           ) {
-            // GROUPE 1  ON EST QUE CES FORMATIONS ENTRENT
-            return true;
-          } else {
             if (
-              trainingItem._doc.rncp_eligible_apprentissage &&
-              trainingItem._doc.rncp_etablissement_formateur_habilite !==
-                trainingItem._doc.rncp_etablissement_responsable_habilite
+              trainingItem._doc.etablissement_formateur_conventionne === "OUI" ||
+              (trainingItem._doc.etablissement_reference_declare_prefecture === "OUI" &&
+                trainingItem._doc.etablissement_reference_datadock === "datadocké")
             ) {
-              countRNCPhabiliteDiff++;
-            }
-            if (
-              trainingItem._doc.rncp_eligible_apprentissage &&
-              (trainingItem._doc.rncp_etablissement_formateur_habilite ||
-                trainingItem._doc.rncp_etablissement_responsable_habilite)
-            ) {
-              // CHECK RNCP
+              // GROUPE 1  ON EST QUE CES FORMATIONS ENTRENT
               return true;
+            } else {
+              if (
+                trainingItem._doc.rncp_eligible_apprentissage &&
+                trainingItem._doc.rncp_etablissement_formateur_habilite !==
+                  trainingItem._doc.rncp_etablissement_responsable_habilite
+              ) {
+                countRNCPhabiliteDiff++;
+              }
+              if (
+                trainingItem._doc.rncp_eligible_apprentissage &&
+                (trainingItem._doc.rncp_etablissement_formateur_habilite ||
+                  trainingItem._doc.rncp_etablissement_responsable_habilite)
+              ) {
+                // CHECK RNCP
+                return true;
+              }
             }
           }
         }
