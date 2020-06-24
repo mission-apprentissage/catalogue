@@ -1,6 +1,6 @@
 const { execute } = require("../../../../common/scriptWrapper");
 const logger = require("../../../common-jobs/Logger").mainLogger;
-const { Establishment, Formation } = require("../../../common-jobs/models");
+const { Formation } = require("../../../common-jobs/models");
 const { getElasticInstance } = require("../../../../common/esClient");
 
 let rebuildIndex = async (index, schema) => {
@@ -10,7 +10,7 @@ let rebuildIndex = async (index, schema) => {
   await client.indices.delete({ index });
 
   logger.info(`Rebuilding '${index}' index...`);
-  await schema.synchronize();
+  //await schema.synchronize();
 };
 
 let migrateFormations = async () => {
@@ -19,18 +19,13 @@ let migrateFormations = async () => {
     {},
     {
       $set: {
-        rncp_code: null,
-        rome_codes: [],
-        rncp_eligible_apprentissage: false,
-        rncp_etablissement_formateur_habilite: false,
-        rncp_etablissement_responsable_habilite: false,
-        rncp_etablissement_reference_habilite: false,
+        affelnet_a_charger: false,
       },
-      $unset: {
-        etablissement_formateur_rncp_habilite: 1,
-        etablissement_responsable_rncp_habilite: 1,
-        etablissement_reference_rncp_habilite: 1,
-      },
+      // $unset: {
+      //   etablissement_formateur_rncp_habilite: 1,
+      //   etablissement_responsable_rncp_habilite: 1,
+      //   etablissement_reference_rncp_habilite: 1,
+      // },
     }
   );
 
@@ -39,23 +34,23 @@ let migrateFormations = async () => {
   return res.result.nModified;
 };
 
-let migrateEtablissements = async () => {
-  logger.info("Migrating 'etablissements' collection in MongoDB...");
-  let res = await Establishment.collection.updateMany(
-    {},
-    {
-      $unset: {
-        computed_rncp_habilite: 1,
-      },
-    }
-  );
+// let migrateEtablissements = async () => {
+//   logger.info("Migrating 'etablissements' collection in MongoDB...");
+//   let res = await Establishment.collection.updateMany(
+//     {},
+//     {
+//       $unset: {
+//         computed_rncp_habilite: 1,
+//       },
+//     }
+//   );
 
-  await rebuildIndex("etablissements", Establishment);
+//   await rebuildIndex("etablissements", Establishment);
 
-  return res.result.nModified;
-};
+//   return res.result.nModified;
+// };
 
 execute(async () => {
-  let [formations, etablissements] = await Promise.all([migrateFormations(), migrateEtablissements()]);
-  return { formations, etablissements };
+  let [formations] = await Promise.all([migrateFormations()]);
+  return { formations };
 });

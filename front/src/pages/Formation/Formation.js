@@ -144,6 +144,16 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             <p>{formation.parcoursup_a_charger ? "OUI" : "NON"}</p>
           </div>
         </Section>
+        <Section title="Information Affelnet">
+          <div className="field">
+            <h3>Référencé dans Affelnet</h3>
+            <p>{formation.affelnet_reference}</p>
+          </div>
+          <div className="field">
+            <h3>À charger dans Affelnet</h3>
+            <p>{formation.affelnet_a_charger ? "OUI" : "NON"}</p>
+          </div>
+        </Section>
         <Section title="Information RNCP">
           <div className="field">
             {!formation.rncp_code && (
