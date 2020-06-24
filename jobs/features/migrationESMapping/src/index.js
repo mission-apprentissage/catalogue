@@ -17,7 +17,7 @@ let rebuildIndex = async (index, schema) => {
   await schema.createMapping(); // this explicit call of createMapping insures that the geo points fields will be treated accordingly during indexing
 
   logger.info(`Synching '${index}' index ...`);
-  // await schema.synchronize();
+  //await schema.synchronize();
 };
 
 let indexingFormations = async () => {
