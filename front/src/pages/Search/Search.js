@@ -212,6 +212,7 @@ export default ({ match }) => {
                       { text: "Uai du lieu de formation", value: "uai_formation.keyword" },
                       { text: "Diplôme", value: "diplome.keyword" },
                       { text: "Mef 10", value: "mef_10_code.keyword" },
+                      { text: "Affelnet à charger", value: "affelnet_a_charger" },
                     ]}
                   />
                 )}
