@@ -29,7 +29,7 @@ let rebuildIndex = async (index, schema, env) => {
   await schema.createMapping(); // this explicit call of createMapping insures that the geo points fields will be treated accordingly during indexing
 
   logger.info(`Rebuilding ${env} '${index}' index...`);
-  await schema.synchronize();
+  //await schema.synchronize();
 };
 
 const run = async () => {
