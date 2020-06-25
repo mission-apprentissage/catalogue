@@ -1,6 +1,7 @@
 {
     "ESTABLISHMENTS": "/etablissements",
     "FORMATIONS": "/formations",
+    "SEARCH": "/search",
     "SEARCH_FORMATIONS": "/search/formations",
     "SEARCH_ETABLISSEMENTS": "/search/etablissements",
     "ADD_FORMATION": "/ajout-formation",

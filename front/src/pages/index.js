@@ -1,6 +1,4 @@
 import Landing from "./Landing";
-import Establishments from "./Establishments";
-import Trainings from "./Trainings";
 import NotFound from "./NotFound";
 import Stats from "./Stats";
 import Journal from "./Journal";
@@ -10,7 +8,9 @@ import Formation from "./Formation";
 import AddFormation from "./AddFormation";
 import Search from "./Search";
 import Etablissement from "./Etablissement";
-import SearchEtablissement from "./SearchEtablissement";
+
+import Establishments from "./oldUi/Establishments";
+import Trainings from "./oldUi/Trainings";
 
 import SignIn from "./Auth/SignIn";
 import Profile from "./Auth/Profile";
@@ -38,5 +38,4 @@ export {
   Search,
   AddFormation,
   Etablissement,
-  SearchEtablissement,
 };

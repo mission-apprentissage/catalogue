@@ -15,7 +15,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowCircleRight, faPen, faTimes, faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { useFormik } from "formik";
 import { API } from "aws-amplify";
-import { validateCell } from "../../../../services/validators";
+import { validateCell } from "../../../../../services/validators";
 
 import columnsDefinition from "./columnsDefinition.json";
 

@@ -3,7 +3,8 @@ const logger = require("../../../common-jobs/Logger").mainLogger;
 const { Formation } = require("../../../common-jobs/models");
 const { getElasticInstance } = require("../../../../common/esClient");
 
-let rebuildIndex = async (index, schema) => {
+let rebuildIndex = async index => {
+  // let rebuildIndex = async (index, schema) => {
   let client = getElasticInstance();
 
   logger.info(`Removing '${index}' index...`);

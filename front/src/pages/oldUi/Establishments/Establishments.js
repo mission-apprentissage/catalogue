@@ -3,10 +3,10 @@ import { ReactiveBase, ReactiveList } from "@appbaseio/reactivesearch";
 import { Container, Row, Col } from "reactstrap";
 import Switch from "react-switch";
 
-import ExportButton from "../../components/ExportButton";
+import ExportButton from "../../../components/ExportButton";
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
 
-import config, { getEnvName } from "../../config";
+import config, { getEnvName } from "../../../config";
 
 import "./establishments.css";
 

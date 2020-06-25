@@ -5,8 +5,8 @@ import Switch from "react-switch";
 import { API } from "aws-amplify";
 
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
-import ExportButton from "../../components/ExportButton";
-import config, { getEnvName } from "../../config";
+import ExportButton from "../../../components/ExportButton";
+import config, { getEnvName } from "../../../config";
 
 import "./trainings.css";
 
