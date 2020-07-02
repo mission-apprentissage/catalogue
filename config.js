@@ -26,7 +26,12 @@ const config = {
     },
   },
   dev: {
-    urls: [/^mna-admin-dev.netlify.app$/g, /^deploy-preview-[0-9]+--mna-admin-dev.netlify.app$/g],
+    urls: [
+      /^mna-admin-dev.netlify.app$/g,
+      /^deploy-preview-[0-9]+--mna-admin-dev.netlify.app$/g,
+      /^mna-admin-recette.netlify.app$/g,
+      /^deploy-preview-[0-9]+--mna-admin-recette.netlify.app$/g,
+    ],
     aws: {
       apiGateway: {
         name: "api",
