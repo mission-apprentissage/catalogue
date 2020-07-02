@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Autosuggest from "react-autosuggest";
 import { CustomInput, Input, Button } from "reactstrap";
 
-import config from "../../config";
+import config from "../../../../config";
 
 const esQuery = queries => {
   let query = "";
