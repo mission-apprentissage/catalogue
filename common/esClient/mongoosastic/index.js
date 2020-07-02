@@ -121,6 +121,7 @@ function Mongoosastic(schema, options) {
         _opts.id = this._id.toString();
         await esClient.index(_opts);
       } catch (e) {
+        console.log(e);
         console.log(`Error index ${this._id.toString()}`, e.message || e);
         return reject();
       }
