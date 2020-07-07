@@ -136,9 +136,6 @@ class EstablishmentsData {
         ? referenceEstablishment.complement_adresse
         : null,
       etablissement_reference_cedex: referenceEstablishment ? referenceEstablishment.cedex : null,
-      etablissement_reference_entreprise_raison_sociale: referenceEstablishment
-        ? referenceEstablishment.entreprise_raison_sociale
-        : null,
     };
   }
 
