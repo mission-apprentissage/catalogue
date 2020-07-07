@@ -104,6 +104,13 @@ class EstablishmentsData {
       etablissement_formateur_localite: attachedEstablishments.formateur
         ? attachedEstablishments.formateur.localite
         : null,
+      etablissement_formateur_complement_adresse: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.complement_adresse
+        : null,
+      etablissement_formateur_cedex: attachedEstablishments.formateur ? attachedEstablishments.formateur.cedex : null,
+      etablissement_formateur_entreprise_raison_sociale: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.entreprise_raison_sociale
+        : null,
 
       etablissement_responsable_adresse: this.getEstablishmentAddress(attachedEstablishments.responsable),
       etablissement_responsable_code_postal: attachedEstablishments.responsable
@@ -112,10 +119,26 @@ class EstablishmentsData {
       etablissement_responsable_localite: attachedEstablishments.responsable
         ? attachedEstablishments.responsable.localite
         : null,
+      etablissement_responsable_complement_adresse: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.complement_adresse
+        : null,
+      etablissement_responsable_cedex: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.cedex
+        : null,
+      etablissement_responsable_entreprise_raison_sociale: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.entreprise_raison_sociale
+        : null,
 
       etablissement_reference_adresse: this.getEstablishmentAddress(referenceEstablishment),
       etablissement_reference_code_postal: referenceEstablishment ? referenceEstablishment.code_postal : null,
       etablissement_reference_localite: referenceEstablishment ? referenceEstablishment.localite : null,
+      etablissement_reference_complement_adresse: referenceEstablishment
+        ? referenceEstablishment.complement_adresse
+        : null,
+      etablissement_reference_cedex: referenceEstablishment ? referenceEstablishment.cedex : null,
+      etablissement_reference_entreprise_raison_sociale: referenceEstablishment
+        ? referenceEstablishment.entreprise_raison_sociale
+        : null,
     };
   }
 
