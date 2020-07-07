@@ -149,6 +149,9 @@ const trainingSchema = {
   geo_coordonnees_etablissement_responsable: {
     type: String,
   },
+  geo_coordonnees_idea_etablissement: {
+    type: String,
+  },
   etablissement_reference_adresse: {
     type: String,
     default: null,
