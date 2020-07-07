@@ -146,6 +146,24 @@ const trainingSchema = {
   geo_coordonnees_etablissement_formateur: {
     type: String,
   },
+  geo_coordonnees_etablissement_responsable: {
+    type: String,
+  },
+  etablissement_reference_adresse: {
+    type: String,
+    default: null,
+    description: "Numéro et rue établissement reference",
+  },
+  etablissement_reference_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal établissement reference",
+  },
+  etablissement_reference_localite: {
+    type: String,
+    default: null,
+    description: "Localité établissement reference",
+  },
   etablissement_formateur_adresse: {
     type: String,
     default: null,
@@ -160,6 +178,21 @@ const trainingSchema = {
     type: String,
     default: null,
     description: "Localité établissement formateur",
+  },
+  etablissement_responsable_adresse: {
+    type: String,
+    default: null,
+    description: "Numéro et rue établissement responsable",
+  },
+  etablissement_responsable_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal établissement responsable",
+  },
+  etablissement_responsable_localite: {
+    type: String,
+    default: null,
+    description: "Localité établissement responsable",
   },
   entreprise_raison_sociale: {
     type: String,
