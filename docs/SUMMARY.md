@@ -31,7 +31,7 @@
     * [Nettoyage des UAIS en utilisant fichiers de la DEPP](developpements/jobs/fixes/cleanetablishmentsuais.md)
     * [Nettoyage des établissements à partir du fichier DGER](developpements/jobs/fixes/cleanetablishmentsfromdgerfile.md)
     * [Etablishments Verification Methods](developpements/jobs/fixes/cleanetablishmentsfromdepp950file.md)
-  * [Template](developpements/jobs/_template.md)
+  * [template](developpements/jobs/_template.md)
   * [features](developpements/jobs/features/README.md)
     * [formations](developpements/jobs/features/formations/README.md)
       * [Récupération des infos computed établissements dans les formations](developpements/jobs/features/formations/trainingsupdater.md)
