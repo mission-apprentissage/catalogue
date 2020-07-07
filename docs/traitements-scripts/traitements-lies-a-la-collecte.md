@@ -10,7 +10,7 @@ retrouvez le code source de ce script sur :
 
 #### Consolidation des données
 
-* API Sirène 
+* API Siren 
 * API Entreprise 
 * API Enseignement Supérieur 
 * Fichiers de la DEPP 
