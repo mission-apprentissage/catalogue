@@ -39,7 +39,7 @@
     * [Create Catalogue Front Users Accounts](developpements/jobs/features/useraccounts.md)
     * [etablissements](developpements/jobs/features/etablissements/README.md)
       * [Etablishments Verification Methods](developpements/jobs/features/etablissements/etablishmentsupdater.md)
-    * [Calcul du coverage des uais \(établissements\) Ypareo dans notre catalogue](developpements/jobs/features/coverageypareo.md)
+    * [Calcul du taux de couverture des UAI \(établissements\) Ypareo dans notre catalogue](developpements/jobs/features/coverageypareo.md)
   * [archives](developpements/jobs/archives/README.md)
     * [Temporary Switch from old es to mongo/es new structure](developpements/jobs/archives/hydratemongo.md)
   * [tools](developpements/jobs/tools/README.md)

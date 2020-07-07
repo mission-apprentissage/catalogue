@@ -1,2 +1,2 @@
-# Calcul du coverage des uais \(établissements\) Ypareo dans notre catalogue
+# Calcul du taux de couverture des UAI \(établissements\) Ypareo dans notre catalogue
 
