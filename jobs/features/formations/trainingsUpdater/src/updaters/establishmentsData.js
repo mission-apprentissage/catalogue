@@ -85,17 +85,50 @@ class EstablishmentsData {
       etablissement_reference_type: referenceEstablishment.computed_type,
       etablissement_reference_conventionne: referenceEstablishment.computed_conventionne,
       etablissement_reference_datadock: referenceEstablishment.computed_info_datadock,
-      geo_coordonnees_etablissement_reference: referenceEstablishment.geo_coordonnees,
 
-      geo_coordonnees_etablissement_formateur: attachedEstablishments.formateur.geo_coordonnees,
+      geo_coordonnees_etablissement_reference: referenceEstablishment.geo_coordonnees,
+      geo_coordonnees_etablissement_formateur: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.geo_coordonnees
+        : null,
+      geo_coordonnees_etablissement_responsable: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.geo_coordonnees
+        : null,
+      geo_coordonnees_idea_etablissement: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.geo_coordonnees
+        : attachedEstablishments.responsable.geo_coordonnees,
+
       etablissement_formateur_adresse: this.getEstablishmentAddress(attachedEstablishments.formateur),
-      etablissement_formateur_code_postal: attachedEstablishments.formateur.code_postal,
-      etablissement_formateur_localite: attachedEstablishments.formateur.localite,
+      etablissement_formateur_code_postal: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.code_postal
+        : null,
+      etablissement_formateur_localite: attachedEstablishments.formateur
+        ? attachedEstablishments.formateur.localite
+        : null,
+
+      etablissement_responsable_adresse: this.getEstablishmentAddress(attachedEstablishments.responsable),
+      etablissement_responsable_code_postal: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.code_postal
+        : null,
+      etablissement_responsable_localite: attachedEstablishments.responsable
+        ? attachedEstablishments.responsable.localite
+        : null,
+
+      etablissement_reference_adresse: this.getEstablishmentAddress(referenceEstablishment),
+      etablissement_reference_code_postal: referenceEstablishment ? referenceEstablishment.code_postal : null,
+      etablissement_reference_localite: referenceEstablishment ? referenceEstablishment.localite : null,
     };
   }
+  /*
+  Jouer le script de maj de l'es --> vérifier nouveaux champs
+  Faire une branche côté idea
+  récupérer les nouveaux champs*/
 
   getEstablishmentAddress(establishment) {
-    return establishment ? `${establishment.numero_voie} ${establishment.type_voie} ${establishment.nom_voie}` : null;
+    return establishment
+      ? `${establishment.numero_voie ? establishment.numero_voie : ""} ${
+          establishment.type_voie ? establishment.type_voie : ""
+        } ${establishment.nom_voie ? establishment.nom_voie : ""}`
+      : null;
   }
 
   async getAttachedEstablishments(training) {
