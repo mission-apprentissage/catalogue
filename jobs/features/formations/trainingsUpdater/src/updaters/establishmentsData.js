@@ -118,10 +118,6 @@ class EstablishmentsData {
       etablissement_reference_localite: referenceEstablishment ? referenceEstablishment.localite : null,
     };
   }
-  /*
-  Jouer le script de maj de l'es --> vérifier nouveaux champs
-  Faire une branche côté idea
-  récupérer les nouveaux champs*/
 
   getEstablishmentAddress(establishment) {
     return establishment
