@@ -142,15 +142,23 @@ const trainingSchema = {
   },
   geo_coordonnees_etablissement_reference: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement de référence",
   },
   geo_coordonnees_etablissement_formateur: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement formateur",
   },
   geo_coordonnees_etablissement_responsable: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement responsable",
   },
-  geo_coordonnees_idea_etablissement: {
+  idea_geo_coordonnees_etablissement: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement recherchable dans Idea",
   },
   etablissement_reference_adresse: {
     type: String,

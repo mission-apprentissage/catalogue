@@ -93,7 +93,7 @@ class EstablishmentsData {
       geo_coordonnees_etablissement_responsable: attachedEstablishments.responsable
         ? attachedEstablishments.responsable.geo_coordonnees
         : null,
-      geo_coordonnees_idea_etablissement: attachedEstablishments.formateur
+      idea_geo_coordonnees_etablissement: attachedEstablishments.formateur
         ? attachedEstablishments.formateur.geo_coordonnees
         : attachedEstablishments.responsable.geo_coordonnees,
 
