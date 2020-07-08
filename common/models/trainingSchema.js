@@ -167,6 +167,17 @@ const trainingSchema = {
     default: null,
     description: "Localité établissement reference",
   },
+  etablissement_reference_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+  etablissement_reference_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+
   etablissement_formateur_adresse: {
     type: String,
     default: null,
@@ -182,6 +193,22 @@ const trainingSchema = {
     default: null,
     description: "Localité établissement formateur",
   },
+  etablissement_formateur_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+  etablissement_formateur_entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale établissement formateur",
+  },
+  etablissement_formateur_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+
   etablissement_responsable_adresse: {
     type: String,
     default: null,
@@ -197,6 +224,22 @@ const trainingSchema = {
     default: null,
     description: "Localité établissement responsable",
   },
+  etablissement_responsable_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+  etablissement_responsable_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+  etablissement_responsable_entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale établissement responsable",
+  },
+
   entreprise_raison_sociale: {
     type: String,
     default: null,
