@@ -21,10 +21,16 @@ module.exports = async (codesDiplomesStream, options = {}) => {
     Formation.find(options.query ? options.query : {}).cursor(),
     writeObject(
       async f => {
-        let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
+        const mode = options.mode ? options.mode : "rncpToEn";
 
         try {
-          f.educ_nat_code = educ_nat_code;
+          if (mode === "rncpToEn") {
+            let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
+            f.educ_nat_code = educ_nat_code;
+          } else if (mode === "enToRncp") {
+            let rncp_code = referentiel.findCodeEn(f.educ_nat_code);
+            f.rncp_code = rncp_code;
+          }
 
           logger.debug(`Updating formation ${f.educ_nat_code}...`);
           await f.save();

@@ -29,44 +29,44 @@ class FileManager {
 
         const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet, {
           header: [
-            "codeRegion",
-            "intituleRegion",
-            "numeroFO",
-            "numeroAf",
-            "nom",
-            "codeCERTIFINFO",
-            "diplome",
-            "intitule",
-            "codeEducNat",
-            "codeNiveauEN",
-            "nomNiveauEN",
-            "niveau",
-            "nomNiveau",
-            "nomCFA_OFA_Responsable",
-            "raisonSocialeCFA_OFA",
-            "siret_CFA_OFA",
-            "siret_formateur",
-            "raisonSocialeFormateur",
-            "modaliteEntreesSorties",
-            "periode",
-            "Uai",
-            "email",
-            "codePostal",
-            "codeCommuneInsee",
-            "capacite",
-            "identifiantSession",
-            "codeRNCP",
-            "nbHeuresTotalAF",
-            "cas",
-            "casLibelle",
+            "codeRegion", // -
+            "intituleRegion", // -
+            "numeroFO", // -
+            "numeroAf", // -
+            "nom", // nom
+            "codeCERTIFINFO", // -
+            "diplome", // diplome
+            "intitule", // intitule_long
+            "codeEducNat", // educ_nat_code
+            "codeNiveauEN", // Old niveau
+            "nomNiveauEN", // -
+            "niveau", // niveau
+            "nomNiveau", // -
+            "nomCFA_OFA_Responsable", // etablissement_responsable_enseigne
+            "raisonSocialeCFA_OFA", // entreprise_raison_sociale
+            "siret_CFA_OFA", // etablissement_responsable_siret
+            "siret_formateur", //etablissement siret - etablissement_formateur_siret
+            "raisonSocialeFormateur", //  etablissement siret -  entreprise_raison_sociale
+            "modaliteEntreesSorties", // -
+            "periode", // periode
+            "uai", // uai_formation
+            "email", // email
+            "codePostal", // code_postal
+            "codeCommuneInsee", // code_commune_insee
+            "capacite", // capacite
+            "identifiantSession", // -
+            "codeRNCP", // rncp_code
+            "nbHeuresTotalAF", // -
+            "cas", // -
+            "casLibelle", // -
           ],
-          range: 2,
+          range: 1,
         });
 
         return jsonSheetArray;
       }
     } catch (err) {
-      logger.error(`FileManager getDataRcoFromFile Error ${err}`);
+      logger.error(`FileManager getDataRcoFromFile ${err}`);
       return null;
     }
   }
@@ -78,6 +78,7 @@ class FileManager {
 
   readXLSXFile(localPath) {
     const workbook = XLSX.readFile(localPath, { codepage: 65001 });
+
     return { sheet_name_list: workbook.SheetNames, workbook };
   }
 }

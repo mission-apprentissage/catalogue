@@ -39,10 +39,10 @@ module.exports = {
     try {
       let timer = createTimer();
       timer.start();
-      await connectToMongo();
+      //await connectToMongo();
       let results = await job();
       timer.stop(results);
-      await exit();
+      //await exit();
     } catch (e) {
       await exit(e);
     }

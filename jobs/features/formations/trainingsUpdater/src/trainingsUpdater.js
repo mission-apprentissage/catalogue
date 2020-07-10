@@ -15,7 +15,7 @@ const publishedData = require("./updaters/publishedData");
 const run = async (updateOnly = null) => {
   try {
     logger.info(" -- Start of Trainings updater -- ");
-    await connectToMongo();
+    //await connectToMongo();
 
     const filter = !updateOnly ? {} : updateOnly;
 
@@ -136,11 +136,11 @@ const run = async (updateOnly = null) => {
         logger.info(`Training ${trainingItem._id} nothing to do`);
       }
     });
-    codeEnData.stats();
-    bcnData.stats();
-    pSupData.stats();
-    affelnetData.stats();
-
+    //codeEnData.stats();
+    //bcnData.stats();
+    //pSupData.stats();
+    //affelnetData.stats();
+    //closeMongoConnection();
     logger.info(" -- End of Trainings updater -- ");
   } catch (err) {
     logger.error(err);

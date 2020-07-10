@@ -19,5 +19,15 @@ module.exports = () => {
 
       return codeEn;
     },
+    findCodeRNCP: codeEn => {
+      let codeRNCP = null;
+      referentiel.forEach((cEn, cRNCP) => {
+        if (cEn === codeEn) {
+          codeRNCP = cRNCP;
+        }
+      });
+
+      return codeRNCP;
+    },
   };
 };

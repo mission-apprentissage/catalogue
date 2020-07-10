@@ -123,7 +123,7 @@ const run = async (updateOnly = null) => {
 
     await referentielGeographique.importReferentiel();
 
-    await connectToMongo();
+    ///await connectToMongo();
 
     const filter = !updateOnly ? {} : updateOnly;
 
@@ -136,7 +136,7 @@ const run = async (updateOnly = null) => {
       await proccess(updatedEstablishment);
     });
 
-    closeMongoConnection();
+    //closeMongoConnection();
 
     logger.info(" -- End of Establishments updater -- ");
   } catch (err) {
