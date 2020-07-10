@@ -25,11 +25,20 @@ class GeoData {
   // le code postal 75116 ne remonte rien, il doit être remplacé par 75016
   refinePostcode(postcode) {
     if (postcode === "75116") return "75016";
+    else if (postcode === "97142") return "97139";
+    // Les abymes en guadeloupe
     else return postcode;
   }
 
   async getFirstMatchUpdates({ numero_voie, type_voie, nom_voie, code_postal, localite }) {
     // première tentative de recherche sur rue et code postal
+
+    if (code_postal === "97133") {
+      // cas particulier unique college à saint barth'
+      return {
+        geo_coordonnees: "17.896279,-62.849772", // format "lat,long"
+      };
+    }
 
     if (!code_postal) {
       logger.info(
