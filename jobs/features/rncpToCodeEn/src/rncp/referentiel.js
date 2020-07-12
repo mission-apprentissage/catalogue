@@ -21,11 +21,13 @@ module.exports = () => {
     },
     findCodeRNCP: codeEn => {
       let codeRNCP = null;
-      referentiel.forEach((cEn, cRNCP) => {
+      for (const cRNCP in referentiel) {
+        const cEn = referentiel[cRNCP];
         if (cEn === codeEn) {
           codeRNCP = cRNCP;
+          break;
         }
-      });
+      }
 
       return codeRNCP;
     },

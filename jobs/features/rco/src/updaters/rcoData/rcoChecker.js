@@ -18,6 +18,7 @@ class RcoChecker {
       etablissements_found: 0,
       codeEn_error_bcn: 0,
       codeEn_Ok_bcn: 0,
+      no_uai_rco: 0,
       uai_rco_found_etablissements: 0,
       uai_rco_not_found_etablissements: 0,
       rncp_found_and_equal: 0,
@@ -67,13 +68,15 @@ class RcoChecker {
 
           await Formation.findOneAndRemove({ _id: formation._id });
 
+          //console.log(formation);
+
           if (formation.info_bcn_code_en === 0 || formation.info_bcn_code_en === 1) {
             this.stats.codeEn_error_bcn++;
           } else {
             this.stats.codeEn_Ok_bcn++;
           }
 
-          if (formation.rncp_code && formation.rncp_code === rcoItem.codeRNCP) {
+          if (formation.rncp_code && formation.rncp_code === `RNCP${rcoItem.codeRNCP}`) {
             this.stats.rncp_found_and_equal++;
           } else {
             if (!formation.rncp_code) {
@@ -83,22 +86,26 @@ class RcoChecker {
             }
           }
 
-          if ([etablissement_responsable.uai, etablissement_formateur.uai].includes(rcoItem.uai)) {
-            this.stats.uai_rco_found_etablissements++;
+          if (!rcoItem.uai) {
+            this.stats.no_uai_rco++;
           } else {
-            this.stats.uai_rco_not_found_etablissements++;
+            if ([etablissement_responsable.uai, etablissement_formateur.uai].includes(rcoItem.uai)) {
+              this.stats.uai_rco_found_etablissements++;
+            } else {
+              this.stats.uai_rco_not_found_etablissements++;
+            }
           }
 
-          await this.validateCodeEnViaRNCP(rcoItem.codeRNCP, rcoItem.codeEducNat);
+          await this.validateCodeEnViaRNCP(`RNCP${rcoItem.codeRNCP}`, rcoItem.codeEducNat);
 
           const lookup = await Formation.findOne({
             educ_nat_code: formation.educ_nat_code,
-            code_postal: formation.code_postal,
-            intitule_long: formation.intitule_long,
-            rncp_code: formation.rncp_code,
+            //code_postal: formation.code_postal,
+            //intitule_long: formation.intitule_long,
+            //rncp_code: formation.rncp_code,
 
-            etablissement_formateur_siret: formation.siret_formateur,
-            etablissement_responsable_siret: formation.siret_CFA_OFA,
+            //etablissement_formateur_siret: formation.etablissement_formateur_siret,
+            etablissement_responsable_siret: formation.etablissement_responsable_siret,
           });
           if (lookup) {
             this.stats.training_found_in_catalogue++;

@@ -28,7 +28,7 @@ module.exports = async (codesDiplomesStream, options = {}) => {
             let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
             f.educ_nat_code = educ_nat_code;
           } else if (mode === "enToRncp") {
-            let rncp_code = referentiel.findCodeEn(f.educ_nat_code);
+            let rncp_code = referentiel.findCodeRNCP(f.educ_nat_code);
             f.rncp_code = rncp_code;
           }
 
