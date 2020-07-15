@@ -7,6 +7,7 @@ const { Formation, Establishment } = require("../../../../../../common/models2")
 const asyncForEach = require("../../../../../common-jobs/utils").asyncForEach;
 // const { filter, find } = require("lodash");
 const fileManager = require("./FileManager");
+const uniqWith = require("lodash").uniqWith;
 
 // #endregion
 
@@ -18,16 +19,24 @@ class RcoChecker {
       etablissements_found: 0,
       codeEn_error_bcn: 0,
       codeEn_Ok_bcn: 0,
+      notMNA_codeEn_error_bcn: 0,
+      notMNA_codeEn_Ok_bcn: 0,
       no_uai_rco: 0,
       uai_rco_found_etablissements: 0,
       uai_rco_not_found_etablissements: 0,
       rncp_found_and_equal: 0,
       rncp_found_no_equal: 0,
       rncp_not_found: 0,
+      notMNA_rncp_found_and_equal: 0,
+      notMNA_rncp_not_found: 0,
+      notMNA_rncp_found_no_equal: 0,
       training_found_in_catalogue: 0,
       training_not_found_in_catalogue: 0,
       code_RNCP_give_same_codeEn_yes: 0,
       code_RNCP_give_same_codeEn_no: 0,
+      notMNA_no_uai_rco: 0,
+      notMNA_uai_rco_found_etablissements: 0,
+      notMNA_uai_rco_not_found_etablissements: 0,
       // new_etablissement_not_published: 0,
       // new_etablissement_no_trainings: 0,
       // etablissements_not_found: 0,
@@ -40,6 +49,7 @@ class RcoChecker {
   async run() {
     //console.log(this.baseRCO);
     //const uniqSiret = [];
+    const itemsCase = [];
     await asyncForEach(this.baseRCO, async rcoItem => {
       await connectToMongo();
       // Look for existing etablissement
@@ -48,9 +58,27 @@ class RcoChecker {
 
       if (etablissement_responsable && etablissement_formateur) {
         if (rcoItem.codeEducNat && rcoItem.codeRNCP) {
+          itemsCase.push(rcoItem);
           this.stats.etablissements_found++;
+
+          let notFoundInMNA = false;
+          const lookup = await Formation.findOne({
+            educ_nat_code: `${rcoItem.codeEducNat}`,
+            code_postal: rcoItem.codePostal,
+
+            //etablissement_formateur_siret: coItem.siret_formateur,
+            etablissement_responsable_siret: rcoItem.siret_CFA_OFA,
+          });
+          if (lookup) {
+            this.stats.training_found_in_catalogue++;
+            // SI TROUVER COMPARÉ
+          } else {
+            this.stats.training_not_found_in_catalogue++;
+            notFoundInMNA = true;
+          }
+
           let formation = new Formation({
-            educ_nat_code: rcoItem.codeEducNat,
+            educ_nat_code: `${rcoItem.codeEducNat}`,
             //uai_formation: rcoItem.uai,
             code_postal: rcoItem.codePostal,
             etablissement_formateur_siret: rcoItem.siret_formateur,
@@ -62,7 +90,7 @@ class RcoChecker {
           await trainingsUpdater({ _id: formation._id });
 
           const { run: runRncpReverse } = require(`../../../../rncpToCodeEn/src/index`);
-          await runRncpReverse({ query: { _id: formation._id }, mode: "enToRncp" });
+          await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeRNCP" });
 
           formation = await Formation.findOne({ _id: formation._id });
 
@@ -72,47 +100,39 @@ class RcoChecker {
 
           if (formation.info_bcn_code_en === 0 || formation.info_bcn_code_en === 1) {
             this.stats.codeEn_error_bcn++;
+            if (notFoundInMNA) this.stats.notMNA_codeEn_error_bcn++;
           } else {
             this.stats.codeEn_Ok_bcn++;
+            if (notFoundInMNA) this.stats.notMNA_codeEn_Ok_bcn++;
           }
 
           if (formation.rncp_code && formation.rncp_code === `RNCP${rcoItem.codeRNCP}`) {
             this.stats.rncp_found_and_equal++;
+            if (notFoundInMNA) this.stats.notMNA_rncp_found_and_equal++;
           } else {
             if (!formation.rncp_code) {
               this.stats.rncp_not_found++;
+              if (notFoundInMNA) this.stats.notMNA_rncp_not_found++;
             } else {
               this.stats.rncp_found_no_equal++;
+              if (notFoundInMNA) this.stats.notMNA_rncp_found_no_equal++;
             }
           }
 
           if (!rcoItem.uai) {
             this.stats.no_uai_rco++;
+            if (notFoundInMNA) this.stats.notMNA_no_uai_rco++;
           } else {
             if ([etablissement_responsable.uai, etablissement_formateur.uai].includes(rcoItem.uai)) {
               this.stats.uai_rco_found_etablissements++;
+              if (notFoundInMNA) this.stats.notMNA_uai_rco_found_etablissements++;
             } else {
               this.stats.uai_rco_not_found_etablissements++;
+              if (notFoundInMNA) this.stats.notMNA_uai_rco_not_found_etablissements++;
             }
           }
 
-          await this.validateCodeEnViaRNCP(`RNCP${rcoItem.codeRNCP}`, rcoItem.codeEducNat);
-
-          const lookup = await Formation.findOne({
-            educ_nat_code: formation.educ_nat_code,
-            //code_postal: formation.code_postal,
-            //intitule_long: formation.intitule_long,
-            //rncp_code: formation.rncp_code,
-
-            //etablissement_formateur_siret: formation.etablissement_formateur_siret,
-            etablissement_responsable_siret: formation.etablissement_responsable_siret,
-          });
-          if (lookup) {
-            this.stats.training_found_in_catalogue++;
-            // SI TROUVER COMPARÉ
-          } else {
-            this.stats.training_not_found_in_catalogue++;
-          }
+          await this.validateCodeEnViaRNCP(`RNCP${rcoItem.codeRNCP}`, `${rcoItem.codeEducNat}`);
         }
       }
 
@@ -192,6 +212,22 @@ class RcoChecker {
       // "cas", // -
       // "casLibelle", // -
     });
+
+    console.log(itemsCase.length);
+    const uniqItems = uniqWith(itemsCase, (a, b) => {
+      if (
+        a.codeEducNat === b.codeEducNat &&
+        a.codePostal === b.codePostal &&
+        a.siret_formateur === b.siret_formateur &&
+        a.siret_CFA_OFA === b.siret_CFA_OFA &&
+        a.codeRNCP === b.codeRNCP
+      ) {
+        return false;
+      }
+      return true;
+    });
+    console.log(uniqItems.length);
+
     //this.stats.siret_not_found_unique = uniqSiret.length;
     console.log(this.stats);
   }
@@ -219,7 +255,7 @@ class RcoChecker {
     await formation.save();
 
     const { run: runRncpReverse } = require(`../../../../rncpToCodeEn/src/index`);
-    await runRncpReverse({ query: { _id: formation._id } });
+    await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeEn" });
 
     formation = await Formation.findOne({ _id: formation._id });
     await Formation.findOneAndRemove({ _id: formation._id });
