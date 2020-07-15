@@ -1,7 +1,7 @@
 // #region Imports
 
-const { infosCodes, PATH_RCO_EXPORT } = require("./Constants");
-const api = require("../../../../../../common/api");
+const { PATH_RCO_EXPORT, PATH_RCO_EXPORT_OLD } = require("./Constants");
+//const api = require("../../../../../../common/api");
 const { connectToMongo, closeMongoConnection } = require("../../../../../../common/mongo");
 const { Formation, Establishment } = require("../../../../../../common/models2");
 const asyncForEach = require("../../../../../common-jobs/utils").asyncForEach;
@@ -13,9 +13,11 @@ const uniqWith = require("lodash").uniqWith;
 
 class RcoChecker {
   constructor() {
-    this.baseRCO = fileManager.getDataRcoFromFile(PATH_RCO_EXPORT);
+    this.baseRCO = fileManager.getDataRcoFromFile(PATH_RCO_EXPORT, "new");
+    this.baseRCOold = fileManager.getDataRcoFromFile(PATH_RCO_EXPORT_OLD, "old");
     this.stats = {
       total: this.baseRCO.length,
+      totalOld: this.baseRCOold.length,
       etablissements_found: 0,
       codeEn_error_bcn: 0,
       codeEn_Ok_bcn: 0,
@@ -37,21 +39,61 @@ class RcoChecker {
       notMNA_no_uai_rco: 0,
       notMNA_uai_rco_found_etablissements: 0,
       notMNA_uai_rco_not_found_etablissements: 0,
-      // new_etablissement_not_published: 0,
-      // new_etablissement_no_trainings: 0,
-      // etablissements_not_found: 0,
-      // etablissement_responsable_not_found: 0,
-      // etablissement_formateur_not_found: 0,
-      // siret_not_found_unique: 0,
     };
   }
 
   async run() {
-    //console.log(this.baseRCO);
-    //const uniqSiret = [];
-    const itemsCase = [];
+    const uniqSiretNotFound = [];
+    const uniqSiret = [];
+    let countLinesSiretNotFound = 0;
+
+    const newNumFO = this.baseRCO.map(i => i.numeroFO);
+    const oldNumFO = this.baseRCOold.map(i => i.numeroFO);
+    let countFo = 0;
+    for (let i = 0; i < newNumFO.length; i++) {
+      const newFo = newNumFO[i];
+      for (let j = 0; j < oldNumFO.length; j++) {
+        const oldFo = oldNumFO[j];
+        if (newFo === oldFo) {
+          countFo++;
+        }
+      }
+    }
+    console.log(countFo);
+
+    await connectToMongo();
     await asyncForEach(this.baseRCO, async rcoItem => {
-      await connectToMongo();
+      // Look for existing etablissement
+      let etablissement_responsable = await Establishment.findOne({ siret: rcoItem.siret_CFA_OFA });
+      let etablissement_formateur = await Establishment.findOne({ siret: rcoItem.siret_formateur });
+      //Establishment.find({siret : { $in : [rcoItem.siret_CFA_OFA, rcoItem.siret_formateur]}}
+      if (!etablissement_responsable) {
+        if (uniqSiretNotFound.indexOf(rcoItem.siret_CFA_OFA) === -1) {
+          uniqSiretNotFound.push(rcoItem.siret_CFA_OFA);
+        }
+        countLinesSiretNotFound++;
+      }
+      if (!etablissement_formateur) {
+        if (uniqSiretNotFound.indexOf(rcoItem.siret_formateur) === -1) {
+          uniqSiretNotFound.push(rcoItem.siret_formateur);
+        }
+        if (rcoItem.siret_CFA_OFA !== rcoItem.siret_formateur) {
+          countLinesSiretNotFound++;
+        }
+      }
+
+      if (uniqSiret.indexOf(rcoItem.siret_formateur) === -1) {
+        uniqSiret.push(rcoItem.siret_formateur);
+      }
+      if (uniqSiret.indexOf(rcoItem.siret_CFA_OFA) === -1) {
+        uniqSiret.push(rcoItem.siret_CFA_OFA);
+      }
+    });
+    closeMongoConnection();
+    const itemsCase = [];
+    await connectToMongo();
+
+    await asyncForEach(this.baseRCO, async rcoItem => {
       // Look for existing etablissement
       let etablissement_responsable = await Establishment.findOne({ siret: rcoItem.siret_CFA_OFA });
       let etablissement_formateur = await Establishment.findOne({ siret: rcoItem.siret_formateur });
@@ -95,8 +137,6 @@ class RcoChecker {
           formation = await Formation.findOne({ _id: formation._id });
 
           await Formation.findOneAndRemove({ _id: formation._id });
-
-          //console.log(formation);
 
           if (formation.info_bcn_code_en === 0 || formation.info_bcn_code_en === 1) {
             this.stats.codeEn_error_bcn++;
@@ -178,40 +218,8 @@ class RcoChecker {
       // if (formation.intitule_long && formation.intitule_long.trim() !== rcoItem.intitule.trim()) {
       //   stats.intitule_not_match++;
       // }
-
-      closeMongoConnection();
-
-      // "codeRegion", // -
-      // "intituleRegion", // -
-      // "numeroFO", // -
-      // "numeroAf", // -
-      // "nom", // nom
-      // "codeCERTIFINFO", // -
-      // "diplome", // diplome
-      // "intitule", // intitule_long
-      // "codeEducNat", // educ_nat_code
-      // "codeNiveauEN", // Old niveau
-      // "nomNiveauEN", // -
-      // "niveau", // niveau
-      // "nomNiveau", // -
-      // "nomCFA_OFA_Responsable", // etablissement_responsable_enseigne
-      // "raisonSocialeCFA_OFA", // entreprise_raison_sociale
-      // "siret_CFA_OFA", // etablissement_responsable_siret
-      // "siret_formateur", //etablissement siret - etablissement_formateur_siret
-      // "raisonSocialeFormateur", //  etablissement siret -  entreprise_raison_sociale
-      // "modaliteEntreesSorties", // -
-      // "periode", // periode
-      // "uai", // uai_formation
-      // "email", // email
-      // "codePostal", // code_postal
-      // "codeCommuneInsee", // code_commune_insee
-      // "capacite", // capacite
-      // "identifiantSession", // -
-      // "codeRNCP", // rncp_code
-      // "nbHeuresTotalAF", // -
-      // "cas", // -
-      // "casLibelle", // -
     });
+    closeMongoConnection();
 
     console.log(itemsCase.length);
     const uniqItems = uniqWith(itemsCase, (a, b) => {
@@ -227,6 +235,10 @@ class RcoChecker {
       return true;
     });
     console.log(uniqItems.length);
+
+    console.log(uniqSiret.length);
+    console.log(uniqSiretNotFound.length);
+    console.log(countLinesSiretNotFound);
 
     //this.stats.siret_not_found_unique = uniqSiret.length;
     console.log(this.stats);

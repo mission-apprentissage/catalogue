@@ -1,7 +1,7 @@
 // #region Imports
 const csvToJson = require("convert-csv-to-json");
 const XLSX = require("xlsx");
-const { PATH_RCO_EXPORT } = require("./Constants");
+const { PATH_RCO_EXPORT, PATH_RCO_EXPORT_OLD } = require("./Constants");
 const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
@@ -10,7 +10,8 @@ class FileManager {
   constructor() {
     logger.info("FileManager - Init Reference Files");
 
-    this.dataRCOFormation = this.getDataRcoFromFile(PATH_RCO_EXPORT);
+    this.dataRCOFormation = this.getDataRcoFromFile(PATH_RCO_EXPORT, "new");
+    this.dataRCOFormationOld = this.getDataRcoFromFile(PATH_RCO_EXPORT_OLD, "old");
 
     logger.info("FileManager - End Init Reference Files");
   }
@@ -19,10 +20,12 @@ class FileManager {
    * Get Data RCO formation from File
    * @param {string} rcoFormationPath
    */
-  getDataRcoFromFile(rcoFormationPath) {
+  getDataRcoFromFile(rcoFormationPath, fileType) {
     try {
-      if (this.dataRCOFormation) {
+      if (this.dataRCOFormation && fileType === "new") {
         return this.dataRCOFormation;
+      } else if (this.dataRCOFormationOld && fileType === "old") {
+        return this.dataRCOFormationOld;
       } else {
         const { sheet_name_list, workbook } = this.readXLSXFile(rcoFormationPath);
         const worksheet = workbook.Sheets[sheet_name_list[0]];
