@@ -23,6 +23,7 @@ module.exports.handler = async (event, context, callback) => {
   const qs = event.queryStringParameters || null;
   const job = qs && qs.job ? qs.job : "";
   const id = qs && qs.id ? qs.id : "";
+  const mode = qs && qs.mode ? qs.mode : "";
 
   const result = {};
   try {
@@ -73,7 +74,14 @@ module.exports.handler = async (event, context, callback) => {
             run,
             // eslint-disable-next-line global-require
           } = require(`${basePath}/jobs/features/rncpToCodeEn/src/index`);
-          await run({ query: { _id: id } });
+          let options = { query: { _id: id } };
+          if (mode === "findCodeEn" || mode === "findCodeRNCP") {
+            options = {
+              ...options,
+              mode,
+            };
+          }
+          await run(options);
         }
         break;
       case "onisep":

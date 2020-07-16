@@ -3,14 +3,14 @@ const path = require("path");
 const { execute } = require("../../../../common/scriptWrapper");
 const importRNCP = require("./importRNCP");
 
-const run = async (options = {}) => {
+const run = async (options = {}, connectMongo = true) => {
   await execute(() => {
     const codeDiplomesFile = path.join(__dirname, "assets", "codes_diplomes.v1.2.csv");
 
     const codesDiplomesStream = fs.createReadStream(codeDiplomesFile, { encoding: "UTF-8" });
 
     return importRNCP(codesDiplomesStream, options);
-  });
+  }, connectMongo);
 };
 
 module.exports.run = run;

@@ -117,13 +117,15 @@ const proccess = async updatedEstablishment => {
   }
 };
 
-const run = async (updateOnly = null) => {
+const run = async (updateOnly = null, connectMongo = true) => {
   try {
     logger.info(" -- Start of Establishments updater -- ");
 
     await referentielGeographique.importReferentiel();
 
-    await connectToMongo();
+    if (connectMongo) {
+      await connectToMongo();
+    }
 
     const filter = !updateOnly ? {} : updateOnly;
 
@@ -136,8 +138,9 @@ const run = async (updateOnly = null) => {
       await proccess(updatedEstablishment);
     });
 
-    closeMongoConnection();
-
+    if (connectMongo) {
+      closeMongoConnection();
+    }
     logger.info(" -- End of Establishments updater -- ");
   } catch (err) {
     logger.error(err);
