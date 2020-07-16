@@ -6,8 +6,15 @@ const XLSX = require("xlsx");
 const run = async () => {
   try {
     logger.info(" -- Start of pivotRomesMetiers initializer -- ");
-    //await connectToMongo();
+    await connectToMongo();
 
+    //TODO: suppression de la collection
+    //TODO: suppression de l'index
+    
+    /*logger.info(" -- Creation collection -- ");
+    //await RomesMetiers.createCollection();
+    logger.info(" -- Collection creee -- ");
+    */
     const readXLSXFile = localPath => {
       const workbook = XLSX.readFile(localPath, { codepage: 65001 });
       return { sheet_name_list: workbook.SheetNames, workbook };
@@ -21,16 +28,20 @@ const run = async () => {
     );
 
     for (let i = 0, l = romesMetiers.length; i < l; ++i) {
-      let romesMetier = {
+      let romesMetier = new RomesMetiers({
         ...romesMetiers[i],
-        domaines: romesMetiers[i].domaines.split(",").map(item=>item.trim()),
-        familles: romesMetiers[i].familles.split(",").map(item=>item.trim()),
+        domaines: romesMetiers[i].domaines.split(",").map(item => item.trim()),
+        familles: romesMetiers[i].familles.split(",").map(item => item.trim()),
         codes_romes: romesMetiers[i].codes_romes.split(", "),
         intitules_romes: JSON.parse(romesMetiers[i].intitules_romes),
         couples_romes_metiers: JSON.parse(romesMetiers[i].couples_romes_metiers),
-      };
+      });
 
-      console.log(romesMetier);
+      await romesMetier.save();
+
+      logger.info(`Added ${romesMetier._id} to collection `);
+      
+      //console.log(romesMetier);
     }
 
     logger.info(" -- End of pivotRomesMetiers initializer -- ");
