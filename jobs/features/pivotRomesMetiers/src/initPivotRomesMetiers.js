@@ -1,11 +1,37 @@
 const { connectToMongo } = require("../../../../common/mongo");
 const { RomesMetiers } = require("../../../../common/models2");
 const logger = require("../../../common-jobs/Logger").mainLogger;
+const XLSX = require("xlsx");
 
 const run = async () => {
   try {
     logger.info(" -- Start of pivotRomesMetiers initializer -- ");
-    await connectToMongo();
+    //await connectToMongo();
+
+    const readXLSXFile = localPath => {
+      const workbook = XLSX.readFile(localPath, { codepage: 65001 });
+      return { sheet_name_list: workbook.SheetNames, workbook };
+    };
+
+    const fichierRomesMetiers = "./assets/pivotRomesMetiers.ods";
+    const workbookRomesMetiers = readXLSXFile(fichierRomesMetiers);
+
+    let romesMetiers = XLSX.utils.sheet_to_json(
+      workbookRomesMetiers.workbook.Sheets[workbookRomesMetiers.sheet_name_list[0]]
+    );
+
+    for (let i = 0, l = romesMetiers.length; i < l; ++i) {
+      let romesMetier = {
+        ...romesMetiers[i],
+        domaines: romesMetiers[i].domaines.split(",").map(item=>item.trim()),
+        familles: romesMetiers[i].familles.split(",").map(item=>item.trim()),
+        codes_romes: romesMetiers[i].codes_romes.split(", "),
+        intitules_romes: JSON.parse(romesMetiers[i].intitules_romes),
+        couples_romes_metiers: JSON.parse(romesMetiers[i].couples_romes_metiers),
+      };
+
+      console.log(romesMetier);
+    }
 
     logger.info(" -- End of pivotRomesMetiers initializer -- ");
   } catch (err) {
