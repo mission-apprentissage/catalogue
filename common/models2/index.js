@@ -22,7 +22,7 @@ if (!f) {
 
 let pRM = null;
 if (!pRM) {
-  pRM = getModel("pivotRomesMetiers", pivotRomesMetiersSchema);
+  pRM = getModel("pivotromesmetiers", pivotRomesMetiersSchema);
 }
 
 module.exports = {
@@ -31,5 +31,5 @@ module.exports = {
   RomesMetiers: pRM,
   attachFormationTo: (minst, stage) => getModel("formations", trainingSchema, minst, stage),
   attachEstablishmentTo: (minst, stage) => getModel("etablissements", establishmentSchema, minst, stage),
-  attachRomesMetiersTo: (minst, stage) => getModel("pivotRomesMetiers", pivotRomesMetiersSchema, minst, stage),
+  attachRomesMetiersTo: (minst, stage) => getModel("pivotromesmetiers", pivotRomesMetiersSchema, minst, stage),
 };
