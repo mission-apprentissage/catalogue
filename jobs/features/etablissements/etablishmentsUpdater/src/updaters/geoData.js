@@ -26,7 +26,7 @@ class GeoData {
   refinePostcode(postcode) {
     if (postcode === "75116") return "75016";
     else if (postcode === "97142") return "97139";
-    // Les abymes en guadeloupe
+    //TODO: hardcoded à supprimer quand la BAN remontera correctement les adresse du cp 97142 pour "Les Abymes" en Guadeloupe
     else return postcode;
   }
 
@@ -34,7 +34,8 @@ class GeoData {
     // première tentative de recherche sur rue et code postal
 
     if (code_postal === "97133") {
-      // cas particulier unique college à saint barth'
+      //TODO: hardcoded à supprimer quand la BAN remontera correctement les adresse du cp 97133 pour "Saint Barthélémy"
+      // cas particulier concernant un unique college à saint barth'
       return {
         geo_coordonnees: "17.896279,-62.849772", // format "lat,long"
       };
