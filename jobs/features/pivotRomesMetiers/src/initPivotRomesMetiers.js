@@ -10,11 +10,7 @@ const run = async () => {
 
     //TODO: suppression de la collection
     //TODO: suppression de l'index
-    
-    /*logger.info(" -- Creation collection -- ");
-    //await RomesMetiers.createCollection();
-    logger.info(" -- Collection creee -- ");
-    */
+
     const readXLSXFile = localPath => {
       const workbook = XLSX.readFile(localPath, { codepage: 65001 });
       return { sheet_name_list: workbook.SheetNames, workbook };
