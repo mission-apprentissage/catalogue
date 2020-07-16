@@ -129,10 +129,10 @@ class RcoChecker {
           await formation.save();
 
           const { run: trainingsUpdater } = require(`../../../../formations/trainingsUpdater/src/trainingsUpdater`);
-          await trainingsUpdater({ _id: formation._id });
+          await trainingsUpdater({ _id: formation._id }, false);
 
           const { run: runRncpReverse } = require(`../../../../rncpToCodeEn/src/index`);
-          await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeRNCP" });
+          await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeRNCP" }, false);
 
           formation = await Formation.findOne({ _id: formation._id });
 
@@ -250,7 +250,7 @@ class RcoChecker {
     const {
       run: etablishmentsUpdater,
     } = require(`../../../../etablissements/etablishmentsUpdater/src/etablishmentsUpdater`);
-    await etablishmentsUpdater({ _id: etablissement._id });
+    await etablishmentsUpdater({ _id: etablissement._id }, false);
     etablissement = await Establishment.findOne({ _id: etablissement._id });
     await Establishment.findOneAndRemove({ _id: etablissement._id });
 
@@ -267,7 +267,7 @@ class RcoChecker {
     await formation.save();
 
     const { run: runRncpReverse } = require(`../../../../rncpToCodeEn/src/index`);
-    await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeEn" });
+    await runRncpReverse({ query: { _id: formation._id }, mode: "findCodeEn" }, false);
 
     formation = await Formation.findOne({ _id: formation._id });
     await Formation.findOneAndRemove({ _id: formation._id });

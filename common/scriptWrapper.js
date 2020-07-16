@@ -35,14 +35,19 @@ const exit = async scriptError => {
 };
 
 module.exports = {
-  execute: async job => {
+  execute: async (job, connectMongo = true) => {
     try {
       let timer = createTimer();
       timer.start();
-      //await connectToMongo();
+      if (connectMongo) {
+        await connectToMongo();
+      }
+
       let results = await job();
       timer.stop(results);
-      //await exit();
+      if (connectMongo) {
+        await exit();
+      }
     } catch (e) {
       await exit(e);
     }

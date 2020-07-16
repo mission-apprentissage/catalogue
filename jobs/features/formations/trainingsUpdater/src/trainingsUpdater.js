@@ -1,4 +1,4 @@
-const { connectToMongo } = require("../../../../../common/mongo");
+const { connectToMongo, closeMongoConnection } = require("../../../../../common/mongo");
 const { Formation } = require("../../../../../common/models2");
 
 const logger = require("../../../../common-jobs/Logger").mainLogger;
@@ -12,10 +12,12 @@ const pSupData = require("./updaters/pSupData");
 const affelnetData = require("./updaters/affelnetData");
 const publishedData = require("./updaters/publishedData");
 
-const run = async (updateOnly = null) => {
+const run = async (updateOnly = null, connectMongo = true) => {
   try {
     logger.info(" -- Start of Trainings updater -- ");
-    //await connectToMongo();
+    if (connectMongo) {
+      await connectToMongo();
+    }
 
     const filter = !updateOnly ? {} : updateOnly;
 
@@ -140,7 +142,9 @@ const run = async (updateOnly = null) => {
     //bcnData.stats();
     //pSupData.stats();
     //affelnetData.stats();
-    //closeMongoConnection();
+    if (connectMongo) {
+      closeMongoConnection();
+    }
     logger.info(" -- End of Trainings updater -- ");
   } catch (err) {
     logger.error(err);
