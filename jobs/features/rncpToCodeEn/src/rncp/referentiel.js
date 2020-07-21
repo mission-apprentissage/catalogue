@@ -19,5 +19,17 @@ module.exports = () => {
 
       return codeEn;
     },
+    findCodeRNCP: codeEn => {
+      let codeRNCP = null;
+      for (const cRNCP in referentiel) {
+        const cEn = referentiel[cRNCP];
+        if (cEn === codeEn) {
+          codeRNCP = cRNCP;
+          break;
+        }
+      }
+
+      return codeRNCP;
+    },
   };
 };

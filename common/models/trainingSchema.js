@@ -142,7 +142,112 @@ const trainingSchema = {
   },
   geo_coordonnees_etablissement_reference: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement de référence",
   },
+  geo_coordonnees_etablissement_formateur: {
+    type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement formateur",
+  },
+  geo_coordonnees_etablissement_responsable: {
+    type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement responsable",
+  },
+  idea_geo_coordonnees_etablissement: {
+    type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement recherchable dans Idea",
+  },
+  etablissement_reference_adresse: {
+    type: String,
+    default: null,
+    description: "Numéro et rue établissement reference",
+  },
+  etablissement_reference_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal établissement reference",
+  },
+  etablissement_reference_localite: {
+    type: String,
+    default: null,
+    description: "Localité établissement reference",
+  },
+  etablissement_reference_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+  etablissement_reference_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+
+  etablissement_formateur_adresse: {
+    type: String,
+    default: null,
+    description: "Numéro et rue établissement formateur",
+  },
+  etablissement_formateur_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal établissement formateur",
+  },
+  etablissement_formateur_localite: {
+    type: String,
+    default: null,
+    description: "Localité établissement formateur",
+  },
+  etablissement_formateur_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+  etablissement_formateur_entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale établissement formateur",
+  },
+  etablissement_formateur_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+
+  etablissement_responsable_adresse: {
+    type: String,
+    default: null,
+    description: "Numéro et rue établissement responsable",
+  },
+  etablissement_responsable_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal établissement responsable",
+  },
+  etablissement_responsable_localite: {
+    type: String,
+    default: null,
+    description: "Localité établissement responsable",
+  },
+  etablissement_responsable_complement_adresse: {
+    type: String,
+    default: null,
+    description: "Complément d'adresse de l'établissement",
+  },
+  etablissement_responsable_cedex: {
+    type: String,
+    default: null,
+    description: "Cedex",
+  },
+  etablissement_responsable_entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale établissement responsable",
+  },
+
   entreprise_raison_sociale: {
     type: String,
     default: null,

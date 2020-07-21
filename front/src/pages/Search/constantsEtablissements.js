@@ -238,6 +238,14 @@ const columnsDefinition = [
     width: 200,
     editable: false,
   },
+  {
+    Header: "Email",
+    accessor: "ds_questions_email",
+    width: 200,
+    debug: true,
+    exportOnly: true,
+    editable: false,
+  },
 ];
 
 const queryBuilderField = [

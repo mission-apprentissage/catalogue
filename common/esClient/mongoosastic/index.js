@@ -37,7 +37,7 @@ function getMapping(schema) {
       continue;
     }
 
-    if (/^geo-*/.test(key)) {
+    if (/geo_/.test(key)) {
       properties[key] = { type: "geo_point" };
       isMappingNeedingGeoPoint = true;
     } else

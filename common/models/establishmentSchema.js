@@ -111,6 +111,8 @@ const establishmentSchema = {
   },
   geo_coordonnees: {
     type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement",
   },
   date_fermeture: {
     type: Date,

@@ -46,6 +46,7 @@
     "@elastic/elasticsearch": "7.6.1",
     "aws-elasticsearch-connector": "8.2.0",
     "dotenv": "^8.2.0",
+    "axios": "^0.19.2",
     "elasticsearch-scroll-stream": "1.2.1",
     "env-var": "6.0.4",
     "fs-extra": "^8.1.0",
