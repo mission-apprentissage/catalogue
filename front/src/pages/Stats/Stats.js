@@ -18,7 +18,7 @@ const scroll = async (index, scroll_id) => {
   return result;
 };
 
-const getEntities = async (index) => {
+const getEntities = async index => {
   const resp = await API.post("api", `/es/search/${index}/scroll`, {
     body: {
       query: {
@@ -36,8 +36,8 @@ const getEntities = async (index) => {
 };
 
 const StatsDS = ({ formations }) => {
-  const dossiersDsUnique = [...new Set(formations.map((item) => item._source.ds_id_dossier))];
-  const formationsDSUnique = formations.filter((item) => item._source.source === "DS");
+  const dossiersDsUnique = [...new Set(formations.map(item => item._source.ds_id_dossier))];
+  const formationsDSUnique = formations.filter(item => item._source.source === "DS");
   return (
     <div>
       <h3>Statistiques Démarches Simplifiées</h3>
@@ -50,7 +50,7 @@ const StatsDS = ({ formations }) => {
 };
 
 const StatsRCO = ({ formations }) => {
-  const formationsRCOUnique = formations.filter((item) => item._source.source === "RCO");
+  const formationsRCOUnique = formations.filter(item => item._source.source === "RCO");
   return (
     <div>
       <h3>Statistiques RCO</h3>
@@ -63,7 +63,7 @@ const StatsRCO = ({ formations }) => {
 
 const StatsOther = ({ formations }) => {
   const formationsAutresUnique = formations.filter(
-    (item) => item._source.source !== "RCO" && item._source.source !== "DS"
+    item => item._source.source !== "RCO" && item._source.source !== "DS"
   );
   return (
     <div>
@@ -77,13 +77,13 @@ const StatsOther = ({ formations }) => {
 
 const StatsDepp = ({ etablissements }) => {
   const etablissementInDepp = etablissements.filter(
-    (item) => item._source.info_depp === contants.infosCodes.infoDEPP.Found
+    item => item._source.info_depp === contants.infosCodes.infoDEPP.Found
   );
   const etablissementNotInDepp = etablissements.filter(
-    (item) => item._source.info_depp === contants.infosCodes.infoDEPP.NotFound
+    item => item._source.info_depp === contants.infosCodes.infoDEPP.NotFound
   );
   const etablissementMissingUai = etablissements.filter(
-    (item) => item._source.info_depp === contants.infosCodes.infoDEPP.MissingUai
+    item => item._source.info_depp === contants.infosCodes.infoDEPP.MissingUai
   );
   return (
     <div>
@@ -102,31 +102,31 @@ const StatsDepp = ({ etablissements }) => {
 
 const StatsGlobal = ({ formations, etablissements }) => {
   const etablissementsCfa = etablissements.filter(
-    (item) => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.CFA
+    item => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.CFA
   );
   const etablissementsOf = etablissements.filter(
-    (item) => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.OF
+    item => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.OF
   );
   const etablissementsToCheck = etablissements.filter(
-    (item) => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.ToCheck
+    item => item._source.computed_type === contants.computeCodes.IsCfaOrOfa.ToCheck
   );
   const etablissementsPrefectureDeclared = etablissements.filter(
-    (item) => item._source.computed_declare_prefecture === contants.computeCodes.OrganismeDeclarePrefecture.Yes
+    item => item._source.computed_declare_prefecture === contants.computeCodes.OrganismeDeclarePrefecture.Yes
   );
   const etablissementsNotPrefectureDeclared = etablissements.filter(
-    (item) => item._source.computed_declare_prefecture === contants.computeCodes.OrganismeDeclarePrefecture.No
+    item => item._source.computed_declare_prefecture === contants.computeCodes.OrganismeDeclarePrefecture.No
   );
   const etablissementsConventionnes = etablissements.filter(
-    (item) => item._source.computed_conventionne === contants.computeCodes.OrganismeConventionne.Yes
+    item => item._source.computed_conventionne === contants.computeCodes.OrganismeConventionne.Yes
   );
   const etablissementsNotConventionnes = etablissements.filter(
-    (item) => item._source.computed_conventionne === contants.computeCodes.OrganismeConventionne.No
+    item => item._source.computed_conventionne === contants.computeCodes.OrganismeConventionne.No
   );
   const formationsLevel3Or4 = formations.filter(
-    (item) => item._source.niveau === "3 (CAP...)" || item._source.niveau === "4 (Bac...)"
+    item => item._source.niveau === "3 (CAP...)" || item._source.niveau === "4 (Bac...)"
   );
   const formationsLevel5Or6 = formations.filter(
-    (item) => item._source.niveau === "5 (BTS, DUT...)" || item._source.niveau === "6 (Licence...)"
+    item => item._source.niveau === "5 (BTS, DUT...)" || item._source.niveau === "6 (Licence...)"
   );
   return (
     <div>

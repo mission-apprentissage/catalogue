@@ -12,7 +12,17 @@ class ApiGeoAdresse {
       const response = await axios.get(`${apiEndpoint}/search/?q=${q}${postcode ? `&postcode=${postcode}` : ""}`);
       return response.data;
     } catch (error) {
-      logger.error(error);
+      logger.error(`geo search error : ${q} ${postcode} ${error}`);
+      return null;
+    }
+  }
+
+  async searchPostcodeOnly(q, postcode = null) {
+    try {
+      const response = await axios.get(`${apiEndpoint}/search/?q=${q}${postcode ? `&postcode=${postcode}` : ""}`);
+      return response.data;
+    } catch (error) {
+      logger.error(`geo searchPostcodeOnly error : #${q}# ${postcode} ${error}`);
       return null;
     }
   }

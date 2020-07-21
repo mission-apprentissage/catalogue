@@ -12,8 +12,8 @@ const { getElasticInstance } = require("../../../../common/esClient");
 // #endregion
 
 // TO MODIFY DEPENDING OF YOUR NEEDS
-const FROM = "dev";
-const TO = "local";
+const FROM = "prod";
+const TO = "dev";
 
 // below script
 const spinner = new Spinner("%s");
@@ -25,8 +25,11 @@ let rebuildIndex = async (index, schema, env) => {
   logger.info(`Removing ${env} '${index}' index...`);
   await client.indices.delete({ index });
 
+  logger.info(`Re-creating '${index}' index with mapping...`);
+  await schema.createMapping(); // this explicit call of createMapping insures that the geo points fields will be treated accordingly during indexing
+
   logger.info(`Rebuilding ${env} '${index}' index...`);
-  await schema.synchronize();
+  //await schema.synchronize();
 };
 
 const run = async () => {

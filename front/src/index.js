@@ -18,6 +18,10 @@ const store = configureStore();
 async function init() {
   await awsConfigure();
 
+  if (window.location.hostname.includes("mna-admin-dev.netlify.app")) {
+    window.location.replace("https://mna-admin-prod.netlify.app");
+  }
+
   // Sentry.init({
   //   dsn: "https://SENKEY@sentry.io/KEY",
   //   environment: "ENVNAME",

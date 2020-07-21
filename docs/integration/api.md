@@ -1,15 +1,15 @@
 ---
 description: >-
-  L' Api Mission apprentissage vous permettra de consulter les offres de
-  formations en apprentissage, vérifier l’éligibilité d'un établissement,
-  recherche avancée, et autres fonctionnalités...
+  L' Api catalogue vous permettra de consulter les offres de formations en
+  apprentissage, vérifier l’éligibilité d'un établissement, recherche avancée,
+  et autres fonctionnalités...
 ---
 
 # API
 
 ## Introduction
 
-L'api mission apprentissage est une API au format REST.
+L'api catalogue est une API au format REST.
 
  Les routes de consultation sont ouvertes au grand public.
 
@@ -17,7 +17,7 @@ L'api mission apprentissage est une API au format REST.
 
 ## Détails et documentation
 
-### Vous trouverez la documentation détaillée ici:  [API v2 sur swagger](https://app.swaggerhub.com/apis-docs/Gethi/prod-mna_api/v2)
+### Vous trouverez la documentation détaillée ici:  [API v2 sur swagger](https://app.swaggerhub.com/apis-docs/Gethi/prod-mna_api/v2.2)
 
 
 

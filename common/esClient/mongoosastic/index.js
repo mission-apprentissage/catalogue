@@ -37,7 +37,7 @@ function getMapping(schema) {
       continue;
     }
 
-    if (/^geo-*/.test(key)) {
+    if (/geo_/.test(key)) {
       properties[key] = { type: "geo_point" };
       isMappingNeedingGeoPoint = true;
     } else
@@ -121,6 +121,7 @@ function Mongoosastic(schema, options) {
         _opts.id = this._id.toString();
         await esClient.index(_opts);
       } catch (e) {
+        console.log(e);
         console.log(`Error index ${this._id.toString()}`, e.message || e);
         return reject();
       }
