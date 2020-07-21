@@ -5,7 +5,7 @@ const XLSX = require("xlsx");
 
 const run = async () => {
   try {
-    logger.info(" -- Start of pivotRomesMetiers initializer -- ");
+    logger.info(" -- Start of RomesMetiers initializer -- ");
     await connectToMongo();
 
     //TODO: suppression de la collection
@@ -16,7 +16,7 @@ const run = async () => {
       return { sheet_name_list: workbook.SheetNames, workbook };
     };
 
-    const fichierRomesMetiers = "./assets/pivotRomesMetiers.ods";
+    const fichierRomesMetiers = "./assets/romesMetiers.ods";
     const workbookRomesMetiers = readXLSXFile(fichierRomesMetiers);
 
     let romesMetiers = XLSX.utils.sheet_to_json(
@@ -36,11 +36,11 @@ const run = async () => {
       await romesMetier.save();
 
       logger.info(`Added ${romesMetier._id} to collection `);
-      
+
       //console.log(romesMetier);
     }
 
-    logger.info(" -- End of pivotRomesMetiers initializer -- ");
+    logger.info(" -- End of RomesMetiers initializer -- ");
   } catch (err) {
     logger.error(err);
   }
