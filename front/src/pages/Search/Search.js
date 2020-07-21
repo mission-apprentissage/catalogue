@@ -169,7 +169,7 @@ export default ({ match }) => {
                             index={base}
                             filters={FILTERS}
                             columns={columnsDefinition
-                              .filter(def => !def.debug)
+                              .filter(def => !def.debug || (user && def.exportOnly && def.debug))
                               .map(def => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {
