@@ -1,7 +1,7 @@
 const { mongooseInstance: mongooseInst } = require("../mongo");
 const { mongoosastic, getElasticInstance } = require("../esClient");
 
-const { establishmentSchema, trainingSchema, romesMetiersSchema } = require("../models");
+const { establishmentSchema, trainingSchema, domainesMetiersSchema } = require("../models");
 
 const getModel = (MODELNAME, schema, mongooseInstance = mongooseInst, stage = null) => {
   const Schema = new mongooseInstance.Schema(schema);
@@ -20,16 +20,16 @@ if (!f) {
   f = getModel("formations", trainingSchema);
 }
 
-let pRM = null;
-if (!pRM) {
-  pRM = getModel("romesmetiers", romesMetiersSchema);
+let d = null;
+if (!d) {
+  d = getModel("domainesmetiers", domainesMetiersSchema);
 }
 
 module.exports = {
   Establishment: e,
   Formation: f,
-  RomesMetiers: pRM,
+  DomainesMetiers: d,
   attachFormationTo: (minst, stage) => getModel("formations", trainingSchema, minst, stage),
   attachEstablishmentTo: (minst, stage) => getModel("etablissements", establishmentSchema, minst, stage),
-  attachRomesMetiersTo: (minst, stage) => getModel("romesmetiers", romesMetiersSchema, minst, stage),
+  attachDomainesMetiersTo: (minst, stage) => getModel("domainesmetiers", domainesMetiersSchema, minst, stage),
 };

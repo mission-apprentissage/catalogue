@@ -1,4 +1,4 @@
-const pivotRomesMetiersSchema = {
+const DomainesMetiersSchema = {
   sous_domaine: {
     type: String,
     default: null,
@@ -43,7 +43,7 @@ const pivotRomesMetiersSchema = {
     type: [Object],
     default: [],
     description: "Couples codes ROMEs / intitulés correspondants au métier",
-  }
+  },
 };
 
-module.exports = pivotRomesMetiersSchema;
+module.exports = DomainesMetiersSchema;

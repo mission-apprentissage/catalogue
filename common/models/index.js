@@ -1,9 +1,9 @@
 const establishmentSchema = require("./establishmentSchema");
 const trainingSchema = require("./trainingSchema");
-const romesMetiersSchema = require("./romesMetiers.schema");
+const domainesMetiersSchema = require("./domainesMetiers.schema");
 
 module.exports = {
   establishmentSchema,
   trainingSchema,
-  romesMetiersSchema,
+  domainesMetiersSchema,
 };
