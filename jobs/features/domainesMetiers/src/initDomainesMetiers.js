@@ -1,13 +1,37 @@
 const { connectToMongo } = require("../../../../common/mongo");
+const { getElasticInstance } = require("../../../../common/esClient");
 const { DomainesMetiers } = require("../../../../common/models2");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const XLSX = require("xlsx");
+
+const emptyMongo = async () => {
+  const metiers = await DomainesMetiers.find({});
+
+  logger.info(`Clearing domainesmetiers db...`);
+  metiers.forEach(async metier => {
+    await DomainesMetiers.findByIdAndDelete(metier._id, function(err, docs) {
+      if (err) {
+        console.log(err);
+      } else {
+        //console.log("Deleted : ",docs.sous_domaine);
+      }
+    });
+  });
+};
+
+const clearIndex = async () => {
+  let client = getElasticInstance();
+  logger.info(`Removing domainesmetiers index...`);
+  await client.indices.delete({ index: "domainesmetiers" });
+};
 
 const run = async () => {
   try {
     logger.info(" -- Start of DomainesMetiers initializer -- ");
     await connectToMongo();
 
+    await emptyMongo();
+    await clearIndex();
     //TODO: suppression de la collection
     //TODO: suppression de l'index
 
@@ -99,6 +123,8 @@ const run = async () => {
     }
   } catch (err) {
     logger.error(err);
+  } finally {
+    process.exit();
   }
 };
 
