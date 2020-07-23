@@ -10,16 +10,10 @@ const emptyMongo = async () => {
 
     logger.info(`Clearing domainesmetiers db...`);
     metiers.forEach(async metier => {
-      await DomainesMetiers.findByIdAndDelete(metier._id, function(err, docs) {
-        if (err) {
-          console.log(err);
-        } else {
-          //console.log("Deleted : ",docs.sous_domaine);
-        }
-      });
+      await DomainesMetiers.findByIdAndDelete(metier._id);
     });
   } catch (err) {
-    logger.info("Error emptying mongo table.");
+    logger.info(`Error emptying mongo table : ${err.message}`);
   }
 };
 
@@ -29,7 +23,7 @@ const clearIndex = async () => {
     logger.info(`Removing domainesmetiers index...`);
     await client.indices.delete({ index: "domainesmetiers" });
   } catch (err) {
-    logger.info("Error emptying es index.");
+    logger.info(`Error emptying es index : ${err.message}`);
   }
 };
 
