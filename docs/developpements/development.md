@@ -56,7 +56,7 @@ ES_URL="<url elasticsearch>" npm run es:dump
 
 Cette tâche npm utilise un script bash contenu dans `tools/elasticsearch`.
 
-La variable `ES_URL` doit contenir l'url d'un Elasticsearch qui contient les indexes `etablissements` et `formations` \(ex: staging\)
+La variable `ES_URL` doit contenir l'url d'un Elasticsearch qui contient les indexes `etablissements`, `formations` et `domainesmetiers` \(ex: staging\)
 
 Il est également possible de réaliser un backup d'une instance Elasticsearch :
 
