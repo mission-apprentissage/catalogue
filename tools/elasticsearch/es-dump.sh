@@ -14,6 +14,9 @@ function main() {
     dump_elasticsearch_index "${ES_URL}" "${elasticsearch_url}" "formations"
     create_kibana_index_pattern "${kibana_url}" "formations"
 
+    dump_elasticsearch_index "${ES_URL}" "${elasticsearch_url}" "domainesmetiers"
+    create_kibana_index_pattern "${kibana_url}" "domainesmetiers"
+
     set_kibana_default_index "${kibana_url}" "etablissements"
 }
 
