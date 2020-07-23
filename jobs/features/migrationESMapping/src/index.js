@@ -1,5 +1,5 @@
 const logger = require("../../../common-jobs/Logger").mainLogger;
-const { Establishment, Formation } = require("../../../common-jobs/models");
+const { Establishment, Formation, DomainesMetiers } = require("../../../common-jobs/models");
 const { getElasticInstance } = require("../../../../common/esClient");
 const { execute } = require("../../../../common/scriptWrapper");
 
@@ -36,7 +36,15 @@ let indexingEtablissements = async () => {
   logger.info("Index Etablissement rebuilt with mapping");
 };
 
+let indexingDomainesMetiers = async () => {
+  logger.info("Indexing 'domainesmetiers' collection from MongoDB...");
+
+  await rebuildIndex("domainesmetiers", DomainesMetiers);
+
+  logger.info("Index DomainesMetiers rebuilt with mapping");
+};
+
 execute(async () => {
-  await Promise.all([indexingFormations(), indexingEtablissements()]);
+  await Promise.all([indexingFormations(), indexingEtablissements(), indexingDomainesMetiers()]);
   logger.info("migrationESMapping has finished");
 });
