@@ -5,24 +5,32 @@ const logger = require("../../../common-jobs/Logger").mainLogger;
 const XLSX = require("xlsx");
 
 const emptyMongo = async () => {
-  const metiers = await DomainesMetiers.find({});
+  try {
+    const metiers = await DomainesMetiers.find({});
 
-  logger.info(`Clearing domainesmetiers db...`);
-  metiers.forEach(async metier => {
-    await DomainesMetiers.findByIdAndDelete(metier._id, function(err, docs) {
-      if (err) {
-        console.log(err);
-      } else {
-        //console.log("Deleted : ",docs.sous_domaine);
-      }
+    logger.info(`Clearing domainesmetiers db...`);
+    metiers.forEach(async metier => {
+      await DomainesMetiers.findByIdAndDelete(metier._id, function(err, docs) {
+        if (err) {
+          console.log(err);
+        } else {
+          //console.log("Deleted : ",docs.sous_domaine);
+        }
+      });
     });
-  });
+  } catch (err) {
+    logger.info("Error emptying mongo table.");
+  }
 };
 
 const clearIndex = async () => {
-  let client = getElasticInstance();
-  logger.info(`Removing domainesmetiers index...`);
-  await client.indices.delete({ index: "domainesmetiers" });
+  try {
+    let client = getElasticInstance();
+    logger.info(`Removing domainesmetiers index...`);
+    await client.indices.delete({ index: "domainesmetiers" });
+  } catch (err) {
+    logger.info("Error emptying es index.");
+  }
 };
 
 const run = async () => {
@@ -32,8 +40,6 @@ const run = async () => {
 
     await emptyMongo();
     await clearIndex();
-    //TODO: suppression de la collection
-    //TODO: suppression de l'index
 
     const readXLSXFile = localPath => {
       const workbook = XLSX.readFile(localPath, { codepage: 65001 });
@@ -62,21 +68,9 @@ const run = async () => {
 
       reset();
 
-      //console.log(onglet[0]);
       for (let j = 0; j < onglet.length; j++) {
-        //console.log(onglet[j]);
-
         if (onglet[j].isSousDomaine) {
           // cas de la ligne sur laquelle se trouve le sous-domaine qui va marquer l'insertion d'une ligne dans la db
-          //console.log(onglet[j].isSousDomaine);
-
-          // récupéraration des dernières data, construction de l'objet et sauvegarde
-
-          //console.log("domaines : ",domaines);
-          //console.log("codesROMEs : ",codesROMEs);
-          //console.log("familles : ",familles);
-          //console.log("intitulesROMEs : ", intitulesROMEs);
-          //console.log("couplesROMEsIntitules : ", couplesROMEsIntitules);
 
           let domainesMetier = new DomainesMetiers({
             domaine: onglet[j]["Domaine "], // haha, vous l'avez vu cet espace à la fin ? :)
@@ -89,7 +83,6 @@ const run = async () => {
             couples_romes_metiers: couplesROMEsIntitules,
           });
 
-          //console.log("domainesMetier  : ",domainesMetier);
           await domainesMetier.save();
 
           logger.info(`Added ${domainesMetier.sous_domaine} ${domainesMetier._id} to collection `);
