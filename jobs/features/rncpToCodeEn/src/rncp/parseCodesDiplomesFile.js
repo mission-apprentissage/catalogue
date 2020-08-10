@@ -1,21 +1,6 @@
-const { pipeline, writeObject } = require("../../../../../common/streamUtils");
-const parseCSV = require("csv-parse");
+const csvToJson = require("convert-csv-to-json");
 
-module.exports = async inputStream => {
-  let codesDiplomes = [];
-
-  await pipeline(
-    inputStream,
-    parseCSV({
-      delimiter: ";",
-      skip_lines_with_error: true,
-      skip_empty_lines: true,
-      columns: ["CodeDiplome", "Intitule", "CodeRNCP", "Niveau2019", "Diplome", "DerniereMaJ"],
-    }),
-    writeObject(line => {
-      codesDiplomes[line["CodeRNCP"]] = line["CodeDiplome"];
-    })
-  );
-
+module.exports = async filePath => {
+  let codesDiplomes = csvToJson.getJsonFromCsv(filePath);
   return { codesDiplomes };
 };

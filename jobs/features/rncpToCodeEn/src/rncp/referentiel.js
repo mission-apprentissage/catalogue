@@ -4,32 +4,22 @@ module.exports = () => {
   let referentiel = [];
 
   return {
-    loadXmlFile: async codesDiplomesStream => {
-      let { codesDiplomes } = await parseCodesDiplomesFile(codesDiplomesStream);
-
+    load: async codesDiplomesFile => {
+      let { codesDiplomes } = await parseCodesDiplomesFile(codesDiplomesFile);
       referentiel = codesDiplomes;
 
       return {
         errors: 0,
-        total: 0,
+        total: codesDiplomes.length,
       };
     },
     findCodeEn: codeRNCP => {
-      let codeEn = referentiel[codeRNCP] || null;
-
-      return codeEn;
+      let found = referentiel.find(x => x.CodeRNCP === codeRNCP);
+      return found ? found.CodeDiplome : null;
     },
     findCodeRNCP: codeEn => {
-      let codeRNCP = null;
-      for (const cRNCP in referentiel) {
-        const cEn = referentiel[cRNCP];
-        if (cEn === codeEn) {
-          codeRNCP = cRNCP;
-          break;
-        }
-      }
-
-      return codeRNCP;
+      let found = referentiel.find(x => x.CodeDiplome === codeEn);
+      return found ? found.CodeRNCP : null;
     },
   };
 };

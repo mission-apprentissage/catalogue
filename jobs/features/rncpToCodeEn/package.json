@@ -1,23 +1,25 @@
 {
   "name": "ma-services-rncp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Mise à jour des liens entre codes Rncp et codes Diplomes (Code En)",
   "main": "src/index.js",
   "license": "ISC",
   "author": "",
   "scripts": {
-    "start": "RNCP_EXEC=1 node src/index.js",
+    "start:findCodeEn": "RNCP_EXEC=1 node src/index.js",
+    "start:findCodeRNCP": "MODE=findCodeRNCP RNCP_EXEC=1 node src/index.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
     "test:integration": "mocha --recursive --exit --timeout 5000 test/integration"
   },
   "dependencies": {
     "byline": "5.0.0",
+    "convert-csv-to-json": "^0.0.15",
+    "csv-parse": "4.8.8",
     "env-var": "^6.1.1",
     "lodash": "4.17.15",
     "mocha": "7.1.2",
-    "xml2js": "0.4.23",
-    "csv-parse": "4.8.8"
+    "xml2js": "0.4.23"
   },
   "engines": {
     "node": ">=12.0.0"

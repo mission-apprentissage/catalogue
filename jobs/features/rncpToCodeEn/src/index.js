@@ -6,10 +6,7 @@ const importRNCP = require("./importRNCP");
 const run = async (options = {}, connectMongo = true) => {
   await execute(() => {
     const codeDiplomesFile = path.join(__dirname, "assets", "codes_diplomes.v1.2.csv");
-
-    const codesDiplomesStream = fs.createReadStream(codeDiplomesFile, { encoding: "UTF-8" });
-
-    return importRNCP(codesDiplomesStream, options);
+    return importRNCP(codeDiplomesFile, options);
   }, connectMongo);
 };
 
@@ -17,5 +14,7 @@ module.exports.run = run;
 
 if (process.env.RNCP_EXEC === "1") {
   console.log("run");
-  run();
+  run({
+    mode: process.env.MODE,
+  });
 }

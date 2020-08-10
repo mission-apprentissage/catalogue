@@ -3,18 +3,19 @@ const { pipeline, writeObject } = require("../../../../common/streamUtils");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const { Formation } = require("../../../../common/models2");
 
-module.exports = async (codesDiplomesStream, options = {}) => {
+module.exports = async (codesDiplomesFile, options = {}) => {
   let referentiel = createReferentiel();
   let stats = {
     formations: {
-      updated: 0,
+      updated_foundCodeEn: 0,
+      updated_foundCodeRncp: 0,
       errors: 0,
     },
     referentiel: 0,
   };
 
   logger.info("Loading RNCP referentiel (Fiches + Code Diplômes)...");
-  stats.referentiel = await referentiel.loadXmlFile(codesDiplomesStream);
+  stats.referentiel = await referentiel.load(codesDiplomesFile);
 
   logger.info("Updating formations...");
   await pipeline(
@@ -25,16 +26,22 @@ module.exports = async (codesDiplomesStream, options = {}) => {
 
         try {
           if (mode === "findCodeEn") {
-            let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
-            f.educ_nat_code = educ_nat_code;
+            if (f.rncp_code) {
+              let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
+              f.educ_nat_code = educ_nat_code;
+              logger.debug(`CodeEn Found - updating formation ${f.educ_nat_code}...`);
+              await f.save();
+              stats.formations.updated_foundCodeEn++;
+            }
           } else if (mode === "findCodeRNCP") {
-            let rncp_code = referentiel.findCodeRNCP(f.educ_nat_code);
-            f.rncp_code = rncp_code;
+            if (f.educ_nat_code) {
+              let rncp_code = referentiel.findCodeRNCP(f.educ_nat_code);
+              f.rncp_code = rncp_code;
+              logger.debug(`CodeRncp found - updating formation ${f.educ_nat_code}...`);
+              await f.save();
+              stats.formations.updated_foundCodeRncp++;
+            }
           }
-
-          logger.debug(`Updating formation ${f.educ_nat_code}...`);
-          await f.save();
-          stats.formations.updated++;
         } catch (e) {
           stats.formations.errors++;
           logger.error(e);
