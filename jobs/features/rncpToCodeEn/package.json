@@ -6,8 +6,7 @@
   "license": "ISC",
   "author": "",
   "scripts": {
-    "start:updateCodeEn": "dotenv -e ../../../.env node src/index.js",
-    "start:updateCodeRncp": "dotenv -e ../../../.env node src/index.js",
+    "start": "dotenv -e ../../../.env node src/index.js",
     "stats": "dotenv -e ../../../.env node src/stats.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
@@ -17,7 +16,7 @@
     "byline": "5.0.0",
     "convert-csv-to-json": "^0.0.15",
     "csv-parse": "4.8.8",
-    "env-var": "^6.1.1",
+    "env-var": "6.1.1",
     "lodash": "4.17.15",
     "mocha": "7.1.2",
     "xml2js": "0.4.23"
