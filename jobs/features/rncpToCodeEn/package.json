@@ -6,8 +6,8 @@
   "license": "ISC",
   "author": "",
   "scripts": {
-    "start:findCodeEn": "dotenv -e ../../../.env UPDATE_MODE=findCodeEn node src/index.js",
-    "start:findCodeRNCP": "dotenv -e ../../../.env UPDATE_MODE=findCodeRNCP node src/index.js",
+    "start:updateCodeEn": "dotenv -e ../../../.env node src/index.js",
+    "start:updateCodeRncp": "dotenv -e ../../../.env node src/index.js",
     "stats": "dotenv -e ../../../.env node src/stats.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
