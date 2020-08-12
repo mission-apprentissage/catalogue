@@ -1,10 +1,10 @@
 {
-  "name": "ma-services-rncp",
+  "name": "ma-services-rncp-code-en",
   "version": "1.0.0",
   "description": "Mise à jour des liens entre codes Rncp et codes Diplomes (Code En)",
   "main": "src/index.js",
-  "license": "ISC",
-  "author": "",
+  "license": "MIT",
+  "author": "MNA",
   "scripts": {
     "start": "dotenv -e ../../../.env node src/index.js",
     "stats": "dotenv -e ../../../.env node src/stats.js",
