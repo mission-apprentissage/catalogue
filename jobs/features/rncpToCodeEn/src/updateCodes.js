@@ -31,11 +31,11 @@ module.exports = async (codesDiplomesFile, options = {}) => {
     writeObject(
       async f => {
         const updateMode = options.updateMode ? options.updateMode : "updateCodeRncpFromCodeEn";
-
+        const overrideMode = options.overrideMode ? (options.overrideMode === "true" ? true : false) : true;
         try {
           if (updateMode === "updateCodeEnFromCodeRncp") {
             if (f.rncp_code) {
-              if (!f.educ_nat_code || (f.educ_nat_code && options.overrideMode)) {
+              if (!f.educ_nat_code || (f.educ_nat_code && overrideMode)) {
                 let educ_nat_code = referentiel.findCodeEn(f.rncp_code);
                 f.educ_nat_code = educ_nat_code;
                 if (f.educ_nat_code) {
@@ -52,7 +52,7 @@ module.exports = async (codesDiplomesFile, options = {}) => {
             }
           } else if (updateMode === "updateCodeRncpFromCodeEn") {
             if (f.educ_nat_code) {
-              if (!f.rncp_code || (f.rncp_code && options.overrideMode)) {
+              if (!f.rncp_code || (f.rncp_code && overrideMode)) {
                 let rncp_code = referentiel.findCodeRNCP(f.educ_nat_code);
                 if (rncp_code) {
                   f.rncp_code = rncp_code;

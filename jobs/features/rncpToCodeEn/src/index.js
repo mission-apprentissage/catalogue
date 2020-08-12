@@ -11,5 +11,5 @@ const run = async (options = {}, connectMongo = true) => {
 
 run({
   updateMode: process.env.UPDATE_MODE,
-  overrideMode: process.env.OVERRIDE_MODE ? "true" : null,
+  overrideMode: process.env.OVERRIDE_MODE,
 });
