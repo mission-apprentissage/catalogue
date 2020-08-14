@@ -1,15 +1,27 @@
 const csvToJson = require("convert-csv-to-json");
+const azureStorage = require("../../../../common-jobs/azureStorage");
 const path = require("path");
+const env = require("env-var");
 const uniqBy = require("lodash").uniqBy;
+const fs = require("fs");
 
-module.exports = () => {
+const referentielCodesEnCodesIdccFilePath = path.join(__dirname, "../../src/assets/referentielCodesEnCodesIdcc.csv");
+const referentielCodesIdccOpcoFilePath = path.join(__dirname, "../../src/assets/referentielCodesEnCodesIdcc.csv");
+
+module.exports = async () => {
+  // Check if  referentielCodesEnCodesIdcc is in local folder, if not gets it from azure
+  if (!fs.existsSync(referentielCodesEnCodesIdccFilePath)) {
+    const storage = azureStorage(env.get("AZURE_STORAGE_CONNECTION_STRING").asString());
+    await storage.saveBlobToFile(
+      "opco-container",
+      "referentielCodesEnCodesIdcc.csv",
+      referentielCodesEnCodesIdccFilePath
+    );
+  }
+
   // Load csv referential data
-  const referentielRncpIdccs = csvToJson.getJsonFromCsv(
-    path.join(__dirname, "../../src/assets/referentielCodesEnCodesIdcc.csv")
-  );
-  const referentielIdccsOpco = csvToJson.getJsonFromCsv(
-    path.join(__dirname, "../../src/assets/referentielCodesIdccOpco.csv")
-  );
+  const referentielRncpIdccs = csvToJson.getJsonFromCsv(referentielCodesEnCodesIdccFilePath);
+  const referentielIdccsOpco = csvToJson.getJsonFromCsv(referentielCodesIdccOpcoFilePath);
 
   /**
    * Find Idccs for a Code En

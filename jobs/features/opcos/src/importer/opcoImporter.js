@@ -5,7 +5,7 @@ const createReferentiel = require("../utils/referentiel");
 
 module.exports = async () => {
   logger.info(" -- Start of OPCOs Importer -- ");
-  const referentiel = createReferentiel();
+  const referentiel = await createReferentiel();
 
   let stats = {
     opcosUpdated: 0,
