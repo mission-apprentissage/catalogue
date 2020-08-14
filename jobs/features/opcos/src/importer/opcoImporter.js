@@ -2,6 +2,7 @@ const { pipeline, writeObject } = require("../../../../../common/streamUtils");
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 const { Formation } = require("../../../../../common/models2");
 const createReferentiel = require("../utils/referentiel");
+const { infosCodes } = require("../utils/constants");
 
 module.exports = async () => {
   logger.info(" -- Start of OPCOs Importer -- ");
@@ -15,11 +16,14 @@ module.exports = async () => {
 
   logger.info("Updating formations...");
   await pipeline(
-    // Importing for formations with educ_nat_code
-    await Formation.find({ educ_nat_code: { $nin: [null, ""] } }).cursor(),
+    await Formation.find({}).cursor(),
     writeObject(
       async f => {
         try {
+          if (!f.educ_nat_code) {
+            f.info_opcos = infosCodes.NotFoundable;
+          }
+
           const opcosForFormations = await referentiel.findOpcosFromCodeEn(f.educ_nat_code);
 
           if (opcosForFormations.length > 0) {
@@ -29,12 +33,15 @@ module.exports = async () => {
               } for educ_nat_code ${f.educ_nat_code}`
             );
             f.opcos = opcosForFormations.map(x => x.Opérateurdecompétences);
-            await f.save();
+            f.info_opcos = infosCodes.Found;
             stats.opcosUpdated++;
           } else {
             logger.info(`No OPCOs found for formation ${f._id} for educ_nat_code ${f.educ_nat_code}`);
+            f.info_opcos = infosCodes.NotFound;
             stats.opcosNotFound++;
           }
+
+          await f.save();
         } catch (e) {
           stats.errors++;
           logger.error(e);
