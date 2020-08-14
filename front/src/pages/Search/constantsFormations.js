@@ -34,6 +34,8 @@ const FILTERS = [
   "parcoursup_reference",
   "parcoursup_a_charger",
   "diplome",
+  "opcos",
+  "info_opcos_intitule",
 ];
 
 const columnsDefinition = [
@@ -317,6 +319,18 @@ const columnsDefinition = [
     width: 300,
     editable: false,
   },
+  {
+    Header: "OPCOs",
+    accessor: "opcos",
+    width: 200,
+    editable: false,
+  },
+  {
+    Header: "Intitulé du statut des OPCOs",
+    accessor: "info_opcos_intitule",
+    width: 200,
+    editable: false,
+  },
 ];
 
 const queryBuilderField = [
@@ -375,6 +389,24 @@ const facetDefinition = [
     dataField: "rncp_code.keyword",
     title: "Code RNCP",
     filterLabel: "rncp_code",
+    selectAllLabel: "Tous",
+    sortBy: "count",
+  },
+
+  {
+    componentId: "opcos",
+    dataField: "opcos.keyword",
+    title: "OPCOs",
+    filterLabel: "opcos",
+    selectAllLabel: "Tout OPCOs",
+    sortBy: "asc",
+  },
+
+  {
+    componentId: "info_opcos_intitule",
+    dataField: "info_opcos_intitule.keyword",
+    title: "Statut OPCOs",
+    filterLabel: "info_opcos_intitule",
     selectAllLabel: "Tous",
     sortBy: "count",
   },
