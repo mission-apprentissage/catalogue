@@ -11,7 +11,7 @@ import Section from "./components/Section";
 import routes from "../../routes.json";
 
 import "./formation.css";
-const sleep = m => new Promise(r => setTimeout(r, m));
+const sleep = (m) => new Promise((r) => setTimeout(r, m));
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;
@@ -60,12 +60,12 @@ const EditSection = ({ edition, onEdit, handleSubmit, onDeleteClicked }) => {
 };
 
 const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, values }) => {
-  const { acm: userAcm } = useSelector(state => state.user);
+  const { acm: userAcm } = useSelector((state) => state.user);
   const oneEstablishment = formation.etablissement_responsable_siret === formation.etablissement_formateur_siret;
   const hasRightToEdit = checkIfHasRightToEdit(formation, userAcm);
 
   const dispatch = useDispatch();
-  const onDeleteClicked = async e => {
+  const onDeleteClicked = async (e) => {
     // eslint-disable-next-line no-restricted-globals
     const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
     if (areYousure) {
@@ -189,6 +189,23 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
           <div className="field">
             <h3>Codes ROME</h3>
             <p>{formation.rome_codes}</p>
+          </div>
+        </Section>
+        <Section title="Information OPCOs">
+          <div className="field">
+            {formation.opcos.length === 0 && (
+              <>
+                <h3>Aucun OPCO rattaché</h3>
+              </>
+            )}
+            {formation.opcos.length > 0 && (
+              <>
+                <h3>OPCOs liés à la formation</h3>
+                {formation.opcos.map((x) => (
+                  <p>{x}</p>
+                ))}
+              </>
+            )}
           </div>
         </Section>
       </Col>
