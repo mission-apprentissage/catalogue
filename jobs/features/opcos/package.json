@@ -1,0 +1,40 @@
+{
+  "name": "ma-services",
+  "version": "1.0.0",
+  "description": "[MNA Jobs] Matching OPCOs - Formations",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "dotenv -e ../../../.env node src/index.js",
+    "stats": "dotenv -e ../../../.env node src/stats.js",
+    "test": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/**/*.test.js",
+    "test:unit": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/unit",
+    "test:integration": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/integration",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.0.0",
+    "convert-csv-to-json": "^0.0.15",
+    "lodash": "^4.17.19",
+    "mocha": "^8.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
