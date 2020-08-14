@@ -541,7 +541,12 @@ const trainingSchema = {
   info_opcos: {
     type: Number,
     default: 0,
-    description: "Information du statut de liaison avec un/des opcos",
+    description: "Code du statut de liaison avec un/des opcos",
+  },
+  info_opcos_intitule: {
+    type: String,
+    default: null,
+    description: "Intitule du statut de liaison avec un/des opcos",
   },
   last_modification: {
     type: String,

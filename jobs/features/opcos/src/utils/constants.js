@@ -4,6 +4,9 @@ const infosCodes = {
   NotFoundable: 2,
 };
 
+const computeCodes = ["Non trouve", "Trouvé", "Non trouvable"];
+
 module.exports = {
   infosCodes,
+  computeCodes,
 };
