@@ -1,10 +1,8 @@
 const assert = require("assert");
 const createReferentiel = require("../../src/utils/referentiel");
 
-const referentiel = createReferentiel();
-
-describe(__filename, () => {
-  before(async () => {});
+describe(__filename, async () => {
+  const referentiel = await createReferentiel();
 
   it("Vérifie qu'il est possible de trouver un code IDCC pour un code EN", async () => {
     const idcssTestFound = referentiel.findIdccsFromCodeEn("56X22101");

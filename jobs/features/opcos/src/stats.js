@@ -7,13 +7,13 @@ const run = async () => {
     await connectToMongo();
     logger.info(" -- Stats of OPCO Linker -- ");
     const formations = await Formation.find();
-    const formationsAvecOpco = await Formation.find({ opcos: { $nin: [null, ""] } });
-    const formationsSansOpcos = await Formation.find({ opcos: { $in: [null, ""] } });
+    const formationsAvecOpco = await Formation.find({ opcos: { $ne: [] } });
+    const formationsSansOpcos = await Formation.find({ opcos: [] });
     const formationsSansOpcosEtSansCodeEducNat = await Formation.find({
-      $and: [{ opcos: { $in: [null, ""] } }, { educ_nat_code: { $in: [null, ""] } }],
+      $and: [{ opcos: [] }, { educ_nat_code: { $in: [null, ""] } }],
     });
     const formationsSansOpcosEtAvecCodeEducNat = await Formation.find({
-      $and: [{ opcos: { $in: [null, ""] } }, { educ_nat_code: { $nin: [null, ""] } }],
+      $and: [{ opcos: [] }, { educ_nat_code: { $nin: [null, ""] } }],
     });
     logger.info(`${formations.length} formations`);
     logger.info(`${formationsAvecOpco.length} formations avec opcos`);

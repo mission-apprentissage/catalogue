@@ -22,23 +22,23 @@ module.exports = async () => {
         try {
           if (!f.educ_nat_code) {
             f.info_opcos = infosCodes.NotFoundable;
-          }
-
-          const opcosForFormations = await referentiel.findOpcosFromCodeEn(f.educ_nat_code);
-
-          if (opcosForFormations.length > 0) {
-            logger.info(
-              `Adding OPCOs ${opcosForFormations.map(x => x.Opérateurdecompétences)} for formation ${
-                f._id
-              } for educ_nat_code ${f.educ_nat_code}`
-            );
-            f.opcos = opcosForFormations.map(x => x.Opérateurdecompétences);
-            f.info_opcos = infosCodes.Found;
-            stats.opcosUpdated++;
           } else {
-            logger.info(`No OPCOs found for formation ${f._id} for educ_nat_code ${f.educ_nat_code}`);
-            f.info_opcos = infosCodes.NotFound;
-            stats.opcosNotFound++;
+            const opcosForFormations = await referentiel.findOpcosFromCodeEn(f.educ_nat_code);
+
+            if (opcosForFormations.length > 0) {
+              logger.info(
+                `Adding OPCOs ${opcosForFormations.map(x => x.Opérateurdecompétences)} for formation ${
+                  f._id
+                } for educ_nat_code ${f.educ_nat_code}`
+              );
+              f.opcos = opcosForFormations.map(x => x.Opérateurdecompétences);
+              f.info_opcos = infosCodes.Found;
+              stats.opcosUpdated++;
+            } else {
+              logger.info(`No OPCOs found for formation ${f._id} for educ_nat_code ${f.educ_nat_code}`);
+              f.info_opcos = infosCodes.NotFound;
+              stats.opcosNotFound++;
+            }
           }
 
           await f.save();

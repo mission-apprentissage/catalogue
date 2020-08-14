@@ -6,7 +6,7 @@ const uniqBy = require("lodash").uniqBy;
 const fs = require("fs");
 
 const referentielCodesEnCodesIdccFilePath = path.join(__dirname, "../../src/assets/referentielCodesEnCodesIdcc.csv");
-const referentielCodesIdccOpcoFilePath = path.join(__dirname, "../../src/assets/referentielCodesEnCodesIdcc.csv");
+const referentielCodesIdccOpcoFilePath = path.join(__dirname, "../../src/assets/referentielCodesIdccOpco.csv");
 
 module.exports = async () => {
   // Check if  referentielCodesEnCodesIdcc is in local folder, if not gets it from azure
@@ -20,7 +20,7 @@ module.exports = async () => {
   }
 
   // Load csv referential data
-  const referentielRncpIdccs = csvToJson.getJsonFromCsv(referentielCodesEnCodesIdccFilePath);
+  const referentielCodesEnCodesIdcc = csvToJson.getJsonFromCsv(referentielCodesEnCodesIdccFilePath);
   const referentielIdccsOpco = csvToJson.getJsonFromCsv(referentielCodesIdccOpcoFilePath);
 
   /**
@@ -28,7 +28,7 @@ module.exports = async () => {
    * @param {*} codeEn
    */
   const findIdccsFromCodeEn = codeEn => {
-    const found = referentielRncpIdccs.filter(x => x.Codelaformation === codeEn && x.Statut === "CPNE");
+    const found = referentielCodesEnCodesIdcc.filter(x => x.Codelaformation === codeEn && x.Statut === "CPNE");
 
     if (found.length > 0) {
       // Joining all idccs in one list without empty spaces
@@ -55,8 +55,8 @@ module.exports = async () => {
   return {
     findIdccsFromCodeEn: findIdccsFromCodeEn,
     findOpcosFromIdccs: findOpcosFromIdccs,
-    findOpcosFromCodeEn: async codeRncp => {
-      const codesIdcc = findIdccsFromCodeEn(codeRncp);
+    findOpcosFromCodeEn: async codeEn => {
+      const codesIdcc = findIdccsFromCodeEn(codeEn);
       return uniqBy(findOpcosFromIdccs(codesIdcc), "Opérateurdecompétences");
     },
   };
