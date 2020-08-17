@@ -3,7 +3,6 @@ const logger = require("../../../../common-jobs/Logger").mainLogger;
 const { Formation, Establishment } = require("../../../../../common/models2");
 const createReferentiel = require("../utils/referentiel");
 const { infosCodes, computeCodes } = require("../utils/constants");
-const { map, groupBy, orderBy } = require("lodash");
 
 module.exports = async () => {
   const importToTrainings = async () => {
