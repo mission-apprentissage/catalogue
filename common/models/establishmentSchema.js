@@ -454,6 +454,17 @@ const establishmentSchema = {
   },
   //////////////////
 
+  opcos: {
+    type: [String],
+    default: [],
+    description: "Liste des opcos rattachés à l'établissement",
+  },
+  opcos_formations: {
+    type: [Object],
+    default: {},
+    description: "Liste des formations avec leurs opcos rattachés",
+  },
+
   catalogue_published: {
     type: Boolean,
     default: false,
