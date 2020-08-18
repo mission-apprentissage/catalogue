@@ -138,7 +138,7 @@ module.exports = async () => {
       const importEtablishmentsStats = await importToEtablishments(options);
       const stats = { ...importTrainingStats, ...importEtablishmentsStats };
       logger.info(" -- Stats -- ");
-      logger.info(stats);
+      logger.info(JSON.stringify(stats));
       logger.info(" -- End of Import OPCOs --");
     },
   };

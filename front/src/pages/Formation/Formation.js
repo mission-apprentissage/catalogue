@@ -201,8 +201,8 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             {formation.opcos.length > 0 && (
               <>
                 <h3>OPCOs liés à la formation</h3>
-                {formation.opcos.map((x) => (
-                  <p>{x}</p>
+                {formation.opcos.map((x, i) => (
+                  <p key={i}>{x}</p>
                 ))}
               </>
             )}
