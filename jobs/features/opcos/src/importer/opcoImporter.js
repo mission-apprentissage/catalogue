@@ -10,11 +10,13 @@ module.exports = async () => {
     const referentiel = await createReferentiel();
 
     let stats = {
-      updated: 0,
-      noCodeEn: 0,
-      noIdccsFound: 0,
-      noOpcosFound: 0,
-      errors: 0,
+      trainings: {
+        updated: 0,
+        noCodeEn: 0,
+        noIdccsFound: 0,
+        noOpcosFound: 0,
+        errors: 0,
+      },
     };
 
     logger.info("Updating formations...");
@@ -28,7 +30,7 @@ module.exports = async () => {
               if (!f.educ_nat_code) {
                 f.info_opcos = infosCodes.NoCodeEn;
                 f.info_opcos_intitule = computeCodes[infosCodes.NoCodeEn];
-                stats.noCodeEn++;
+                stats.trainings.noCodeEn++;
               } else {
                 const opcosForFormations = await referentiel.findOpcosFromCodeEn(f.educ_nat_code);
 
@@ -41,18 +43,18 @@ module.exports = async () => {
                   f.opcos = opcosForFormations.map(x => x.Opérateurdecompétences);
                   f.info_opcos = infosCodes.Found;
                   f.info_opcos_intitule = computeCodes[infosCodes.Found];
-                  stats.updated++;
+                  stats.trainings.updated++;
                 } else {
                   logger.info(`No OPCOs found for formation ${f._id} for educ_nat_code ${f.educ_nat_code}`);
 
                   if ((await referentiel.findIdccsFromCodeEn(f.educ_nat_code).length) === 0) {
                     f.info_opcos = infosCodes.NoIdccsFound;
                     f.info_opcos_intitule = computeCodes[infosCodes.NoIdccsFound];
-                    stats.noIdccsFound++;
+                    stats.trainings.noIdccsFound++;
                   } else {
                     f.info_opcos = infosCodes.NoOpcosFound;
                     f.info_opcos_intitule = computeCodes[infosCodes.NoOpcosFound];
-                    stats.noOpcosFound++;
+                    stats.trainings.noOpcosFound++;
                   }
                 }
               }
@@ -60,7 +62,7 @@ module.exports = async () => {
               await f.save();
             }
           } catch (e) {
-            stats.errors++;
+            stats.trainings.errors++;
             logger.error(e);
           }
         },
@@ -75,9 +77,11 @@ module.exports = async () => {
     logger.info(" -- Starting Import OPCOs to etablishments -- ");
 
     let stats = {
-      opcosForEtablishmentUpdated: 0,
-      opcosForEtablishmentNotFound: 0,
-      opcosForEtablishmentError: 0,
+      etablishments: {
+        updated: 0,
+        notFound: 0,
+        errors: 0,
+      },
     };
 
     logger.info("Updating etablishments...");
@@ -98,7 +102,7 @@ module.exports = async () => {
               ).filter(x => x.opcos.length > 0);
 
               if (formationsOpcosForUai.length === 0) {
-                stats.opcosForEtablishmentNotFound++;
+                stats.etablishments.notFound++;
                 logger.info(`No OPCOs found linked to etablissement ${e._id}`);
               } else {
                 e.opcos = [...new Set(formationsOpcosForUai.flatMap(x => x.opcos))]; // Unique opcos
@@ -108,13 +112,13 @@ module.exports = async () => {
                     opcos: x.opcos,
                   };
                 }); // List of couple formation / opcos
-                stats.opcosForEtablishmentUpdated++;
+                stats.etablishments.updated++;
                 logger.info(`Adding OPCOs found ${e.opcos} for formations linked to etablissement ${e._id}`);
               }
               await e.save();
             }
           } catch (e) {
-            stats.opcosForEtablishmentError++;
+            stats.etablishments.errors++;
             logger.error(e);
           }
         },
