@@ -53,7 +53,8 @@
     "Header": "Siret Formateur",
     "accessor": "etablissement_formateur_siret",
     "width": 200,
-    "editorInput": "text"
+    "editorInput": "text",
+    "editable": true
   },
   {
     "Header": "Uai formateur",

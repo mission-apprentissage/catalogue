@@ -5,7 +5,7 @@ const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const Spinner = require("cli-spinner").Spinner;
 const { connectToMongo } = require("../../../../common/mongo");
-const { attachFormationTo, attachEstablishmentTo } = require("../../../common-jobs/models");
+const { attachFormationTo, attachEstablishmentTo, attachDomainesMetiersTo } = require("../../../common-jobs/models");
 const { getConfig } = require("../../../../config");
 const { getElasticInstance } = require("../../../../common/esClient");
 
@@ -48,6 +48,9 @@ const run = async () => {
     const FormationFROM = attachFormationTo(mongooseFROM, FROM);
     const FormationTO = attachFormationTo(mongooseTO, TO);
 
+    const DomainesMetiersFROM = attachDomainesMetiersTo(mongooseFROM, FROM);
+    const DomainesMetiersTO = attachDomainesMetiersTo(mongooseTO, TO);
+
     // #endregion
 
     logger.info(" -- Etablissements -- ");
@@ -84,6 +87,25 @@ const run = async () => {
     spinner.start();
     await asyncForEach(fromFormations, async fromFormation => {
       const doc = new FormationTO(fromFormation._doc);
+      await doc.save();
+    });
+    spinner.stop();
+
+    logger.info(" -- DomainesMetiers -- ");
+
+    logger.info(`Get DomainesMetiers from ${FROM}`);
+    const fromDomainesMetiers = await DomainesMetiersFROM.find({});
+
+    logger.info(`Delete DomainesMetiers items and index in ${TO}`);
+    spinner.start();
+    await DomainesMetiersTO.collection.deleteMany({});
+    await rebuildIndex("domainesmetiers", DomainesMetiersTO, TO);
+    spinner.stop();
+
+    logger.info(`Add domainesmetiers from ${FROM} to ${TO}`);
+    spinner.start();
+    await asyncForEach(fromDomainesMetiers, async fromDomaineMetier => {
+      const doc = new DomainesMetiersTO(fromDomaineMetier._doc);
       await doc.save();
     });
     spinner.stop();

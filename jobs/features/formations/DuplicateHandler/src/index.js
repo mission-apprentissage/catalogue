@@ -20,14 +20,10 @@ const { Formation } = require("../../../../common-jobs/models");
 
 const NB_THREAD = 64;
 const attrToCompare = [
-  "etablissement_formateur_siret",
-  // "etablissement_responsable_siret",
-  "diplome",
-  "intitule",
-  "educ_nat_code", // 8 char mandatory
-  "niveau",
-  "uai_formation", // mandatory
-  "code_postal", // mandatory
+  //"etablissement_formateur_siret",
+  "etablissement_responsable_siret",
+  "educ_nat_code",
+  "code_postal",
   "mef_10_code",
 ];
 // etablissement_formateur_uai
@@ -62,7 +58,11 @@ const findDuplicate = (lookUp, trainings) => {
             const key = attrToCompare[i];
             countMatch[1]++; // total count
 
-            if (currentTraining[key] && training[key] && currentTraining[key] === training[key]) {
+            if (
+              currentTraining[key] &&
+              training[key] &&
+              `${currentTraining[key]}`.trim() === `${training[key]}`.trim()
+            ) {
               countMatch[0]++; // match count
             }
           }
