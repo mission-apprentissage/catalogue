@@ -30,6 +30,8 @@ provider:
 custom:
   dotenv:
     path: ../.env
+  serverless-offline:
+    useChildProcesses: true
   packageExternal:
     external:
       - '../common'
