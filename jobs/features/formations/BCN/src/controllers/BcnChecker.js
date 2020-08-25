@@ -122,36 +122,24 @@ class BcnChecker {
     return { info: infosCodes.intitule.NothingDoTo, value: match.LIBELLE_100 };
   }
 
-  getMef10(codeEducNat, mef_10_code) {
-    const match = find(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
-
-    if (!match) {
-      return { info: infosCodes.mef.NotFound, value: "" };
-    }
-
-    if (mef_10_code === match.MEF) {
-      return { info: infosCodes.mef.NothingDoTo, value: mef_10_code };
-    }
-
-    return { info: infosCodes.mef.Updated, value: match.MEF };
-  }
-
-  getMefs10(codeEducNat) {
-    const match = filter(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
+  findMefs10(codeEducNat) {
+    const match = filter(this.baseMef, { FORMATION_DIPLOME: codeEducNat });
     if (!match.length) {
-      return [];
+      return { info: infosCodes.mef.NotFound, value: [] };
     }
-    return match.map(m => `${m.MEF}`);
+    return { info: infosCodes.mef.NothingDoTo, value: match.map(m => `${m.MEF}`) };
   }
 
-  getMefs8(codeEducNat) {
+  findMefs8(codeEducNat) {
     const match = filter(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
 
     if (!match.length) {
-      return [];
+      return { info: infosCodes.mef.NotFound, value: [] };
     }
-
-    return match.map(m => `${m.DISPOSITIF_FORMATION}${codeEducNat.substring(3, codeEducNat.length)}`);
+    return {
+      info: infosCodes.mef.NothingDoTo,
+      value: match.map(m => `${m.DISPOSITIF_FORMATION}${codeEducNat.substring(3, codeEducNat.length)}`),
+    };
   }
 
   getModalities(mef_10_code) {

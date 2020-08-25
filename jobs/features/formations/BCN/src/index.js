@@ -1,8 +1,12 @@
 const bcnControlller = require("./controllers");
 
 const run = async cdf => {
-  const result = bcnControlller.getDataFromCdf(cdf);
-  console.log(result);
+  try {
+    const result = bcnControlller.getDataFromCdf(cdf);
+    console.log(result);
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-run("35020007");
+run("32321014");
