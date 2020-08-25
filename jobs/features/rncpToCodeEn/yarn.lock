@@ -129,7 +129,7 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-convert-csv-to-json@^0.0.15:
+convert-csv-to-json@0.0.15:
   version "0.0.15"
   resolved "https://registry.yarnpkg.com/convert-csv-to-json/-/convert-csv-to-json-0.0.15.tgz#f0ac35129b61d857cb370e4eaf2abd4779c2c15a"
   integrity sha512-mXpZWoSc3RXWuA50GAx/BAj+7GIWLmYCr2/IoW9L+cwwvRt6TkTY+15emUyeNInyfl5uZf+H6sQQkpKhjwJB0w==
@@ -168,7 +168,7 @@ emoji-regex@^7.0.1:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-7.0.3.tgz#933a04052860c85e83c122479c4748a8e4c72156"
   integrity sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA==
 
-env-var@^6.1.1:
+env-var@6.1.1:
   version "6.1.1"
   resolved "https://registry.yarnpkg.com/env-var/-/env-var-6.1.1.tgz#8c2963ebc221ca8cd9ad86c81844c0ad6fa1a792"
   integrity sha512-cuNYps3wIJKz4D01KAeYtuU0gqwKp59Fs5pPwRdAo9e/brL5XBCBDr7+Q474tYcP28c02QR/BNmQkygOxJcZ4g==

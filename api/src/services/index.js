@@ -78,7 +78,7 @@ module.exports.handler = async (event, context, callback) => {
           if (mode === "findCodeEn" || mode === "findCodeRNCP") {
             options = {
               ...options,
-              mode,
+              updateMode: mode === "findCodeEn" ? "updateCodeEnFromCodeRncp" : "updateCodeRncpFromCodeEn",
             };
           }
           await run(options);

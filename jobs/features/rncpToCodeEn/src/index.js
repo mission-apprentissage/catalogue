@@ -9,7 +9,12 @@ const run = async (options = {}, connectMongo = true) => {
   }, connectMongo);
 };
 
-run({
-  updateMode: process.env.UPDATE_MODE,
-  overrideMode: process.env.OVERRIDE_MODE,
-});
+module.exports.run = run;
+
+if (process.env.RNCP_EXEC === "1") {
+  console.log("run");
+  run({
+    updateMode: process.env.UPDATE_MODE,
+    overrideMode: process.env.OVERRIDE_MODE,
+  });
+}

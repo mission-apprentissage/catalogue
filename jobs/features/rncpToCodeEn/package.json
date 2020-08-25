@@ -6,7 +6,7 @@
   "license": "MIT",
   "author": "MNA",
   "scripts": {
-    "start": "dotenv -e ../../../.env node src/index.js",
+    "start": "RNCP_EXEC=1 dotenv -e ../../../.env node src/index.js",
     "stats": "dotenv -e ../../../.env node src/stats.js",
     "test": "mocha --recursive --exit --timeout 5000 test",
     "test:unit": "mocha --recursive --exit --timeout 1000 test/unit",
