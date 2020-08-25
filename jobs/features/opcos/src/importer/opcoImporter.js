@@ -1,6 +1,6 @@
 const { pipeline, writeObject } = require("../../../../../common/streamUtils");
 const logger = require("../../../../common-jobs/Logger").mainLogger;
-const { Formation } = require("../../../../../common/models2");
+const { Formation } = require("../../../../../common/models");
 const createReferentiel = require("../utils/referentiel");
 const { infosCodes, computeCodes } = require("../utils/constants");
 

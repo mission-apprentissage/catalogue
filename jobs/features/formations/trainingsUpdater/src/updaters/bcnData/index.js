@@ -4,7 +4,7 @@ const bcnChecker = require("./BcnChecker");
 const { difference } = require("lodash");
 const asyncForEach = require("../../../../../../common-jobs/utils").asyncForEach;
 const pSupData = require("../pSupData");
-const { Formation } = require("../../../../../../../common/models2");
+const { Formation } = require("../../../../../../../common/models");
 class BcnData {
   constructor() {
     this.countCodeEn = { ok: 0, ko: 0 };

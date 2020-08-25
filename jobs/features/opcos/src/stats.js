@@ -1,6 +1,6 @@
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const { connectToMongo, closeMongoConnection } = require("../../../../common/mongo");
-const { Formation } = require("../../../../common/models2");
+const { Formation } = require("../../../../common/models");
 
 const run = async () => {
   try {

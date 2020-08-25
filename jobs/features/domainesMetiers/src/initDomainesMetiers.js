@@ -1,6 +1,6 @@
 const { connectToMongo } = require("../../../../common/mongo");
 const { getElasticInstance } = require("../../../../common/esClient");
-const { DomainesMetiers } = require("../../../../common/models2");
+const { DomainesMetiers } = require("../../../../common/models");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const XLSX = require("xlsx");
 

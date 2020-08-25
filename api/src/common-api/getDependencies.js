@@ -8,12 +8,12 @@ let config = null;
 if (!mongo && !model && !mongoosasticHandler && !config) {
   if (process.env.STAGE === "local") {
     mongo = require("../../../common/mongo");
-    model = require("../../../common/models2");
+    model = require("../../../common/models");
     mongoosasticHandler = require("../../../common/esClient/mongoosastic");
     config = require("../../../config").config;
   } else {
     mongo = require("../../common/mongo");
-    model = require("../../common/models2");
+    model = require("../../common/models");
     mongoosasticHandler = require("../../common/esClient/mongoosastic");
     config = require("../../config").config;
   }

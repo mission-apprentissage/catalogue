@@ -1,5 +1,5 @@
 const { connectToMongo, closeMongoConnection } = require("../../../../../common/mongo");
-const { Formation } = require("../../../../../common/models2");
+const { Formation } = require("../../../../../common/models");
 
 const logger = require("../../../../common-jobs/Logger").mainLogger;
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;

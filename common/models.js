@@ -1,7 +1,7 @@
-const { mongooseInstance: mongooseInst } = require("../mongo");
-const { mongoosastic, getElasticInstance } = require("../esClient");
+const { mongooseInstance: mongooseInst } = require("./mongo");
+const { mongoosastic, getElasticInstance } = require("./esClient");
 
-const { establishmentSchema, trainingSchema, domainesMetiersSchema } = require("../models");
+const { establishmentSchema, trainingSchema, domainesMetiersSchema } = require("./schemas");
 
 const getModel = (MODELNAME, schema, mongooseInstance = mongooseInst, stage = null) => {
   const Schema = new mongooseInstance.Schema(schema);

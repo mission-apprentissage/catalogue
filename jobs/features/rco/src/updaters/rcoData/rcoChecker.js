@@ -3,7 +3,7 @@
 const { PATH_RCO_EXPORT, PATH_RCO_EXPORT_OLD } = require("./Constants");
 //const api = require("../../../../../../common/api");
 const { connectToMongo, closeMongoConnection } = require("../../../../../../common/mongo");
-const { Formation, Establishment } = require("../../../../../../common/models2");
+const { Formation, Establishment } = require("../../../../../../common/models");
 const asyncForEach = require("../../../../../common-jobs/utils").asyncForEach;
 // const { filter, find } = require("lodash");
 const fileManager = require("./FileManager");

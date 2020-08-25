@@ -1,6 +1,6 @@
 const { pipeline, writeObject } = require("../../../../common/streamUtils");
 const logger = require("../../../common-jobs/Logger").mainLogger;
-const { Formation } = require("../../../../common/models2");
+const { Formation } = require("../../../../common/models");
 const createCatalogue = require("./onisep/catalogue");
 
 module.exports = async (inputStream, options = {}) => {
