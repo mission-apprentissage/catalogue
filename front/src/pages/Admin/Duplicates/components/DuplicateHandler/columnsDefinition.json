@@ -240,13 +240,13 @@
     "Header": "NumAcademie Siege",
     "accessor": "num_academie_siege",
     "width": 200,
-    "editable": false
+    "editable": true
   },
   {
     "Header": "Nom Academie Siege",
     "accessor": "nom_academie_siege",
     "width": 200,
-    "editable": false
+    "editable": true
   },
   {
     "Header": "-",
