@@ -1,10 +1,10 @@
 const path = require("path");
 
-const PATH_FORMATION_DIPLOME = path.join(__dirname, "../assets/n_formation_diplome_15072020.csv");
-const PATH_NIVEAU_FORMATION_DIPLOME = path.join(__dirname, "../assets/n_niveau_formation_diplome_15072020.csv");
-const PATH_SPECIALITE = path.join(__dirname, "../assets/n_lettre_specialite_15072020.csv");
-const PATH_N_MEF = path.join(__dirname, "../assets/n_mef_15072020.csv");
-const PATH_N_DISPOSITIF_FORMATION = path.join(__dirname, "../assets/n_dispositif_formation_15072020.csv");
+const PATH_FORMATION_DIPLOME = path.join(__dirname, "./assets/n_formation_diplome_15072020.csv");
+const PATH_NIVEAU_FORMATION_DIPLOME = path.join(__dirname, "./assets/n_niveau_formation_diplome_15072020.csv");
+const PATH_SPECIALITE = path.join(__dirname, "./assets/n_lettre_specialite_15072020.csv");
+const PATH_N_MEF = path.join(__dirname, "./assets/n_mef_15072020.csv");
+const PATH_N_DISPOSITIF_FORMATION = path.join(__dirname, "./assets/n_dispositif_formation_15072020.csv");
 
 const infosCodes = {
   cdf: {

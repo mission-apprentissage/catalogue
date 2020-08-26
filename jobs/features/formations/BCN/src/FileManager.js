@@ -7,7 +7,7 @@ const {
   PATH_N_MEF,
   PATH_N_DISPOSITIF_FORMATION,
 } = require("./Constants");
-const logger = require("../../../../../common-jobs/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 

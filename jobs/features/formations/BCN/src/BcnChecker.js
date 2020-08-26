@@ -13,7 +13,7 @@ const {
 const { find, filter } = require("lodash");
 const moment = require("moment");
 const fileManager = require("./FileManager");
-const logger = require("../../../../../common-jobs/Logger").mainLogger;
+const logger = require("../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 
@@ -131,7 +131,7 @@ class BcnChecker {
   }
 
   findMefs8(codeEducNat) {
-    const match = filter(this.baseMef, { FORMATION_DIPLOME: `${codeEducNat}`.trim() });
+    const match = filter(this.baseMef, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: [] };
@@ -149,18 +149,13 @@ class BcnChecker {
     };
   }
 
-  /*
-  training.educ_nat_specialite_lettre = newSpeciality.letter;
-  training.educ_nat_specialite_libelle = newSpeciality.label;
-  training.educ_nat_specialite_libelle_court = newSpeciality.shortLabel;
-  */
   getSpeciality(specialityLetter) {
     try {
       const specialityData = this.baseSpecialite.find(item => item.LETTRE_SPECIALITE.trim() === specialityLetter);
       return {
-        letter: specialityLetter,
-        label: specialityData ? specialityData.LIBELLE_LONG : null,
-        shortLabel: specialityData ? specialityData.LIBELLE_COURT : null,
+        lettre: specialityLetter,
+        libelle: specialityData ? specialityData.LIBELLE_LONG : null,
+        libelle_court: specialityData ? specialityData.LIBELLE_COURT : null,
       };
     } catch (err) {
       logger.error(err);
