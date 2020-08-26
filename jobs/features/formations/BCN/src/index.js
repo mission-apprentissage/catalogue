@@ -1,17 +1,25 @@
-const { computeCodes } = require("./Constants");
+const { computeCodes, infosCodes } = require("./Constants");
 const bcnChecker = require("./BcnChecker");
 
-const getDataFromCfd = cfd => {
-  if (!cfd) {
+const getDataFromCfd = providedCfd => {
+  if (!providedCfd || !/^[0-9]{8}[A-Z]?$/g.test(providedCfd)) {
     return {
       result: {},
       messages: {
-        error: "Le code formation dilpome doit être définit",
+        error: "Le code formation dilpome doit être définit et au format 8 caractères ou 9 avec la lettre specialité",
       },
     };
   }
-  const cfdTrimmed = `${cfd}`.trim();
-  const cfdUpdated = bcnChecker.findCfd(cfdTrimmed);
+
+  let cfd = providedCfd.length === 9 ? providedCfd.substring(0, 8) : providedCfd;
+  cfd = `${cfd}`.trim();
+
+  const specialiteUpdated =
+    providedCfd.length === 9
+      ? bcnChecker.getSpeciality(providedCfd.substring(8, 9))
+      : { info: infosCodes.specialite.Error, value: null };
+
+  const cfdUpdated = bcnChecker.findCfd(cfd);
   const niveauUpdated = bcnChecker.findNiveau(cfdUpdated.value);
   const intituleLongUpdated = bcnChecker.findIntituleLong(cfdUpdated.value);
   const intituleCourtUpdated = bcnChecker.findIntituleCourt(cfdUpdated.value);
@@ -33,6 +41,7 @@ const getDataFromCfd = cfd => {
   return {
     result: {
       cfd: cfdUpdated.value,
+      specialite: specialiteUpdated.value,
       niveau: niveauUpdated.value,
       intitule_long: intituleLongUpdated.value,
       intitule_court: intituleCourtUpdated.value,
@@ -42,6 +51,7 @@ const getDataFromCfd = cfd => {
     },
     messages: {
       cfd: computeCodes.cfd[cfdUpdated.info],
+      specialite: computeCodes.specialite[specialiteUpdated.info],
       niveau: computeCodes.niveau[niveauUpdated.info],
       intitule_long: computeCodes.intitule[intituleLongUpdated.info],
       intitule_court: computeCodes.intitule[intituleCourtUpdated.info],
@@ -51,8 +61,14 @@ const getDataFromCfd = cfd => {
     },
   };
 };
-
 module.exports.getDataFromCfd = getDataFromCfd;
+
+const getModaliteFromMef10 = providedMef10 => {
+  return bcnChecker.getModalities(providedMef10);
+};
+module.exports.getModaliteFromMef10 = getModaliteFromMef10;
+
+//////////////////////////////////////////////////////////////////////////////////////////
 
 const run = async (
   options = {
@@ -63,10 +79,8 @@ const run = async (
   try {
     if (options.mode === "cfd_info") {
       return getDataFromCfd(options.value);
-    } else if (options.mode === "cfd_speciality") {
-      return bcnChecker.getSpeciality(options.value);
     } else if (options.mode === "mef_modalite") {
-      return bcnChecker.getModalities(options.value);
+      return getModaliteFromMef10(options.value);
     }
   } catch (error) {
     console.log(error);

@@ -28,6 +28,11 @@ const infosCodes = {
     NothingDoTo: 1,
     Updated: 2,
   },
+  specialite: {
+    Error: 0,
+    NothingDoTo: 1,
+    Updated: 2,
+  },
   mef: {
     Error: 0,
     NotFound: 1,
@@ -41,6 +46,7 @@ const computeCodes = {
   niveau: ["Erreur", "Ok", "Mis à jour"],
   intitule: ["Erreur", "Ok", "Mis à jour"],
   diplome: ["Erreur", "Ok", "Mis à jour"],
+  specialite: ["Erreur", "Ok", "Mis à jour"],
   mef: ["Erreur", "Non trouvé", "Ok", "Mis à jour"],
 };
 

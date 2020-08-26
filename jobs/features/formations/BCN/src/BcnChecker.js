@@ -119,7 +119,7 @@ class BcnChecker {
       return { info: infosCodes.diplome.Error, value: null };
     }
 
-    return { info: infosCodes.intitule.NothingDoTo, value: match.LIBELLE_100 };
+    return { info: infosCodes.diplome.NothingDoTo, value: match.LIBELLE_100 };
   }
 
   findMefs10(codeEducNat) {
@@ -153,13 +153,16 @@ class BcnChecker {
     try {
       const specialityData = this.baseSpecialite.find(item => item.LETTRE_SPECIALITE.trim() === specialityLetter);
       return {
-        lettre: specialityLetter,
-        libelle: specialityData ? specialityData.LIBELLE_LONG : null,
-        libelle_court: specialityData ? specialityData.LIBELLE_COURT : null,
+        info: infosCodes.specialite.NothingDoTo,
+        value: {
+          lettre: specialityLetter,
+          libelle: specialityData ? specialityData.LIBELLE_LONG : null,
+          libelle_court: specialityData ? specialityData.LIBELLE_COURT : null,
+        },
       };
     } catch (err) {
       logger.error(err);
-      return null;
+      return { info: infosCodes.specialite.Error, value: null };
     }
   }
 }
