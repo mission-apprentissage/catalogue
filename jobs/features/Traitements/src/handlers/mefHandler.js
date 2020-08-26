@@ -1,4 +1,4 @@
-const bcnController = require("../controllers/bcn/BcnController");
+const bcnController = require("../controllers/bcn/bcnController");
 
 const getModaliteFromMef10 = providedMef10 => {
   return bcnController.getModalities(providedMef10);

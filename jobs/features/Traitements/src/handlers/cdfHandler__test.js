@@ -21,7 +21,7 @@ describe(__filename, () => {
       },
       messages: {
         cfd: "Trouvé",
-        specialite: "Erreur",
+        specialite: "Non fourni",
         niveau: "Ok",
         intitule_long: "Ok",
         intitule_court: "Ok",
@@ -61,6 +61,15 @@ describe(__filename, () => {
         diplome: "Ok",
         mefs10: "Ok",
         mefs8: "Ok",
+      },
+    });
+  });
+
+  it("Doit retourner les erreurs avec un code Cfd erroné", async () => {
+    assert.deepStrictEqual(await getDataFromCfd("323210X14TW"), {
+      result: {},
+      messages: {
+        error: "Le code formation dilpome doit être définit et au format 8 caractères ou 9 avec la lettre specialité",
       },
     });
   });

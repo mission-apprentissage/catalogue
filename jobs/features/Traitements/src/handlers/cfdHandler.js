@@ -1,8 +1,8 @@
 const { computeCodes, infosCodes } = require("../controllers/bcn/Constants");
-const bcnController = require("../controllers/bcn/BcnController");
+const bcnController = require("../controllers/bcn/bcnController");
 
 const getDataFromCfd = providedCfd => {
-  if (!providedCfd || !/^[0-9]{8}[A-Z]?$/g.test(providedCfd)) {
+  if (!providedCfd || !/^[0-9A-Z]{8}[A-Z]?$/g.test(providedCfd.trim())) {
     return {
       result: {},
       messages: {
@@ -17,7 +17,7 @@ const getDataFromCfd = providedCfd => {
   const specialiteUpdated =
     providedCfd.length === 9
       ? bcnController.getSpeciality(providedCfd.substring(8, 9))
-      : { info: infosCodes.specialite.Error, value: null };
+      : { info: infosCodes.specialite.NotProvided, value: null };
 
   const cfdUpdated = bcnController.findCfd(cfd);
   const niveauUpdated = bcnController.findNiveau(cfdUpdated.value);
