@@ -1,5 +1,5 @@
-const { computeCodes, infosCodes } = require("./Constants");
-const bcnChecker = require("./BcnChecker");
+const { computeCodes, infosCodes } = require("../controllers/bcn/Constants");
+const bcnController = require("../controllers/bcn/BcnController");
 
 const getDataFromCfd = providedCfd => {
   if (!providedCfd || !/^[0-9]{8}[A-Z]?$/g.test(providedCfd)) {
@@ -16,27 +16,27 @@ const getDataFromCfd = providedCfd => {
 
   const specialiteUpdated =
     providedCfd.length === 9
-      ? bcnChecker.getSpeciality(providedCfd.substring(8, 9))
+      ? bcnController.getSpeciality(providedCfd.substring(8, 9))
       : { info: infosCodes.specialite.Error, value: null };
 
-  const cfdUpdated = bcnChecker.findCfd(cfd);
-  const niveauUpdated = bcnChecker.findNiveau(cfdUpdated.value);
-  const intituleLongUpdated = bcnChecker.findIntituleLong(cfdUpdated.value);
-  const intituleCourtUpdated = bcnChecker.findIntituleCourt(cfdUpdated.value);
-  const diplomeUpdated = bcnChecker.findDiplome(cfdUpdated.value);
+  const cfdUpdated = bcnController.findCfd(cfd);
+  const niveauUpdated = bcnController.findNiveau(cfdUpdated.value);
+  const intituleLongUpdated = bcnController.findIntituleLong(cfdUpdated.value);
+  const intituleCourtUpdated = bcnController.findIntituleCourt(cfdUpdated.value);
+  const diplomeUpdated = bcnController.findDiplome(cfdUpdated.value);
 
-  const Mefs10List = bcnChecker.findMefs10(cfdUpdated.value);
+  const Mefs10List = bcnController.findMefs10(cfdUpdated.value);
   const Mefs10Updated = [];
   for (let i = 0; i < Mefs10List.value.length; i++) {
     const mef10 = Mefs10List.value[i];
-    const modalite = bcnChecker.getModalities(mef10);
+    const modalite = bcnController.getModalities(mef10);
     Mefs10Updated.push({
       mef10,
       modalite,
     });
   }
 
-  const Mefs8Updated = bcnChecker.findMefs8(cfdUpdated.value);
+  const Mefs8Updated = bcnController.findMefs8(cfdUpdated.value);
 
   return {
     result: {
@@ -62,35 +62,3 @@ const getDataFromCfd = providedCfd => {
   };
 };
 module.exports.getDataFromCfd = getDataFromCfd;
-
-const getModaliteFromMef10 = providedMef10 => {
-  return bcnChecker.getModalities(providedMef10);
-};
-module.exports.getModaliteFromMef10 = getModaliteFromMef10;
-
-//////////////////////////////////////////////////////////////////////////////////////////
-
-const run = async (
-  options = {
-    mode: "cfd_info",
-    value: "XXXX",
-  }
-) => {
-  try {
-    if (options.mode === "cfd_info") {
-      return getDataFromCfd(options.value);
-    } else if (options.mode === "mef_modalite") {
-      return getModaliteFromMef10(options.value);
-    }
-  } catch (error) {
-    console.log(error);
-    return {
-      result: {},
-      messages: {
-        error: error.message,
-      },
-    };
-  }
-};
-
-module.exports.run = run;

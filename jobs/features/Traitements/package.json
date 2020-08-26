@@ -9,7 +9,7 @@
   "private": true,
   "scripts": {
     "start": "dotenv -e ../../../../.env node src/index.js",
-    "test": "mocha --recursive --exit --timeout 5000 test/",
+    "test": "mocha --recursive --exit --timeout 5000 src/**/*__test.js",
     "lint": "eslint ./src"
   },
   "engines": {

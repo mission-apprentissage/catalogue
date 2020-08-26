@@ -1,6 +1,6 @@
 const { describe, it } = require("mocha");
 const assert = require("assert");
-const { getDataFromCfd, getModaliteFromMef10 } = require("../../src");
+const { getDataFromCfd } = require("./cfdHandler");
 
 describe(__filename, () => {
   it("Vérifie que on récupere les informations BCN d'un code formation diplome 8 Caracteres", async () => {
@@ -63,9 +63,5 @@ describe(__filename, () => {
         mefs8: "Ok",
       },
     });
-  });
-
-  it("Vérifie que on récupere les modalités BCN d'un code MEF 10", async () => {
-    assert.deepStrictEqual(await getModaliteFromMef10("3712101422"), { duree: "2", annee: "2" });
   });
 });

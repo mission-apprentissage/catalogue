@@ -13,11 +13,11 @@ const {
 const { find, filter } = require("lodash");
 const moment = require("moment");
 const fileManager = require("./FileManager");
-const logger = require("../../../../common-jobs/Logger").mainLogger;
+const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 
-class BcnChecker {
+class BcnController {
   constructor() {
     this.baseFormationDiplome = fileManager.getDataBcnFormationDiplomeFromFile(PATH_FORMATION_DIPLOME);
     this.baseNiveauFormationDiplome = fileManager.getDataBcnNiveauFormationDiplomeFromFile(
@@ -167,5 +167,5 @@ class BcnChecker {
   }
 }
 
-const bcnChecker = new BcnChecker();
-module.exports = bcnChecker;
+const bcnController = new BcnController();
+module.exports = bcnController;
