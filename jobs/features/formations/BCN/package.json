@@ -9,6 +9,7 @@
   "private": true,
   "scripts": {
     "start": "dotenv -e ../../../../.env node src/index.js",
+    "test": "mocha --recursive --exit --timeout 5000 test/",
     "lint": "eslint ./src"
   },
   "engines": {
@@ -37,6 +38,7 @@
     "eslint-config-prettier": "^6.9.0",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
+    "mocha": "^8.1.1",
     "prettier": "^1.19.1"
   }
 }

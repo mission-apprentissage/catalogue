@@ -30,52 +30,52 @@ class BcnChecker {
     this.validLimiteDate = moment("31/08/2020", "DD/MM/YYYY");
   }
 
-  findCdf(codeEducNat, previousInfo = null) {
+  findCfd(codeEducNat, previousInfo = null) {
     try {
       const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
 
       if (!match) {
-        return { info: infosCodes.cdf.NotFound, value: codeEducNat };
+        return { info: infosCodes.cfd.NotFound, value: codeEducNat };
       }
 
       if (match.DATE_FERMETURE === "") {
         // Valide codeEn
-        return { info: previousInfo ? previousInfo : infosCodes.cdf.Found, value: codeEducNat };
+        return { info: previousInfo ? previousInfo : infosCodes.cfd.Found, value: codeEducNat };
       }
 
       const closingDate = moment(match.DATE_FERMETURE, "DD/MM/YYYY");
 
       if (closingDate.isAfter(this.validLimiteDate)) {
         // Valide codeEn
-        return { info: previousInfo ? previousInfo : infosCodes.cdf.Found, value: codeEducNat };
+        return { info: previousInfo ? previousInfo : infosCodes.cfd.Found, value: codeEducNat };
       }
 
       if (match.NOUVEAU_DIPLOME_7 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_7, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_7, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_6 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_6, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_6, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_5 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_5, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_5, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_4 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_4, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_4, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_3 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_3, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_3, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_2 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_2, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_2, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_1 !== "") {
-        return this.findCdf(match.NOUVEAU_DIPLOME_1, infosCodes.cdf.Updated);
+        return this.findCfd(match.NOUVEAU_DIPLOME_1, infosCodes.cfd.Updated);
       }
 
-      return { info: infosCodes.cdf.OutDated, value: codeEducNat };
+      return { info: infosCodes.cfd.OutDated, value: codeEducNat };
     } catch (err) {
       logger.error(err);
-      return { info: infosCodes.cdf.NotFound, value: codeEducNat };
+      return { info: infosCodes.cfd.NotFound, value: codeEducNat };
     }
   }
 

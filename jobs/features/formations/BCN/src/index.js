@@ -1,18 +1,23 @@
 const { computeCodes } = require("./Constants");
 const bcnChecker = require("./BcnChecker");
 
-const getDataFromCdf = cdf => {
-  if (!cdf) {
-    return null;
+const getDataFromCfd = cfd => {
+  if (!cfd) {
+    return {
+      result: {},
+      messages: {
+        error: "Le code formation dilpome doit être définit",
+      },
+    };
   }
-  const cdfTrimmed = `${cdf}`.trim();
-  const cdfUpdated = bcnChecker.findCdf(cdfTrimmed);
-  const niveauUpdated = bcnChecker.findNiveau(cdfUpdated.value);
-  const intituleLongUpdated = bcnChecker.findIntituleLong(cdfUpdated.value);
-  const intituleCourtUpdated = bcnChecker.findIntituleCourt(cdfUpdated.value);
-  const diplomeUpdated = bcnChecker.findDiplome(cdfUpdated.value);
+  const cfdTrimmed = `${cfd}`.trim();
+  const cfdUpdated = bcnChecker.findCfd(cfdTrimmed);
+  const niveauUpdated = bcnChecker.findNiveau(cfdUpdated.value);
+  const intituleLongUpdated = bcnChecker.findIntituleLong(cfdUpdated.value);
+  const intituleCourtUpdated = bcnChecker.findIntituleCourt(cfdUpdated.value);
+  const diplomeUpdated = bcnChecker.findDiplome(cfdUpdated.value);
 
-  const Mefs10List = bcnChecker.findMefs10(cdfUpdated.value);
+  const Mefs10List = bcnChecker.findMefs10(cfdUpdated.value);
   const Mefs10Updated = [];
   for (let i = 0; i < Mefs10List.value.length; i++) {
     const mef10 = Mefs10List.value[i];
@@ -23,11 +28,11 @@ const getDataFromCdf = cdf => {
     });
   }
 
-  const Mefs8Updated = bcnChecker.findMefs8(cdfUpdated.value);
+  const Mefs8Updated = bcnChecker.findMefs8(cfdUpdated.value);
 
   return {
     result: {
-      cdf: cdfUpdated.value,
+      cfd: cfdUpdated.value,
       niveau: niveauUpdated.value,
       intitule_long: intituleLongUpdated.value,
       intitule_court: intituleCourtUpdated.value,
@@ -36,7 +41,7 @@ const getDataFromCdf = cdf => {
       mefs8: Mefs8Updated.value,
     },
     messages: {
-      cdf: computeCodes.cdf[cdfUpdated.info],
+      cfd: computeCodes.cfd[cfdUpdated.info],
       niveau: computeCodes.niveau[niveauUpdated.info],
       intitule_long: computeCodes.intitule[intituleLongUpdated.info],
       intitule_court: computeCodes.intitule[intituleCourtUpdated.info],
@@ -47,43 +52,31 @@ const getDataFromCdf = cdf => {
   };
 };
 
-module.exports.getDataFromCdf = getDataFromCdf;
+module.exports.getDataFromCfd = getDataFromCfd;
 
 const run = async (
   options = {
-    mode: "cdf_info",
+    mode: "cfd_info",
     value: "XXXX",
   }
 ) => {
   try {
-    if (options.mode === "cdf_info") {
-      const response = getDataFromCdf(options.value);
-      console.log(response);
-    } else if (options.mode === "cdf_speciality") {
-      const response = bcnChecker.getSpeciality(options.value);
-      console.log(response);
+    if (options.mode === "cfd_info") {
+      return getDataFromCfd(options.value);
+    } else if (options.mode === "cfd_speciality") {
+      return bcnChecker.getSpeciality(options.value);
     } else if (options.mode === "mef_modalite") {
-      const response = bcnChecker.getModalities(options.value);
-      console.log(response);
+      return bcnChecker.getModalities(options.value);
     }
   } catch (error) {
     console.log(error);
+    return {
+      result: {},
+      messages: {
+        error: error.message,
+      },
+    };
   }
 };
 
 module.exports.run = run;
-
-run({
-  mode: "cdf_info",
-  value: "32321014",
-});
-
-// run({
-//   mode: "mef_modalite",
-//   value: "3712101422",
-// });
-
-// run({
-//   mode: "cdf_speciality",
-//   value: "T",
-// });

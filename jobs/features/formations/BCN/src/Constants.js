@@ -7,7 +7,7 @@ const PATH_N_MEF = path.join(__dirname, "./assets/n_mef_15072020.csv");
 const PATH_N_DISPOSITIF_FORMATION = path.join(__dirname, "./assets/n_dispositif_formation_15072020.csv");
 
 const infosCodes = {
-  cdf: {
+  cfd: {
     OutDated: 0,
     NotFound: 1,
     Found: 2,
@@ -37,7 +37,7 @@ const infosCodes = {
 };
 
 const computeCodes = {
-  cdf: ["Périmé", "Non trouvé", "Trouvé", "Mis à jour"],
+  cfd: ["Périmé", "Non trouvé", "Trouvé", "Mis à jour"],
   niveau: ["Erreur", "Ok", "Mis à jour"],
   intitule: ["Erreur", "Ok", "Mis à jour"],
   diplome: ["Erreur", "Ok", "Mis à jour"],
