@@ -184,6 +184,14 @@ class BcnController {
     return { info: infosCodes.diplome.NothingDoTo, value: match.LIBELLE_100 };
   }
 
+  findCfdFromMef10(mef10) {
+    const match = filter(this.baseMef, { MEF: mef10 });
+    if (!match.length) {
+      return { info: computeCodes.mef[infosCodes.mef.NotFound], value: [] };
+    }
+    return { info: computeCodes.mef[infosCodes.mef.NothingDoTo], value: match.map(m => `${m.FORMATION_DIPLOME}`) };
+  }
+
   findMefs10(codeEducNat) {
     const match = filter(this.baseMef, { FORMATION_DIPLOME: codeEducNat });
     if (!match.length) {
