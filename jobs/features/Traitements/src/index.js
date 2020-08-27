@@ -1,6 +1,7 @@
 const { getDataFromCfd } = require("./handlers/cfdHandler");
 const { getModaliteFromMef10 } = require("./handlers/mefHandler");
 const { getDataFromCP } = require("./handlers/geoHandler");
+const { getDataFromRncp } = require("./handlers/rncpHandler");
 
 const run = async (
   options = {
@@ -15,6 +16,10 @@ const run = async (
       return getModaliteFromMef10(options.value);
     } else if (options.mode === "cp_info") {
       const r = await getDataFromCP(options.value);
+      console.log(r);
+      return r;
+    } else if (options.mode === "rncp_info") {
+      const r = await getDataFromRncp(options.value);
       console.log(r);
       return r;
     }
@@ -32,6 +37,6 @@ const run = async (
 module.exports.run = run;
 
 // run({
-//   mode: "cp_info",
-//   value: "92004",
+//   mode: "rncp_info",
+//   value: "RNCP24440",
 // });

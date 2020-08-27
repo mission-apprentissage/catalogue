@@ -18,6 +18,7 @@ describe(__filename, () => {
           { mef10: "3702101411", modalite: { duree: "1", annee: "1" } },
         ],
         mefs8: ["37121014", "37121014", "37021014"],
+        code_rncp: "RNCP24440",
       },
       messages: {
         cfd: "Trouvé",
@@ -28,6 +29,7 @@ describe(__filename, () => {
         diplome: "Ok",
         mefs10: "Ok",
         mefs8: "Ok",
+        code_rncp: "Ok",
       },
     });
   });
@@ -51,6 +53,7 @@ describe(__filename, () => {
           { mef10: "3702101411", modalite: { duree: "1", annee: "1" } },
         ],
         mefs8: ["37121014", "37121014", "37021014"],
+        code_rncp: "RNCP24440",
       },
       messages: {
         cfd: "Trouvé",
@@ -61,15 +64,19 @@ describe(__filename, () => {
         diplome: "Ok",
         mefs10: "Ok",
         mefs8: "Ok",
+        code_rncp: "Ok",
       },
     });
   });
 
   it("Doit retourner les erreurs avec un code Cfd erroné", async () => {
     assert.deepStrictEqual(await getDataFromCfd("323210X14TW"), {
-      result: {},
+      result: {
+        code_rncp: null,
+      },
       messages: {
         error: "Le code formation dilpome doit être définit et au format 8 caractères ou 9 avec la lettre specialité",
+        code_rncp: "Non trouvé",
       },
     });
   });
