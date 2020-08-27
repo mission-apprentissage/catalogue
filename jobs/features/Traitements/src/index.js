@@ -11,7 +11,10 @@ const run = async (
 ) => {
   try {
     if (options.mode === "cfd_info") {
-      return getDataFromCfd(options.value);
+      const r = await getDataFromCfd(options.value);
+      console.log(r);
+      console.log(r.result.mefs10);
+      return r;
     } else if (options.mode === "mef_info") {
       const r = await getDataFromMef10(options.value);
       console.log(r);
@@ -38,6 +41,10 @@ const run = async (
 
 module.exports.run = run;
 
+// run({
+//   mode: "cfd_info",
+//   value: "50022135",
+// });
 run({
   mode: "mef_info",
   value: "4173320611",
