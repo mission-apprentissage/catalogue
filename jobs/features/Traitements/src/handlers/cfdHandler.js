@@ -14,7 +14,7 @@ const getDataFromCfd = providedCfd => {
     result: {
       ...bcnData.result,
       rncp: { ...rncpData.result },
-      mef: {
+      mefs: {
         ...mefs.result,
         ...mef10Data.result,
       },
@@ -23,7 +23,7 @@ const getDataFromCfd = providedCfd => {
       ...bcnData.messages,
 
       rncp: { ...rncpData.messages },
-      mef: {
+      mefs: {
         ...mefs.messages,
         ...mef10Data.messages,
       },

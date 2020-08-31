@@ -11,7 +11,7 @@ const {
   PATH_SPECIALITE,
   computeCodes,
 } = require("./Constants");
-const { find, filter } = require("lodash");
+const { find, filter, uniq } = require("lodash");
 const moment = require("moment");
 const fileManager = require("./FileManager");
 const logger = require("../../../../../common-jobs/Logger").mainLogger;
@@ -255,9 +255,10 @@ class BcnController {
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: [] };
     }
+    const result = match.map(m => `${m.DISPOSITIF_FORMATION}${codeEducNat.substring(3, codeEducNat.length)}`);
     return {
       info: infosCodes.mef.NothingDoTo,
-      value: match.map(m => `${m.DISPOSITIF_FORMATION}${codeEducNat.substring(3, codeEducNat.length)}`),
+      value: uniq(result),
     };
   }
 

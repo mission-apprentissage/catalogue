@@ -14,7 +14,7 @@ const getDataFromRncp = providedRncp => {
       cfd: {
         ...cfdData.result,
       },
-      mef: {
+      mefs: {
         ...mefs.result,
         ...mef10Data.result,
       },
@@ -24,7 +24,7 @@ const getDataFromRncp = providedRncp => {
       cfd: {
         ...cfdData.messages,
       },
-      mef: {
+      mefs: {
         ...mefs.messages,
         ...mef10Data.messages,
       },
