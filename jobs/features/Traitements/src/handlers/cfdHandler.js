@@ -5,15 +5,16 @@ const getDataFromCfd = providedCfd => {
   const bcnData = bcnController.getDataFromCfd(providedCfd);
 
   const codeRncpUpdated = fcController.findRncpFromCfd(bcnData.result.cfd);
+  const rncpData = fcController.getDataFromRncp(codeRncpUpdated.value);
 
   return {
     result: {
       ...bcnData.result,
-      code_rncp: codeRncpUpdated.value,
+      rncp: { ...rncpData.result },
     },
     messages: {
       ...bcnData.messages,
-      code_rncp: codeRncpUpdated.info,
+      rncp: { ...rncpData.messages },
     },
   };
 };
