@@ -39,7 +39,7 @@ class FcController {
   }
 
   getDataFromRncp(providedRncp) {
-    if (!providedRncp || !/^(RNCP)?[0-9]{5}$/g.test(providedRncp.trim())) {
+    if (!providedRncp || !/^(RNCP)?[0-9]{2,5}$/g.test(providedRncp.trim())) {
       return {
         result: {},
         messages: {
