@@ -3,6 +3,7 @@ const fcController = require("../controllers/fc/fcController");
 
 const getDataFromCfd = providedCfd => {
   const bcnData = bcnController.getDataFromCfd(providedCfd);
+
   const mefs = bcnController.getMefsFromCfd(bcnData.result.cfd);
   const mef10Data = bcnController.getMef10DataFromMefs(mefs);
 
