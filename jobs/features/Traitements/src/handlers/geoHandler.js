@@ -1,4 +1,4 @@
-const geoController = require("../controllers/geoController");
+const geoController = require("../controllers/geo/geoController");
 
 const getDataFromCP = async providedCP => {
   if (!providedCP || !geoController.isValidCodePostal(providedCP.trim())) {
@@ -38,7 +38,6 @@ const getDataFromCP = async providedCP => {
       region: nom_region,
       nom_academie: nomAcademieUpdated.value,
       num_academie: numAcademieUpdated.value,
-      //geo_coordonnees:cfdUpdated.value,
     },
     messages: {
       cp: info,
@@ -49,4 +48,25 @@ const getDataFromCP = async providedCP => {
 };
 module.exports.getDataFromCP = getDataFromCP;
 
-// Add GetGeo from Adresse
+const getCoordaniteFromAdresseData = async ({ numero_voie, type_voie, nom_voie, code_postal, localite }) => {
+  const geoUpdated = await getDataFromCP(code_postal);
+  const coordUpdated = await geoController.findGeoCoordinateFromAdresse({
+    numero_voie,
+    type_voie,
+    nom_voie,
+    code_postal,
+    localite,
+  });
+
+  return {
+    result: {
+      geo_coordonnees: coordUpdated.value,
+      ...geoUpdated.result,
+    },
+    messages: {
+      geo_coordonnees: coordUpdated.info,
+      ...geoUpdated.messages,
+    },
+  };
+};
+module.exports.getCoordaniteFromAdresseData = getCoordaniteFromAdresseData;

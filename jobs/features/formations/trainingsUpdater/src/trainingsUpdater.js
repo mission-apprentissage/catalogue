@@ -30,14 +30,14 @@ const run = async (updateOnly = null, connectMongo = true) => {
       let updatedNeeded = false;
 
       // Fix / Clean CodeEn
-      const updatesCodeEnData = codeEnData.getUpdates(updatedTraining);
-      if (updatesCodeEnData) {
-        updatedTraining = {
-          ...updatedTraining,
-          ...updatesCodeEnData,
-        };
-        updatedNeeded = true;
-      }
+      // const updatesCodeEnData = codeEnData.getUpdates(updatedTraining);
+      // if (updatesCodeEnData) {
+      //   updatedTraining = {
+      //     ...updatedTraining,
+      //     ...updatesCodeEnData,
+      //   };
+      //   updatedNeeded = true;
+      // }
 
       // Update Establishments information
       const updatesEstablishmentsData = await establishmentsData.getUpdates(updatedTraining);
@@ -50,34 +50,34 @@ const run = async (updateOnly = null, connectMongo = true) => {
       }
 
       // Update location information
-      const updatesLocationData = locationData.getUpdates(updatedTraining);
-      if (updatesLocationData) {
-        updatedTraining = {
-          ...updatedTraining,
-          ...updatesLocationData,
-        };
-        updatedNeeded = true;
-      }
+      // const updatesLocationData = locationData.getUpdates(updatedTraining);
+      // if (updatesLocationData) {
+      //   updatedTraining = {
+      //     ...updatedTraining,
+      //     ...updatesLocationData,
+      //   };
+      //   updatedNeeded = true;
+      // }
 
       // Update academie information
-      const updatesAcademieData = await academieData.getUpdates(updatedTraining);
-      if (updatesAcademieData) {
-        updatedTraining = {
-          ...updatedTraining,
-          ...updatesAcademieData,
-        };
-        updatedNeeded = true;
-      }
+      // const updatesAcademieData = await academieData.getUpdates(updatedTraining);
+      // if (updatesAcademieData) {
+      //   updatedTraining = {
+      //     ...updatedTraining,
+      //     ...updatesAcademieData,
+      //   };
+      //   updatedNeeded = true;
+      // }
 
       // Update BCN > codeEn,niveau, intitule court & long, diplome information, codeMEF, Modalité + get multi mef10 trainings
-      const { updatedTraining: updatesBcnData, trainingsToCreate } = await bcnData.getUpdates(updatedTraining);
-      if (updatesBcnData) {
-        updatedTraining = {
-          ...updatedTraining,
-          ...updatesBcnData,
-        };
-        updatedNeeded = true;
-      }
+      // const { updatedTraining: updatesBcnData, trainingsToCreate } = await bcnData.getUpdates(updatedTraining);
+      // if (updatesBcnData) {
+      //   updatedTraining = {
+      //     ...updatedTraining,
+      //     ...updatesBcnData,
+      //   };
+      //   updatedNeeded = true;
+      // }
 
       // Update PSup
       const updatesPSupData = await pSupData.getUpdates(updatedTraining);
