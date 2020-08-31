@@ -55,19 +55,6 @@ class BcnController {
     const intituleCourtUpdated = this.findIntituleCourt(cfdUpdated.value);
     const diplomeUpdated = this.findDiplome(cfdUpdated.value);
 
-    const Mefs10List = this.findMefs10(cfdUpdated.value);
-    const Mefs10Updated = [];
-    for (let i = 0; i < Mefs10List.value.length; i++) {
-      const mef10 = Mefs10List.value[i];
-      const modalite = this.getModalities(mef10);
-      Mefs10Updated.push({
-        mef10,
-        modalite,
-      });
-    }
-
-    const Mefs8Updated = this.findMefs8(cfdUpdated.value);
-
     return {
       result: {
         cfd: cfdUpdated.value,
@@ -76,8 +63,6 @@ class BcnController {
         intitule_long: intituleLongUpdated.value,
         intitule_court: intituleCourtUpdated.value,
         diplome: diplomeUpdated.value,
-        mefs10: Mefs10Updated,
-        mefs8: Mefs8Updated.value,
       },
       messages: {
         cfd: computeCodes.cfd[cfdUpdated.info],
@@ -86,8 +71,6 @@ class BcnController {
         intitule_long: computeCodes.intitule[intituleLongUpdated.info],
         intitule_court: computeCodes.intitule[intituleCourtUpdated.info],
         diplome: computeCodes.diplome[diplomeUpdated.info],
-        mefs10: computeCodes.mef[Mefs10List.info],
-        mefs8: computeCodes.mef[Mefs8Updated.info],
       },
     };
   }
@@ -104,24 +87,53 @@ class BcnController {
     let mef10 = `${providedMef10}`.trim();
     const cfdUpdated = this.findCfdFromMef10(mef10);
 
-    let codesFromCfd = { result: {}, messages: {} };
-    if (cfdUpdated.value) {
-      codesFromCfd = this.getDataFromCfd(cfdUpdated.value);
-    }
-
     const modalite = this.getModalities(mef10);
 
     return {
       result: {
         mef10,
         modalite,
-        ...codesFromCfd.result,
+        cfd: cfdUpdated.value,
       },
       messages: {
         mef10: computeCodes.mef[cfdUpdated.info],
-        ...codesFromCfd.messages,
+        cfdUpdated: computeCodes.cfd[cfdUpdated.info],
       },
     };
+  }
+
+  getMefsFromCfd(codeEducNat) {
+    const Mefs10List = this.findMefs10(codeEducNat);
+    const Mefs10Updated = [];
+    for (let i = 0; i < Mefs10List.value.length; i++) {
+      const mef10 = Mefs10List.value[i];
+      const modalite = this.getModalities(mef10);
+      Mefs10Updated.push({
+        mef10,
+        modalite,
+      });
+    }
+    const Mefs8Updated = this.findMefs8(codeEducNat);
+
+    return {
+      result: {
+        mefs10: Mefs10Updated,
+        mefs8: Mefs8Updated.value,
+      },
+      messages: {
+        mefs10: computeCodes.mef[Mefs10List.info],
+        mefs8: computeCodes.mef[Mefs8Updated.info],
+      },
+    };
+  }
+
+  getMef10DataFromMefs(mefs) {
+    let mef10Data = { result: {}, messages: {} };
+    if (mefs.result.mefs10.length === 1) {
+      mef10Data = bcnController.getDataFromMef10(mefs.result.mefs10[0].mef10);
+      delete mef10Data.result.cfd;
+    }
+    return mef10Data;
   }
 
   findCfd(codeEducNat, previousInfo = null) {

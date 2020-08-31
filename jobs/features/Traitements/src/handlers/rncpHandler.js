@@ -5,6 +5,8 @@ const getDataFromRncp = providedRncp => {
   const rncpData = fcController.getDataFromRncp(providedRncp);
 
   const cfdData = bcnController.getDataFromCfd(rncpData.result.cfd);
+  const mefs = bcnController.getMefsFromCfd(cfdData.result.cfd);
+  const mef10Data = bcnController.getMef10DataFromMefs(mefs);
 
   return {
     result: {
@@ -12,11 +14,19 @@ const getDataFromRncp = providedRncp => {
       cfd: {
         ...cfdData.result,
       },
+      mef: {
+        ...mefs.result,
+        ...mef10Data.result,
+      },
     },
     messages: {
       ...rncpData.messages,
       cfd: {
         ...cfdData.messages,
+      },
+      mef: {
+        ...mefs.messages,
+        ...mef10Data.messages,
       },
     },
   };

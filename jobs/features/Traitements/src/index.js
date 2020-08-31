@@ -43,7 +43,7 @@ module.exports.run = run;
 
 // run({
 //   mode: "cfd_info",
-//   value: "50022135",
+//   value: "26033206",
 // });
 run({
   mode: "mef_info",
@@ -51,5 +51,5 @@ run({
 });
 // run({
 //   mode: "rncp_info",
-//   value: "RNCP24440", // RNCP24435 RNCP24440
+//   value: "RNCP7571", // RNCP24435 RNCP24440
 // });
