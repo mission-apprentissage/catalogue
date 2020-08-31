@@ -39,6 +39,7 @@ const infosCodes = {
     NotFound: 1,
     NothingDoTo: 2,
     Updated: 3,
+    Multiple: 4,
   },
 };
 
@@ -48,7 +49,7 @@ const computeCodes = {
   intitule: ["Erreur", "Ok", "Mis à jour"],
   diplome: ["Erreur", "Ok", "Mis à jour"],
   specialite: ["Erreur", "Ok", "Mis à jour", "Non fourni"],
-  mef: ["Erreur", "Non trouvé", "Ok", "Mis à jour"],
+  mef: ["Erreur", "Non trouvé", "Ok", "Mis à jour", "Erreur Plusieurs code CFD trouvé"],
 };
 
 const niveaux = [

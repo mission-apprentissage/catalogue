@@ -92,6 +92,38 @@ class BcnController {
     };
   }
 
+  getDataFromMef10(providedMef10) {
+    if (!providedMef10 || !/^[0-9]{10}$/g.test(providedMef10.trim())) {
+      return {
+        result: {},
+        messages: {
+          error: "Le code MEF 10 doit être définit et au format 10 caractères",
+        },
+      };
+    }
+    let mef10 = `${providedMef10}`.trim();
+    const cfdUpdated = this.findCfdFromMef10(mef10);
+
+    let codesFromCfd = { result: {}, messages: {} };
+    if (cfdUpdated.value) {
+      codesFromCfd = this.getDataFromCfd(cfdUpdated.value);
+    }
+
+    const modalite = this.getModalities(mef10);
+
+    return {
+      result: {
+        mef10,
+        modalite,
+        ...codesFromCfd.result,
+      },
+      messages: {
+        mef10: computeCodes.mef[cfdUpdated.info],
+        ...codesFromCfd.messages,
+      },
+    };
+  }
+
   findCfd(codeEducNat, previousInfo = null) {
     try {
       const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
@@ -187,9 +219,14 @@ class BcnController {
   findCfdFromMef10(mef10) {
     const match = filter(this.baseMef, { MEF: mef10 });
     if (!match.length) {
-      return { info: computeCodes.mef[infosCodes.mef.NotFound], value: [] };
+      return { info: infosCodes.mef.NotFound, value: null };
     }
-    return { info: computeCodes.mef[infosCodes.mef.NothingDoTo], value: match.map(m => `${m.FORMATION_DIPLOME}`) };
+
+    const result = match.map(m => `${m.FORMATION_DIPLOME}`);
+    if (result.length > 1) {
+      return { info: infosCodes.mef.Multiple, value: null };
+    }
+    return { info: infosCodes.mef.NothingDoTo, value: result[0] };
   }
 
   findMefs10(codeEducNat) {

@@ -12,9 +12,22 @@ module.exports = () => {
         total: referentielCodesDiplomesRncp.length,
       };
     },
+
     findCodeEn: codeRNCP => {
       let found = referentielCodesDiplomesRncp.find(x => x.CodeRNCP === codeRNCP);
       return found ? found.CodeDiplome : null;
+    },
+    findNiveau: codeRNCP => {
+      let found = referentielCodesDiplomesRncp.find(x => x.CodeRNCP === codeRNCP);
+      return found ? found.Niveau2019 : null;
+    },
+    findType: codeRNCP => {
+      let found = referentielCodesDiplomesRncp.find(x => x.CodeRNCP === codeRNCP);
+      return found ? found.type : null;
+    },
+    findIntituleDiplome: codeRNCP => {
+      let found = referentielCodesDiplomesRncp.find(x => x.CodeRNCP === codeRNCP);
+      return found ? found.Intitule : null;
     },
     findCodeRNCP: codeEn => {
       let found = referentielCodesDiplomesRncp.find(x => x.CodeDiplome === codeEn);

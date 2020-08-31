@@ -1,21 +1,19 @@
 const bcnController = require("../controllers/bcn/bcnController");
-//const fcController = require("../controllers/fc/fcController");
+const fcController = require("../controllers/fc/fcController");
 
 const getDataFromMef10 = providedMef10 => {
-  const r = bcnController.findCfdFromMef10(providedMef10);
-  // r.value[0]
-  //console.log(r);
-  const bcnData = bcnController.getDataFromCfd(r.value[0]);
-  //bcnController.getModalities(providedMef10);
+  const bcnData = bcnController.getDataFromMef10(providedMef10);
+
+  const codeRncpUpdated = fcController.findRncpFromCfd(bcnData.result.cfd);
 
   return {
     result: {
-      cfd: r.value[0],
       ...bcnData.result,
+      code_rncp: codeRncpUpdated.value,
     },
     messages: {
-      cfd: r.info,
       ...bcnData.messages,
+      code_rncp: codeRncpUpdated.info,
     },
   };
 };
