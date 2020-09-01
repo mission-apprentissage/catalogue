@@ -2,6 +2,7 @@ const { getDataFromCfd } = require("./handlers/cfdHandler");
 const { getDataFromMef10 } = require("./handlers/mefHandler");
 const { getDataFromCP, getCoordaniteFromAdresseData } = require("./handlers/geoHandler");
 const { getDataFromRncp } = require("./handlers/rncpHandler");
+const { getDataFromSiret } = require("./handlers/siretHandler");
 
 const run = async (
   options = {
@@ -31,6 +32,10 @@ const run = async (
       const r = await getDataFromRncp(options.value);
       console.log(r);
       return r;
+    } else if (options.mode === "siret_info") {
+      const r = await getDataFromSiret(options.value);
+      console.log(r);
+      return r;
     }
   } catch (error) {
     console.log(error);
@@ -57,13 +62,22 @@ module.exports.run = run;
 //   mode: "rncp_info",
 //   value: "RNCP7571", // RNCP24435 RNCP24440
 // });
+// run({
+//   mode: "cp_info",
+//   value: "92600",
+// });
+// run({
+//   mode: "coordinate_info",
+//   value: {
+//     numero_voie: "4",
+//     type_voie: "rue",
+//     nom_voie: "Pierre Durand",
+//     code_postal: "92600",
+//     localite: "Asnières-sur-Seine",
+//   },
+// });
+
 run({
-  mode: "coordinate_info",
-  value: {
-    numero_voie: "4",
-    type_voie: "rue",
-    nom_voie: "Pierre Durand",
-    code_postal: "92600",
-    localite: "Asnières-sur-Seine",
-  },
+  mode: "siret_info",
+  value: "32922456200234", // 32922456200630
 });

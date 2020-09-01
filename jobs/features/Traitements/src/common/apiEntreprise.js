@@ -1,4 +1,3 @@
-const logger = require("../../../../../common-jobs/Logger").mainLogger;
 const axios = require("axios");
 
 // Cf Documentation : https://doc.entreprise.api.gouv.fr/#param-tres-obligatoires
@@ -18,7 +17,7 @@ class ApiEntreprise {
       const response = await axios.get(`${apiEndpoint}/entreprises/${siren}`, { params: apiParams });
       return response.data;
     } catch (error) {
-      logger.error(error);
+      console.error(error);
       return null;
     }
   }
@@ -28,7 +27,7 @@ class ApiEntreprise {
       const response = await axios.get(`${apiEndpoint}/etablissements/${siret}`, { params: apiParams });
       return response.data;
     } catch (error) {
-      logger.error(error);
+      console.error(error);
       return null;
     }
   }
