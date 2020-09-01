@@ -100,10 +100,38 @@ class FcController {
   findInfoFromRncp(rncp_code) {
     const info = this.referentielRNCP.findInfo(rncp_code);
     if (info.length === 0) {
-      return { info: "Non trouvé", value: null };
+      return {
+        info: "Non trouvé",
+        value: {
+          intituleDiplome: null,
+          date_fin_validite_enregistrement: null,
+          ActiveInactive: null,
+          EtatFiche: null,
+          NiveauEurope: null,
+          CodeTypeCertif: null,
+          TypeCertif: null,
+          AncienneFiche: null,
+          NouvelleFiche: null,
+          Demande: null,
+        },
+      };
     }
     if (info.length > 1) {
-      return { info: "Code Rncp trouvé plusieurs fois", value: null };
+      return {
+        info: "Code Rncp trouvé plusieurs fois",
+        value: {
+          intituleDiplome: null,
+          date_fin_validite_enregistrement: null,
+          ActiveInactive: null,
+          EtatFiche: null,
+          NiveauEurope: null,
+          CodeTypeCertif: null,
+          TypeCertif: null,
+          AncienneFiche: null,
+          NouvelleFiche: null,
+          Demande: null,
+        },
+      };
     }
     return { info: "Ok", value: info[0] };
   }
@@ -111,10 +139,10 @@ class FcController {
   findNsfFromRncp(rncp_code) {
     const info = this.referentielNsf.findNsf(rncp_code);
     if (info.length === 0) {
-      return { info: "Non trouvé", value: null };
+      return { info: "Non trouvé", value: { code: null, Libelle: null } };
     }
     if (info.length > 1) {
-      return { info: "Code Rncp trouvé plusieurs fois", value: null };
+      return { info: "Code Rncp trouvé plusieurs fois", value: { code: null, Libelle: null } };
     }
     return { info: "Ok", value: info[0] };
   }

@@ -14,7 +14,7 @@ const run = async (
     if (options.mode === "cfd_info") {
       const r = await getDataFromCfd(options.value);
       console.log(r);
-      //console.log(r.result.mefs.mefs8);
+      console.log(r.result.mefs.mefs10);
       return r;
     } else if (options.mode === "mef_info") {
       const r = await getDataFromMef10(options.value);
@@ -30,6 +30,7 @@ const run = async (
       return r;
     } else if (options.mode === "rncp_info") {
       const r = await getDataFromRncp(options.value);
+      console.log(r.result.romes);
       console.log(r);
       return r;
     } else if (options.mode === "siret_info") {
@@ -55,12 +56,20 @@ module.exports.run = run;
 //   value: "26033206",
 // });
 // run({
+//   mode: "cfd_info",
+//   value: "50022135",
+// });
+// run({
 //   mode: "mef_info",
 //   value: "4173320611",
 // });
 // run({
 //   mode: "rncp_info",
 //   value: "RNCP7571", // RNCP24435 RNCP24440
+// });
+// run({
+//   mode: "rncp_info",
+//   value: "RNCP13877",
 // });
 // run({
 //   mode: "cp_info",
@@ -77,7 +86,7 @@ module.exports.run = run;
 //   },
 // });
 
-run({
-  mode: "siret_info",
-  value: "32922456200234", // 32922456200630
-});
+// run({
+//   mode: "siret_info",
+//   value: "32922456200234", // 32922456200630
+// });
