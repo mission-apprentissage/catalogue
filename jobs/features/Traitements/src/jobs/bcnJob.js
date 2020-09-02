@@ -13,6 +13,7 @@ const downloadBcnTable = async table => {
 
 const downloadBcnTables = async () => {
   await downloadBcnTable("N_FORMATION_DIPLOME");
+  await downloadBcnTable("V_FORMATION_DIPLOME");
   await downloadBcnTable("N_NIVEAU_FORMATION_DIPLOME");
   await downloadBcnTable("N_MEF");
   await downloadBcnTable("N_LETTRE_SPECIALITE");

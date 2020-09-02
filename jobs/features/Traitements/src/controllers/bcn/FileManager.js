@@ -1,109 +1,62 @@
 // #region Imports
 const csvToJson = require("convert-csv-to-json");
-const {
-  PATH_FORMATION_DIPLOME,
-  PATH_NIVEAU_FORMATION_DIPLOME,
-  PATH_SPECIALITE,
-  PATH_N_MEF,
-  PATH_N_DISPOSITIF_FORMATION,
-} = require("./Constants");
+const path = require("path");
 const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 // #endregion
 
+const PATH_N_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_formation_diplome.csv");
+const PATH_NIVEAU_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_niveau_formation_diplome.csv");
+const PATH_SPECIALITE = path.join(__dirname, "../../assets/bcnTables/n_lettre_specialite.csv");
+const PATH_N_MEF = path.join(__dirname, "../../assets/bcnTables/n_mef.csv");
+const PATH_N_DISPOSITIF_FORMATION = path.join(__dirname, "../../assets/bcnTables/n_dispositif_formation.csv");
+
 class FileManager {
-  constructor() {
+  constructor() {}
+
+  loadBases() {
     logger.info("FileManager - Init Reference Files");
 
-    this.dataBcnSpecialite = this.getDataSpecialiteFromFile(PATH_SPECIALITE);
-    this.dataBcnFormationDiplome = this.getDataBcnFormationDiplomeFromFile(PATH_FORMATION_DIPLOME);
-    this.dataBcnNiveauFormationDiplome = this.getDataBcnNiveauFormationDiplomeFromFile(PATH_NIVEAU_FORMATION_DIPLOME);
-    this.dataBcnMef = this.getDataBcnMef(PATH_N_MEF);
-    this.dataDispositifFormation = this.getDataBcnDispositifFormation(PATH_N_DISPOSITIF_FORMATION);
+    const result = {
+      N_FORMATION_DIPLOME: null,
+      N_LETTRE_SPECIALITE: null,
+      N_NIVEAU_FORMATION_DIPLOME: null,
+      N_MEF: null,
+      N_DISPOSITIF_FORMATION: null,
+    };
+
+    try {
+      result.N_FORMATION_DIPLOME = this.readJsonFromCsvFile(PATH_N_FORMATION_DIPLOME);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_N_FORMATION_DIPLOME}`);
+    }
+
+    try {
+      result.N_LETTRE_SPECIALITE = this.readJsonFromCsvFile(PATH_SPECIALITE);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_SPECIALITE}`);
+    }
+
+    try {
+      result.N_NIVEAU_FORMATION_DIPLOME = this.readJsonFromCsvFile(PATH_NIVEAU_FORMATION_DIPLOME);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_NIVEAU_FORMATION_DIPLOME}`);
+    }
+
+    try {
+      result.N_MEF = this.readJsonFromCsvFile(PATH_N_MEF);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_N_MEF}`);
+    }
+
+    try {
+      result.PATH_N_DISPOSITIF_FORMATION = this.readJsonFromCsvFile(PATH_N_DISPOSITIF_FORMATION);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_N_DISPOSITIF_FORMATION}`);
+    }
 
     logger.info("FileManager - End Init Reference Files");
-  }
-
-  /**
-   * Get Data BCN specialite from File
-   * @param {string} bcnSpecialitePath
-   */
-  getDataSpecialiteFromFile(bcnSpecialitePath) {
-    try {
-      if (this.dataBcnSpecialite) {
-        return this.dataBcnSpecialite;
-      } else {
-        return this.readJsonFromCsvFile(bcnSpecialitePath);
-      }
-    } catch (err) {
-      logger.error(`FileManager getDataSpecialiteFromFile Error ${err}`);
-      return null;
-    }
-  }
-
-  /**
-   * Get Data BCN formation diplôme from File
-   * @param {string} bcnFormationDiplomePath
-   */
-  getDataBcnFormationDiplomeFromFile(bcnFormationDiplomePath) {
-    try {
-      if (this.dataBcnFormationDiplome) {
-        return this.dataBcnFormationDiplome;
-      } else {
-        return this.readJsonFromCsvFile(bcnFormationDiplomePath);
-      }
-    } catch (err) {
-      logger.error(`FileManager getDataBcnFormationDiplomeFromFile Error ${err}`);
-      return null;
-    }
-  }
-  /**
-   * Get Data BCN niveau formation diplôme from File
-   * @param {string} bcnNiveauFormationDiplomePath
-   */
-  getDataBcnNiveauFormationDiplomeFromFile(bcnNiveauFormationDiplomePath) {
-    try {
-      if (this.dataBcnNiveauFormationDiplome) {
-        return this.dataBcnNiveauFormationDiplome;
-      } else {
-        return this.readJsonFromCsvFile(bcnNiveauFormationDiplomePath);
-      }
-    } catch (err) {
-      logger.error(`FileManager getDataBcnNiveauFormationDiplomeFromFile Error ${err}`);
-      return null;
-    }
-  }
-  /**
-   * Get Data BCN MEF from File
-   * @param {string} bcnMefPath
-   */
-  getDataBcnMef(bcnMefPath) {
-    try {
-      if (this.dataBcnMef) {
-        return this.dataBcnMef;
-      } else {
-        return this.readJsonFromCsvFile(bcnMefPath);
-      }
-    } catch (err) {
-      logger.error(`FileManager getDataBcnMef Error ${err}`);
-      return null;
-    }
-  }
-  /**
-   * Get Data BCN N DISPOSITIF FORMATION from File
-   * @param {string} bcnDispositifFormationPath
-   */
-  getDataBcnDispositifFormation(bcnDispositifFormationPath) {
-    try {
-      if (this.dataDispositifFormation) {
-        return this.dataDispositifFormation;
-      } else {
-        return this.readJsonFromCsvFile(bcnDispositifFormationPath);
-      }
-    } catch (err) {
-      logger.error(`FileManager getDataBcnDispositifFormation Error ${err}`);
-      return null;
-    }
+    return result;
   }
 
   readJsonFromCsvFile(localPath) {

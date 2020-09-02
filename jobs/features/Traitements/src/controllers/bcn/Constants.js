@@ -1,11 +1,3 @@
-const path = require("path");
-
-const PATH_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_formation_diplome.csv");
-const PATH_NIVEAU_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_niveau_formation_diplome.csv");
-const PATH_SPECIALITE = path.join(__dirname, "../../assets/bcnTables/n_lettre_specialite.csv");
-const PATH_N_MEF = path.join(__dirname, "../../assets/bcnTables/n_mef.csv");
-const PATH_N_DISPOSITIF_FORMATION = path.join(__dirname, "../../assets/bcnTables/n_dispositif_formation.csv");
-
 const infosCodes = {
   cfd: {
     OutDated: 0,
@@ -72,11 +64,6 @@ const mappingNiveauCodeEn = {
 };
 
 module.exports = {
-  PATH_FORMATION_DIPLOME,
-  PATH_NIVEAU_FORMATION_DIPLOME,
-  PATH_SPECIALITE,
-  PATH_N_MEF,
-  PATH_N_DISPOSITIF_FORMATION,
   infosCodes,
   computeCodes,
   mappingNiveauCodeEn,

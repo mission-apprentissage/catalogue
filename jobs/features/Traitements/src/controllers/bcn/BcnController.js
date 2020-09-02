@@ -1,16 +1,6 @@
 // #region Imports
 
-const {
-  infosCodes,
-  niveaux,
-  mappingNiveauCodeEn,
-  PATH_FORMATION_DIPLOME,
-  PATH_NIVEAU_FORMATION_DIPLOME,
-  PATH_N_MEF,
-  PATH_N_DISPOSITIF_FORMATION,
-  PATH_SPECIALITE,
-  computeCodes,
-} = require("./Constants");
+const { infosCodes, niveaux, mappingNiveauCodeEn, computeCodes } = require("./Constants");
 const { find, filter, uniq } = require("lodash");
 const moment = require("moment");
 const fileManager = require("./FileManager");
@@ -20,15 +10,22 @@ const logger = require("../../../../../common-jobs/Logger").mainLogger;
 
 class BcnController {
   constructor() {
-    this.baseFormationDiplome = fileManager.getDataBcnFormationDiplomeFromFile(PATH_FORMATION_DIPLOME);
-    this.baseNiveauFormationDiplome = fileManager.getDataBcnNiveauFormationDiplomeFromFile(
-      PATH_NIVEAU_FORMATION_DIPLOME
-    );
-    this.baseMef = fileManager.getDataBcnMef(PATH_N_MEF);
-    this.baseDispositifFormation = fileManager.getDataBcnDispositifFormation(PATH_N_DISPOSITIF_FORMATION);
-    this.baseSpecialite = fileManager.getDataSpecialiteFromFile(PATH_SPECIALITE);
-
+    this.bases = {
+      N_FORMATION_DIPLOME: null,
+      N_LETTRE_SPECIALITE: null,
+      N_NIVEAU_FORMATION_DIPLOME: null,
+      N_MEF: null,
+      N_DISPOSITIF_FORMATION: null,
+    };
+    this.basesLoaded = false;
     this.validLimiteDate = moment("31/08/2020", "DD/MM/YYYY");
+  }
+
+  load() {
+    if (!this.basesLoaded) {
+      this.bases = fileManager.loadBases();
+      this.basesLoaded = true;
+    }
   }
 
   getDataFromCfd(providedCfd) {
@@ -137,8 +134,9 @@ class BcnController {
   }
 
   findCfd(codeEducNat, previousInfo = null) {
+    this.load();
     try {
-      const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
+      const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
 
       if (!match) {
         return { info: infosCodes.cfd.NotFound, value: codeEducNat };
@@ -198,7 +196,8 @@ class BcnController {
   }
 
   findIntituleLong(codeEducNat) {
-    const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
+    this.load();
+    const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match) {
       return { info: infosCodes.intitule.Error, value: null };
@@ -208,7 +207,8 @@ class BcnController {
   }
 
   findIntituleCourt(codeEducNat) {
-    const match = find(this.baseFormationDiplome, { FORMATION_DIPLOME: codeEducNat });
+    this.load();
+    const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match) {
       return { info: infosCodes.intitule.Error, value: null };
@@ -229,7 +229,8 @@ class BcnController {
   }
 
   findCfdFromMef10(mef10) {
-    const match = filter(this.baseMef, { MEF: mef10 });
+    this.load();
+    const match = filter(this.bases.N_MEF, { MEF: mef10 });
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: null };
     }
@@ -242,7 +243,8 @@ class BcnController {
   }
 
   findMefs10(codeEducNat) {
-    const match = filter(this.baseMef, { FORMATION_DIPLOME: codeEducNat });
+    this.load();
+    const match = filter(this.bases.N_MEF, { FORMATION_DIPLOME: codeEducNat });
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: [] };
     }
@@ -250,7 +252,8 @@ class BcnController {
   }
 
   findMefs8(codeEducNat) {
-    const match = filter(this.baseMef, { FORMATION_DIPLOME: codeEducNat });
+    this.load();
+    const match = filter(this.bases.N_MEF, { FORMATION_DIPLOME: codeEducNat });
 
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: [] };
@@ -270,8 +273,11 @@ class BcnController {
   }
 
   getSpeciality(specialityLetter) {
+    this.load();
     try {
-      const specialityData = this.baseSpecialite.find(item => item.LETTRE_SPECIALITE.trim() === specialityLetter);
+      const specialityData = this.bases.N_LETTRE_SPECIALITE.find(
+        item => item.LETTRE_SPECIALITE.trim() === specialityLetter
+      );
       return {
         info: infosCodes.specialite.NothingDoTo,
         value: {

@@ -60,10 +60,10 @@ module.exports.run = run;
 //   mode: "cfd_info",
 //   value: "26033206",
 // });
-// run({
-//   mode: "cfd_info",
-//   value: "50022135",
-// });
+run({
+  mode: "cfd_info",
+  value: "50022135",
+});
 // run({
 //   mode: "mef_info",
 //   value: "4173320611",
