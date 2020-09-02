@@ -4,6 +4,8 @@ const { getDataFromCP, getCoordaniteFromAdresseData } = require("./handlers/geoH
 const { getDataFromRncp } = require("./handlers/rncpHandler");
 const { getDataFromSiret } = require("./handlers/siretHandler");
 
+const { downloadBcnTables } = require("./jobs/bcnJob");
+
 const run = async (
   options = {
     mode: "cfd_info",
@@ -36,6 +38,9 @@ const run = async (
     } else if (options.mode === "siret_info") {
       const r = await getDataFromSiret(options.value);
       console.log(r);
+      return r;
+    } else if (options.mode === "bnc_job") {
+      const r = await downloadBcnTables();
       return r;
     }
   } catch (error) {
@@ -89,4 +94,8 @@ module.exports.run = run;
 // run({
 //   mode: "siret_info",
 //   value: "32922456200234", // 32922456200630
+// });
+
+// run({
+//   mode: "bnc_job",
 // });
