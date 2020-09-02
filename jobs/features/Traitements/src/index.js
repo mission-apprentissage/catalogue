@@ -17,6 +17,7 @@ const run = async (
       const r = await getDataFromCfd(options.value);
       console.log(r);
       console.log(r.result.mefs.mefs10);
+      console.log(r.result.mefs.mefsAproximation);
       return r;
     } else if (options.mode === "mef_info") {
       const r = await getDataFromMef10(options.value);
@@ -62,7 +63,7 @@ module.exports.run = run;
 // });
 run({
   mode: "cfd_info",
-  value: "50022135",
+  value: "26U32601",
 });
 // run({
 //   mode: "mef_info",

@@ -12,6 +12,7 @@ class BcnController {
   constructor() {
     this.bases = {
       N_FORMATION_DIPLOME: null,
+      V_FORMATION_DIPLOME: null,
       N_LETTRE_SPECIALITE: null,
       N_NIVEAU_FORMATION_DIPLOME: null,
       N_MEF: null,
@@ -46,10 +47,40 @@ class BcnController {
         ? this.getSpeciality(providedCfd.substring(8, 9))
         : { info: infosCodes.specialite.NotProvided, value: null };
 
-    const cfdUpdated = this.findCfd(cfd);
+    // Si  non trouvé dans la table N_FORMATION_DIPLOME on recherche dans la base V_FORMATION_DIPLOME
+    let lookupBase = "N";
+    let cfdUpdated = this.findCfd_nformation(cfd);
+    let infoCfd = `${computeCodes.cfd[cfdUpdated.info]} base N_FORMATION_DIPLOME`;
+    if (cfdUpdated.value === null) {
+      cfdUpdated = this.findCfd_vformation(cfd);
+      lookupBase = "V";
+      infoCfd += `, ${computeCodes.cfd[cfdUpdated.info]} base V_FORMATION_DIPLOME`;
+    }
+
+    if (cfdUpdated.value === null) {
+      return {
+        result: {
+          cfd: cfd,
+          specialite: null,
+          niveau: null,
+          intitule_long: null,
+          intitule_court: null,
+          diplome: null,
+        },
+        messages: {
+          cfd: infoCfd,
+          specialite: "Erreur",
+          niveau: "Erreur",
+          intitule_long: "Erreur",
+          intitule_court: "Erreur",
+          diplome: "Erreur",
+        },
+      };
+    }
+
     const niveauUpdated = this.findNiveau(cfdUpdated.value);
-    const intituleLongUpdated = this.findIntituleLong(cfdUpdated.value);
-    const intituleCourtUpdated = this.findIntituleCourt(cfdUpdated.value);
+    const intituleLongUpdated = this.findIntituleLong(cfdUpdated.value, lookupBase);
+    const intituleCourtUpdated = this.findIntituleCourt(cfdUpdated.value, lookupBase);
     const diplomeUpdated = this.findDiplome(cfdUpdated.value);
 
     return {
@@ -62,7 +93,7 @@ class BcnController {
         diplome: diplomeUpdated.value,
       },
       messages: {
-        cfd: computeCodes.cfd[cfdUpdated.info],
+        cfd: infoCfd,
         specialite: computeCodes.specialite[specialiteUpdated.info],
         niveau: computeCodes.niveau[niveauUpdated.info],
         intitule_long: computeCodes.intitule[intituleLongUpdated.info],
@@ -100,31 +131,52 @@ class BcnController {
   }
 
   getMefsFromCfd(codeEducNat) {
-    const Mefs10List = this.findMefs10(codeEducNat);
-    const Mefs10Updated = [];
+    const Mefs10List = this.findMefsFromCfd(codeEducNat);
+
+    const MefsUpdated = [];
     for (let i = 0; i < Mefs10List.value.length; i++) {
       const mef10 = Mefs10List.value[i];
       const modalite = this.getModalities(mef10);
-      Mefs10Updated.push({
+      MefsUpdated.push({
         mef10,
         modalite,
       });
     }
+
+    const MefsAproximation = { info: "", value: [] };
+    if (MefsUpdated.length === 0) {
+      const Mefs11List = this.findMefs11(codeEducNat);
+      for (let i = 0; i < Mefs11List.value.length; i++) {
+        const mef11 = Mefs11List.value[i];
+        const mefTmp = this.findMefFromMef11(mef11);
+        const modalite = this.getModalities(mefTmp.value);
+        const cfd = this.findCfdFromMef10(mefTmp.value);
+        MefsAproximation.value.push({
+          mef10: mefTmp.value,
+          modalite,
+          cfd,
+        });
+      }
+      MefsAproximation.info = "Ces code Mef sont une approximation, les plus proches du code CFD fournit";
+    }
+
     const Mefs8Updated = this.findMefs8(codeEducNat);
 
     return {
       result: {
-        mefs10: Mefs10Updated,
+        mefs10: MefsUpdated,
         mefs8: Mefs8Updated.value,
+        mefsAproximation: MefsAproximation.value,
       },
       messages: {
         mefs10: computeCodes.mef[Mefs10List.info],
         mefs8: computeCodes.mef[Mefs8Updated.info],
+        mefsAproximation: MefsAproximation.info,
       },
     };
   }
 
-  getMef10DataFromMefs(mefs) {
+  getUniqMefFromMefs(mefs) {
     let mef10Data = { result: {}, messages: {} };
     if (mefs.result.mefs10.length === 1) {
       mef10Data = bcnController.getDataFromMef10(mefs.result.mefs10[0].mef10);
@@ -133,13 +185,13 @@ class BcnController {
     return mef10Data;
   }
 
-  findCfd(codeEducNat, previousInfo = null) {
+  findCfd_nformation(codeEducNat, previousInfo = null) {
     this.load();
     try {
       const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
 
       if (!match) {
-        return { info: infosCodes.cfd.NotFound, value: codeEducNat };
+        return { info: infosCodes.cfd.NotFound, value: null };
       }
 
       if (match.DATE_FERMETURE === "") {
@@ -179,7 +231,33 @@ class BcnController {
       return { info: infosCodes.cfd.OutDated, value: codeEducNat };
     } catch (err) {
       logger.error(err);
-      return { info: infosCodes.cfd.NotFound, value: codeEducNat };
+      return { info: infosCodes.cfd.NotFound, value: null };
+    }
+  }
+
+  findCfd_vformation(codeEducNat) {
+    try {
+      const match = find(this.bases.V_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
+      if (!match) {
+        return { info: infosCodes.cfd.NotFound, value: null };
+      }
+
+      if (match.DATE_FERMETURE === "") {
+        // Valide codeEn
+        return { info: infosCodes.cfd.Found, value: codeEducNat };
+      }
+
+      const closingDate = moment(match.DATE_FERMETURE, "DD/MM/YYYY");
+
+      if (closingDate.isAfter(this.validLimiteDate)) {
+        // Valide codeEn
+        return { info: infosCodes.cfd.Found, value: codeEducNat };
+      }
+
+      return { info: infosCodes.cfd.OutDated, value: null };
+    } catch (err) {
+      logger.error(err);
+      return { info: infosCodes.cfd.NotFound, value: null };
     }
   }
 
@@ -195,9 +273,11 @@ class BcnController {
     }
   }
 
-  findIntituleLong(codeEducNat) {
+  findIntituleLong(codeEducNat, lookupBase = "N") {
     this.load();
-    const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
+    const match = find(lookupBase === "N" ? this.bases.N_FORMATION_DIPLOME : this.bases.V_FORMATION_DIPLOME, {
+      FORMATION_DIPLOME: codeEducNat,
+    });
 
     if (!match) {
       return { info: infosCodes.intitule.Error, value: null };
@@ -206,9 +286,11 @@ class BcnController {
     return { info: infosCodes.intitule.NothingDoTo, value: match.LIBELLE_LONG_200 };
   }
 
-  findIntituleCourt(codeEducNat) {
+  findIntituleCourt(codeEducNat, lookupBase = "N") {
     this.load();
-    const match = find(this.bases.N_FORMATION_DIPLOME, { FORMATION_DIPLOME: codeEducNat });
+    const match = find(lookupBase === "N" ? this.bases.N_FORMATION_DIPLOME : this.bases.V_FORMATION_DIPLOME, {
+      FORMATION_DIPLOME: codeEducNat,
+    });
 
     if (!match) {
       return { info: infosCodes.intitule.Error, value: null };
@@ -219,7 +301,7 @@ class BcnController {
 
   findDiplome(codeEducNat) {
     const tronc = codeEducNat.substring(0, 3);
-    const match = find(this.baseNiveauFormationDiplome, { NIVEAU_FORMATION_DIPLOME: tronc });
+    const match = find(this.bases.N_NIVEAU_FORMATION_DIPLOME, { NIVEAU_FORMATION_DIPLOME: tronc });
 
     if (!match) {
       return { info: infosCodes.diplome.Error, value: null };
@@ -242,13 +324,35 @@ class BcnController {
     return { info: infosCodes.mef.NothingDoTo, value: result[0] };
   }
 
-  findMefs10(codeEducNat) {
+  findMefsFromCfd(codeEducNat) {
     this.load();
     const match = filter(this.bases.N_MEF, { FORMATION_DIPLOME: codeEducNat });
     if (!match.length) {
       return { info: infosCodes.mef.NotFound, value: [] };
     }
     return { info: infosCodes.mef.NothingDoTo, value: match.map(m => `${m.MEF}`) };
+  }
+
+  findMefFromMef11(mef11) {
+    this.load();
+    const match = find(this.bases.N_MEF, { MEF_STAT_11: mef11 });
+    if (!match) {
+      return { info: infosCodes.mef.NotFound, value: null };
+    }
+    return { info: infosCodes.mef.NothingDoTo, value: match.MEF };
+  }
+
+  findMefs11(codeEducNat) {
+    this.load();
+
+    const tronc = codeEducNat.substring(3, 8);
+    const regex = new RegExp(`${tronc}$`, "g");
+    const match = filter(this.bases.N_MEF, o => regex.test(o.MEF_STAT_11));
+
+    if (!match.length) {
+      return { info: infosCodes.mef.NotFound, value: [] };
+    }
+    return { info: infosCodes.mef.NothingDoTo, value: match.map(m => `${m.MEF_STAT_11}`) };
   }
 
   findMefs8(codeEducNat) {

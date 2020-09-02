@@ -5,7 +5,7 @@ const getDataFromCfd = providedCfd => {
   const bcnData = bcnController.getDataFromCfd(providedCfd);
 
   const mefs = bcnController.getMefsFromCfd(bcnData.result.cfd);
-  const mef10Data = bcnController.getMef10DataFromMefs(mefs);
+  const mef = bcnController.getUniqMefFromMefs(mefs);
 
   const codeRncpUpdated = fcController.findRncpFromCfd(bcnData.result.cfd);
   const rncpData = fcController.getDataFromRncp(codeRncpUpdated.value);
@@ -16,7 +16,7 @@ const getDataFromCfd = providedCfd => {
       rncp: { ...rncpData.result },
       mefs: {
         ...mefs.result,
-        ...mef10Data.result,
+        ...mef.result,
       },
     },
     messages: {
@@ -25,7 +25,7 @@ const getDataFromCfd = providedCfd => {
       rncp: { ...rncpData.messages },
       mefs: {
         ...mefs.messages,
-        ...mef10Data.messages,
+        ...mef.messages,
       },
     },
   };

@@ -6,6 +6,7 @@ const logger = require("../../../../../common-jobs/Logger").mainLogger;
 // #endregion
 
 const PATH_N_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_formation_diplome.csv");
+const PATH_V_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/v_formation_diplome.csv");
 const PATH_NIVEAU_FORMATION_DIPLOME = path.join(__dirname, "../../assets/bcnTables/n_niveau_formation_diplome.csv");
 const PATH_SPECIALITE = path.join(__dirname, "../../assets/bcnTables/n_lettre_specialite.csv");
 const PATH_N_MEF = path.join(__dirname, "../../assets/bcnTables/n_mef.csv");
@@ -15,10 +16,11 @@ class FileManager {
   constructor() {}
 
   loadBases() {
-    logger.info("FileManager - Init Reference Files");
+    logger.info("FileManager - Init BCN Files");
 
     const result = {
       N_FORMATION_DIPLOME: null,
+      V_FORMATION_DIPLOME: null,
       N_LETTRE_SPECIALITE: null,
       N_NIVEAU_FORMATION_DIPLOME: null,
       N_MEF: null,
@@ -29,6 +31,11 @@ class FileManager {
       result.N_FORMATION_DIPLOME = this.readJsonFromCsvFile(PATH_N_FORMATION_DIPLOME);
     } catch (err) {
       logger.error(`FileManager Error ${PATH_N_FORMATION_DIPLOME}`);
+    }
+    try {
+      result.V_FORMATION_DIPLOME = this.readJsonFromCsvFile(PATH_V_FORMATION_DIPLOME);
+    } catch (err) {
+      logger.error(`FileManager Error ${PATH_V_FORMATION_DIPLOME}`);
     }
 
     try {
@@ -55,7 +62,7 @@ class FileManager {
       logger.error(`FileManager Error ${PATH_N_DISPOSITIF_FORMATION}`);
     }
 
-    logger.info("FileManager - End Init Reference Files");
+    logger.info("FileManager - End Init BCN Files");
     return result;
   }
 
