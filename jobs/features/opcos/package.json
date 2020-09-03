@@ -10,6 +10,7 @@
   "scripts": {
     "start": "dotenv -e ../../../.env node src/index.js",
     "stats": "dotenv -e ../../../.env node src/stats.js",
+    "export": "dotenv -e ../../../.env node src/export.js",
     "test": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/**/*.test.js",
     "test:unit": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/unit",
     "test:integration": "dotenv -e ../../../.env mocha --recursive --exit --timeout 5000 test/integration",
@@ -27,9 +28,11 @@
   "dependencies": {
     "@azure/storage-blob": "^12.0.0",
     "convert-csv-to-json": "^0.0.15",
-    "lodash": "^4.17.19",
     "env-var": "^6.1.1",
-    "mocha": "^8.1.1"
+    "json2csv": "^5.0.1",
+    "lodash": "^4.17.19",
+    "mocha": "^8.1.1",
+    "xlsx": "^0.16.6"
   },
   "devDependencies": {
     "eslint": "^6.8.0",
