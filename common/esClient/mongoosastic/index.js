@@ -20,8 +20,16 @@ function timeout(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function getMapping(schema) {
+function getMapping(schema, requireAsciiFolding = false) {
   const properties = {};
+
+  // paramètre optionnel indiquant que la recherche sur le champ est insensible à la casse et aux accents
+  const asciiFoldingParameters = requireAsciiFolding
+    ? {
+        analyzer: "folding",
+        search_analyzer: "folding",
+      }
+    : {};
 
   for (let i = 0; i < Object.keys(schema.paths).length; i++) {
     const key = Object.keys(schema.paths)[i];
@@ -43,12 +51,14 @@ function getMapping(schema) {
     } else
       switch (mongooseType) {
         case "ObjectID":
-        case "String":
+        case "String": {
           properties[key] = {
             type: "text",
             fields: { keyword: { type: "keyword", ignore_above: 256 } },
+            ...asciiFoldingParameters,
           };
           break;
+        }
         case "Date":
           properties[key] = { type: "date" };
           break;
@@ -64,6 +74,7 @@ function getMapping(schema) {
             properties[key] = {
               type: "text",
               fields: { keyword: { type: "keyword", ignore_above: 256 } },
+              ...asciiFoldingParameters,
             };
           }
 
@@ -113,7 +124,7 @@ function Mongoosastic(schema, options) {
         await esClient.indices.create({ index: indexName, ...includeTypeNameParameters, ...asciiFoldingParameters });
 
       const completeMapping = {};
-      completeMapping[typeName] = getMapping(schema);
+      completeMapping[typeName] = getMapping(schema, requireAsciiFolding);
 
       await esClient.indices.putMapping({
         index: indexName,
