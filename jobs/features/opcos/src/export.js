@@ -1,6 +1,6 @@
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const { connectToMongo, closeMongoConnection } = require("../../../../common/mongo");
-const { Formation } = require("../../../../common/models2");
+const { Formation, Establishment } = require("../../../../common/models2");
 const { toXlsx } = require("./utils/exporter");
 const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 
@@ -20,18 +20,24 @@ const exportDataForOpco = async (opcoName, exportFileName) => {
   const dataForOpco = [];
   const formationsForOpco = await Formation.find({ opcos: `${opcoName}` });
 
-  // Todo foreach formation build object with etablissement
-
-  // Todo export dataForOpco to xls
-  dataForOpco.push({
-    test: "123",
-  });
-  dataForOpco.push({
-    test: "456",
+  await asyncForEach(formationsForOpco, async formation => {
+    const etablissement = await Establishment.findById(formation.etablissement_formateur_id);
+    if (etablissement) {
+      dataForOpco.push({
+        codeDiplome: formation.educ_nat_code,
+        intitule: formation.intitule_long,
+        siret: etablissement.siret,
+        code_naf: etablissement.naf_code,
+        libelle_naf: etablissement.naf_libelle,
+        enseigne: etablissement.enseigne,
+        localite: etablissement.localite,
+        region_implantation_nom: etablissement.region_implantation_nom,
+      });
+    }
   });
 
   // Export to xlsx
-  await toXlsx(dataForOpco, ".", `${exportFileName}.xlsx`, exportFileName, {});
+  await toXlsx(dataForOpco, "./output", `${exportFileName}.xlsx`, exportFileName, {});
   await logger.info(" -- End Stats of OPCO Export -- ");
 };
 
