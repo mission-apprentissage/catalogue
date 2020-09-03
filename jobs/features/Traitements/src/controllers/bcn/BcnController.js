@@ -151,13 +151,21 @@ class BcnController {
         const mefTmp = this.findMefFromMef11(mef11);
         const modalite = this.getModalities(mefTmp.value);
         const cfd = this.findCfdFromMef10(mefTmp.value);
-        MefsAproximation.value.push({
-          mef10: mefTmp.value,
-          modalite,
-          cfd,
-        });
+        const niveau = this.findNiveau(cfd.value);
+        const intitule_long = this.findIntituleLong(cfd.value);
+
+        const match = find(MefsAproximation.value, { cfd: cfd.value });
+        if (!match) {
+          MefsAproximation.value.push({
+            mef10: mefTmp.value,
+            modalite,
+            cfd: cfd.value,
+            intitule_long: intitule_long.value,
+            niveau: niveau.value,
+          });
+        }
       }
-      MefsAproximation.info = "Ces code Mef sont une approximation, les plus proches du code CFD fournit";
+      MefsAproximation.info = "Codes Mef trouvés les plus proches du code CFD fournit";
     }
 
     const Mefs8Updated = this.findMefs8(codeEducNat);
@@ -166,12 +174,12 @@ class BcnController {
       result: {
         mefs10: MefsUpdated,
         mefs8: Mefs8Updated.value,
-        mefsAproximation: MefsAproximation.value,
+        mefs_aproximation: MefsAproximation.value,
       },
       messages: {
         mefs10: computeCodes.mef[Mefs10List.info],
         mefs8: computeCodes.mef[Mefs8Updated.info],
-        mefsAproximation: MefsAproximation.info,
+        mefs_aproximation: MefsAproximation.info,
       },
     };
   }

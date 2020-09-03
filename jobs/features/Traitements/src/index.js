@@ -17,7 +17,7 @@ const run = async (
       const r = await getDataFromCfd(options.value);
       console.log(r);
       console.log(r.result.mefs.mefs10);
-      console.log(r.result.mefs.mefsAproximation);
+      console.log(r.result.mefs.mefs_aproximation);
       return r;
     } else if (options.mode === "mef_info") {
       const r = await getDataFromMef10(options.value);
