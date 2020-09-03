@@ -86,15 +86,32 @@ function Mongoosastic(schema, options) {
   // ElasticSearch Client
   schema.statics.esClient = esClient;
 
-  schema.statics.createMapping = async function createMapping() {
+  schema.statics.createMapping = async function createMapping(requireAsciiFolding = false) {
     try {
       const exists = await esClient.indices.exists({ index: indexName });
 
       let includeTypeNameParameters = isMappingNeedingGeoPoint ? { include_type_name: true } : {};
 
-      if (!exists.body) {
-        await esClient.indices.create({ index: indexName, ...includeTypeNameParameters });
-      }
+      let asciiFoldingParameters = requireAsciiFolding
+        ? {
+            body: {
+              settings: {
+                analysis: {
+                  analyzer: {
+                    folding: {
+                      tokenizer: "standard",
+                      filter: ["lowercase", "asciifolding"],
+                    },
+                  },
+                },
+              },
+            },
+          }
+        : {};
+
+      if (!exists.body)
+        await esClient.indices.create({ index: indexName, ...includeTypeNameParameters, ...asciiFoldingParameters });
+
       const completeMapping = {};
       completeMapping[typeName] = getMapping(schema);
 
