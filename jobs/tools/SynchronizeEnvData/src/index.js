@@ -5,7 +5,8 @@ const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const Spinner = require("cli-spinner").Spinner;
 const { connectToMongo } = require("../../../../common/mongo");
-const { attachFormationTo, attachEstablishmentTo, attachDomainesMetiersTo } = require("../../../common-jobs/models");
+// const { attachFormationTo, attachEstablishmentTo, attachDomainesMetiersTo } = require("../../../common-jobs/models");
+const { attachFormationTo, attachEstablishmentTo, attachDomainesMetiersTo } = require("../../../../common/models");
 const { getConfig } = require("../../../../config");
 const { getElasticInstance } = require("../../../../common/esClient");
 
