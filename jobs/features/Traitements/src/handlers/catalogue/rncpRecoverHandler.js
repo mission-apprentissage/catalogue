@@ -12,19 +12,13 @@ const recoverRNCP = async () => {
   console.log(formationsWithCodeCFD.length);
   let count = 0;
   for (let i = 0; i < formationsWithCodeCFD.length; i++) {
-    const formationWithCodeCFD = formationsWithCodeCFD[i];
+    let formationWithCodeCFD = formationsWithCodeCFD[i];
     const cfdData = await getDataFromCfd(formationWithCodeCFD.educ_nat_code);
     const { rncp } = cfdData.result;
     if (rncp.code_rncp && rncp.code_rncp !== "") {
       count++;
-      await Formation.findOneAndUpdate(
-        { _id: formationWithCodeCFD._id },
-        {
-          ...formationWithCodeCFD,
-          rncp_code: rncp.code_rncp,
-        },
-        { new: true }
-      );
+      formationWithCodeCFD.rncp_code = rncp.code_rncp;
+      await Formation.findOneAndUpdate({ _id: formationWithCodeCFD._id }, formationWithCodeCFD, { new: true });
     }
   }
   console.log(count);
