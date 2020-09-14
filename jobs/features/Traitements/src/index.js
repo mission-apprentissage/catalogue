@@ -3,6 +3,7 @@ const { getDataFromMef10 } = require("./handlers/mefHandler");
 const { getDataFromCP, getCoordaniteFromAdresseData } = require("./handlers/geoHandler");
 const { getDataFromRncp } = require("./handlers/rncpHandler");
 const { getDataFromSiret } = require("./handlers/siretHandler");
+const { recoverRNCP } = require("./handlers/catalogue/rncpRecoverHandler");
 
 const { downloadBcnTables } = require("./jobs/bcnJob");
 
@@ -40,8 +41,11 @@ const run = async (
       const r = await getDataFromSiret(options.value);
       console.log(r);
       return r;
-    } else if (options.mode === "bnc_job") {
+    } else if (options.mode === "bcn_job") {
       const r = await downloadBcnTables();
+      return r;
+    } else if (options.mode === "recoverRNCP") {
+      const r = await recoverRNCP();
       return r;
     }
   } catch (error) {
@@ -61,10 +65,10 @@ module.exports.run = run;
 //   mode: "cfd_info",
 //   value: "26033206",
 // });
-run({
-  mode: "cfd_info",
-  value: "26U32601",
-});
+// run({
+//   mode: "cfd_info",
+//   value: "26U32601",
+// });
 // run({
 //   mode: "mef_info",
 //   value: "4173320611",
@@ -98,5 +102,8 @@ run({
 // });
 
 // run({
-//   mode: "bnc_job",
+//   mode: "bcn_job",
 // });
+run({
+  mode: "recoverRNCP",
+});

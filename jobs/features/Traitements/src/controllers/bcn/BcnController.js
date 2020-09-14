@@ -215,25 +215,25 @@ class BcnController {
       }
 
       if (match.NOUVEAU_DIPLOME_7 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_7, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_7, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_6 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_6, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_6, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_5 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_5, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_5, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_4 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_4, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_4, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_3 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_3, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_3, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_2 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_2, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_2, infosCodes.cfd.Updated);
       }
       if (match.NOUVEAU_DIPLOME_1 !== "") {
-        return this.findCfd(match.NOUVEAU_DIPLOME_1, infosCodes.cfd.Updated);
+        return this.findCfd_nformation(match.NOUVEAU_DIPLOME_1, infosCodes.cfd.Updated);
       }
 
       return { info: infosCodes.cfd.OutDated, value: codeEducNat };

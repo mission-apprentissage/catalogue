@@ -4,6 +4,21 @@ const fcController = require("../controllers/fc/fcController");
 const getDataFromCfd = providedCfd => {
   const bcnData = bcnController.getDataFromCfd(providedCfd);
 
+  if (!bcnData.result.cfd) {
+    return {
+      result: {
+        ...bcnData.result,
+        rncp: {},
+        mefs: {},
+      },
+      messages: {
+        ...bcnData.messages,
+        rncp: {},
+        mefs: {},
+      },
+    };
+  }
+
   const mefs = bcnController.getMefsFromCfd(bcnData.result.cfd);
   const mef = bcnController.getUniqMefFromMefs(mefs);
 
