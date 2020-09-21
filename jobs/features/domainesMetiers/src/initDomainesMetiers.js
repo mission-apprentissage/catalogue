@@ -3,6 +3,7 @@ const { getElasticInstance } = require("../../../../common/esClient");
 const { DomainesMetiers } = require("../../../../common/models2");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const XLSX = require("xlsx");
+const path = require("path");
 
 const emptyMongo = async () => {
   try {
@@ -46,7 +47,7 @@ const run = async () => {
       return { sheet_name_list: workbook.SheetNames, workbook };
     };
 
-    const fichierDomainesMetiers = "./assets/domainesMetiers.xlsx";
+    const fichierDomainesMetiers = path.join(__dirname, "./assets/domainesMetiers.xlsx");
     const workbookDomainesMetiers = readXLSXFile(fichierDomainesMetiers);
 
     let domaines, familles, codesROMEs, intitulesROMEs, couplesROMEsIntitules;
