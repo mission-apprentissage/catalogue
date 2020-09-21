@@ -27,6 +27,11 @@ const clearIndex = async () => {
   }
 };
 
+const createIndex = async () => {
+  let requireAsciiFolding = true;
+  await DomainesMetiers.createMapping(requireAsciiFolding);
+};
+
 const run = async () => {
   try {
     logger.info(" -- Start of DomainesMetiers initializer -- ");
@@ -34,6 +39,7 @@ const run = async () => {
 
     await emptyMongo();
     await clearIndex();
+    await createIndex();
 
     const readXLSXFile = localPath => {
       const workbook = XLSX.readFile(localPath, { codepage: 65001 });
