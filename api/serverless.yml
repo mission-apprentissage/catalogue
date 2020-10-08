@@ -44,7 +44,7 @@ custom:
     # this is general info about the API
     api:
       info:
-        version: '2.0.2'
+        version: '2.0.3'
         title: MNA API
         description: mission apprentissage API
         termsOfService: https://www.beta.gouv.fr
@@ -293,6 +293,21 @@ functions:
             origin: '*'
           documentation:
             summary: "Get etablissements avec des critéres"
+            description: "Avec filtres de recherche"
+            tags:
+              - Etablissement
+  findBySiretUaiAddr:
+    handler: src/establishment/findBySiretUaiAddr.handler
+    memorySize: 3008
+    timeout: 30
+    events:
+      - http:
+          method: get
+          path: etablissements/siret-uai
+          cors:
+            origin: '*'
+          documentation:
+            summary: "Recherche de siret, d'uai par siret et/ou uai et/ou adresse"
             description: "Avec filtres de recherche"
             tags:
               - Etablissement

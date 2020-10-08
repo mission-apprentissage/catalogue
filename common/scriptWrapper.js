@@ -20,6 +20,7 @@ const createTimer = () => {
 };
 
 const handleError = error => {
+  console.log(error);
   console.error(error.constructor.name === "EnvVarError" ? error.message : JSON.stringify(error));
   process.exitCode = 1;
 };

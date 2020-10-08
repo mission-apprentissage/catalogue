@@ -33,7 +33,7 @@ export default ({ match }) => {
   const { FILTERS, columnsDefinition, facetDefinition, queryBuilderField, dataSearch } =
     base === "formations" ? constantsFormations : constantsEtablissements;
 
-  const { user } = useSelector(state => state.user);
+  const { user } = useSelector((state) => state.user);
 
   useEffect(() => {
     async function run() {
@@ -104,7 +104,7 @@ export default ({ match }) => {
                   <QueryBuilder
                     lang="fr"
                     collection={base}
-                    react={{ and: FILTERS.filter(e => e !== "QUERYBUILDER") }}
+                    react={{ and: FILTERS.filter((e) => e !== "QUERYBUILDER") }}
                     fields={queryBuilderField}
                   />
                 )}
@@ -131,7 +131,7 @@ export default ({ match }) => {
                     size={8}
                     pagination={true}
                     showEndPage={true}
-                    renderPagination={paginationProp => {
+                    renderPagination={(paginationProp) => {
                       return <Pagination {...paginationProp} />;
                     }}
                     showResultStats={true}
@@ -146,14 +146,14 @@ export default ({ match }) => {
                         },
                       };
                     }}
-                    renderItem={data =>
+                    renderItem={(data) =>
                       base === "formations" ? (
                         <CardListFormation data={data} key={data._id} />
                       ) : (
                         <CardListEtablissements data={data} key={data._id} />
                       )
                     }
-                    renderResultStats={stats => {
+                    renderResultStats={(stats) => {
                       return (
                         <div className="summary-stats">
                           <span className="summary-text">
@@ -169,8 +169,8 @@ export default ({ match }) => {
                             index={base}
                             filters={FILTERS}
                             columns={columnsDefinition
-                              .filter(def => !def.debug || (user && def.exportOnly && def.debug))
-                              .map(def => ({ header: def.Header, fieldName: def.accessor }))}
+                              .filter((def) => !def.debug || (user && def.exportOnly && def.debug))
+                              .map((def) => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {
                                 published: true,

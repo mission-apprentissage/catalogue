@@ -20,7 +20,7 @@ const { Formation } = require("../../../../common-jobs/models");
 
 const NB_THREAD = 64;
 const attrToCompare = [
-  //"etablissement_formateur_siret",
+  "etablissement_formateur_siret",
   "etablissement_responsable_siret",
   "educ_nat_code",
   "code_postal",

@@ -44,7 +44,7 @@ const proccess = async updatedEstablishment => {
     }
 
     // Update geolocation information
-    const updatesGeoData = await geoData.getUpdates(updatedEstablishment);
+    const updatesGeoData = await geoData.getFirstMatchUpdates(updatedEstablishment);
     if (updatesGeoData) {
       updatedEstablishment = {
         ...updatedEstablishment,

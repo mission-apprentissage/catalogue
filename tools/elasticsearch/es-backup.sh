@@ -7,6 +7,7 @@ ES_URL="$(get_stage_elasticsearch_url)"
 function main() {
     backup_elasticsearch_index "${ES_URL}" "etablissements"
     backup_elasticsearch_index "${ES_URL}" "formations"
+    backup_elasticsearch_index "${ES_URL}" "domainesmetiers"
     archive_backup
 }
 
