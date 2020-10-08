@@ -9,8 +9,8 @@ plugins:
   - serverless-dotenv-plugin
   - serverless-package-external
 
-package:
-  individually: true
+# package:
+  # individually: true
 
 provider:
   name: aws
