@@ -152,7 +152,7 @@ Le champ **"query"** adresse est insensible à la case.
   
 Les résultats sont triés par poids \("score"\) de récurrences des mots présent dans le champs adresse.
 
-> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RTE DES BARTHES 40180"}
+> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RtE DES BarTHES 40180"}
 
 **Réponse simplifié :**
 
