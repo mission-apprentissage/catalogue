@@ -15,6 +15,7 @@
 
 ## Intégration
 
+* [API établissement](integration/api-etablissement.md)
 * [API](integration/api.md)
 
 ## Développements
