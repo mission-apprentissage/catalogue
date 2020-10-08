@@ -140,7 +140,7 @@ Erreur.
 
 ## Usages: 
 
-### Exemple Recherche par Siret
+### Recherche par Siret
 
 > https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query={"siret":"19400750600018"}
 
@@ -235,7 +235,7 @@ Erreur.
 }
 ```
 
-### Exemple Recherche par Adresse
+### Recherche par Adresse
 
 > [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RTE DES BARTHES 40180"}
 
