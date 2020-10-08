@@ -148,6 +148,7 @@ Erreur.
 
 Il est **impératif** que chaque mots du champ adresse soit séparé par un " "\(espace\).  
 Le champ **ne doit pas contenir de caractères spéciaux** de saut de ligne "\n", "\n\t" et autres.  
+Le champ **"query"** adresse est insensible à la case.  
   
 Les résultats sont triés par poids \("score"\) de récurrences des mots présent dans le champs adresse.
 
