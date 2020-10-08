@@ -140,6 +140,13 @@ Erreur.
 
 ## Usages: 
 
+### Recherche par Adresse
+
+Il est **impératif** que chaque mots du champ adresse soit séparé par un " "\(espace\).  
+Le champ **ne doit pas contenir de caractères spéciaux** de saut de ligne "\n", "\n\t" et autres.
+
+> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RTE DES BARTHES 40180"}
+
 ### Recherche par Siret
 
 > https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query={"siret":"19400750600018"}
@@ -234,11 +241,4 @@ Erreur.
     }
 }
 ```
-
-### Recherche par Adresse
-
-Il est **impératif** que chaque mots du champ adresse soit séparé par un " "\(espace\).  
-Le champ **ne doit pas contenir de caractères spéciaux** de saut de ligne "\n", "\n\t" et autres.
-
-> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RTE DES BARTHES 40180"}
 
