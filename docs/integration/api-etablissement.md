@@ -138,7 +138,7 @@ Erreur.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-## Usages: 
+## Exemples d'usages: 
 
 ### Recherche par Adresse
 
