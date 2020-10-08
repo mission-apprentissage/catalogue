@@ -8,7 +8,7 @@ Recherche d' établissement par UAI, Siret ou adresse.
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Ce chemin vous permet de récupérer les informations établissement à partir  d'un UAI et/ou d'un Siret et/ou d'une adresse.
+Ce chemin vous permet de récupérer les informations établissement à partir  d'un UAI et/ou d'un Siret et/ou d'une adresse. ****
 {% endapi-method-description %}
 
 {% api-method-spec %}
@@ -27,6 +27,8 @@ query={"siret":"19400750600018",  "uai": "0400898J"}
 query={"adresse": "2915 RTE DES BARTHES 40180"}  
   
 La recherche peut contenir tous les champs du modèle établissement.    
+  
+⚠️ URL Encoded param   
  
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
@@ -141,6 +143,18 @@ Erreur.
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
+
+⚠️ **Attention: les paramètres URL doivent être Encodés.   
+                         Pensez à encoder vos paramètres**    
+Exemple :
+
+> https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?{"siret":"19400750600018"}
+
+Devient
+
+> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D)
+
+Vous pouvez utiliser : [https://www.urlencoder.org/](https://www.urlencoder.org/)
 
 ## Exemples d'usages: 
 
