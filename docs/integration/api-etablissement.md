@@ -1,5 +1,7 @@
 # API établissement
 
+## Définition 
+
 {% api-method method="get" host="https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod" path="/etablissements/siret-uai" %}
 {% api-method-summary %}
 Recherche d' établissement par UAI, Siret ou adresse.
@@ -23,6 +25,8 @@ query={"uai":"0400898J"}
 query={"siret":"19400750600018",  "uai": "0400898J"}  
   
 query={"adresse": "2915 RTE DES BARTHES 40180"}  
+  
+La recherche peut contenir tous les champs du modèle établissement.    
  
 {% endapi-method-parameter %}
 {% endapi-method-query-parameters %}
