@@ -1,19 +1,19 @@
 const asyncForEach = require("../../../../../common-jobs/utils").asyncForEach;
 const fileManager = require("./FileManager");
+const Exporter = require("./Exporter");
 const axios = require("axios");
-const { Parser } = require("json2csv");
-const fs = require("fs");
-const path = require("path");
 
 class RcoChecker {
   constructor() {
-    this.formations = fileManager.getFile();
+    this.formations = fileManager.getXLSXFile();
   }
 
   async run() {
     // const responseRNCP = await this.getRNCPInfo(`RNCP34777`);
     // console.log(responseRNCP);
     const results = [];
+    console.log(this.formations.length);
+
     await asyncForEach(this.formations, async formation => {
       let resultCFd = {
         message: "",
@@ -82,26 +82,26 @@ class RcoChecker {
       }
 
       results.push({
-        etablissement_gestionnaire_siret: formation.etablissement_gestionnaire_siret | "",
+        etablissement_gestionnaire_siret: formation.etablissement_gestionnaire_siret || "",
         etablissement_gestionnaire_adresse: formation.etablissement_gestionnaire_adresse
           ? formation.etablissement_gestionnaire_adresse.replace(/\n/g, " ")
           : "",
-        etablissement_gestionnaire_code_postal: formation.etablissement_gestionnaire_code_postal | "",
-        etablissement_gestionnaire_code_insee: formation.etablissement_gestionnaire_code_insee | "",
-        etablissement_formateur_siret: formation.etablissement_formateur_siret | "",
+        etablissement_gestionnaire_code_postal: formation.etablissement_gestionnaire_code_postal || "",
+        etablissement_gestionnaire_code_insee: formation.etablissement_gestionnaire_code_insee || "",
+        etablissement_formateur_siret: formation.etablissement_formateur_siret || "",
         etablissement_formateur_adresse: formation.etablissement_formateur_adresse
           ? formation.etablissement_formateur_adresse.replace(/\n/g, " ")
           : "",
-        etablissement_formateur_code_postal: formation.etablissement_formateur_code_postal | "",
-        etablissement_formateur_code_insee: formation.etablissement_formateur_code_insee | "",
+        etablissement_formateur_code_postal: formation.etablissement_formateur_code_postal || "",
+        etablissement_formateur_code_insee: formation.etablissement_formateur_code_insee || "",
         etablissement_lieu_formation_adresse: formation.etablissement_lieu_formation_adresse
           ? formation.etablissement_lieu_formation_adresse.replace(/\n/g, " ")
           : "",
-        etablissement_lieu_formation_code_postal: formation.etablissement_lieu_formation_code_postal | "",
-        etablissement_lieu_formation_code_insee: formation.etablissement_lieu_formation_code_insee | "",
-        cfd: formation.cfd | "",
-        rncp_code: formation.rncp_code | "",
-        debut_sessions: formation.debut_sessions | "",
+        etablissement_lieu_formation_code_postal: formation.etablissement_lieu_formation_code_postal || "",
+        etablissement_lieu_formation_code_insee: formation.etablissement_lieu_formation_code_insee || "",
+        cfd: formation.cfd || "",
+        rncp_code: formation.rncp_code || "",
+        debut_sessions: formation.debut_sessions || "",
 
         cdf_statut: resultCFd.message,
         cfd_valeur: resultCFd.valeur,
@@ -111,35 +111,10 @@ class RcoChecker {
       await new Promise(resolve => setTimeout(resolve, 200));
     });
 
-    const fields = [
-      "etablissement_gestionnaire_siret",
-      "etablissement_gestionnaire_adresse",
-      "etablissement_gestionnaire_code_postal",
-      "etablissement_gestionnaire_code_insee",
-      "etablissement_formateur_siret",
-      "etablissement_formateur_adresse",
-      "etablissement_formateur_code_postal",
-      "etablissement_formateur_code_insee",
-      "etablissement_lieu_formation_adresse",
-      "etablissement_lieu_formation_code_postal",
-      "etablissement_lieu_formation_code_insee",
-      "cfd",
-      "rncp_code",
-      "debut_sessions",
-      "cdf_statut",
-      "cfd_valeur",
-      "rncp_statut",
-      "rncp_valeur",
-    ];
-    const opts = { fields, delimiter: ";" };
+    console.log(results.length);
 
-    try {
-      const parser = new Parser(opts);
-      const csv = parser.parse(results);
-      fs.writeFileSync(path.join(__dirname, "../../../output.csv"), csv);
-    } catch (err) {
-      console.error(err);
-    }
+    const exporter = new Exporter();
+    await exporter.toXlsx(results, "output.xlsx");
   }
 
   async getCfdInfo(cfd) {
@@ -157,7 +132,6 @@ class RcoChecker {
   async getRNCPInfo(rncp) {
     try {
       const response = await axios.post(`https://tables-correspondances-recette.apprentissage.beta.gouv.fr/api/rncp`, {
-        //const response = await axios.post(`http://localhost/api/rncp`, {
         rncp,
       });
       return response.data;
