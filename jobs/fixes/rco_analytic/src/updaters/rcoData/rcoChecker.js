@@ -65,9 +65,11 @@ class RcoChecker {
           } else if (`RNCP${formation.rncp_code}` !== responseCFD.result.rncp.code_rncp) {
             resultRNCP.message = "Le code RNCP associé est éronné";
             if (responseCFD.result.rncp.code_rncp === "NR") {
-              resultRNCP.valeur = `le CFD ${responseCFD.messages.cfd} n'est pas encore répertorié par FC (${formation.rncp_code} n'est pas correct)`;
+              resultRNCP.valeur = `le CFD ${responseCFD.messages.cfd} n'est pas encore répertorié par FC (RNCP${formation.rncp_code} n'est pas correct)`;
             } else {
-              resultRNCP.valeur = `${formation.rncp_code} => ${responseCFD.result.rncp.code_rncp}`;
+              if (responseCFD.result.rncp.code_rncp) {
+                resultRNCP.valeur = `RNCP${formation.rncp_code} => ${responseCFD.result.rncp.code_rncp}`;
+              }
             }
           } else {
             resultRNCP.message = "Ok";
