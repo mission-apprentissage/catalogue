@@ -51,9 +51,24 @@ class RcoChecker {
               break;
           }
 
-          if (`RNCP${formation.rncp_code}` !== responseCFD.result.rncp.code_rncp) {
+          if (!formation.rncp_code) {
+            if (!responseCFD.result.rncp.code_rncp) {
+              resultRNCP.message = "Le code RNCP Vide et aucune correspondance n'est retrouvée";
+            } else {
+              resultRNCP.message = "Le code RNCP Vide";
+              if (responseCFD.result.rncp.code_rncp === "NR") {
+                resultRNCP.valeur = `le CFD ${responseCFD.messages.cfd} n'est pas encore répertorié par FC`;
+              } else {
+                resultRNCP.valeur = `${responseCFD.result.rncp.code_rncp}`;
+              }
+            }
+          } else if (`RNCP${formation.rncp_code}` !== responseCFD.result.rncp.code_rncp) {
             resultRNCP.message = "Le code RNCP associé est éronné";
-            resultRNCP.valeur = `${formation.rncp_code} => ${responseCFD.result.rncp.code_rncp}`;
+            if (responseCFD.result.rncp.code_rncp === "NR") {
+              resultRNCP.valeur = `le CFD ${responseCFD.messages.cfd} n'est pas encore répertorié par FC (${formation.rncp_code} n'est pas correct)`;
+            } else {
+              resultRNCP.valeur = `${formation.rncp_code} => ${responseCFD.result.rncp.code_rncp}`;
+            }
           } else {
             resultRNCP.message = "Ok";
           }
@@ -64,6 +79,7 @@ class RcoChecker {
           if (responseRNCP.messages.code_rncp === "Non trouvé") {
             resultRNCP.message = "Le code RNCP Non trouvé";
           } else {
+            resultRNCP.message = "Ok";
             resultCFd.message = responseRNCP.messages.cfd.cfd;
             resultCFd.valeur = responseRNCP.result.cfd.cfd;
           }
