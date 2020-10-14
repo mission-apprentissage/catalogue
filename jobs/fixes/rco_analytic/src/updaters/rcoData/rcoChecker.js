@@ -105,8 +105,8 @@ class RcoChecker {
 
         cdf_statut: resultCFd.message,
         cfd_valeur: resultCFd.valeur,
-        rncp_statut: resultCFd.message,
-        rncp_valeur: resultCFd.valeur,
+        rncp_statut: resultRNCP.message,
+        rncp_valeur: resultRNCP.valeur,
       });
       await new Promise(resolve => setTimeout(resolve, 200));
     });
