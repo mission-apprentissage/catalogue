@@ -1,0 +1,43 @@
+{
+  "name": "ma-services",
+  "version": "1.0.0",
+  "description": "[MNA Jobs] RCO",
+  "main": "src/index.js",
+  "repository": "https://github.com/Gethi/mna-services.git",
+  "author": "Mna",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "dotenv -e ../../../.env node src/index.js",
+    "lint": "eslint ./src"
+  },
+  "engines": {
+    "node": ">=12.11.0",
+    "npm": "6.x"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "bracketSpacing": true,
+    "trailingComma": "es5"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.630.0",
+    "axios": "^0.19.2",
+    "convert-csv-to-json-latin": "1.0.2",
+    "fs-extra": "^8.1.0",
+    "json2csv": "^5.0.3",
+    "lodash": "^4.17.15",
+    "logform": "^2.1.2",
+    "moment": "^2.24.0",
+    "uuid": "^7.0.2",
+    "winston": "^3.2.1",
+    "xlsx": "^0.15.4"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "eslint-plugin-node": "^11.0.0",
+    "eslint-plugin-prettier": "^3.1.2",
+    "prettier": "^1.19.1"
+  }
+}
