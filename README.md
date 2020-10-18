@@ -139,7 +139,9 @@ Pour mettre à jour localement la table domainesMetiers :
 cd /jobs
 yarn
 cd /features/domainesMetiers/src
-STAGE="local" node index.js
+export MONGODB_DBNAME_DEV="mna-dev"
+export STAGE="local"
+node index.js
 ```
 
 Cette tâche va réinitialiser la table domainesMetiers dans votre MongoDB et votre ElasticSearch locaux avec les données du fichier. 
