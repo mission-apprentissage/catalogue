@@ -129,21 +129,20 @@ MONGODB_URL="<url mongodb>" npm run mongodb:backup
 
 Cette tâche va créer un répertoire dans le répertoire `.data/mongodb/backups`
 
-**Update tables domainesMetiers**
+**Update table domainesMetiers**
 
 Pour mettre à jour localement la table domainesMetiers :
 - demander la dernière version du fichier source domainesMetiers.xslx 
 - le copier dans /jobs/features/domainesMetiers/src/assets
 
 ```bash
-export STAGE=local
 cd /jobs
 yarn
 cd /features/domainesMetiers/src
-node index.js
+STAGE="local" node index.js
 ```
 
-Cette tâche va réinitialiser la table domainesMetiers dans votre MongoDB et votre ElasticSearch locaux avec le du fichier. 
+Cette tâche va réinitialiser la table domainesMetiers dans votre MongoDB et votre ElasticSearch locaux avec les données du fichier. 
 
 ### Accéder en local
 
