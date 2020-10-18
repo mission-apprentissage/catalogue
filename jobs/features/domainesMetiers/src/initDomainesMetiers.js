@@ -9,22 +9,22 @@ const emptyMongo = async () => {
   try {
     const metiers = await DomainesMetiers.find({});
 
-    logger.info(`Clearing domainesmetiers db...`);
+    logger.info(`Trying to clear domainesmetiers db...`);
     metiers.forEach(async metier => {
       await DomainesMetiers.findByIdAndDelete(metier._id);
     });
   } catch (err) {
-    logger.info(`Error emptying mongo table : ${err.message}`);
+    logger.info(`Non blocking error emptying mongo table : ${err.message}`);
   }
 };
 
 const clearIndex = async () => {
   try {
     let client = getElasticInstance();
-    logger.info(`Removing domainesmetiers index...`);
+    logger.info(`Trying to remove domainesmetiers index...`);
     await client.indices.delete({ index: "domainesmetiers" });
   } catch (err) {
-    logger.info(`Error emptying es index : ${err.message}`);
+    logger.info(`Non blocking error emptying es index : ${err.message}`);
   }
 };
 
