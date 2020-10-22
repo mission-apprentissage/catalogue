@@ -7,7 +7,7 @@ class Exporter {
   async toXlsx(jsonData, fileName) {
     const WS = XLSX.utils.json_to_sheet(jsonData, {
       header: [
-        "AI_GES",
+        "UAI_GES",
         "UAI_COMPOSANTE",
         "LIB_COMPOSANTE",
         "LIB_INS",
@@ -35,7 +35,7 @@ class Exporter {
     const writeFile = () =>
       new Promise(resolve => {
         XLSX.writeFileAsync(
-          path.join(__dirname, `../../../${fileName}`),
+          path.join(__dirname, `../${fileName}`),
           workbook,
           //{ bookType: "xlsx", type: "binary" },
           e => {

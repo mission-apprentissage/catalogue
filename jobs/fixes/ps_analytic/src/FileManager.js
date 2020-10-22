@@ -6,7 +6,8 @@ const XLSX = require("xlsx");
 
 class FileManager {
   getXLSXFile() {
-    const formationsFilePath = path.join(__dirname, "./assets", "listeFormationApprentissagePsup.xlsx");
+    //const formationsFilePath = path.join(__dirname, "./assets", "listeFormationApprentissagePsup.xlsx");
+    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup.xls");
 
     const jsonArray = this.getXLSX(formationsFilePath);
 
@@ -20,7 +21,7 @@ class FileManager {
 
       const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet, {
         header: [
-          "AI_GES",
+          "UAI_GES",
           "UAI_COMPOSANTE",
           "LIB_COMPOSANTE",
           "LIB_INS",
