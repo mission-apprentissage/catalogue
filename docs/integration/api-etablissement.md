@@ -148,7 +148,7 @@ Erreur.
                          Pensez à encoder vos paramètres**    
 Exemple :
 
-> https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?{"siret":"19400750600018"}
+> https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query={"siret":"19400750600018"}
 
 Devient
 
