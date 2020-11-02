@@ -1,13 +1,13 @@
 const logger = require("../../../common-jobs/Logger").mainLogger;
-const rcoChecker = require("./updaters/rcoData/rcoChecker");
+const importer = require("./importer/importer");
 
 const run = async () => {
   try {
-    logger.info(" -- Start of RCO updater -- ");
+    logger.info(" -- Start of RCO importer -- ");
 
-    await rcoChecker.run();
+    await importer.run();
 
-    logger.info(" -- End of RCO updater -- ");
+    logger.info(" -- End of RCO importer -- ");
   } catch (err) {
     logger.error(err);
   }

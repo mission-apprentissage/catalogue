@@ -1,9 +1,9 @@
 {
   "name": "ma-services",
   "version": "1.0.0",
-  "description": "[MNA Jobs] RCO Webservice",
+  "description": "[MNA Jobs] RCO",
   "main": "src/index.js",
-  "repository": "https://github.com/mission-apprentissage/catalogue.git",
+  "repository": "https://github.com/Gethi/mna-services.git",
   "author": "Mna",
   "license": "MIT",
   "private": true,
