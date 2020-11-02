@@ -9,9 +9,12 @@ const params = {
 class WsRCO {
   constructor() {}
 
-  async getRCOcatalogue() {
+  /*
+  day can be equal to -j-1 to get the export from yesterday
+  */
+  async getRCOcatalogue(day = "") {
     try {
-      const response = await axios.get(`${endpoint}/catalogue-formations-apprentissage.json`, {
+      const response = await axios.get(`${endpoint}/catalogue-formations-apprentissage${day}.json`, {
         headers: {
           Authorization: `Basic ${this.encode64Token()}`,
         },
