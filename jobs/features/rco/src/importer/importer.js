@@ -4,7 +4,10 @@ const { diff } = require("deep-object-diff");
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 
 class Importer {
-  constructor() {}
+  constructor() {
+    this.added = [];
+    this.updated = [];
+  }
 
   async run() {
     const formationsJ1 = await wsRCO.getRCOcatalogue("-j-1");
@@ -20,8 +23,14 @@ class Importer {
         return null;
       }
 
-      const { addedToDb, updatedToDb } = await this.checkFormationsToAddToDb(collection.added);
+      let formationsToAddToDb = [];
+      let formationsToUpdateToDb = [];
 
+      const addedFormations = await this.addedFormationsHandler(collection.added);
+      formationsToAddToDb = [...formationsToAddToDb, ...addedFormations.toAddToDb];
+      formationsToUpdateToDb = [...formationsToUpdateToDb, ...addedFormations.toUpdateToDb];
+
+      //  ---------------------------------------------------- UPDATE
       // await asyncForEach(collection.updated, async rcoFormationUpdated => {
       //   const rcoFormation = await this.getRcoFormation(rcoFormationUpdated);
       //   if (rcoFormation) {
@@ -41,27 +50,38 @@ class Importer {
       //   }
       // });
 
+      // ---------------------------------------------------- DELETE
       // TODO Delete cases
       // Desactiver la formations
 
+      await asyncForEach(formationsToAddToDb, async formationToAddToDb => {
+        await this.addRCOFormation(formationToAddToDb);
+      });
+      await asyncForEach(formationsToUpdateToDb, async formationToUpdateToDb => {
+        await this.updateRCOFormation(formationToUpdateToDb.rcoFormation, formationToUpdateToDb.updateInfo);
+      });
+
       // Stats
       console.log(collection.added.length);
-      console.log(addedToDb.length);
-      console.log(updatedToDb.length);
+      console.log(this.added.length);
+      console.log(this.updated.length);
       // console.log(collection.updated.length);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async checkFormationsToAddToDb(added) {
-    const addedToDb = [];
-    const updatedToDb = [];
+  /*
+   * Handler added formation
+   */
+  async addedFormationsHandler(added) {
+    const toAddToDb = [];
+    const toUpdateToDb = [];
 
     if (!added) {
       return {
-        addedToDb,
-        updatedToDb,
+        toAddToDb,
+        toUpdateToDb,
       };
     }
 
@@ -70,10 +90,7 @@ class Importer {
 
       // The formation does not already exist
       if (!rcoFormation) {
-        const newRcoFormation = new RcoFormations(rcoFormationAdded);
-        await newRcoFormation.save();
-        const id = this._buildId(newRcoFormation);
-        addedToDb.push({ mnaId: newRcoFormation._id, rcoId: id });
+        toAddToDb.push(rcoFormationAdded);
       } else if (!rcoFormation.published) {
         // Réactiver la formation
         const updateInfo = {
@@ -82,20 +99,18 @@ class Importer {
         // Compare old with new one
         const updates = this.diffRcoFormation(rcoFormation, rcoFormationAdded);
         if (updates) {
-          // TODO
+          // TODO   ADD DIFF TO  updateInfo ----------------------------------------------------
           console.log(updates);
         }
-        await this.updateRCOFormation(rcoFormation, updateInfo);
-        const id = this._buildId(rcoFormation);
-        updatedToDb.push({ mnaId: rcoFormation._id, rcoId: id });
+        toUpdateToDb.push({ rcoFormation, updateInfo });
       } else {
-        // ISSUE!
+        // ISSUE! ----------------------------------------------------
       }
     });
 
     return {
-      addedToDb,
-      updatedToDb,
+      toAddToDb,
+      toUpdateToDb,
     };
   }
 
@@ -172,7 +187,18 @@ class Importer {
   }
 
   /*
-   * Update RCO Formation
+   * Add to db RCO Formation
+   */
+  async addRCOFormation(rcoFormation) {
+    const newRcoFormation = new RcoFormations(rcoFormation);
+    await newRcoFormation.save();
+    const id = this._buildId(newRcoFormation);
+    this.added.push({ mnaId: newRcoFormation._id, rcoId: id });
+    return newRcoFormation._id;
+  }
+
+  /*
+   * Update to db RCO Formation
    */
   async updateRCOFormation(rcoFormation, updateInfo) {
     const updates_history = [...rcoFormation.updates_history, { ...updateInfo, last_update_at: Date.now() }];
@@ -186,6 +212,8 @@ class Importer {
       },
       { new: true }
     );
+    const id = this._buildId(rcoFormation);
+    this.updated.push({ mnaId: rcoFormation._id, rcoId: id });
     return rcoFormation._id;
   }
 
