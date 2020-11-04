@@ -30,25 +30,8 @@ class Importer {
       formationsToAddToDb = [...formationsToAddToDb, ...addedFormations.toAddToDb];
       formationsToUpdateToDb = [...formationsToUpdateToDb, ...addedFormations.toUpdateToDb];
 
-      //  ---------------------------------------------------- UPDATE
-      // await asyncForEach(collection.updated, async rcoFormationUpdated => {
-      //   const rcoFormation = await this.getRcoFormation(rcoFormationUpdated);
-      //   if (rcoFormation) {
-      //     const updates = this.diffRcoFormation(rcoFormation, rcoFormationUpdated);
-      //     console.log(updates);
-      //     // await RcoFormations.findOneAndUpdate(
-      //     //   { _id: rcoFormation._id },
-      //     //   {
-      //     //     ...eta,
-      //     //     ...updateInfo,
-      //     //     last_update_at: Date.now(),
-      //     //   },
-      //     //   { new: true }
-      //     // );
-      //   } else {
-      //     // ISSUE!
-      //   }
-      // });
+      const updatedFormations = await this.updatedFormationsHandler(collection.updated);
+      formationsToUpdateToDb = [...formationsToUpdateToDb, ...updatedFormations.toUpdateToDb];
 
       // ---------------------------------------------------- DELETE
       // TODO Delete cases
@@ -63,9 +46,9 @@ class Importer {
 
       // Stats
       console.log(collection.added.length);
+      console.log(collection.updated.length);
       console.log(this.added.length);
       console.log(this.updated.length);
-      // console.log(collection.updated.length);
     } catch (error) {
       console.log(error);
     }
@@ -110,6 +93,41 @@ class Importer {
 
     return {
       toAddToDb,
+      toUpdateToDb,
+    };
+  }
+
+  /*
+   * Handler updated formation
+   */
+  async updatedFormationsHandler(updated) {
+    const toUpdateToDb = [];
+
+    if (!updated) {
+      return {
+        toUpdateToDb,
+      };
+    }
+
+    await asyncForEach(updated, async rcoFormationUpdated => {
+      const rcoFormation = await this.getRcoFormation(rcoFormationUpdated);
+
+      // The formation does exist
+      if (rcoFormation) {
+        const updateInfo = {};
+        // Compare old with new one
+        const updates = this.diffRcoFormation(rcoFormation, rcoFormationUpdated);
+        if (updates) {
+          // TODO   ADD DIFF TO  updateInfo ----------------------------------------------------
+          console.log(updates);
+        }
+        toUpdateToDb.push({ rcoFormation, updateInfo });
+      } else {
+        // ISSUE! ----------------------------------------------------
+      }
+    });
+
+    return {
       toUpdateToDb,
     };
   }
