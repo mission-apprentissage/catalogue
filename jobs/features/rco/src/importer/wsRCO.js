@@ -21,7 +21,11 @@ class WsRCO {
       });
       return response.data;
     } catch (error) {
-      console.error(error);
+      if (error.response.status === 404) {
+        console.log(`404 not found ${endpoint}/catalogue-formations-apprentissage${day}.json`);
+        return [];
+      }
+      console.log(error);
       return null;
     }
   }

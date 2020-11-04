@@ -31,4 +31,7 @@ const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
 
 module.exports.mongooseInstance = mongooseInstance;
 module.exports.connectToMongo = connectToMongo;
-module.exports.closeMongoConnection = (mongooseInst = mongooseInstance) => mongooseInst.connection.close();
+module.exports.closeMongoConnection = (mongooseInst = mongooseInstance) => {
+  console.log("MongoDB: Closed");
+  mongooseInst.connection.close();
+};
