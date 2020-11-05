@@ -43,7 +43,7 @@
                 <mj-text align="left" padding-top="50px" color="#ffffff">
                     <%= data.added.length %> Formation(s) ajoutée(s)
                 </mj-text>
-                <mj-table color="#ffffff" align="left" css-class="table">
+                <mj-table color="#ffffff" align="left">
                 <tr align="left">
                     <th>Index</th>
                     <% Object.keys(data.added[0]).forEach(function(col) { %>
@@ -51,8 +51,8 @@
                     <% }); %>
                 </tr>
                 <% data.added.forEach(function(row, idx) { %>
-                <tr align="left">
-                    <td class="green"><%= idx %></td>
+                <tr align="left" class="green">
+                    <td><%= idx %></td>
                     <% Object.values(row).forEach(function(datum) { %>
                         <td><%= datum %></td>
                     <% }); %>
@@ -76,12 +76,12 @@
                         <% }); %>
                     </tr>
                     <% data.updated.forEach(function(row, idx) { %>
-                    <tr align="left">
                         <% if(row.published ==="Supprimée") { %>
-                            <td class="red"><%= idx %></td>
+                            <tr align="left" class="red">
                         <% } else { %>
-                            <td class="orange"><%= idx %></td>
+                            <tr align="left" class="orange">
                         <% } %>
+                        <td ><%= idx %></td>
                         <% Object.values(row).forEach(function(datum) { %>
                             <td><%= datum %></td>
                         <% }); %>
