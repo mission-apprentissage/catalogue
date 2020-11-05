@@ -38,18 +38,13 @@ class Importer {
 
       await this.dbOperationsHandler();
 
-      await this.report();
+      await this.report(collection);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async report() {
-    // Stats
-
-    //console.log(collection.added.length);
-    //console.log(collection.updated.length);
-
+  async report(collection = null) {
     if (this.updated.length > 0) {
       for (let ite = 0; ite < this.updated.length; ite++) {
         const element = this.updated[ite];
@@ -63,15 +58,19 @@ class Importer {
           element.published = "Supprimée";
         }
 
-        const rcoFormation = await RcoFormations.findById(element.mnaId);
-        const updates_history = rcoFormation.updates_history[rcoFormation.updates_history.length - 1];
-        element.from = JSON.stringify(updates_history.from);
-        element.to = JSON.stringify(updates_history.to);
+        // const rcoFormation = await RcoFormations.findById(element.mnaId);
+        // const updates_history = rcoFormation.updates_history[rcoFormation.updates_history.length - 1];
+        // element.from = JSON.stringify(updates_history.from);
+        // element.to = JSON.stringify(updates_history.to);
       }
     }
-    report.generate(this.added, this.updated);
+
+    await report.generate(collection, this.added, this.updated);
   }
 
+  /*
+   * Reset report
+   */
   resetReport() {
     this.formationsToAddToDb = [];
     this.formationsToUpdateToDb = [];

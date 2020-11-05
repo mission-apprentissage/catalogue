@@ -1,53 +1,48 @@
+require("dotenv").config({ path: "../../../.env" });
+const env = require("env-var");
+const path = require("path");
+const createMailer = require("./mailer");
+const { DateTime } = require("luxon");
+
 class Report {
-  constructor() {}
-
-  generate(added, updated) {
-    if (added.length > 0) {
-      console.log(`Formation(s) ajoutée(s) ${added.length}`);
-      console.table(added);
-    }
-
-    if (updated.length > 0) {
-      console.log(`Formation(s) mise(s) à jour ${updated.length}`);
-      console.table(updated);
-      console.log(this.tableMarkupFromObjectArray(updated));
-    }
+  constructor() {
+    const config_smtp = {
+      smtp: {
+        host: env
+          .get("SMTP_HOST")
+          .default("localhost")
+          .asString(),
+        port: env
+          .get("SMTP_PORT")
+          .default("1025")
+          .asString(),
+        secure: env
+          .get("SMTP_SECURE")
+          .default("false")
+          .asBoolStrict(),
+        auth: {
+          user: env.get("SMTP_AUTH_USER").asString(),
+          pass: env.get("SMTP_AUTH_PASS").asString(),
+        },
+      },
+    };
+    this.mailer = createMailer(config_smtp);
   }
 
-  tableMarkupFromObjectArray(obj) {
-    let headers = `
-          <th>Index</th>${Object.keys(obj[0])
-            .map(
-              col => `
-          <th>${col}</th>`
-            )
-            .join("")}`;
+  getEmailTemplate(type = "report") {
+    return path.join(__dirname, `${type}.mjml.ejs`);
+  }
 
-    let content = obj
-      .map(
-        (row, idx) => `
-        <tr>
-          <td>${idx}</td>${Object.values(row)
-          .map(
-            datum => `
-          <td>${datum}</td>`
-          )
-          .join("")}
-        </tr>
-  `
-      )
-      .join("");
-
-    let tablemarkup = `
-    <table>
-      <thead>
-        <tr>${headers}
-        </tr>
-      </thead>
-      <tbody>${content}   </tbody>
-    </table>
-    `;
-    return tablemarkup;
+  async generate(collection, added, updated) {
+    const date = DateTime.local()
+      .setLocale("fr")
+      .toFormat("dd MMMM yyyy");
+    const titre = `[Webservice RCO] Rapport d'importation ${date}`;
+    await this.mailer.sendEmail("antoine.bigard@beta.gouv.fr", titre, this.getEmailTemplate("report"), {
+      added,
+      updated,
+      date,
+    });
   }
 }
 
