@@ -2,6 +2,7 @@ const wsRCO = require("./wsRCO");
 const { RcoFormations } = require("../../../../../common/models2");
 const { diff } = require("deep-object-diff");
 const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
+const report = require("./report");
 
 class Importer {
   constructor() {
@@ -49,11 +50,6 @@ class Importer {
     //console.log(collection.added.length);
     //console.log(collection.updated.length);
 
-    if (this.added.length > 0) {
-      console.log(`Formation(s) ajoutée(s) ${this.added.length}`);
-      console.table(this.added);
-    }
-
     if (this.updated.length > 0) {
       for (let ite = 0; ite < this.updated.length; ite++) {
         const element = this.updated[ite];
@@ -72,9 +68,8 @@ class Importer {
         element.from = JSON.stringify(updates_history.from);
         element.to = JSON.stringify(updates_history.to);
       }
-      console.log(`Formation(s) mise(s) à jour ${this.updated.length}`);
-      console.table(this.updated);
     }
+    report.generate(this.added, this.updated);
   }
 
   resetReport() {
