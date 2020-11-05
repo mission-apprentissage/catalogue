@@ -7,6 +7,8 @@ class Importer {
   constructor() {
     this.added = [];
     this.updated = [];
+    this.formationsToAddToDb = [];
+    this.formationsToUpdateToDb = [];
   }
 
   async run() {
@@ -23,35 +25,76 @@ class Importer {
         return null;
       }
 
-      let formationsToAddToDb = [];
-      let formationsToUpdateToDb = [];
-
       const addedFormations = await this.addedFormationsHandler(collection.added);
-      formationsToAddToDb = [...formationsToAddToDb, ...addedFormations.toAddToDb];
-      formationsToUpdateToDb = [...formationsToUpdateToDb, ...addedFormations.toUpdateToDb];
+      this.addtoDbTasks(addedFormations);
 
       const updatedFormations = await this.updatedFormationsHandler(collection.updated);
-      formationsToUpdateToDb = [...formationsToUpdateToDb, ...updatedFormations.toUpdateToDb];
+      this.addtoDbTasks(updatedFormations);
 
-      // ---------------------------------------------------- DELETE
-      // TODO Delete cases
       // Desactiver la formations
+      const deletedFormations = await this.deletedFormationsHandler(collection.deleted);
+      this.addtoDbTasks(deletedFormations);
 
-      await asyncForEach(formationsToAddToDb, async formationToAddToDb => {
-        await this.addRCOFormation(formationToAddToDb);
-      });
-      await asyncForEach(formationsToUpdateToDb, async formationToUpdateToDb => {
-        await this.updateRCOFormation(formationToUpdateToDb.rcoFormation, formationToUpdateToDb.updateInfo);
-      });
+      await this.dbOperationsHandler();
 
-      // Stats
-      console.log(collection.added.length);
-      console.log(collection.updated.length);
-      console.log(this.added.length);
-      console.log(this.updated.length);
+      this.report();
     } catch (error) {
       console.log(error);
     }
+  }
+
+  report() {
+    // Stats
+
+    //console.log(collection.added.length);
+    //console.log(collection.updated.length);
+
+    if (this.added.length > 0) {
+      console.table(this.added);
+    }
+
+    if (this.updated.length > 0) {
+      for (let ite = 0; ite < this.updated.length; ite++) {
+        const element = this.updated[ite];
+        const updates = this.formationsToUpdateToDb.find(u => u.rcoFormation._id === element.mnaId).updates;
+        if (!updates) {
+          element.updates = "Supprimée";
+        } else {
+          element.updates = JSON.stringify(updates);
+        }
+      }
+      console.table(this.updated);
+    }
+
+    // console.log(this.added.length);
+    // console.log(this.updated.length);
+  }
+
+  resetReport() {
+    this.formationsToAddToDb = [];
+    this.formationsToUpdateToDb = [];
+    this.added = [];
+    this.updated = [];
+  }
+
+  /*
+   * Handler db operations
+   */
+  async dbOperationsHandler() {
+    await asyncForEach(this.formationsToAddToDb, async formationToAddToDb => {
+      await this.addRCOFormation(formationToAddToDb);
+    });
+    await asyncForEach(this.formationsToUpdateToDb, async formationToUpdateToDb => {
+      await this.updateRCOFormation(formationToUpdateToDb.rcoFormation, formationToUpdateToDb.updateInfo);
+    });
+  }
+
+  /*
+   * Add db tasks
+   */
+  addtoDbTasks(resultFormations) {
+    this.formationsToAddToDb = [...this.formationsToAddToDb, ...resultFormations.toAddToDb];
+    this.formationsToUpdateToDb = [...this.formationsToUpdateToDb, ...resultFormations.toUpdateToDb];
   }
 
   /*
@@ -76,18 +119,25 @@ class Importer {
         toAddToDb.push(rcoFormationAdded);
       } else if (!rcoFormation.published) {
         // Réactiver la formation
-        const updateInfo = {
+        let updateInfo = {
           published: true,
         };
         // Compare old with new one
-        const updates = this.diffRcoFormation(rcoFormation, rcoFormationAdded);
+        const { updates, keys } = this.diffRcoFormation(rcoFormation, rcoFormationAdded);
         if (updates) {
-          // TODO   ADD DIFF TO  updateInfo ----------------------------------------------------
-          console.log(updates);
+          // prepare update
+          for (let ite = 0; ite < keys.length; ite++) {
+            const key = keys[ite];
+            updateInfo[key] = rcoFormationAdded[key];
+          }
         }
-        toUpdateToDb.push({ rcoFormation, updateInfo });
+        toUpdateToDb.push({ rcoFormation, updateInfo, updates });
       } else {
-        // ISSUE! ----------------------------------------------------
+        console.error(
+          `addedFormationsHandler >> Formation ${this._buildId(rcoFormationAdded)} existe et est plublié ${
+            rcoFormation._id
+          }`
+        );
       }
     });
 
@@ -105,6 +155,7 @@ class Importer {
 
     if (!updated) {
       return {
+        toAddToDb: [],
         toUpdateToDb,
       };
     }
@@ -114,20 +165,65 @@ class Importer {
 
       // The formation does exist
       if (rcoFormation) {
-        const updateInfo = {};
+        let updateInfo = {};
         // Compare old with new one
-        const updates = this.diffRcoFormation(rcoFormation, rcoFormationUpdated);
+        const { updates, keys } = this.diffRcoFormation(rcoFormation, rcoFormationUpdated);
         if (updates) {
-          // TODO   ADD DIFF TO  updateInfo ----------------------------------------------------
-          console.log(updates);
+          // prepare update
+          for (let ite = 0; ite < keys.length; ite++) {
+            const key = keys[ite];
+            updateInfo[key] = rcoFormationUpdated[key];
+          }
         }
-        toUpdateToDb.push({ rcoFormation, updateInfo });
+        toUpdateToDb.push({ rcoFormation, updateInfo, updates });
       } else {
-        // ISSUE! ----------------------------------------------------
+        console.error(
+          `updatedFormationsHandler >> Formation ${this._buildId(rcoFormationUpdated)} n'existe pas en base`
+        );
       }
     });
 
     return {
+      toAddToDb: [],
+      toUpdateToDb,
+    };
+  }
+
+  /*
+   * Handler deleted formation
+   */
+  async deletedFormationsHandler(deleted) {
+    const toUpdateToDb = [];
+
+    if (!deleted) {
+      return {
+        toAddToDb: [],
+        toUpdateToDb,
+      };
+    }
+    await asyncForEach(deleted, async rcoFormationDeleted => {
+      const rcoFormation = await this.getRcoFormation(rcoFormationDeleted);
+
+      // The formation does exist
+      if (rcoFormation) {
+        let updateInfo = {
+          published: false,
+        };
+        // Compare old with new one
+        const { updates, keys } = this.diffRcoFormation(rcoFormation, rcoFormationDeleted);
+        if (updates) {
+          // prepare update
+          for (let ite = 0; ite < keys.length; ite++) {
+            const key = keys[ite];
+            updateInfo[key] = rcoFormationDeleted[key];
+          }
+        }
+        toUpdateToDb.push({ rcoFormation, updateInfo, updates });
+      }
+    });
+
+    return {
+      toAddToDb: [],
       toUpdateToDb,
     };
   }
@@ -211,15 +307,16 @@ class Importer {
     const newRcoFormation = new RcoFormations(rcoFormation);
     await newRcoFormation.save();
     const id = this._buildId(newRcoFormation);
-    this.added.push({ mnaId: newRcoFormation._id, rcoId: id });
-    return newRcoFormation._id;
+    const added = { mnaId: newRcoFormation._id, rcoId: id };
+    this.added.push(added);
+    return added;
   }
 
   /*
    * Update to db RCO Formation
    */
   async updateRCOFormation(rcoFormation, updateInfo) {
-    const updates_history = [...rcoFormation.updates_history, { ...updateInfo, last_update_at: Date.now() }];
+    const updates_history = this.buildUpdatesHistory(rcoFormation, updateInfo);
     await RcoFormations.findOneAndUpdate(
       { _id: rcoFormation._id },
       {
@@ -231,8 +328,23 @@ class Importer {
       { new: true }
     );
     const id = this._buildId(rcoFormation);
-    this.updated.push({ mnaId: rcoFormation._id, rcoId: id });
-    return rcoFormation._id;
+    const updated = { mnaId: rcoFormation._id, rcoId: id };
+    this.updated.push(updated);
+    return updated;
+  }
+
+  /*
+   * Build updates history
+   */
+  buildUpdatesHistory(rcoFormation, updateInfo) {
+    let from = {};
+    const keys = Object.keys(updateInfo);
+    for (let ite = 0; ite < keys.length; ite++) {
+      const key = keys[ite];
+      from[key] = rcoFormation[key];
+    }
+    const updates_history = [...rcoFormation.updates_history, { from, to: { ...updateInfo }, updated_at: Date.now() }];
+    return updates_history;
   }
 
   /*
@@ -242,14 +354,18 @@ class Importer {
     const rcoFormation = { ...rcoFormationP };
     delete rcoFormation._id;
     delete rcoFormation.__v;
+    delete rcoFormation.updates_history;
+    delete rcoFormation.published;
+    delete rcoFormation.created_at;
+    delete rcoFormation.last_update_at;
     const compare = diff(rcoFormation, formation);
     const keys = Object.keys(compare);
 
     if (keys.length === 0) {
-      return null;
+      return { updates: null, keys: 0 };
     }
 
-    return compare;
+    return { updates: compare, keys };
   }
 }
 
