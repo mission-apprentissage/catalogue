@@ -60,7 +60,7 @@ describe(__filename, () => {
     assert.deepStrictEqual(updatedFormation.updates_history[0].from, { periode: ["2021-11"] });
     assert.deepStrictEqual(updatedFormation.updates_history[0].to, { periode: ["2021-11", "2021-12"] });
 
-    await importer.report();
+    // await importer.report();
     importer.resetReport();
   });
 
@@ -87,7 +87,7 @@ describe(__filename, () => {
     assert.deepStrictEqual(deletedFormation.updates_history[0].from, { published: true });
     assert.deepStrictEqual(deletedFormation.updates_history[0].to, { published: false });
 
-    // await importer.report();
+    //await importer.report();
     importer.resetReport();
   });
 
@@ -152,7 +152,7 @@ describe(__filename, () => {
       ],
     });
 
-    // await importer.report();
+    await importer.report();
     importer.resetReport();
   });
 });

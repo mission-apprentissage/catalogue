@@ -33,5 +33,5 @@ module.exports.mongooseInstance = mongooseInstance;
 module.exports.connectToMongo = connectToMongo;
 module.exports.closeMongoConnection = (mongooseInst = mongooseInstance) => {
   console.log("MongoDB: Closed");
-  mongooseInst.connection.close();
+  return mongooseInst.connection.close();
 };
