@@ -8,6 +8,7 @@
             .link-nostyle { color: inherit;}
             .table th, .table td { border: 1px solid white; }
             .green { background-color:#8BC34A; }
+            .red { background-color:#F44336; }
             .orange { background-color:#FF9800; }
         </mj-style>
         <mj-attributes>
@@ -36,13 +37,14 @@
             </mj-column>
         </mj-section>
 
+        <% if(data.added.length > 0) { %>
         <mj-section padding-bottom="20px" padding-top="10px" background-color="#5222d0">
             <mj-column>
                 <mj-text align="left" padding-top="50px" color="#ffffff">
                     <%= data.added.length %> Formation(s) ajoutée(s)
                 </mj-text>
                 <mj-table color="#ffffff" align="left" css-class="table">
-                <tr align="left" class="green">
+                <tr align="left">
                     <th>Index</th>
                     <% Object.keys(data.added[0]).forEach(function(col) { %>
                         <th><%= col %></th>
@@ -50,7 +52,7 @@
                 </tr>
                 <% data.added.forEach(function(row, idx) { %>
                 <tr align="left">
-                    <td><%= idx %></td>
+                    <td class="green"><%= idx %></td>
                     <% Object.values(row).forEach(function(datum) { %>
                         <td><%= datum %></td>
                     <% }); %>
@@ -59,13 +61,15 @@
             </mj-table>
             </mj-column>
         </mj-section>
+        <% } %>
+        <% if(data.updated.length > 0) { %>
        <mj-section padding-bottom="20px" padding-top="10px" background-color="#5222d0">
             <mj-column>
                 <mj-text align="left" padding-top="50px" color="#ffffff">
                     <%= data.updated.length %> Formation(s) mise(s) à jour
                 </mj-text>
-                <mj-table color="#ffffff" align="left" css-class="table">
-                    <tr align="left" class="orange">
+                <mj-table color="#ffffff" align="left">
+                    <tr align="left">
                         <th>Index</th>
                         <% Object.keys(data.updated[0]).forEach(function(col) { %>
                             <th><%= col %></th>
@@ -73,7 +77,11 @@
                     </tr>
                     <% data.updated.forEach(function(row, idx) { %>
                     <tr align="left">
-                        <td><%= idx %></td>
+                        <% if(row.published ==="Supprimée") { %>
+                            <td class="red"><%= idx %></td>
+                        <% } else { %>
+                            <td class="orange"><%= idx %></td>
+                        <% } %>
                         <% Object.values(row).forEach(function(datum) { %>
                             <td><%= datum %></td>
                         <% }); %>
@@ -82,6 +90,7 @@
                 </mj-table>
             </mj-column>
         </mj-section>
+        <% } %>
 
         <mj-section background-color="#5222d0">
             <mj-column>
