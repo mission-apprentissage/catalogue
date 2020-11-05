@@ -1,6 +1,5 @@
 const { describe, it, before, after } = require("mocha");
 const assert = require("assert");
-const asyncForEach = require("../../../../common-jobs/utils").asyncForEach;
 const importer = require("../importer/importer");
 const { formationsJ, formationsJMinus1, formationsJPlus1, formationsJPlus2, adding } = require("./fixtures");
 const { connectToMongo, closeMongoConnection } = require("../../../../../common/mongo");
@@ -61,7 +60,7 @@ describe(__filename, () => {
     assert.deepStrictEqual(updatedFormation.updates_history[0].from, { periode: ["2021-11"] });
     assert.deepStrictEqual(updatedFormation.updates_history[0].to, { periode: ["2021-11", "2021-12"] });
 
-    //importer.report();
+    // await importer.report();
     importer.resetReport();
   });
 
@@ -78,15 +77,82 @@ describe(__filename, () => {
     const count = await RcoFormations.countDocuments({});
     assert.equal(count, 231);
 
-    importer.report();
+    const deletedFormation = await importer.getRcoFormation({
+      id_formation: "24_207466",
+      id_action: "24_1461053",
+      id_certifinfo: "100429",
+    });
+
+    assert.equal(deletedFormation.published, false);
+    assert.deepStrictEqual(deletedFormation.updates_history[0].from, { published: true });
+    assert.deepStrictEqual(deletedFormation.updates_history[0].to, { published: false });
+
+    // await importer.report();
     importer.resetReport();
   });
-  // it("lookupDiff >> Si Ajout doit retourner la(es) formation(s) ajoutée(s)", async () => {
-  //   const collection = importer.lookupDiff(formationsJPlus2, formationsJPlus1); // REACTIVER LA FORMATION
-  //   assert.deepStrictEqual(collection, {
-  //     added: [reAdded],
-  //     updated: [],
-  //     deleted: [],
-  //   });
-  // });
+
+  it("lookupDiff >> Si Ajout d'une formation deja presente doit retourner la(es) formation(s) reactivée et mise à jour", async () => {
+    const collection = importer.lookupDiff(formationsJPlus2, formationsJPlus1);
+
+    const resultAdded = await importer.addedFormationsHandler(collection.added);
+    importer.addtoDbTasks(resultAdded);
+
+    await importer.dbOperationsHandler();
+
+    const count = await RcoFormations.countDocuments({});
+    assert.equal(count, 231);
+
+    const updatedFormation = await importer.getRcoFormation({
+      id_formation: "24_207466",
+      id_action: "24_1461053",
+      id_certifinfo: "100429",
+    });
+
+    assert.equal(updatedFormation.published, true);
+    assert.deepStrictEqual(updatedFormation.updates_history[1].from, {
+      published: false,
+      periode: [
+        "2021-01",
+        "2021-02",
+        "2021-03",
+        "2021-04",
+        "2021-05",
+        "2021-06",
+        "2021-09",
+        "2021-10",
+        "2021-11",
+        "2021-12",
+        "2022-01",
+        "2022-02",
+        "2022-03",
+        "2022-04",
+        "2022-05",
+        "2022-06",
+      ],
+    });
+    assert.deepStrictEqual(updatedFormation.updates_history[1].to, {
+      published: true,
+      periode: [
+        "2021-01",
+        "2021-02",
+        "2021-03",
+        "2021-04",
+        "2021-05",
+        "2021-06",
+        "2021-09",
+        "2021-10",
+        "2021-11",
+        "2021-12",
+        "2022-01",
+        "2022-02",
+        "2022-03",
+        "2022-04",
+        "2022-05",
+        "2022-07",
+      ],
+    });
+
+    // await importer.report();
+    importer.resetReport();
+  });
 });

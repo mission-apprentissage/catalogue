@@ -37,37 +37,44 @@ class Importer {
 
       await this.dbOperationsHandler();
 
-      this.report();
+      await this.report();
     } catch (error) {
       console.log(error);
     }
   }
 
-  report() {
+  async report() {
     // Stats
 
     //console.log(collection.added.length);
     //console.log(collection.updated.length);
 
     if (this.added.length > 0) {
+      console.log(`Formation(s) ajoutée(s) ${this.added.length}`);
       console.table(this.added);
     }
 
     if (this.updated.length > 0) {
       for (let ite = 0; ite < this.updated.length; ite++) {
         const element = this.updated[ite];
-        const updates = this.formationsToUpdateToDb.find(u => u.rcoFormation._id === element.mnaId).updates;
-        if (!updates) {
-          element.updates = "Supprimée";
-        } else {
-          element.updates = JSON.stringify(updates);
+        const { updates, updateInfo } = this.formationsToUpdateToDb.find(u => u.rcoFormation._id === element.mnaId);
+
+        element.updates = JSON.stringify(updates);
+
+        if (updateInfo.published === true) {
+          element.published = "Re-ouverte";
+        } else if (updateInfo.published === false) {
+          element.published = "Supprimée";
         }
+
+        const rcoFormation = await RcoFormations.findById(element.mnaId);
+        const updates_history = rcoFormation.updates_history[rcoFormation.updates_history.length - 1];
+        element.from = JSON.stringify(updates_history.from);
+        element.to = JSON.stringify(updates_history.to);
       }
+      console.log(`Formation(s) mise(s) à jour ${this.updated.length}`);
       console.table(this.updated);
     }
-
-    // console.log(this.added.length);
-    // console.log(this.updated.length);
   }
 
   resetReport() {
