@@ -46,6 +46,11 @@ export AWS_PROFILE=mna-devops
 yarn global add dotenv-cli
 ```
 
+- Installer serverless
+```bash
+yarn global add serverless
+```
+
 ### tl;dr mount local env
 
 ```bash
@@ -54,6 +59,8 @@ npm run docker:start
 STAGE=dev dotenv npm run mongodb:dump
 STAGE=dev dotenv npm run es:dump
 ```
+
+**n.b:** en cas de première install, il faudra lancer la migration `migrationESMapping`
 
 ### Accéder en local
 
