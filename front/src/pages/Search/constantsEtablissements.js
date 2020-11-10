@@ -1,4 +1,4 @@
-const FILTERS = ["QUERYBUILDER", "SEARCH", "num_departement", "nom_academie"];
+const FILTERS = ["QUERYBUILDER", "SEARCH", "num_departement", "nom_academie", "opcos"];
 
 const columnsDefinition = [
   {
@@ -246,6 +246,12 @@ const columnsDefinition = [
     exportOnly: true,
     editable: false,
   },
+  {
+    Header: "OPCOs",
+    accessor: "opcos",
+    width: 200,
+    editable: false,
+  },
 ];
 
 const queryBuilderField = [
@@ -273,6 +279,14 @@ const facetDefinition = [
     title: "Département",
     filterLabel: "num_departement",
     selectAllLabel: "Tous",
+    sortBy: "asc",
+  },
+  {
+    componentId: "opcos",
+    dataField: "opcos.keyword",
+    title: "OPCOs",
+    filterLabel: "opcos",
+    selectAllLabel: "Tout OPCOs",
     sortBy: "asc",
   },
 ];

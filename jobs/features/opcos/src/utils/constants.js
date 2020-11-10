@@ -1,10 +1,12 @@
 const infosCodes = {
-  NotFound: 0,
+  Empty: 0,
   Found: 1,
-  NotFoundable: 2,
+  NoCodeEn: 2,
+  NoIdccsFound: 3,
+  NoOpcosFound: 4,
 };
 
-const computeCodes = ["Non trouvés", "Trouvés", "Non trouvables"];
+const computeCodes = ["NC", "Trouvés", "Aucun code diplôme", "Non trouvés - pas d'idcc", "Non trouvés - pas d'OPCOs"];
 
 module.exports = {
   infosCodes,

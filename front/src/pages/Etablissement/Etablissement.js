@@ -6,13 +6,31 @@ import { useFormik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { push } from "connected-react-router";
+import { groupBy, map, orderBy } from "lodash";
 
 //import Section from "./components/Section";
 import routes from "../../routes.json";
 
 import "./etablissement.css";
+import { get } from "env-var";
 
-const sleep = m => new Promise(r => setTimeout(r, m));
+const sleep = (m) => new Promise((r) => setTimeout(r, m));
+
+const getOpcosFormatted = (opcos_formations) => {
+  const allOpcos = opcos_formations
+    .map((x) => x.opcos)
+    .join(",")
+    .split(",");
+  const opcosForNbFormations = orderBy(
+    map(groupBy(allOpcos), (val) => ({
+      opcos: val[0],
+      nb_formations: val.length,
+    })),
+    "nb_formations",
+    "desc"
+  );
+  return opcosForNbFormations;
+};
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;
@@ -58,7 +76,7 @@ const EditSection = ({ edition, onEdit, handleSubmit }) => {
 };
 
 const Etablissement = ({ etablissement, edition, onEdit, handleChange, handleSubmit, values }) => {
-  const { acm: userAcm } = useSelector(state => state.user);
+  const { acm: userAcm } = useSelector((state) => state.user);
   const hasRightToEdit = checkIfHasRightToEdit(etablissement, userAcm);
 
   return (
@@ -177,6 +195,24 @@ const Etablissement = ({ etablissement, edition, onEdit, handleChange, handleSub
                   <Button color="primary">Voir le siége social</Button>
                 </a>
               </div>
+            </div>
+          </div>
+        )}
+        {etablissement.opcos_formations.length > 0 && (
+          <div className="sidebar-section info">
+            <div className="field">
+              <h2>OPCOs</h2>
+              {/* {etablissement.opcos_formations.map((x, i) => (
+                <p key={i}>{x.opcos}</p>
+              ))} */}
+              {getOpcosFormatted(etablissement.opcos_formations).map((x, i) => (
+                <p key={i}>
+                  {x.opcos} :{" "}
+                  <b>
+                    <i>{x.nb_formations} formations</i>
+                  </b>
+                </p>
+              ))}
             </div>
           </div>
         )}
