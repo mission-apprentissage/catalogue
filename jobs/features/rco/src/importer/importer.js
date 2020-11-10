@@ -15,7 +15,7 @@ class Importer {
   async run() {
     const formationsJ1 = await wsRCO.getRCOcatalogue("-j-1");
     const formations = await wsRCO.getRCOcatalogue();
-    await this.start(formations, []); // formationsJ1
+    // await this.start(formations, []); // formationsJ1
   }
 
   async start(formations, formationsJ1) {
