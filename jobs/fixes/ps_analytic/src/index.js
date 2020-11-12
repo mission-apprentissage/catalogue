@@ -3,11 +3,11 @@ const checker = require("./Checker");
 
 const run = async () => {
   try {
-    logger.info(" -- Start of Analyse  -- ");
+    logger.info(" -- Start of Analysis  -- ");
 
     await checker.run();
 
-    logger.info(" -- End of Analyse -- ");
+    logger.info(" -- End of Analysis -- ");
   } catch (err) {
     logger.error(err);
   }
