@@ -1,16 +1,21 @@
 // #region Imports
 const path = require("path");
 const XLSX = require("xlsx");
+const fs = require("fs");
 
 // #endregion
 
 class FileManager {
+  createJson = async (fileName, data) => {
+    fs.writeFile(fileName, JSON.stringify(data), "utf8", error => {
+      if (error) throw error;
+    });
+  };
+
   getXLSXFile() {
     //const formationsFilePath = path.join(__dirname, "./assets", "listeFormationApprentissagePsup.xlsx");
-    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup.xls");
-
+    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup.xlsx");
     const jsonArray = this.getXLSX(formationsFilePath);
-
     return jsonArray;
   }
 
@@ -30,15 +35,15 @@ class FileManager {
           "CODECOMMUNE",
           "LIBCOMMUNE",
           "CODEPOSTAL",
-          "ACADÉMIE",
+          "ACADEMIE",
           "MINISTERETUTELLE",
           "LIBMINISTERE",
           "TYPEETA",
           "CODEFORMATION",
           "LIBFORMATION",
-          "CODESPÉCIALITÉ",
-          "LIBSPÉCIALITÉ",
-          "CODESPÉFORMATIONINITIALE",
+          "CODESPECIALITE",
+          "LIBSPECIALITE",
+          "CODESPEFORMATIONINITIALE",
           "CODEMEF",
         ],
         range: 1,
@@ -52,6 +57,7 @@ class FileManager {
   }
 
   readXLSXFile(localPath) {
+    console.log("HELLO", localPath);
     const workbook = XLSX.readFile(localPath, { codepage: 65001 });
 
     return { sheet_name_list: workbook.SheetNames, workbook };
