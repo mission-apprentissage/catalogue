@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "start": "node src/index.js",
-    "lint": "eslint ./src"
+    "lint": "eslint ./src",
+    "seed": "node src/seed/index.js"
   },
   "engines": {
     "node": ">=12.11.0",
