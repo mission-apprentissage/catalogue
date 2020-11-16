@@ -7,7 +7,7 @@ const fs = require("fs");
 
 class FileManager {
   createJson = async (fileName, data) => {
-    fs.writeFile(fileName, JSON.stringify(data), "utf8", error => {
+    fs.writeFile(`${__dirname}/assets` + fileName, JSON.stringify(data), "utf8", error => {
       if (error) throw error;
     });
   };
