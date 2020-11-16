@@ -1,6 +1,4 @@
-const { Schema } = require("mongoose");
-
-module.exports = new Schema({
+module.exports = {
   uai_gestionnaire: {
     type: String,
     default: null,
@@ -87,4 +85,4 @@ module.exports = new Schema({
     default: null,
     description: "Code MEF de la formation",
   },
-});
+};
