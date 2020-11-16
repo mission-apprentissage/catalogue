@@ -1,88 +1,16 @@
 const asyncForEach = require("../../../common-jobs/utils").asyncForEach;
 const fileManager = require("./FileManager");
 const Exporter = require("./Exporter");
-const axios = require("axios");
+
 const updatedDiff = require("deep-object-diff").updatedDiff;
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const _ = require("lodash");
-const formations = require("../formations_catalogue.json");
-const etablissements = require("../etablissements_catalogue.json");
+
+const { findFormationCatalogue, getEtablissements } = require("./utils");
 
 class Checker {
-  constructor() {
+  constructor(props) {
     this.formations = fileManager.getXLSXFile();
-    this.endpoint = "https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod";
-    this.catalogueFormations = formations;
-    this.catalogueEtablissements = etablissements;
-  }
-
-  async getMefInfo(mef) {
-    try {
-      const response = await axios.post(`https://tables-correspondances-recette.apprentissage.beta.gouv.fr/api/mef`, {
-        mef,
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
-  async findFormationCatalogue(params) {
-    try {
-      const response = await axios.get(`https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/formations`, {
-        params,
-      });
-      return response.data;
-    } catch (error) {
-      console.error(error);
-      return null;
-    }
-  }
-
-  async getEtablissements(options) {
-    try {
-      let { page, allEtablissements, limit, query } = { page: 1, allEtablissements: [], limit: 1050, ...options };
-
-      let params = { page, limit, query };
-      logger.debug(`Requesting ${this.endpoint}/etablissements with parameters`, params);
-      const response = await axios.get(`${this.endpoint}/etablissements`, { params });
-
-      const { etablissements, pagination } = response.data;
-      allEtablissements = allEtablissements.concat(etablissements); // Should be properly exploded, function should be pure
-
-      if (page < pagination.nombre_de_page) {
-        return this.getEtablissements({ page: page + 1, allEtablissements, limit });
-      } else {
-        return allEtablissements;
-      }
-    } catch (error) {
-      logger.error(error);
-      return null;
-    }
-  }
-
-  async getFormations(options) {
-    try {
-      let { page, allFormations, limit } = { page: 1, allFormations: [], limit: 1050, ...options };
-
-      let params = { page, limit };
-      logger.info(`Requesting ${this.endpoint}/formations with parameters`, params);
-      const response = await axios.get(`${this.endpoint}/formations`, { params });
-
-      const { formations, pagination } = response.data;
-      allFormations = allFormations.concat(formations); // Should be properly exploded, function should be pure
-
-      if (page < pagination.nombre_de_page) {
-        // if (page < 2) {
-        return this.getFormations({ page: page + 1, allFormations });
-      } else {
-        return allFormations;
-      }
-    } catch (error) {
-      logger.error(error);
-      return null;
-    }
   }
 
   filterbyUai = (catalogue, file) =>
@@ -140,12 +68,13 @@ class Checker {
     }
   };
 
-  matchingEtablissement = () => {
-    const { catalogueEtablissements, formations } = this;
-    const result = [];
+  premierFiltrage = (catalogueEtablissements, formations) => {
+    const resultatPremierFiltrage = [];
+
     formations.forEach(x => {
       catalogueEtablissements.forEach(y => {
         const data = {
+          ...x,
           etab_id: y._id,
           etab_raison_social: y.entreprise_raison_sociale,
           etab_siege_social: y.siege_social === true ? "OUI" : "NON",
@@ -155,27 +84,20 @@ class Checker {
           etab_formation_total: y.formations_ids.length,
           etab_formation_matcher: 0,
         };
+
         if (x.UAI_GES === y.uai) {
-          result.push({ ...data, etab_matching: "UAI_GES" });
+          resultatPremierFiltrage.push({ ...data, etab_matching: "UAI_GES", uai: x.UAI_GES });
         } else if (x.UAI_AFF === y.uai) {
-          result.push({ ...data, etab_matching: "UAI_AFF" });
+          resultatPremierFiltrage.push({ ...data, etab_matching: "UAI_AFF", uai: x.UAI_AFF });
         } else if (x.UAI_COMPOSANTE === y.uai) {
-          result.push({ ...data, etab_matching: "UAI_COMPOSANTE" });
+          resultatPremierFiltrage.push({ ...data, etab_matching: "UAI_COMPOSANTE", uai: x.UAI_COMPOSANTE });
         }
       });
     });
 
-    return result;
-  };
-
-  async run() {
-    const { catalogueFormations, formations } = this;
-    console.log("Formation à traiter", formations.length);
-
-    const scopeFiltrage_1 = await this.matchingEtablissement();
-
-    const formatScopeFiltrage_1 = scopeFiltrage_1.reduce((acc, etablissement) => {
+    const formatedData = resultatPremierFiltrage.reduce((acc, etablissement) => {
       let index = acc.findIndex(v => v.etab_id === etablissement.etab_id);
+
       if (index === -1) {
         acc.push(etablissement);
       } else {
@@ -184,96 +106,101 @@ class Checker {
       return acc;
     }, []);
 
-    console.log("Resultat du premier filtrage :", formatScopeFiltrage_1.length);
-    // console.log("filtered:", filtered);
-    // const missingMatch = _.differenceBy(formations, filtrage1, "UAI_GES");
-    // console.log("Recoupement non trouvé :", missingMatch.length);
-    // console.log("Controle de cohérence:", formations.length, "/", filtrage1.length + missingMatch.length);
-    // const exporter = new Exporter();
-    // await exporter.toXlsx(z, "filtrage-etab-V2.xlsx");
+    return { resultatPremierFiltrage, formatedData };
+  };
 
-    const results = [];
+  deuxiemeFiltrage = (catalogueEtablissements, data) => {
+    const etablissementAvecFormation = catalogueEtablissements.filter(x => x.formations_ids.length !== 0);
+    logger.info(`Etablissement contenant une ou plusieurs formation rattaché : ${etablissementAvecFormation.length}`);
 
-    const match5 = _.intersectionWith(formations, catalogueFormations, (formations, catalogueFormations) =>
-      this.matching(5, formations, catalogueFormations)
-    );
-    // .map(x => {
-    //   const res = {
-    //     ...x,
-    //     "Force du matching": "5*",
-    //     "Critère du maching": "UAI, CODE_POSTAL, CODE_INSEE, ACADEMIE",
-    //   };
-    //   results.push(res);
-    // });
-
-    // console.log(match5.length);
-
-    match5.map(x => {
-      if (!x.CODEMEF) {
-        console.log("PAS DE MEF");
+    const filtCodePostal = _.intersectionWith(
+      data,
+      etablissementAvecFormation,
+      (data, etablissementAvecFormation) => data.CODEPOSTAL === etablissementAvecFormation.code_postal
+    ).map(o => {
+      const found = etablissementAvecFormation.find(x => o.CODEPOSTAL === x.code_postal);
+      if (found)
         return {
-          ...x,
-          "Recherche par MEF": "Erreur, pas de MEF associé à la formation",
+          MATCHING_CODEPOSTAL: o.CODEPOSTAL,
+          ...o,
+          ...found,
         };
-      }
-      /**
-       * Recherche des formations par le code MEF
-       */
-      console.log("RECHERCHE SCOPE", x.CODEMEF);
-      const scope = catalogue.filter(y => x.CODEMEF === y.mef_10_code);
-      if (!scope) {
-        console.log("PAS DE FORMATION RETROUVER PAR LE MEF");
+    });
+
+    const filtCodeInsee = _.intersectionWith(
+      data,
+      etablissementAvecFormation,
+      (data, etablissementAvecFormation) => data.CODECOMMUNE === etablissementAvecFormation.code_insee_localite
+    ).map(o => {
+      const found = etablissementAvecFormation.find(x => o.CODECOMMUNE === x.code_insee_localite);
+      if (found)
         return {
-          ...x,
-          "Recherche par MEF": "Erreur, aucune formation retrouvé",
+          ...o,
+          etab_id: found._id,
+          etab_raison_social: found.entreprise_raison_sociale,
+          etab_siege_social: found.siege_social === true ? "OUI" : "NON",
+          etab_siege_siret: found.etablissement_siege_siret,
+          etab_adresse: found.adresse,
+          etab_code_postal: found.code_postal,
+          etab_formation_total: found.formations_ids.length,
         };
-      }
-      console.log("formations retrouvé par le code MEF:", scope.length);
     });
 
-    const match4 = _.intersectionWith(fichierPsup, catalogue, (fichierPsup, catalogue) =>
-      this.matching(4, fichierPsup, catalogue)
-    ).map(x => {
-      const res = {
-        ...x,
-        "Force du matching": "4*",
-        "Critère du maching": "UAI, CODE_POSTAL, CODE_INSEE",
-      };
-      results.push(res);
+    const filtDuo = _.intersectionWith(
+      data,
+      etablissementAvecFormation,
+      (data, etablissementAvecFormation) =>
+        data.CODECOMMUNE === etablissementAvecFormation.code_insee_localite &&
+        data.CODEPOSTAL === etablissementAvecFormation.code_postal
+    ).map(o => {
+      const found = etablissementAvecFormation.find(
+        x => o.CODEPOSTAL === x.code_postal && o.CODECOMMUNE === x.code_insee_localite
+      );
+      if (found)
+        return {
+          ...o,
+          etab_id: found._id,
+          etab_raison_social: found.entreprise_raison_sociale,
+          etab_siege_social: found.siege_social === true ? "OUI" : "NON",
+          etab_siege_siret: found.etablissement_siege_siret,
+          etab_adresse: found.adresse,
+          etab_code_postal: found.code_postal,
+          etab_formation_total: found.formations_ids.length,
+        };
     });
 
-    const match3 = _.intersectionWith(fichierPsup, catalogue, (fichierPsup, catalogue) =>
-      this.matching(3, fichierPsup, catalogue)
-    ).map(x => {
-      const res = {
-        ...x,
-        "Force du matching": "3*",
-        "Critère du maching": "UAI, CODE_INSEE",
-      };
-      results.push(res);
-    });
+    return { filtCodePostal, filtCodeInsee, filtDuo };
+  };
 
-    const match2 = _.intersectionWith(fichierPsup, catalogue, (fichierPsup, catalogue) =>
-      this.matching(2, fichierPsup, catalogue)
-    ).map(x => {
-      const res = {
-        ...x,
-        "Force du matching": "2*",
-        "Critère du maching": "UAI, DEPARTEMENT",
-      };
-      results.push(res);
-    });
+  async run() {
+    const { formations } = this;
+    logger.info("Récupération des établissements depuis le catalogue");
+    const catalogueEtablissements = await getEtablissements();
+    logger.info(`Formation à traiter : ${formations.length}, Etablissements : ${catalogueEtablissements.length}`);
 
-    const match1 = _.intersectionWith(fichierPsup, catalogue, (fichierPsup, catalogue) =>
-      this.matching(1, fichierPsup, catalogue)
-    ).map(x => {
-      const res = {
-        ...x,
-        "Force du matching": "1*",
-        "Critère du maching": "UAI",
-      };
-      results.push(res);
+    const { resultatPremierFiltrage, formatedData } = await this.premierFiltrage(catalogueEtablissements, formations);
+    logger.info(`Resultat du premier filtrage : ${resultatPremierFiltrage.length}`);
+    logger.info(`Formattage du premier filtrage : ${formatedData.length}`);
+
+    await Exporter.toXlsx(formatedData, "filtrage1-etab.xlsx");
+
+    const substractP1 = _.differenceWith(formations, resultatPremierFiltrage, (formations, resultatPremierFiltrage) => {
+      return (
+        formations.UAI_GES === resultatPremierFiltrage.UAI_GES ||
+        formations.UAI_AFF === resultatPremierFiltrage.UAI_AFF ||
+        formations.UAI_COMPOSANTE === resultatPremierFiltrage.UAI_COMPOSANTE
+      );
     });
+    logger.info(`Recoupement non trouvé à traiter : ${substractP1.length}`);
+
+    const { filtCodePostal, filtCodeInsee, filtDuo } = this.deuxiemeFiltrage(catalogueEtablissements, substractP1);
+    logger.info(`Recoupement code postal : ${filtCodePostal.length}`);
+    logger.info(`Recoupement code insee : ${filtCodeInsee.length}`);
+    logger.info(`Recoupement code postal & insee : ${filtDuo.length}`);
+
+    await Exporter.toXlsx(filtCodePostal, "filtrage2-etab-codepostal.xlsx");
+    await Exporter.toXlsx(filtCodeInsee, "filtrage2-etab-codeinsee.xlsx");
+    await Exporter.toXlsx(filtDuo, "filtrage2-etab-codepostal_codeinsee.xlsx");
   }
 
   async runOld() {
@@ -329,9 +256,7 @@ class Checker {
         catalogue_MNA_valeur: "",
       };
 
-      console.log(line);
-
-      let responsesCatalogue = await this.findFormationCatalogue({
+      let responsesCatalogue = await findFormationCatalogue({
         query: {
           //educ_nat_code: line.cfd_valeur,
           nom_academie: line["ACADÉMIE"],
@@ -420,11 +345,9 @@ class Checker {
       }
 
       results.push(line);
-      logger.info("——————————————————");
     });
     console.log(results.length);
-    const exporter = new Exporter();
-    await exporter.toXlsx(results, "output.xlsx");
+    await Exporter.toXlsx(results, "output.xlsx");
   }
 }
 
