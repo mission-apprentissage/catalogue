@@ -1,32 +1,22 @@
 const XLSX = require("xlsx");
 const path = require("path");
 
-class Exporter {
-  constructor() {}
+const toXlsx = async (jsonData, fileName) => {
+  const WS = XLSX.utils.json_to_sheet(jsonData);
 
-  async toXlsx(jsonData, fileName) {
-    const WS = XLSX.utils.json_to_sheet(jsonData);
+  const workbook = XLSX.utils.book_new(); // Create a new blank workbook
+  XLSX.utils.book_append_sheet(workbook, WS, "book"); // Add the worksheet to the workbook
 
-    const workbook = XLSX.utils.book_new(); // Create a new blank workbook
-    XLSX.utils.book_append_sheet(workbook, WS, "book"); // Add the worksheet to the workbook
-
-    const writeFile = () =>
-      new Promise(resolve => {
-        XLSX.writeFileAsync(
-          path.join(__dirname, `../${fileName}`),
-          workbook,
-          //{ bookType: "xlsx", type: "binary" },
-          e => {
-            if (e) {
-              console.log(e);
-            }
-            resolve();
-          }
-        );
+  const writeFile = () =>
+    new Promise(resolve => {
+      XLSX.writeFileAsync(path.join(__dirname, `/export/${fileName}`), workbook, e => {
+        if (e) {
+          console.log(e);
+        }
+        resolve();
       });
+    });
 
-    await writeFile();
-  }
-}
-
-module.exports = Exporter;
+  await writeFile();
+};
+module.exports.toXlsx = toXlsx;
