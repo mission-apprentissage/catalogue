@@ -6,7 +6,11 @@ const updatedDiff = require("deep-object-diff").updatedDiff;
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const _ = require("lodash");
 
-const { findFormationCatalogue, getEtablissements } = require("./utils");
+const { findFormationCatalogue, getEtablissements, getMefInfo } = require("./utils");
+const { matcher, trail } = require("./Matcher");
+
+const catalogueFormation = require("./assets/formations_catalogue.json");
+const catalogueEtab = require("./assets/formations_catalogue.json");
 
 class Checker {
   constructor(props) {
@@ -26,6 +30,18 @@ class Checker {
         x.etablissement_responsable_uai === file.UAI_COMPOSANTE ||
         x.etablissement_responsable_uai === file.UAI_AFF
     );
+
+  matchingCfd = (catalogue, line) => {
+    catalogue.filter(
+      x => x.educ_nat_code === line.CODECFD || x.educ_nat_code === line.CODECFD2 || x.educ_nat_code === line.CODECFD3
+    );
+  };
+
+  matchingCp = (catalogue, line) => {
+    catalogue.filter(
+      x => x.etablissement_responsable_code_postal === line.CODEPOSTAL || x.code_postal === line.CODEPOSTAL
+    );
+  };
 
   matching = (matchType, fichierPsup, catalogue) => {
     const uai =
@@ -222,16 +238,17 @@ class Checker {
         resultCFD.message = "Erreur";
         resultRNCP.message = "Erreur";
       } else {
-        const responseMEF = await this.getMefInfo(formation.CODEMEF);
+        const mef = typeof formation.CODEMEF === "number" ? formation.CODEMEF.toString() : formation.CODEMEF;
+        const responseMEF = await getMefInfo(mef);
         if (responseMEF) {
           if (responseMEF.messages.cfdUpdated === "Non trouvé") {
             resultCFD.message = "Code CFD non retrouvé.";
           } else {
-            resultCFD.message = "Ok";
+            resultCFD.message = "OK";
             resultCFD.valeur = responseMEF.result.cfd.cfd;
           }
           if (responseMEF.result.rncp.code_rncp) {
-            resultRNCP.message = "Ok";
+            resultRNCP.message = "OK";
             if (responseMEF.result.rncp.code_rncp === "NR") {
               resultRNCP.message = `le CFD ${responseMEF.result.cfd.cfd} n'est pas encore répertorié par France Compétences`;
             } else {
@@ -248,103 +265,14 @@ class Checker {
 
       let line = {
         ...formation,
-        cdf_statut: resultCFD.message,
-        cfd_valeur: resultCFD.valeur,
-        rncp_statut: resultRNCP.message,
-        rncp_valeur: resultRNCP.valeur,
-        catalogue_MNA_statut: "",
-        catalogue_MNA_valeur: "",
+        CFD_STATUT: resultCFD.message,
+        CFD_VALEUR: resultCFD.valeur,
+        RNCP_STATUS: resultRNCP.message,
+        RNCP_VALEUR: resultRNCP.valeur,
       };
 
-      let responsesCatalogue = await findFormationCatalogue({
-        query: {
-          //educ_nat_code: line.cfd_valeur,
-          nom_academie: line["ACADÉMIE"],
-          num_departement: line.CODEPOSTAL.substring(0, 2),
-          mef_10_code: line.CODEMEF,
-          //code_postal: line.CODEPOSTAL,
-          //code_commune_insee: line.CODECOMMUNE,
-        },
-        limit: 100,
-      });
-
-      logger.info(`Nombre de formation trouvé : ${responsesCatalogue.formations.length}`);
-
-      if (responsesCatalogue.formations.length === 1) {
-        line.catalogue_MNA_statut = `Trouvée (MEF, ACADEMIE, DEPARTEMENT)`;
-        line.catalogue_MNA_valeur = `https://mna-admin-prod.netlify.app/formation/${responsesCatalogue.formations[0]._id}`;
-      } else if (responsesCatalogue.formations.length > 0) {
-        const filteredByUais = this.filterbyUai(responsesCatalogue.formations, line);
-
-        if (filteredByUais.length === 1) {
-          line.catalogue_MNA_statut = "Trouvée (UAI, MEF, ACADEMIE, DEPARTEMENT)";
-          line.catalogue_MNA_valeur = `https://mna-admin-prod.netlify.app/formation/${filteredByUais[0]._id}`;
-        }
-      } else {
-        if (line.cdf_statut === "Ok") {
-          responsesCatalogue = await this.findFormationCatalogue({
-            query: {
-              educ_nat_code: line.cfd_valeur,
-              nom_academie: line["ACADÉMIE"],
-              num_departement: line.CODEPOSTAL.substring(0, 2),
-              //mef_10_code: line.CODEMEF,
-              //code_postal: line.CODEPOSTAL,
-              //code_commune_insee: line.CODECOMMUNE,
-            },
-            limit: 100,
-          });
-          if (responsesCatalogue.formations.length === 1) {
-            line.catalogue_MNA_statut = `Trouvée (CFD, ACADEMIE, DEPARTEMENT)`;
-            line.catalogue_MNA_valeur = `https://mna-admin-prod.netlify.app/formation/${responsesCatalogue.formations[0]._id}`;
-          } else if (responsesCatalogue.formations.length > 0) {
-            const filteredByUais = this.filterbyUai(responsesCatalogue.formations, line);
-
-            if (filteredByUais.length === 2) {
-              let uDiff = updatedDiff(filteredByUais[0], filteredByUais[1]);
-              const idF = uDiff._id;
-              delete uDiff._id;
-              delete uDiff.last_update_at;
-              delete uDiff.created_at;
-              delete uDiff.last_modification;
-              delete uDiff.__v;
-              delete uDiff.nom;
-              delete uDiff.commentaires;
-              delete uDiff.nom_academie_siege;
-              delete uDiff.published_old;
-              delete uDiff.to_verified;
-              delete uDiff.capacite;
-              delete uDiff.periode;
-              delete uDiff.ds_id_dossier;
-              const ukeys = Object.keys(uDiff);
-              if (ukeys.length > 2) {
-                console.log(ukeys, filteredByUais[0]._id, filteredByUais[1]._id);
-              } else if (ukeys.includes("mef_10_code") && ukeys.includes("annee")) {
-                line.catalogue_MNA_statut = "Trouvée (UAI, CFD, ACADEMIE, DEPARTEMENT)";
-                line.catalogue_MNA_valeur = `https://mna-admin-prod.netlify.app/formation/${idF}`;
-              } else {
-                console.log(ukeys);
-              }
-            } else if (filteredByUais.length >= 2) {
-              const tmp = responsesCatalogue.formations.map(f => f._id);
-              line.catalogue_MNA_statut = "Multiple par UAIs";
-              line.catalogue_MNA_valeur = JSON.stringify(tmp);
-            } else if (filteredByUais.length === 1) {
-              // Match
-              line.catalogue_MNA_statut = "Trouvée (UAI, CFD, ACADEMIE, DEPARTEMENT)";
-              line.catalogue_MNA_valeur = `https://mna-admin-prod.netlify.app/formation/${filteredByUais[0]._id}`;
-            } else {
-              const tmp = responsesCatalogue.formations.map(f => f._id);
-              line.catalogue_MNA_statut = "Non retrouvée par UAIs";
-              line.catalogue_MNA_valeur = JSON.stringify(tmp);
-            }
-          } else {
-            // No match
-            line.catalogue_MNA_statut = "Non Trouvée";
-          }
-        }
-      }
-
-      results.push(line);
+      const res = await trail(line);
+      results.push(res);
     });
     console.log(results.length);
     await Exporter.toXlsx(results, "output.xlsx");

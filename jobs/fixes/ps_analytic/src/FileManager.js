@@ -14,7 +14,7 @@ class FileManager {
 
   getXLSXFile() {
     //const formationsFilePath = path.join(__dirname, "./assets", "listeFormationApprentissagePsup.xlsx");
-    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup.xlsx");
+    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup_sliced.xlsx");
     const jsonArray = this.getXLSX(formationsFilePath);
     return jsonArray;
   }
@@ -24,31 +24,7 @@ class FileManager {
       const { sheet_name_list, workbook } = this.readXLSXFile(filePath);
       const worksheet = workbook.Sheets[sheet_name_list[0]];
 
-      const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet, {
-        header: [
-          "UAI_GES",
-          "UAI_COMPOSANTE",
-          "LIB_COMPOSANTE",
-          "LIB_INS",
-          "UAI_AFF",
-          "LIB_AFF",
-          "CODECOMMUNE",
-          "LIBCOMMUNE",
-          "CODEPOSTAL",
-          "ACADEMIE",
-          "MINISTERETUTELLE",
-          "LIBMINISTERE",
-          "TYPEETA",
-          "CODEFORMATION",
-          "LIBFORMATION",
-          "CODESPECIALITE",
-          "LIBSPECIALITE",
-          "CODESPEFORMATIONINITIALE",
-          "CODEMEF",
-        ],
-        range: 1,
-        raw: false,
-      });
+      const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet);
 
       return jsonSheetArray;
     } catch (err) {
