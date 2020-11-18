@@ -8,6 +8,8 @@ const _ = require("lodash");
 
 const { findFormationCatalogue, getEtablissements, getMefInfo } = require("./utils");
 const { matcher, trail } = require("./Matcher");
+const run = require("./Matcher2");
+const format = require("./Formater");
 
 const catalogueFormation = require("./assets/formations_catalogue.json");
 const catalogueEtab = require("./assets/formations_catalogue.json");
@@ -223,7 +225,7 @@ class Checker {
     const results = [];
 
     await asyncForEach(this.formations, async (formation, index) => {
-      logger.info(`formation #${index + 1} : ${formation.LIB_AFF}, MEF : ${formation.CODEMEF}`);
+      // logger.info(`formation #${index + 1} : ${formation.LIB_AFF}, MEF : ${formation.CODEMEF}`);
 
       let resultCFD = {
         message: "",
@@ -266,12 +268,26 @@ class Checker {
       let line = {
         ...formation,
         CFD_STATUT: resultCFD.message,
-        CFD_VALEUR: resultCFD.valeur,
+        CFD_VALEUR: resultCFD.valeur ? resultCFD.valeur : formation.CODECFD.toString(),
+        CFD2_VALEUR: formation.CODECFD2 && formation.CODECFD2.toString(),
+        CFD3_VALEUR: formation.CODECFD3 && formation.CODECFD3.toString(),
         RNCP_STATUS: resultRNCP.message,
         RNCP_VALEUR: resultRNCP.valeur,
       };
 
-      const res = await trail(line);
+      logger.info(
+        `formation #${index + 1} : ${formation.LIB_AFF}, MEF : ${formation.CODEMEF}, CFD : ${line.CFD_VALEUR}/${
+          formation.CODECFD
+        }`
+      );
+
+      // const res = await trail(line);
+
+      const res = run(line);
+      console.log(res);
+      // const formatted = format(res);
+      // console.log(res);
+      return;
       results.push(res);
     });
     console.log(results.length);

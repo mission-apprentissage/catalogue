@@ -12,6 +12,8 @@ const matching = (matchType, ligne, dataset) => {
     catalogue.etablissement_responsable_uai === ligne.UAI_COMPOSANTE ||
     catalogue.etablissement_responsable_uai === ligne.UAI_AFF;
 
+  const cfd = catalogue => catalogue.educ_nat_code === ligne.CFD_VALEUR;
+
   const codePostal = catalogue =>
     catalogue.etablissement_responsable_code_postal === ligne.CODEPOSTAL || catalogue.code_postal === ligne.CODEPOSTAL;
 
@@ -20,7 +22,7 @@ const matching = (matchType, ligne, dataset) => {
   const academie = catalogue => catalogue.nom_academie === ligne.ACADEMIE;
 
   const duo1 = catalogue =>
-    catalogue.educ_nat_code === ligne.cfd_valeur && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+    catalogue.educ_nat_code === ligne.CFD_VALEUR && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
 
   const duo2 = catalogue =>
     catalogue.educ_nat_code === ligne.CODECFD2 && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
@@ -38,11 +40,14 @@ const matching = (matchType, ligne, dataset) => {
   };
 
   switch (matchType) {
+    case "CFD":
+      return filter(cfd);
+      break;
     case "UAI":
-      return filter(uai, catalogue);
+      return filter(uai);
       break;
     case "DUO1":
-      return filter(duo1, dataset);
+      return filter(duo1);
       break;
     case "DUO2":
       return filter(duo2);
@@ -51,16 +56,16 @@ const matching = (matchType, ligne, dataset) => {
       return filter(duo3);
       break;
     case "INSEE":
-      return filter(codeInsee, dataset);
+      return filter(codeInsee);
       break;
     case "CODE_POSTAL":
-      return filter(codePostal, dataset);
+      return filter(codePostal);
       break;
     case "ACADEMIE":
-      return filter(academie, dataset);
+      return filter(academie);
       break;
     case "MEF":
-      return filter(mef, dataset);
+      return filter(mef);
       break;
     default:
       break;
@@ -68,7 +73,7 @@ const matching = (matchType, ligne, dataset) => {
 };
 
 const response = (data, result, options) => {
-  data.MNA_STATUS = options.statut;
+  data.MNA_STATUS = options.status;
   data.MNA_MATCHING_TYPE = options.type;
   data.MNA_MATCHING_STEP = options.step;
   data.MNA_MATCHING_CASE = options.match;
@@ -86,6 +91,15 @@ const response = (data, result, options) => {
   return data;
 };
 
+const responseFail = (data, result, options) => {
+  data.MNA_STATUS = options.status;
+  data.MNA_MATCHING_TYPE = options.type;
+  data.MNA_MATCHING_STEP = options.step;
+  data.MNA_MATCHING_CASE = options.match;
+  data.MNA_MATCHED_FORMATION = result;
+  return data;
+};
+
 function trail(data) {
   const matchUAI1 = matching("UAI", data);
   console.log("match UAI", matchUAI1.length);
@@ -96,6 +110,7 @@ function trail(data) {
     if (matchUAI1.length === 2) {
       const match = matchUAI1.filter(x => x.mef_10_code === data.CODEMEF);
       if (match.length === 1) {
+        console.log("MATCH MEF STEP 1");
         return response(data, matchUAI1[0], { status: "Trouvé (UAI, MEF)", type: "6*", step: 1, match: "UAI" });
       }
     }
@@ -103,60 +118,316 @@ function trail(data) {
     console.log("match cfd & dept", matchUAI2.length);
     if (matchUAI2.length > 0) {
       if (matchUAI2.length === 1) {
-        return response(data, matchUAI2[0], { status: "Trouvé (UAI, CFD, MEF)", type: "6*", step: 2, match: "UAI" });
+        return response(data, matchUAI2[0], {
+          status: "Trouvé (UAI, CFD, DEPT, MEF)",
+          type: "6*",
+          step: 2,
+          match: "UAI",
+        });
       }
       if (matchUAI2.length === 2) {
         const match = matchUAI2.filter(x => x.mef_10_code === data.CODEMEF);
         if (match.length === 1) {
-          return response(data, matchUAI2[0], { status: "Trouvé (UAI, CFD, MEF)", type: "6*", step: 2, match: "UAI" });
+          console.log("MATCH MEF STEP 2");
+          return response(data, matchUAI2[0], {
+            status: "Trouvé (UAI, CFD, DEPT, MEF)",
+            type: "6*",
+            step: 2,
+            match: "UAI",
+          });
         }
       }
       const matchUAI3 = matching("INSEE", data, matchUAI2);
       console.log("match insee", matchUAI3.length);
       if (matchUAI3.length > 0) {
+        if (matchUAI3.length === 1) {
+          return response(data, matchUAI3[0], {
+            status: "Trouvé (UAI, CFD, DEPT, INSEE, MEF)",
+            type: "6*",
+            step: 3,
+            match: "UAI",
+          });
+        }
+        if (matchUAI3.length === 2) {
+          const match = matchUAI3.filter(x => x.mef_10_code === data.CODEMEF);
+          if (match.length === 1) {
+            console.log("MATCH MEF STEP 3");
+            return response(data, matchUAI3[0], {
+              status: "Trouvé (UAI, CFD, DEPT, INSEE, MEF)",
+              type: "6*",
+              step: 3,
+              match: "UAI",
+            });
+          }
+        }
         const matchUAI4 = matching("CODE_POSTAL", data, matchUAI3);
         console.log("match cp", matchUAI4.length);
         if (matchUAI4.length > 0) {
+          if (matchUAI4.length === 1) {
+            return response(data, matchUAI4[0], {
+              status: "Trouvé (UAI, CFD, DEPT, INSEE, CP, MEF)",
+              type: "6*",
+              step: 4,
+              match: "UAI",
+            });
+          }
+          if (matchUAI4.length === 2) {
+            const match = matchUAI4.filter(x => x.mef_10_code === data.CODEMEF);
+            if (match.length === 1) {
+              console.log("MATCH MEF STEP 4");
+              return response(data, matchUAI4[0], {
+                status: "Trouvé (UAI, CFD, DEPT, INSEE, CP, MEF)",
+                type: "6*",
+                step: 4,
+                match: "UAI",
+              });
+            }
+          }
           const matchUAI5 = matching("ACADEMIE", data, matchUAI4);
           console.log("match academie", matchUAI5.length);
           if (matchUAI5.length > 0) {
+            if (matchUAI5.length === 1) {
+              return response(data, matchUAI5[0], {
+                status: "Trouvé (UAI, CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                type: "6*",
+                step: 5,
+                match: "UAI",
+              });
+            }
+            if (matchUAI5.length === 2) {
+              const match = matchUAI5.filter(x => x.mef_10_code === data.CODEMEF);
+              if (match.length === 1) {
+                console.log("MATCH MEF STEP 5");
+                return response(data, matchUAI5[0], {
+                  status: "Trouvé (UAI, CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                  type: "6*",
+                  step: 5,
+                  match: "UAI",
+                });
+              }
+            }
             const matchUAI6 = matching("MEF", data, matchUAI5);
             if (matchUAI6.length > 0) {
-              const match = matchUAI6[0];
-              console.log(match);
               console.log("———————————————");
               console.log("MATCH MEF", matchUAI6.length);
               console.log("———————————————");
-              data.catalogue_MNA_statut = "Trouvé (UAI, MEF, ACADEMIE, CP, INSEE, CFD)";
-              data.catalogue_MNA_match_type = 6;
-              data.catalogue_MNA_match_case = "UAI";
-              data.etablissement_nom = match.etablissement_nom;
-              data.etablissement_raison_social = match.etablissement_raison_social;
-              data.etablissement_adresse_postal = match.etablissement_adresse_postal;
-              data.code_commune_insee = match.code_commune_insee;
-              data.siret = match.siret;
-              data.etablissement_geoloc = match.geo_coordonnees_etablissement_responsable;
-              data.etablissement_responsable_uai = match.etablissement_responsable_uai;
-              data.etablissement_formateur_uai = match.etablissement_formateur_uai;
-              data.uai_formation = match.uai_formation;
-              return data;
+              return response(data, matchUAI5[0], {
+                status: "Trouvé (UAI, CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                type: "6*",
+                step: 6,
+                match: "UAI",
+              });
             } else {
+              return responseFail(data, matchUAI5.length, {
+                status: "Résultat multiple (UAI, CFD, DEPT, INSEE, CP, ACADEMIE)",
+                type: "5*",
+                step: 5,
+                match: "UAI",
+              });
               return "match uai cfd dept insee cp academie";
             }
           } else {
+            return responseFail(data, matchUAI4.length, {
+              status: "Résultat multiple (UAI, CFD, DEPT, INSEE, CP)",
+              type: "4*",
+              step: 4,
+              match: "UAI",
+            });
             return "match uai cfd dept insee cp";
           }
         } else {
+          return responseFail(data, matchUAI3.length, {
+            status: "Résultat multiple (UAI, CFD, DEPT, INSEE)",
+            type: "3*",
+            step: 3,
+            match: "UAI",
+          });
           return "match uai cfd dept insee";
         }
       } else {
-        return "match uai cfd dept";
+        return responseFail(data, matchUAI2.length, {
+          status: "Résultat multiple (UAI, CFD, DEPT)",
+          type: "2*",
+          step: 2,
+          match: "UAI",
+        });
       }
     } else {
-      return "match uai";
+      return responseFail(data, matchUAI1.length, {
+        status: "Résultat multiple (UAI)",
+        type: "1*",
+        step: 1,
+        match: "UAI",
+      });
     }
   } else {
-    return "cartouche";
+    const matchCFD1 = matching("CFD", data);
+    console.log("match CFD", matchCFD1 && matchCFD1.length);
+    if (matchCFD1.length > 0) {
+      if (matchCFD1.length === 1) {
+        return response(data, matchCFD1[0], { status: "Trouvé (CFD)", type: "6*", step: 1, match: "CFD" });
+      }
+      if (matchCFD1.length === 2) {
+        const match = matchCFD1.filter(x => x.mef_10_code === data.CODEMEF);
+        if (match.length === 1) {
+          console.log("MATCH MEF STEP 1");
+          return response(data, matchCFD1[0], { status: "Trouvé (CFD, MEF)", type: "6*", step: 1, match: "CFD" });
+        }
+      }
+      const matchCFD2 = matching("DUO1", data, matchCFD1);
+      console.log("match cfd & dept", matchCFD2.length);
+      if (matchCFD2.length > 0) {
+        if (matchCFD2.length === 1) {
+          return response(data, matchCFD2[0], {
+            status: "Trouvé (CFD, DEPT, MEF)",
+            type: "6*",
+            step: 2,
+            match: "CFD",
+          });
+        }
+        if (matchCFD2.length === 2) {
+          const match = matchCFD2.filter(x => x.mef_10_code === data.CODEMEF);
+          if (match.length === 1) {
+            console.log("MATCH MEF STEP 2");
+            return response(data, matchCFD2[0], {
+              status: "Trouvé (CFD, DEPT, MEF)",
+              type: "6*",
+              step: 2,
+              match: "CFD",
+            });
+          }
+        }
+        const matchCFD3 = matching("INSEE", data, matchCFD2);
+        console.log("match insee", matchCFD3.length);
+        if (matchCFD3.length > 0) {
+          if (matchCFD3.length === 1) {
+            return response(data, matchCFD3[0], {
+              status: "Trouvé (CFD, DEPT, INSEE, MEF)",
+              type: "6*",
+              step: 3,
+              match: "CFD",
+            });
+          }
+          if (matchCFD3.length === 2) {
+            const match = matchCFD3.filter(x => x.mef_10_code === data.CODEMEF);
+            if (match.length === 1) {
+              console.log("MATCH MEF STEP 3");
+              return response(data, matchCFD3[0], {
+                status: "Trouvé (CFD, DEPT, INSEE, MEF)",
+                type: "6*",
+                step: 3,
+                match: "CFD",
+              });
+            }
+          }
+          const matchCFD4 = matching("CODE_POSTAL", data, matchCFD3);
+          console.log("match cp", matchCFD4.length);
+          if (matchCFD4.length > 0) {
+            if (matchCFD4.length === 1) {
+              return response(data, matchCFD4[0], {
+                status: "Trouvé (CFD, DEPT, INSEE, CP, MEF)",
+                type: "6*",
+                step: 4,
+                match: "CFD",
+              });
+            }
+            if (matchCFD4.length === 2) {
+              const match = matchCFD4.filter(x => x.mef_10_code === data.CODEMEF);
+              if (match.length === 1) {
+                console.log("MATCH MEF STEP 4");
+                return response(data, matchCFD4[0], {
+                  status: "Trouvé (CFD, DEPT, INSEE, CP, MEF)",
+                  type: "6*",
+                  step: 4,
+                  match: "CFD",
+                });
+              }
+            }
+            const matchCFD5 = matching("ACADEMIE", data, matchCFD4);
+            console.log("match academie", matchCFD5.length);
+            if (matchCFD5.length > 0) {
+              if (matchCFD5.length === 1) {
+                return response(data, matchCFD5[0], {
+                  status: "Trouvé (CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                  type: "6*",
+                  step: 5,
+                  match: "CFD",
+                });
+              }
+              if (matchCFD5.length === 2) {
+                const match = matchCFD5.filter(x => x.mef_10_code === data.CODEMEF);
+                if (match.length === 1) {
+                  console.log("MATCH MEF STEP 5");
+                  return response(data, matchCFD5[0], {
+                    status: "Trouvé (CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                    type: "6*",
+                    step: 5,
+                    match: "CFD",
+                  });
+                }
+              }
+              const matchCFD6 = matching("MEF", data, matchCFD5);
+              if (matchCFD6.length > 0) {
+                console.log("———————————————");
+                console.log("MATCH MEF", matchCFD6.length);
+                console.log("———————————————");
+                return response(data, matchCFD5[0], {
+                  status: "Trouvé (CFD, DEPT, INSEE, CP, ACADEMIE, MEF)",
+                  type: "6*",
+                  step: 6,
+                  match: "CFD",
+                });
+              } else {
+                return responseFail(data, matchCFD5.length, {
+                  status: "Résultat multiple (CFD, DEPT, INSEE, CP, ACADEMIE)",
+                  type: "5*",
+                  step: 5,
+                  match: "CFD",
+                });
+                return "match uai cfd dept insee cp academie";
+              }
+            } else {
+              return responseFail(data, matchCFD4.length, {
+                status: "Résultat multiple (CFD, DEPT, INSEE, CP)",
+                type: "4*",
+                step: 4,
+                match: "CFD",
+              });
+              return "match uai cfd dept insee cp";
+            }
+          } else {
+            return responseFail(data, matchCFD3.length, {
+              status: "Résultat multiple (CFD, DEPT, INSEE)",
+              type: "3*",
+              step: 3,
+              match: "CFD",
+            });
+            return "match uai cfd dept insee";
+          }
+        } else {
+          return responseFail(data, matchCFD2.length, {
+            status: "Résultat multiple (CFD, DEPT)",
+            type: "2*",
+            step: 2,
+            match: "CFD",
+          });
+        }
+      } else {
+        return responseFail(data, matchCFD1.length, {
+          status: "Résultat multiple (CFD)",
+          type: "1*",
+          step: 1,
+          match: "CFD",
+        });
+      }
+    } else {
+      return responseFail(data, matchCFD1.length, {
+        status: "Pas de résultat retourné",
+        type: "ERREUR",
+        step: 1,
+        match: "CFD",
+      });
+    }
   }
 }
 
