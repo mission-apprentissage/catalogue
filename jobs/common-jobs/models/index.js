@@ -14,7 +14,7 @@ module.exports = {
   Establishment: getModel("etablissements", establishmentSchema),
   Formation: getModel("formations", trainingSchema),
   DomainesMetiers: getModel("domainesmetiers", domainesMetiersSchema),
-  psFormations: getModel("psFormations", psFormations),
+  PsFormations: getModel("psFormations", psFormations),
   attachFormationTo: (minst, stage) => getModel("formations", trainingSchema, minst, stage),
   attachEstablishmentTo: (minst, stage) => getModel("etablissements", establishmentSchema, minst, stage),
   attachDomainesMetiersTo: (minst, stage) => getModel("domainesmetiers", domainesMetiersSchema, minst, stage),
