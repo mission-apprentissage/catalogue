@@ -7,12 +7,14 @@ const logger = require("../../../common-jobs/Logger").mainLogger;
 const _ = require("lodash");
 
 const { findFormationCatalogue, getEtablissements, getMefInfo } = require("./utils");
-const { matcher, trail } = require("./Matcher");
 const run = require("./Matcher2");
 const format = require("./Formater");
+const { result } = require("lodash");
 
-const catalogueFormation = require("./assets/formations_catalogue.json");
-const catalogueEtab = require("./assets/formations_catalogue.json");
+const { PsFormations } = require("../../../common-jobs/models");
+
+// const md5 = require("crypto-js/md5");
+// const mongoId = md5(“RANDOM”).toString().substr(0, 24);
 
 class Checker {
   constructor(props) {
@@ -32,59 +34,6 @@ class Checker {
         x.etablissement_responsable_uai === file.UAI_COMPOSANTE ||
         x.etablissement_responsable_uai === file.UAI_AFF
     );
-
-  matchingCfd = (catalogue, line) => {
-    catalogue.filter(
-      x => x.educ_nat_code === line.CODECFD || x.educ_nat_code === line.CODECFD2 || x.educ_nat_code === line.CODECFD3
-    );
-  };
-
-  matchingCp = (catalogue, line) => {
-    catalogue.filter(
-      x => x.etablissement_responsable_code_postal === line.CODEPOSTAL || x.code_postal === line.CODEPOSTAL
-    );
-  };
-
-  matching = (matchType, fichierPsup, catalogue) => {
-    const uai =
-      catalogue.uai_formation === fichierPsup.UAI_GES ||
-      catalogue.uai_formation === fichierPsup.UAI_COMPOSANTE ||
-      catalogue.uai_formation === fichierPsup.UAI_AFF ||
-      catalogue.etablissement_formateur_uai === fichierPsup.UAI_GES ||
-      catalogue.etablissement_formateur_uai === fichierPsup.UAI_COMPOSANTE ||
-      catalogue.etablissement_formateur_uai === fichierPsup.UAI_AFF ||
-      catalogue.etablissement_responsable_uai === fichierPsup.UAI_GES ||
-      catalogue.etablissement_responsable_uai === fichierPsup.UAI_COMPOSANTE ||
-      catalogue.etablissement_responsable_uai === fichierPsup.UAI_AFF;
-
-    const codePostal = catalogue.code_postal === fichierPsup.CODEPOSTAL;
-
-    const codeInsee = catalogue.code_commune_insee === fichierPsup.CODECOMMUNE;
-
-    const academie = catalogue.nom_academie === fichierPsup.ACADEMIE;
-
-    const departement = catalogue.num_departement === fichierPsup.CODEPOSTAL.substring(0, 2);
-
-    switch (matchType) {
-      case 5:
-        return uai && codePostal && codeInsee && academie;
-        break;
-      case 4:
-        return uai && codePostal && codeInsee;
-        break;
-      case 3:
-        return uai && codeInsee;
-        break;
-      case 2:
-        return uai && departement;
-        break;
-      case 1:
-        return uai;
-        break;
-      default:
-        break;
-    }
-  };
 
   premierFiltrage = (catalogueEtablissements, formations) => {
     const resultatPremierFiltrage = [];
@@ -222,76 +171,163 @@ class Checker {
   }
 
   async runOld() {
-    const results = [];
+    const FORMATION_PS = await PsFormations.find().lean();
+    const chunks = _.chunk(FORMATION_PS, 800);
 
-    await asyncForEach(this.formations, async (formation, index) => {
-      // logger.info(`formation #${index + 1} : ${formation.LIB_AFF}, MEF : ${formation.CODEMEF}`);
+    await asyncForEach(chunks, async (chunk, index) => {
+      const results = [];
 
-      let resultCFD = {
-        message: "",
-        valeur: "",
-      };
-      let resultRNCP = {
-        message: "",
-        valeur: "",
-      };
+      logger.info(`Start chunk ${index + 1}/${chunks.length} — ${chunk.length}`);
 
-      if (!formation.CODEMEF) {
-        resultCFD.message = "Erreur";
-        resultRNCP.message = "Erreur";
-      } else {
-        const mef = typeof formation.CODEMEF === "number" ? formation.CODEMEF.toString() : formation.CODEMEF;
-        const responseMEF = await getMefInfo(mef);
-        if (responseMEF) {
-          if (responseMEF.messages.cfdUpdated === "Non trouvé") {
-            resultCFD.message = "Code CFD non retrouvé.";
-          } else {
-            resultCFD.message = "OK";
-            resultCFD.valeur = responseMEF.result.cfd.cfd;
-          }
-          if (responseMEF.result.rncp.code_rncp) {
-            resultRNCP.message = "OK";
-            if (responseMEF.result.rncp.code_rncp === "NR") {
-              resultRNCP.message = `le CFD ${responseMEF.result.cfd.cfd} n'est pas encore répertorié par France Compétences`;
+      await asyncForEach(chunk, async (formation, index) => {
+        logger.info(`formation #${index + 1} : ${formation.libelle_uai_affilie}, MEF : ${formation.code_mef_10}`);
+        let resultCFD = {
+          message: "",
+          valeur: "",
+        };
+        let resultRNCP = {
+          message: "",
+          valeur: "",
+        };
+
+        if (!formation.code_mef_10) {
+          resultCFD.message = "Erreur";
+          resultRNCP.message = "Erreur";
+        } else {
+          const responseMEF = await getMefInfo(formation.code_mef_10);
+          if (responseMEF) {
+            if (responseMEF.messages.cfdUpdated === "Non trouvé") {
+              resultCFD.message = "Code CFD non retrouvé.";
             } else {
-              resultRNCP.valeur = `${responseMEF.result.rncp.code_rncp}`;
+              resultCFD.message = "OK";
+              resultCFD.valeur = responseMEF.result.cfd.cfd;
+            }
+            if (responseMEF.result.rncp.code_rncp) {
+              resultRNCP.message = "OK";
+              if (responseMEF.result.rncp.code_rncp === "NR") {
+                resultRNCP.message = `le CFD ${responseMEF.result.cfd.cfd} n'est pas encore répertorié par France Compétences`;
+              } else {
+                resultRNCP.valeur = `${responseMEF.result.rncp.code_rncp}`;
+              }
+            } else {
+              resultRNCP.message = "Code RNCP aucune correspondance n'est retrouvée";
+              resultRNCP.valeur = "";
             }
           } else {
-            resultRNCP.message = "Code RNCP aucune correspondance n'est retrouvée";
-            resultRNCP.valeur = "";
+            console.log("ERROR");
+          }
+        }
+
+        let line = {
+          ...formation,
+          ID_PS_FORMATION: formation._id.toString(),
+          CFD_STATUT: resultCFD.message,
+          CFD_VALEUR: resultCFD.valeur ? resultCFD.valeur : formation.code_cfd,
+          RNCP_STATUS: resultRNCP.message,
+          RNCP_VALEUR: resultRNCP.valeur,
+          MNA_STATUT: "",
+          MNA_MATCHING_TYPE: "",
+          MNA_FORMATION_ID: "",
+        };
+
+        delete line._id;
+        delete line.__v;
+
+        logger.info(
+          `formation #${index + 1} : ${line.libelle_uai_affilie}, MEF : ${line.code_mef_10}, CFD : ${line.CFD_VALEUR}/${
+            formation.code_cfd
+          }`
+        );
+
+        const res = run(line);
+        // console.log(res);
+
+        if (!res.matching_uai.find(x => x.data_length > 0) && !res.matching_cfd.find(x => x.data_length > 0)) {
+          res.formation.MNA_STATUT = "Aucun matching";
+          results.push({
+            ...res.formation,
+          });
+          return;
+        }
+        if (!res.matching_uai.find(x => x.data_length > 0)) {
+          // traitement CFD
+          const found = res.matching_cfd.find(x => x.data_length === 1);
+          if (found) {
+            res.formation.MNA_STATUT = `Matching 6*`;
+            res.formation.MNA_STATUT_CODE = 6;
+            res.formation.MNA_MATCHING_TYPE = "CFD";
+            res.formation.MNA_FORMATION_ID = found.data[0]._id;
+            results.push({
+              ...res.formation,
+              ...found.data[0],
+            });
+          } else {
+            let matchingcfd = res.matching_cfd
+              .filter(x => x.data_length > 0)
+              .reduce((acc, item) => {
+                if (!acc || item.data_length < acc.data_length) {
+                  acc = item;
+                }
+                return acc;
+              });
+
+            res.formation.MNA_STATUT = `Matching ${matchingcfd.matching_strengh}*`;
+            res.formation.MNA_MATCHING_TYPE = "CFD";
+            results.push({ ...res.formation });
+
+            matchingcfd.data.forEach(x => {
+              results.push({
+                ...Object.keys(line).reduce((acc, key) => {
+                  return { ...acc, [key]: "" };
+                }, {}),
+                MNA_FORMATION_ID: x._id,
+                ...x,
+              });
+            });
           }
         } else {
-          console.log("ERROR");
+          // traitement UAI
+          const found = res.matching_uai.find(x => x.data_length === 1);
+          if (found) {
+            res.formation.MNA_STATUT = `Matching 6*`;
+            res.formation.MNA_STATUT_CODE = 6;
+            res.formation.MNA_MATCHING_TYPE = "UAI";
+            res.formation.MNA_FORMATION_ID = found.data[0]._id;
+            results.push({
+              ...res.formation,
+              ...found.data[0],
+            });
+          } else {
+            let matchinguai = res.matching_uai
+              .filter(x => x.data_length > 0)
+              .reduce((acc, item) => {
+                if (!acc || item.data_length < acc.data_length) {
+                  acc = item;
+                }
+                return acc;
+              });
+
+            res.formation.MNA_STATUT = `Matching ${matchinguai.matching_strengh}*`;
+            res.formation.MNA_MATCHING_TYPE = "UAI";
+            results.push({ ...res.formation });
+
+            matchinguai.data.forEach(x => {
+              results.push({
+                ...Object.keys(line).reduce((acc, key) => {
+                  return { ...acc, [key]: "" };
+                }, {}),
+                MNA_FORMATION_ID: x._id,
+                ...x,
+              });
+            });
+          }
         }
-      }
-
-      let line = {
-        ...formation,
-        CFD_STATUT: resultCFD.message,
-        CFD_VALEUR: resultCFD.valeur ? resultCFD.valeur : formation.CODECFD.toString(),
-        CFD2_VALEUR: formation.CODECFD2 && formation.CODECFD2.toString(),
-        CFD3_VALEUR: formation.CODECFD3 && formation.CODECFD3.toString(),
-        RNCP_STATUS: resultRNCP.message,
-        RNCP_VALEUR: resultRNCP.valeur,
-      };
-
-      logger.info(
-        `formation #${index + 1} : ${formation.LIB_AFF}, MEF : ${formation.CODEMEF}, CFD : ${line.CFD_VALEUR}/${
-          formation.CODECFD
-        }`
-      );
-
-      // const res = await trail(line);
-
-      const res = run(line);
-      console.log(res);
-      // const formatted = format(res);
-      // console.log(res);
-      return;
-      results.push(res);
+      });
+      console.log(results.length);
+      logger.info("START generating XLSX file....");
+      await Exporter.toXlsx(results, `output-part${index + 1}.xlsx`);
+      logger.info("END generating XLSX file....");
     });
-    console.log(results.length);
-    await Exporter.toXlsx(results, "output.xlsx");
   }
 }
 

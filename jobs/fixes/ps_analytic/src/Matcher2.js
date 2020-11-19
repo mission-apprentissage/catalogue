@@ -2,37 +2,37 @@ const catalogue = require("./assets/formations_catalogue.json");
 
 const matchingUAI = (matchType, ligne) => {
   const uai = catalogue =>
-    catalogue.uai_formation === ligne.UAI_GES ||
-    catalogue.uai_formation === ligne.UAI_COMPOSANTE ||
-    catalogue.uai_formation === ligne.UAI_AFF ||
-    catalogue.etablissement_formateur_uai === ligne.UAI_GES ||
-    catalogue.etablissement_formateur_uai === ligne.UAI_COMPOSANTE ||
-    catalogue.etablissement_formateur_uai === ligne.UAI_AFF ||
-    catalogue.etablissement_responsable_uai === ligne.UAI_GES ||
-    catalogue.etablissement_responsable_uai === ligne.UAI_COMPOSANTE ||
-    catalogue.etablissement_responsable_uai === ligne.UAI_AFF;
+    catalogue.uai_formation === ligne.uai_gestionnaire ||
+    catalogue.uai_formation === ligne.uai_composante ||
+    catalogue.uai_formation === ligne.uai_affilie ||
+    catalogue.etablissement_formateur_uai === ligne.uai_gestionnaire ||
+    catalogue.etablissement_formateur_uai === ligne.uai_composante ||
+    catalogue.etablissement_formateur_uai === ligne.uai_affilie ||
+    catalogue.etablissement_responsable_uai === ligne.uai_gestionnaire ||
+    catalogue.etablissement_responsable_uai === ligne.uai_composante ||
+    catalogue.etablissement_responsable_uai === ligne.uai_affilie;
 
   const cp = catalogue =>
-    catalogue.etablissement_responsable_code_postal === ligne.CODEPOSTAL ||
-    catalogue.code_postal === ligne.CODEPOSTAL ||
-    catalogue.etablissement_formateur_code_postal === ligne.CODEPOSTAL;
+    catalogue.etablissement_responsable_code_postal === ligne.code_postal ||
+    catalogue.code_postal === ligne.code_postal ||
+    catalogue.etablissement_formateur_code_postal === ligne.code_postal;
 
-  const insee = catalogue => catalogue.code_commune_insee === ligne.CODECOMMUNE;
+  const insee = catalogue => catalogue.code_commune_insee === ligne.code_commune_insee;
 
-  const academie = catalogue => catalogue.nom_academie === ligne.ACADEMIE;
+  const academie = catalogue => catalogue.nom_academie === ligne.nom_academie;
 
-  const cfd = catalogue => catalogue.educ_nat_code === ligne.CFD_VALEUR;
+  const cfd = catalogue => catalogue.educ_nat_code === ligne.code_cfd;
 
   const duo1 = catalogue =>
-    catalogue.educ_nat_code === ligne.CFD_VALEUR && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+    catalogue.educ_nat_code === ligne.code_cfd && catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
-  const mef = catalogue => catalogue.mef_10_code === ligne.CODEMEF;
+  const mef = catalogue => catalogue.mef_10_code === ligne.code_mef_10;
 
   // const duo2 =
-  //   catalogue.educ_nat_code === ligne.CODECFD2 && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+  //   catalogue.educ_nat_code === ligne.CODECFD2 && catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
   // const duo3 =
-  //   catalogue.educ_nat_code === ligne.CODECFD3 && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+  //   catalogue.educ_nat_code === ligne.CODECFD3 && catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
   const filter = condition => catalogue.filter(catalogue => condition(catalogue));
 
@@ -62,25 +62,25 @@ const matchingUAI = (matchType, ligne) => {
 
 const matchingCFD = (matchType, ligne) => {
   const cp = catalogue =>
-    catalogue.etablissement_responsable_code_postal === ligne.CODEPOSTAL ||
-    catalogue.code_postal === ligne.CODEPOSTAL ||
-    catalogue.etablissement_formateur_code_postal === ligne.CODEPOSTAL;
+    catalogue.etablissement_responsable_code_postal === ligne.code_postal ||
+    catalogue.code_postal === ligne.code_postal ||
+    catalogue.etablissement_formateur_code_postal === ligne.code_postal;
 
-  const insee = catalogue => catalogue.code_commune_insee === ligne.CODECOMMUNE;
+  const insee = catalogue => catalogue.code_commune_insee === ligne.code_commune_insee;
 
-  const academie = catalogue => catalogue.nom_academie === ligne.ACADEMIE;
+  const academie = catalogue => catalogue.nom_academie === ligne.nom_academie;
 
-  const cfd = catalogue => catalogue.educ_nat_code === ligne.CFD_VALEUR;
+  const cfd = catalogue => catalogue.educ_nat_code === ligne.code_cfd;
 
-  const dept = catalogue => catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+  const dept = catalogue => catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
-  const mef = catalogue => catalogue.mef_10_code === ligne.CODEMEF;
+  const mef = catalogue => catalogue.mef_10_code === ligne.code_mef_10;
 
   // const duo2 =
-  //   catalogue.educ_nat_code === ligne.CODECFD2 && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+  //   catalogue.educ_nat_code === ligne.CODECFD2 && catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
   // const duo3 =
-  //   catalogue.educ_nat_code === ligne.CODECFD3 && catalogue.num_departement === ligne.CODEPOSTAL.substring(0, 2);
+  //   catalogue.educ_nat_code === ligne.CODECFD3 && catalogue.num_departement === ligne.code_postal.substring(0, 2);
 
   const filter = condition => catalogue.filter(catalogue => condition(catalogue));
 

@@ -2,6 +2,7 @@ const XLSX = require("xlsx");
 const path = require("path");
 
 const toXlsx = async (jsonData, fileName) => {
+  console.log("object", jsonData.length, fileName);
   const WS = XLSX.utils.json_to_sheet(jsonData);
 
   const workbook = XLSX.utils.book_new(); // Create a new blank workbook
@@ -18,5 +19,6 @@ const toXlsx = async (jsonData, fileName) => {
     });
 
   await writeFile();
+  console.log("FILE GENERATED");
 };
 module.exports.toXlsx = toXlsx;

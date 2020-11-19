@@ -13,8 +13,7 @@ class FileManager {
   };
 
   getXLSXFile() {
-    //const formationsFilePath = path.join(__dirname, "./assets", "listeFormationApprentissagePsup.xlsx");
-    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup_sliced.xlsx");
+    const formationsFilePath = path.join(__dirname, "./assets", "Liste_Formation_Apprentissage_Psup.xlsx");
     const jsonArray = this.getXLSX(formationsFilePath);
     return jsonArray;
   }
@@ -24,7 +23,7 @@ class FileManager {
       const { sheet_name_list, workbook } = this.readXLSXFile(filePath);
       const worksheet = workbook.Sheets[sheet_name_list[0]];
 
-      const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet);
+      const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet, { raw: false });
 
       return jsonSheetArray;
     } catch (err) {
@@ -33,7 +32,6 @@ class FileManager {
   }
 
   readXLSXFile(localPath) {
-    console.log("HELLO", localPath);
     const workbook = XLSX.readFile(localPath, { codepage: 65001 });
 
     return { sheet_name_list: workbook.SheetNames, workbook };
