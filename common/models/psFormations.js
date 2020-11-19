@@ -19,7 +19,11 @@ module.exports = {
     default: null,
     description: "Libellé de l'uai composante",
   },
-  libelle_ins: {}, // TODO
+  libelle_uai_affilie: {
+    type: String,
+    default: null,
+    description: "Libellé de l'uai affilié",
+  },
   code_commune_insee: {
     type: String,
     default: null,
@@ -84,5 +88,20 @@ module.exports = {
     type: String,
     default: null,
     description: "Code MEF de la formation",
+  },
+  code_cfd: {
+    type: String,
+    default: null,
+    description: "Code formation diplome de la formation",
+  },
+  code_cfd_2: {
+    type: String,
+    default: null,
+    description: "Code formation diplome extra de la formation",
+  },
+  code_cfd_3: {
+    type: String,
+    default: null,
+    description: "Code formation diplome extra de la formation",
   },
 };
