@@ -7,7 +7,7 @@ const run = async () => {
     logger.info(" -- Start of Analysis  -- ");
     await connectToMongo();
 
-    await checker.runOld();
+    await checker.run();
 
     await closeMongoConnection();
     logger.info(" -- End of Analysis -- ");

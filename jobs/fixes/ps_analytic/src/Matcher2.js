@@ -134,6 +134,11 @@ function run(data) {
   };
 
   // TODO : request on CFD2_VALEUR & CFD3_VALEUR
+  /**
+   * Matcher 6* —> récupérer UAIs -> interroger MNA.etablissement et essayant de matcher les UAIs —> retourner :
+   * la ligne psup
+   * une ligne par établissement remonté
+   */
   let resultsUAI = predicateUAI.map(p => p(data));
   resultsUAI.forEach((x, index) => {
     res.matching_uai.push({

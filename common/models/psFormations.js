@@ -104,4 +104,10 @@ module.exports = {
     default: null,
     description: "Code formation diplome extra de la formation",
   },
+  matching_type: {
+    type: String,
+  },
+  matching_mna_formation: {
+    type: Array,
+  },
 };

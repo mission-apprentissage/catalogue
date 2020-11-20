@@ -6,7 +6,7 @@ const endpoint = "https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod";
 
 async function getMefInfo(mef) {
   try {
-    const response = await axios.post(`https://tables-correspondances-recette.apprentissage.beta.gouv.fr/api/mef`, {
+    const response = await axios.post(`https://tables-correspondances.apprentissage.beta.gouv.fr/api/mef`, {
       mef,
     });
     return response.data;
@@ -80,7 +80,7 @@ module.exports.getFormations = getFormations;
 async function sourceData() {
   const catalogue = await getEtablissements();
   await fileManager.createJson("etablissements_catalogue.json", catalogue);
-  // const formation = await getFormations();
-  // await fileManager.createJson("formations_catalogue.json", formation);
+  const formation = await getFormations();
+  await fileManager.createJson("formations_catalogue.json", formation);
 }
 module.exports.sourceData = sourceData;
