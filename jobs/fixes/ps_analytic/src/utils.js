@@ -17,6 +17,19 @@ async function getMefInfo(mef) {
 }
 module.exports.getMefInfo = getMefInfo;
 
+async function getCfdInfo(cfd) {
+  try {
+    const response = await axios.post(`https://tables-correspondances.apprentissage.beta.gouv.fr/api/cfd`, {
+      cfd,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+module.exports.getCfdInfo = getCfdInfo;
+
 async function findFormationCatalogue(params) {
   try {
     const response = await axios.get(`https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/formations`, {
