@@ -369,16 +369,13 @@ export default ({ match, presetFormation = null }) => {
       code_postal: "",
       capacite: "",
       periode: "",
-      educ_nat_code: "",
+      cfd: "",
       rncp_code: "",
       num_academie: 0,
     },
-    onSubmit: (
-      { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code },
-      { setSubmitting }
-    ) => {
+    onSubmit: ({ uai_formation, code_postal, capacite, periode, cfd, num_academie, rncp_code }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
-        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code };
+        const body = { uai_formation, code_postal, capacite, periode, cfd, num_academie, rncp_code };
         let prevStateFormation = formation;
         if (presetFormation) {
           prevStateFormation = await API.post("api", `/formation`, {
@@ -391,7 +388,7 @@ export default ({ match, presetFormation = null }) => {
         let result = null;
         if (
           uai_formation !== prevStateFormation.uai_formation ||
-          educ_nat_code !== prevStateFormation.educ_nat_code ||
+          cfd !== prevStateFormation.cfd ||
           rncp_code !== prevStateFormation.rncp_code ||
           presetFormation
         ) {
@@ -402,9 +399,9 @@ export default ({ match, presetFormation = null }) => {
           setGatherData(2);
           await API.get("api", `/services?job=formation-update&id=${result._id}`);
           setGatherData(3);
-          if (!prevStateFormation.rncp_code && educ_nat_code !== "") {
+          if (!prevStateFormation.rncp_code && cfd !== "") {
             await API.get("api", `/services?job=rncp&id=${result._id}`);
-          } else if (!prevStateFormation.educ_nat_code && rncp_code !== "") {
+          } else if (!prevStateFormation.cfd && rncp_code !== "") {
             await API.get("api", `/services?job=rncp-inverse&id=${result._id}`);
           }
           setGatherData(4);
@@ -430,7 +427,7 @@ export default ({ match, presetFormation = null }) => {
           setFieldValue("code_postal", result.code_postal);
           setFieldValue("periode", result.periode);
           setFieldValue("capacite", result.capacite);
-          setFieldValue("educ_nat_code", result.educ_nat_code);
+          setFieldValue("cfd", result.cfd);
           setFieldValue("num_academie", result.num_academie);
           setFieldValue("rncp_code", result.rncp_code);
         }
