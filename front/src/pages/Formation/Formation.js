@@ -14,7 +14,7 @@ import routes from "../../routes.json";
 import "./formation.css";
 const sleep = m => new Promise(r => setTimeout(r, m));
 
-const endpointNewFront = "https://catalogue-recette.apprentissage.beta.gouv.fr/api";
+const endpointNewFront = "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;
