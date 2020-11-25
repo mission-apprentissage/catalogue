@@ -21,7 +21,7 @@ const getCount = async (index, filter = {}) => {
   return resp.count;
 };
 
-const endpointNewFront = "https://catalogue-recette.apprentissage.beta.gouv.fr/api";
+const endpointNewFront = "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 export default () => {
   const dispatch = useDispatch();
