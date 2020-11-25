@@ -23,32 +23,47 @@ import {
 import constantsFormations from "./constantsFormations";
 import constantsEtablissements from "./constantsEtablissements";
 
+import { _get } from "../../services/httpClient";
+
 import "./search.css";
+
+const endpointNewFront = "https://catalogue-recette.apprentissage.beta.gouv.fr/api";
 
 export default ({ match }) => {
   const [countItems, setCountItems] = useState(0);
   const [mode, setMode] = useState("simple");
-  const [base, setBase] = useState("formations");
+  const [base, setBase] = useState("mnaformation");
+  const [endPoint, setEndpoint] = useState(endpointNewFront);
 
   const { FILTERS, columnsDefinition, facetDefinition, queryBuilderField, dataSearch } =
-    base === "formations" ? constantsFormations : constantsEtablissements;
+    base === "mnaformation" ? constantsFormations : constantsEtablissements;
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     async function run() {
       try {
-        const tmpBase =
-          match.params.base === "formations" || match.params.base === "etablissements"
-            ? match.params.base
-            : "formations";
+        const tmpBase = match.params.base === "formations" ? "mnaformation" : "etablissements";
+
+        setEndpoint(tmpBase === "mnaformation" ? endpointNewFront : config.aws.apiGateway.endpoint);
         setBase(tmpBase);
-        const resp = await API.get("api", `/${tmpBase}/count`, {
-          queryStringParameters: {
+
+        let countFormations = 0;
+        if (tmpBase === "mnaformation") {
+          const params = new window.URLSearchParams({
             query: JSON.stringify({ published: true }),
-          },
-        });
-        setCountItems(resp.count);
+          });
+          countFormations = await _get(`${endpointNewFront}/entity/formations/count?${params}`);
+        } else {
+          const resp = await API.get("api", `/${tmpBase}/count`, {
+            queryStringParameters: {
+              query: JSON.stringify({ published: true }),
+            },
+          });
+          countFormations = resp.count;
+        }
+
+        setCountItems(countFormations);
       } catch (e) {
         console.log(e);
       }
@@ -63,14 +78,14 @@ export default ({ match }) => {
   return (
     <div className="page search-page">
       <h1 className="mt-3">Catalogue de l'apprentissage</h1>
-      <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app={base}>
+      <ReactiveBase url={`${endPoint}/es/search`} app={base}>
         <div className="search">
           <Container fluid style={{ maxWidth: 1860 }}>
             <label className="react-switch" style={{ right: "70px" }}>
               <Switch onChange={handleSearchSwitchChange} checked={mode !== "simple"} />
               <span>Recherche avancée</span>
             </label>
-            <h1 className="title">Votre recherche {base === "formations" ? "de formations" : "d'établissements"}</h1>
+            <h1 className="title">Votre recherche {base === "mnaformation" ? "de formations" : "d'établissements"}</h1>
             <Row className="search-row">
               <div className={`search-sidebar`}>
                 {facetDefinition.map((fd, i) => {
@@ -87,9 +102,9 @@ export default ({ match }) => {
                     />
                   );
                 })}
-                {base === "formations" && <ToggleCatalogue filters={FILTERS} />}
+                {base === "mnaformation" && <ToggleCatalogue filters={FILTERS} />}
                 <a href={`/${base}`}>Aller à l'ancienne interface</a>
-                {base === "formations" && user && (
+                {base === "mnaformation" && user && (
                   <div className="mt-3 add-btn">
                     <Button color="primary" outline>
                       <Link to={routes.ADD_FORMATION} className={"nav-link link"}>
@@ -104,7 +119,7 @@ export default ({ match }) => {
                   <QueryBuilder
                     lang="fr"
                     collection={base}
-                    react={{ and: FILTERS.filter((e) => e !== "QUERYBUILDER") }}
+                    react={{ and: FILTERS.filter(e => e !== "QUERYBUILDER") }}
                     fields={queryBuilderField}
                   />
                 )}
@@ -126,12 +141,12 @@ export default ({ match }) => {
                   <ReactiveList
                     componentId="result"
                     title="Results"
-                    dataField={base === "formations" ? "_id" : "_id"}
+                    dataField={base === "mnaformation" ? "_id" : "_id"}
                     loader="Chargement des résultats.."
                     size={8}
                     pagination={true}
                     showEndPage={true}
-                    renderPagination={(paginationProp) => {
+                    renderPagination={paginationProp => {
                       return <Pagination {...paginationProp} />;
                     }}
                     showResultStats={true}
@@ -146,18 +161,18 @@ export default ({ match }) => {
                         },
                       };
                     }}
-                    renderItem={(data) =>
-                      base === "formations" ? (
+                    renderItem={data =>
+                      base === "mnaformation" ? (
                         <CardListFormation data={data} key={data._id} />
                       ) : (
                         <CardListEtablissements data={data} key={data._id} />
                       )
                     }
-                    renderResultStats={(stats) => {
+                    renderResultStats={stats => {
                       return (
                         <div className="summary-stats">
                           <span className="summary-text">
-                            {base === "formations"
+                            {base === "mnaformation"
                               ? `${stats.numberOfResults} formations affichées sur ${
                                   countItems !== 0 ? countItems : ""
                                 } formations au total`
@@ -169,8 +184,8 @@ export default ({ match }) => {
                             index={base}
                             filters={FILTERS}
                             columns={columnsDefinition
-                              .filter((def) => !def.debug || (user && def.exportOnly && def.debug))
-                              .map((def) => ({ header: def.Header, fieldName: def.accessor }))}
+                              .filter(def => !def.debug || (user && def.exportOnly && def.debug))
+                              .map(def => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {
                                 published: true,

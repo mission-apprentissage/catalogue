@@ -6,12 +6,15 @@ import { useFormik } from "formik";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faCheck } from "@fortawesome/free-solid-svg-icons";
 import { push } from "connected-react-router";
+import { _get } from "../../services/httpClient";
 
 import Section from "./components/Section";
 import routes from "../../routes.json";
 
 import "./formation.css";
-const sleep = (m) => new Promise((r) => setTimeout(r, m));
+const sleep = m => new Promise(r => setTimeout(r, m));
+
+const endpointNewFront = "https://catalogue-recette.apprentissage.beta.gouv.fr/api";
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;
@@ -60,16 +63,16 @@ const EditSection = ({ edition, onEdit, handleSubmit, onDeleteClicked }) => {
 };
 
 const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, values }) => {
-  const { acm: userAcm } = useSelector((state) => state.user);
-  const oneEstablishment = formation.etablissement_responsable_siret === formation.etablissement_formateur_siret;
+  const { acm: userAcm } = useSelector(state => state.user);
+  const oneEstablishment = formation.etablissement_gestionnaire_siret === formation.etablissement_formateur_siret;
   const hasRightToEdit = checkIfHasRightToEdit(formation, userAcm);
 
   const dispatch = useDispatch();
-  const onDeleteClicked = async (e) => {
+  const onDeleteClicked = async e => {
     // eslint-disable-next-line no-restricted-globals
     const areYousure = confirm("Souhaitez-vous vraiment supprimer cette formation ?");
     if (areYousure) {
-      await API.del("api", `/formation/${formation._id}`);
+      // await API.del("api", `/formation/${formation._id}`);
       dispatch(push(routes.SEARCH_FORMATIONS));
     }
   };
@@ -97,10 +100,8 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               {hasRightToEdit && <FontAwesomeIcon className="edit-pen" icon={faPen} size="xs" />}
             </h3>
             <p>
-              {!edition && <>{formation.educ_nat_code}</>}
-              {edition && (
-                <Input type="text" name="educ_nat_code" onChange={handleChange} value={values.educ_nat_code} />
-              )}
+              {!edition && <>{formation.cfd}</>}
+              {edition && <Input type="text" name="cfd" onChange={handleChange} value={values.cfd} />}
             </p>
           </div>
           <div className="field">
@@ -137,7 +138,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         <Section title="Information ParcourSup">
           <div className="field">
             <h3>Référencé dans ParcourSup</h3>
-            <p>{formation.parcoursup_reference}</p>
+            <p>{formation.parcoursup_reference ? "OUI" : "NON"}</p>
           </div>
           <div className="field">
             <h3>À charger dans ParcourSup</h3>
@@ -147,7 +148,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         <Section title="Information Affelnet">
           <div className="field">
             <h3>Référencé dans Affelnet</h3>
-            <p>{formation.affelnet_reference}</p>
+            <p>{formation.affelnet_reference ? "OUI" : "NON"}</p>
           </div>
           <div className="field">
             <h3>À charger dans Affelnet</h3>
@@ -201,7 +202,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             {formation.opcos.length > 0 && (
               <>
                 <h3>OPCOs liés à la formation</h3>
-                {formation.opcos.map((x) => (
+                {formation.opcos.map(x => (
                   <p>{x}</p>
                 ))}
               </>
@@ -291,10 +292,10 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         <div className="sidebar-section info">
           <h2>Organisme {!oneEstablishment && "Formateur"}</h2>
           <div>
-            {formation.entreprise_raison_sociale && (
+            {formation.etablissement_formateur_entreprise_raison_sociale && (
               <div className="field">
                 <h3>Raison sociale</h3>
-                <p>{formation.entreprise_raison_sociale}</p>
+                <p>{formation.etablissement_formateur_entreprise_raison_sociale}</p>
               </div>
             )}
             {formation.etablissement_formateur_enseigne && (
@@ -320,31 +321,31 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         </div>
         {!oneEstablishment && (
           <div className="sidebar-section info">
-            <h2>Organisme Responsable</h2>
+            <h2>Organisme Gestionnaire</h2>
             <div>
-              {formation.entreprise_raison_sociale && (
+              {formation.etablissement_gestionnaire_entreprise_raison_sociale && (
                 <div className="field">
                   <h3>Raison sociale</h3>
-                  <p>{formation.entreprise_raison_sociale}</p>
+                  <p>{formation.etablissement_gestionnaire_entreprise_raison_sociale}</p>
                 </div>
               )}
-              {formation.etablissement_responsable_enseigne && (
+              {formation.etablissement_gestionnaire_enseigne && (
                 <div className="field">
                   <h3>Enseigne</h3>
-                  <p>{formation.etablissement_responsable_enseigne}</p>
+                  <p>{formation.etablissement_gestionnaire_enseigne}</p>
                 </div>
               )}
               <div className="field">
                 <h3>Uai</h3>
-                <p>{formation.etablissement_responsable_uai}</p>
+                <p>{formation.etablissement_gestionnaire_uai}</p>
               </div>
               <div className="field field-button mt-3">
                 <a
-                  href={`/etablissement/${formation.etablissement_responsable_id}`}
+                  href={`/etablissement/${formation.etablissement_gestionnaire_id}`}
                   target="_blank"
                   rel="noreferrer noopener"
                 >
-                  <Button color="primary">Voir l'organisme responsable</Button>
+                  <Button color="primary">Voir l'organisme gestionnaire</Button>
                 </a>
               </div>
             </div>
@@ -368,16 +369,13 @@ export default ({ match, presetFormation = null }) => {
       code_postal: "",
       capacite: "",
       periode: "",
-      educ_nat_code: "",
+      cfd: "",
       rncp_code: "",
       num_academie: 0,
     },
-    onSubmit: (
-      { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code },
-      { setSubmitting }
-    ) => {
+    onSubmit: ({ uai_formation, code_postal, capacite, periode, cfd, num_academie, rncp_code }, { setSubmitting }) => {
       return new Promise(async (resolve, reject) => {
-        const body = { uai_formation, code_postal, capacite, periode, educ_nat_code, num_academie, rncp_code };
+        const body = { uai_formation, code_postal, capacite, periode, cfd, num_academie, rncp_code };
         let prevStateFormation = formation;
         if (presetFormation) {
           prevStateFormation = await API.post("api", `/formation`, {
@@ -390,7 +388,7 @@ export default ({ match, presetFormation = null }) => {
         let result = null;
         if (
           uai_formation !== prevStateFormation.uai_formation ||
-          educ_nat_code !== prevStateFormation.educ_nat_code ||
+          cfd !== prevStateFormation.cfd ||
           rncp_code !== prevStateFormation.rncp_code ||
           presetFormation
         ) {
@@ -401,9 +399,9 @@ export default ({ match, presetFormation = null }) => {
           setGatherData(2);
           await API.get("api", `/services?job=formation-update&id=${result._id}`);
           setGatherData(3);
-          if (!prevStateFormation.rncp_code && educ_nat_code !== "") {
+          if (!prevStateFormation.rncp_code && cfd !== "") {
             await API.get("api", `/services?job=rncp&id=${result._id}`);
-          } else if (!prevStateFormation.educ_nat_code && rncp_code !== "") {
+          } else if (!prevStateFormation.cfd && rncp_code !== "") {
             await API.get("api", `/services?job=rncp-inverse&id=${result._id}`);
           }
           setGatherData(4);
@@ -429,7 +427,7 @@ export default ({ match, presetFormation = null }) => {
           setFieldValue("code_postal", result.code_postal);
           setFieldValue("periode", result.periode);
           setFieldValue("capacite", result.capacite);
-          setFieldValue("educ_nat_code", result.educ_nat_code);
+          setFieldValue("cfd", result.cfd);
           setFieldValue("num_academie", result.num_academie);
           setFieldValue("rncp_code", result.rncp_code);
         }
@@ -448,7 +446,8 @@ export default ({ match, presetFormation = null }) => {
       try {
         let form = null;
         if (!presetFormation) {
-          form = await API.get("api", `/formation/${match.params.id}`);
+          // form = await API.get("api", `/formation/${match.params.id}`);
+          form = await _get(`${endpointNewFront}/entity/formation/${match.params.id}`);
         } else {
           form = presetFormation;
         }
@@ -458,7 +457,7 @@ export default ({ match, presetFormation = null }) => {
         setFieldValue("code_postal", form.code_postal || "");
         setFieldValue("periode", form.periode || "");
         setFieldValue("capacite", form.capacite || "");
-        setFieldValue("educ_nat_code", form.educ_nat_code || "");
+        setFieldValue("cfd", form.cfd || "");
         setFieldValue("num_academie", form.num_academie || "");
         setFieldValue("rncp_code", form.rncp_code || "");
       } catch (e) {
