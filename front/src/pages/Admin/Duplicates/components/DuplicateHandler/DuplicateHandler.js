@@ -136,7 +136,7 @@ const SelectedTraining = ({ training, onValidation, handleDeleteChange, doNotDel
   }, [training]);
 
   const onChangeHandler = (attr, val) => {
-    setSelectedTraining({ ...training, [attr]: val });
+    setSelectedTraining({ ...selectedTraining, [attr]: val });
   };
 
   return (

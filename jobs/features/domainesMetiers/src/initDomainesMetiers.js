@@ -3,6 +3,7 @@ const { getElasticInstance } = require("../../../../common/esClient");
 const { DomainesMetiers } = require("../../../../common/models2");
 const logger = require("../../../common-jobs/Logger").mainLogger;
 const XLSX = require("xlsx");
+const path = require("path");
 
 const emptyMongo = async () => {
   try {
@@ -27,6 +28,11 @@ const clearIndex = async () => {
   }
 };
 
+const createIndex = async () => {
+  let requireAsciiFolding = true;
+  await DomainesMetiers.createMapping(requireAsciiFolding);
+};
+
 const run = async () => {
   try {
     logger.info(" -- Start of DomainesMetiers initializer -- ");
@@ -34,13 +40,14 @@ const run = async () => {
 
     await emptyMongo();
     await clearIndex();
+    await createIndex();
 
     const readXLSXFile = localPath => {
       const workbook = XLSX.readFile(localPath, { codepage: 65001 });
       return { sheet_name_list: workbook.SheetNames, workbook };
     };
 
-    const fichierDomainesMetiers = "./assets/domainesMetiers.xlsx";
+    const fichierDomainesMetiers = path.join(__dirname, "./assets/domainesMetiers.xlsx");
     const workbookDomainesMetiers = readXLSXFile(fichierDomainesMetiers);
 
     let domaines, familles, codesROMEs, intitulesROMEs, couplesROMEsIntitules;

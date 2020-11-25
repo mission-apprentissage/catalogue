@@ -48,7 +48,7 @@ const CardList = ({ data }) => {
             <p>Niveau: {data.niveau}</p>
           </div>
           <div className="field">
-            <p>Code diplôme: {data.educ_nat_code}</p>
+            <p>Code diplôme: {data.cfd}</p>
           </div>
         </div>
         <div className="content">
@@ -74,7 +74,7 @@ const CardList = ({ data }) => {
           <div>
             <p>{data.nom_academie}</p>
             <p>{data.code_postal}</p>
-            <p>{data.entreprise_raison_sociale}</p>
+            <p>{data.etablissement_gestionnaire_entreprise_raison_sociale}</p>
             <p>{data.etablissement_formateur_enseigne}</p>
           </div>
         </div>

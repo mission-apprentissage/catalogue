@@ -19,26 +19,20 @@
     "editable": false
   },
   {
-    "Header": "Identifiant Dossier Démarche Simplifiée",
-    "accessor": "ds_id_dossier",
-    "width": 200,
-    "editable": false
-  },
-  {
     "Header": "Siret Responsable",
-    "accessor": "etablissement_responsable_siret",
+    "accessor": "etablissement_gestionnaire_siret",
     "width": 200,
     "editorInput": "text"
   },
   {
     "Header": "Uai Responsable",
-    "accessor": "etablissement_responsable_uai",
+    "accessor": "etablissement_gestionnaire_uai",
     "width": 200,
     "editorInput": "text"
   },
   {
     "Header": "Enseigne Responsable",
-    "accessor": "etablissement_responsable_enseigne",
+    "accessor": "etablissement_gestionnaire_enseigne",
     "width": 200,
     "editable": false
   },
@@ -62,7 +56,7 @@
   },
   {
     "Header": "Raison sociale du siret formateur",
-    "accessor": "entreprise_raison_sociale",
+    "accessor": "etablissement_formateur_entreprise_raison_sociale",
     "width": 200,
     "editable": false
   },
@@ -117,7 +111,7 @@
   },
   {
     "Header": "Organisme Habilité (RNCP)",
-    "accessor": "rncp_etablissement_reference_habilite",
+    "accessor": "rncp_etablissement_gestionnaire_habilite",
     "width": 200,
     "editable": false
   },
@@ -147,7 +141,7 @@
   },
   {
     "Header": "Code du diplôme ou du titre suivant la nomenclature de l'Education nationale (CodeEN)",
-    "accessor": "educ_nat_code",
+    "accessor": "cfd",
     "width": 400,
     "editorInput": "text",
     "editable": false,
@@ -170,12 +164,6 @@
     "Header": "Liste codes MEF 8 caractères",
     "accessor": "mef_8_codes",
     "debug": true,
-    "width": 400,
-    "editable": false
-  },
-  {
-    "Header": "Liste codes MEF 10 caractères",
-    "accessor": "mef_10_codes",
     "width": 400,
     "editable": false
   },
@@ -263,13 +251,13 @@
   },
   {
     "Header": "NumAcademie Siege",
-    "accessor": "num_academie_siege",
+    "accessor": "etablissement_gestionnaire_num_academie",
     "width": 200,
     "editable": false
   },
   {
     "Header": "Nom Academie Siege",
-    "accessor": "nom_academie_siege",
+    "accessor": "etablissement_gestionnaire_nom_academie",
     "width": 200,
     "editable": false
   },

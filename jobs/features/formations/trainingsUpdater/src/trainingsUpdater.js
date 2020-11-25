@@ -11,6 +11,7 @@ const bcnData = require("./updaters/bcnData");
 const pSupData = require("./updaters/pSupData");
 const affelnetData = require("./updaters/affelnetData");
 const publishedData = require("./updaters/publishedData");
+const establishmentsGeolocData = require("./updaters/establishmentsGeolocData");
 
 const run = async (updateOnly = null, connectMongo = true) => {
   try {
@@ -55,6 +56,16 @@ const run = async (updateOnly = null, connectMongo = true) => {
         updatedTraining = {
           ...updatedTraining,
           ...updatesLocationData,
+        };
+        updatedNeeded = true;
+      }
+
+      // Update Establishments information
+      const updatesGeoLocData = await establishmentsGeolocData.getUpdates(updatedTraining);
+      if (updatesGeoLocData) {
+        updatedTraining = {
+          ...updatedTraining,
+          ...updatesGeoLocData,
         };
         updatedNeeded = true;
       }

@@ -14,6 +14,7 @@ const connectToMongo = (endpoint = null, dbname = null, mongooseInst = null) =>
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
+      useCreateIndex: true,
     }); // Get Mongoose to use the global promise library
     mongooseInstanceTmp.Promise = global.Promise; // Get the default connection
     const db = mongooseInstanceTmp.connection;

@@ -236,12 +236,12 @@ const SearchResult = ({ data, filters, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
-                  {column.accessor === "etablissement_responsable_siret" && (
+                  {column.accessor === "etablissement_gestionnaire_siret" && (
                     <Filter
-                      componentId="etablissement_responsable_siret"
-                      dataField="etablissement_responsable_siret.keyword"
-                      filterLabel="etablissement_responsable_siret"
-                      filters={filters.filter(e => e !== "etablissement_responsable_siret")}
+                      componentId="etablissement_gestionnaire_siret"
+                      dataField="etablissement_gestionnaire_siret.keyword"
+                      filterLabel="etablissement_gestionnaire_siret"
+                      filters={filters.filter(e => e !== "etablissement_gestionnaire_siret")}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"
@@ -269,18 +269,18 @@ const SearchResult = ({ data, filters, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
-                  {column.accessor === "etablissement_responsable_uai" && (
+                  {column.accessor === "etablissement_gestionnaire_uai" && (
                     <Filter
-                      componentId="etablissement_responsable_uai"
-                      dataField="etablissement_responsable_uai.keyword"
-                      filterLabel="etablissement_responsable_uai"
+                      componentId="etablissement_gestionnaire_uai"
+                      dataField="etablissement_gestionnaire_uai.keyword"
+                      filterLabel="etablissement_gestionnaire_uai"
                       filters={filters}
                       sortBy="count"
                       showMissing={true}
                       missingLabel="(Vide)"
                     />
                   )}
-                  {column.accessor === "ds_id_dossier" && (
+                  {/* {column.accessor === "ds_id_dossier" && (
                     <Filter
                       componentId="ds_id_dossier"
                       dataField="ds_id_dossier.keyword"
@@ -290,7 +290,7 @@ const SearchResult = ({ data, filters, debug }) => {
                       showMissing={true}
                       missingLabel="(Vide)"
                     />
-                  )}
+                  )} */}
                   {column.accessor === "niveau" && (
                     <Filter
                       componentId="niveau"
@@ -360,17 +360,17 @@ const SearchResult = ({ data, filters, debug }) => {
                   {column.accessor === "num_academie" && (
                     <Filter
                       componentId="num_academie"
-                      dataField="num_academie"
+                      dataField="num_academie.keyword"
                       filterLabel="num_academie"
                       filters={filters}
                       sortBy="asc"
                     />
                   )}
-                  {column.accessor === "num_academie_siege" && (
+                  {column.accessor === "etablissement_gestionnaire_num_academie" && (
                     <Filter
-                      componentId="num_academie_siege"
-                      dataField="num_academie_siege"
-                      filterLabel="num_academie_siege"
+                      componentId="etablissement_gestionnaire_num_academie"
+                      dataField="etablissement_gestionnaire_num_academie.keyword"
+                      filterLabel="etablissement_gestionnaire_num_academie"
                       filters={filters}
                       sortBy="asc"
                     />
@@ -408,11 +408,11 @@ const SearchResult = ({ data, filters, debug }) => {
                       missingLabel="(Vide)"
                     />
                   )}
-                  {column.accessor === "educ_nat_code" && (
+                  {column.accessor === "cfd" && (
                     <Filter
-                      componentId="educ_nat_code"
-                      dataField="educ_nat_code.keyword"
-                      filterLabel="educ_nat_code"
+                      componentId="cfd"
+                      dataField="cfd.keyword"
+                      filterLabel="cfd"
                       filters={filters}
                       sortBy="count"
                       showMissing={true}
@@ -491,8 +491,12 @@ const SearchResult = ({ data, filters, debug }) => {
                   {column.accessor === "affelnet_a_charger" && (
                     <BooleanFilter dataField="affelnet_a_charger" filters={filters} sortBy="count" />
                   )}
-                  {column.accessor === "rncp_etablissement_reference_habilite" && (
-                    <BooleanFilter dataField="rncp_etablissement_reference_habilite" filters={filters} sortBy="count" />
+                  {column.accessor === "rncp_etablissement_gestionnaire_habilite" && (
+                    <BooleanFilter
+                      dataField="rncp_etablissement_gestionnaire_habilite"
+                      filters={filters}
+                      sortBy="count"
+                    />
                   )}
                   {column.accessor === "rncp_eligible_apprentissage" && (
                     <BooleanFilter dataField={"rncp_eligible_apprentissage"} filters={filters} sortBy="count" />

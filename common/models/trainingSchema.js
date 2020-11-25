@@ -145,6 +145,7 @@ const trainingSchema = {
     implicit_type: "geo_point",
     description: "Latitude et longitude de l'établissement de référence",
   },
+
   geo_coordonnees_etablissement_formateur: {
     type: String,
     implicit_type: "geo_point",
@@ -160,6 +161,7 @@ const trainingSchema = {
     implicit_type: "geo_point",
     description: "Latitude et longitude de l'établissement recherchable dans Idea",
   },
+
   etablissement_reference_adresse: {
     type: String,
     default: null,
