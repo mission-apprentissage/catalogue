@@ -18,7 +18,7 @@ const checkIfHasRightToEdit = (item, userAcm) => {
   return hasRightToEdit;
 };
 
-const CardList = ({ data }) => {
+const CardList = ({ data, f2021 }) => {
   const { acm: userAcm } = useSelector(state => state.user);
   //const ImageComponent = <img src={image_preview} alt={data.intitule_court} />;
 
@@ -41,7 +41,12 @@ const CardList = ({ data }) => {
   // };
 
   return (
-    <Link to={`/formation/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
+    <Link
+      to={f2021 ? `/formation2021/${data._id}` : `/formation/${data._id}`}
+      className="list-card"
+      style={{ textDecoration: "none" }}
+      target="_blank"
+    >
       <div className="list-card-container ">
         <div className="thumbnail">
           <div className="field">

@@ -25,6 +25,7 @@ import {
   Users,
   Duplicates,
   Formation,
+  Formation2021,
   Search,
   AddFormation,
   Etablissement,
@@ -73,6 +74,7 @@ const App = () => {
         <RestrictedRoute exact path={routes.ADMIN_DUPLICATE} component={Duplicates} />
         <Route exact path={`${routes.SEARCH}/:base`} component={Search} />
         <Route exact path={`/formation/:id`} component={Formation} />
+        <Route exact path={`/formation2021/:id`} component={Formation2021} />
         <Route exact path={`/etablissement/:id`} component={Etablissement} />
         <Route exact path={routes.ADD_FORMATION} component={AddFormation} />
         <Route exact path={routes.CHANGEPASSWORD} component={ChangePassword} />

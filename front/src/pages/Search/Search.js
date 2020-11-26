@@ -111,7 +111,10 @@ export default ({ match }) => {
 
   return (
     <div className="page search-page">
-      <h1 className="mt-3">Catalogue de l'apprentissage</h1>
+      <h1 className="mt-3">
+        Catalogue de l'apprentissage
+        {base === "convertedformation" ? " 2021" : ""}
+      </h1>
       <ReactiveBase url={`${endPoint}/es/search`} app={base}>
         <div className="search">
           <Container fluid style={{ maxWidth: 1860 }}>
@@ -204,7 +207,7 @@ export default ({ match }) => {
                     }}
                     renderItem={data =>
                       base === "mnaformation" || base === "convertedformation" ? (
-                        <CardListFormation data={data} key={data._id} />
+                        <CardListFormation data={data} key={data._id} f2021={base === "convertedformation"} />
                       ) : (
                         <CardListEtablissements data={data} key={data._id} />
                       )
