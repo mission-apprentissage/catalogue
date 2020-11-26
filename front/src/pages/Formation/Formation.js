@@ -12,9 +12,14 @@ import Section from "./components/Section";
 import routes from "../../routes.json";
 
 import "./formation.css";
-const sleep = m => new Promise(r => setTimeout(r, m));
 
-const endpointNewFront = "https://catalogue.apprentissage.beta.gouv.fr/api";
+import { getEnvName } from "../../config";
+const sleep = m => new Promise(r => setTimeout(r, m));
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 const checkIfHasRightToEdit = (item, userAcm) => {
   let hasRightToEdit = userAcm.all;

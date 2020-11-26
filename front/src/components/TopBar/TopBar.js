@@ -101,9 +101,7 @@ const TopBar = () => {
                 </Button>
               </div>
             ) : (
-              <Link to={routes.SIGNIN} className={"nav-link link"}>
-                S'identifier
-              </Link>
+              <div />
             )}
           </NavbarText>
         </Collapse>
@@ -113,3 +111,7 @@ const TopBar = () => {
 };
 
 export default TopBar;
+
+/* <Link to={routes.SIGNIN} className={"nav-link link"}>
+                S'identifier
+              </Link> */
