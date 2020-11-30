@@ -199,12 +199,12 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         </Section>
         <Section title="Information OPCOs">
           <div className="field">
-            {formation.opcos.length === 0 && (
+            {formation.opcos && formation.opcos.length === 0 && (
               <>
                 <h3>Aucun OPCO rattaché</h3>
               </>
             )}
-            {formation.opcos.length > 0 && (
+            {formation.opcos && formation.opcos.length > 0 && (
               <>
                 <h3>OPCOs liés à la formation</h3>
                 {formation.opcos.map(x => (
