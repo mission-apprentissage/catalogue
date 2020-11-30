@@ -3,6 +3,7 @@
     "FORMATIONS": "/formations",
     "SEARCH": "/search",
     "SEARCH_FORMATIONS": "/search/formations",
+    "SEARCH_FORMATIONS_2021": "/search/formations2021",
     "SEARCH_ETABLISSEMENTS": "/search/etablissements",
     "ADD_FORMATION": "/ajout-formation",
     "NOTFOUND": "/404",

@@ -5,6 +5,7 @@ import Journal from "./Journal";
 import HowToModif from "./HowToModif";
 import HowToReglement from "./HowToReglement";
 import Formation from "./Formation";
+import Formation2021 from "./Formation2021";
 import AddFormation from "./AddFormation";
 import Search from "./Search";
 import Etablissement from "./Etablissement";
@@ -35,6 +36,7 @@ export {
   Users,
   Duplicates,
   Formation,
+  Formation2021,
   Search,
   AddFormation,
   Etablissement,
