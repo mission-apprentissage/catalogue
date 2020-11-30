@@ -452,7 +452,7 @@ export default ({ match, presetFormation = null }) => {
         let form = null;
         if (!presetFormation) {
           // form = await API.get("api", `/formation/${match.params.id}`);
-          form = await _get(`${endpointNewFront}/entity/formation/${match.params.id}`);
+          form = await _get(`${endpointNewFront}/entity/formation2021/${match.params.id}`);
         } else {
           form = presetFormation;
         }
