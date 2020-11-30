@@ -51,7 +51,11 @@ const FILTERS = [
 ];
 
 // "https://catalogue-recette.apprentissage.beta.gouv.fr/api/es/search/mnaformation/_msearch";
-const endpointNewFront = "https://catalogue.apprentissage.beta.gouv.fr/api";
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
 //<ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app="formations">
 
 export default () => {

@@ -12,6 +12,8 @@ import content from "../../CHANGELOG";
 import routes from "../../routes.json";
 import "./landing.css";
 
+import { getEnvName } from "../../config";
+
 const getCount = async (index, filter = {}) => {
   const params = new window.URLSearchParams({
     query: JSON.stringify(filter),
@@ -20,8 +22,11 @@ const getCount = async (index, filter = {}) => {
 
   return resp.count;
 };
-
-const endpointNewFront = "https://catalogue.apprentissage.beta.gouv.fr/api";
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 export default () => {
   const dispatch = useDispatch();
