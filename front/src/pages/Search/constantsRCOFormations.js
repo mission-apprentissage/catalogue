@@ -28,11 +28,11 @@ const FILTERS = [
   "rome_codes",
   "rncp_code",
   "mef_10_code",
-  "parcoursup_reference",
+  //"parcoursup_reference",
   "parcoursup_a_charger",
   "diplome",
-  "opcos",
-  "info_opcos_intitule",
+  //"opcos",
+  //"info_opcos_intitule",
 ];
 
 const columnsDefinition = [
@@ -190,26 +190,26 @@ const columnsDefinition = [
     width: 400,
     editable: false,
   },
-  {
-    Header: "Référencé dans Affelnet",
-    accessor: "affelnet_reference",
-    debug: true,
-    width: 200,
-    editable: false,
-  },
-  {
-    Header: "À charger dans Affelnet",
-    accessor: "affelnet_a_charger",
-    width: 200,
-    debug: true,
-    editable: false,
-  },
-  {
-    Header: "Référencé dans ParcourSup",
-    accessor: "parcoursup_reference",
-    width: 200,
-    editable: false,
-  },
+  // {
+  //   Header: "Référencé dans Affelnet",
+  //   accessor: "affelnet_reference",
+  //   debug: true,
+  //   width: 200,
+  //   editable: false,
+  // },
+  // {
+  //   Header: "À charger dans Affelnet",
+  //   accessor: "affelnet_a_charger",
+  //   width: 200,
+  //   debug: true,
+  //   editable: false,
+  // },
+  // {
+  //   Header: "Référencé dans ParcourSup",
+  //   accessor: "parcoursup_reference",
+  //   width: 200,
+  //   editable: false,
+  // },
   {
     Header: "À charger dans ParcourSup",
     accessor: "parcoursup_a_charger",
@@ -357,23 +357,23 @@ const facetDefinition = [
     sortBy: "count",
   },
 
-  {
-    componentId: "opcos",
-    dataField: "opcos.keyword",
-    title: "OPCOs",
-    filterLabel: "opcos",
-    selectAllLabel: "Tout OPCOs",
-    sortBy: "asc",
-  },
+  // {
+  //   componentId: "opcos",
+  //   dataField: "opcos.keyword",
+  //   title: "OPCOs",
+  //   filterLabel: "opcos",
+  //   selectAllLabel: "Tout OPCOs",
+  //   sortBy: "asc",
+  // },
 
-  {
-    componentId: "info_opcos_intitule",
-    dataField: "info_opcos_intitule.keyword",
-    title: "Statut OPCOs",
-    filterLabel: "info_opcos_intitule",
-    selectAllLabel: "Tous",
-    sortBy: "count",
-  },
+  // {
+  //   componentId: "info_opcos_intitule",
+  //   dataField: "info_opcos_intitule.keyword",
+  //   title: "Statut OPCOs",
+  //   filterLabel: "info_opcos_intitule",
+  //   selectAllLabel: "Tous",
+  //   sortBy: "count",
+  // },
 ];
 
 const dataSearch = {
