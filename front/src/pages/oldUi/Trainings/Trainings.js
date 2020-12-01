@@ -6,7 +6,7 @@ import { API } from "aws-amplify";
 
 import SearchResult, { columnsDefinition } from "./components/SearchResult";
 import ExportButton from "../../../components/ExportButton";
-import config, { getEnvName } from "../../../config";
+import { getEnvName } from "../../../config";
 
 import "./trainings.css";
 
@@ -14,7 +14,7 @@ const STAGE = getEnvName();
 
 const FILTERS = [
   "etablissement_formateur_siret",
-  "etablissement_responsable_siret",
+  "etablissement_gestionnaire_siret",
   "num_academie",
   "niveau",
   "siren",
@@ -23,21 +23,21 @@ const FILTERS = [
   "etablissement_reference_declare_prefecture",
   "etablissement_reference_datadock",
   "source",
-  "educ_nat_code",
+  "cfd",
   "num_departement",
   "nomAcademie",
-  "num_academie_siege",
+  "etablissement_gestionnaire_num_academie",
   "uai_formation",
   "codePostal",
   "codeCommuneInsee",
-  "ds_id_dossier",
+  // "ds_id_dossier",
   "catalogue_published",
-  "etablissement_responsable_uai",
+  "etablissement_gestionnaire_uai",
   "etablissement_formateur_uai",
   "intitule_long",
   "intitule_court",
   "rncp_eligible_apprentissage",
-  "rncp_etablissement_reference_habilite",
+  "rncp_etablissement_gestionnaire_habilite",
   "rome_codes",
   "rncp_code",
   "mef_10_code",
@@ -49,6 +49,14 @@ const FILTERS = [
   "affelnet_a_charger",
   "diplome",
 ];
+
+// "https://catalogue-recette.apprentissage.beta.gouv.fr/api/es/search/mnaformation/_msearch";
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
+//<ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app="formations">
 
 export default () => {
   const [publishedTrainings, setPublishedTrainings] = useState("true");
@@ -87,7 +95,7 @@ export default () => {
         )}
         <Row>
           <Col xs="12">
-            <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app="formations">
+            <ReactiveBase url={`${endpointNewFront}/es/search`} app="mnaformation">
               <ExportButton
                 index={"formations"}
                 filters={FILTERS}

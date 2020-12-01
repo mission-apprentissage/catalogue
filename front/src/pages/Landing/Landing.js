@@ -6,9 +6,13 @@ import { push } from "connected-react-router";
 
 import Changelog from "../../components/Changelog";
 
+import { _get } from "../../services/httpClient";
+
 import content from "../../CHANGELOG";
 import routes from "../../routes.json";
 import "./landing.css";
+
+import { getEnvName } from "../../config";
 
 const getCount = async (index, filter = {}) => {
   const params = new window.URLSearchParams({
@@ -18,6 +22,11 @@ const getCount = async (index, filter = {}) => {
 
   return resp.count;
 };
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 export default () => {
   const dispatch = useDispatch();
@@ -28,7 +37,13 @@ export default () => {
     async function run() {
       try {
         setCountEstablishments(await getCount("etablissements", { published: true }));
-        setCountFormations(await getCount("formations", { published: true }));
+
+        const params = new window.URLSearchParams({
+          query: JSON.stringify({ published: true }),
+        });
+        const countFormations = await _get(`${endpointNewFront}/entity/formations/count?${params}`);
+        setCountFormations(countFormations);
+
         setLoading(false);
       } catch (e) {
         console.log(e);
@@ -41,9 +56,7 @@ export default () => {
       <Container className="mt-5">
         <Row>
           <Col xs="8" className="mission-summary">
-            <h4>
-              Catalogue des offres de formations en apprentissage en France.
-            </h4>
+            <h4>Catalogue des offres de formations en apprentissage en France.</h4>
             <br />
           </Col>
           <Col xs="12" className="mission-summary">

@@ -10,7 +10,7 @@ plugins:
   - serverless-package-external
 
 # package:
-  # individually: true
+#   individually: true
 
 provider:
   name: aws

@@ -199,12 +199,12 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
         </Section>
         <Section title="Information OPCOs">
           <div className="field">
-            {formation.opcos.length === 0 && (
+            {formation.opcos && formation.opcos.length === 0 && (
               <>
                 <h3>Aucun OPCO rattaché</h3>
               </>
             )}
-            {formation.opcos.length > 0 && (
+            {formation.opcos && formation.opcos.length > 0 && (
               <>
                 <h3>OPCOs liés à la formation</h3>
                 {formation.opcos.map(x => (
@@ -452,7 +452,7 @@ export default ({ match, presetFormation = null }) => {
         let form = null;
         if (!presetFormation) {
           // form = await API.get("api", `/formation/${match.params.id}`);
-          form = await _get(`${endpointNewFront}/entity/formation/${match.params.id}`);
+          form = await _get(`${endpointNewFront}/entity/formation2021/${match.params.id}`);
         } else {
           form = presetFormation;
         }

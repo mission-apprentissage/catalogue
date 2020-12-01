@@ -5,6 +5,7 @@
 * liste les formations qui existent de droit et reconnue par l'état
 * dépend du ministère de l'Education Nationale
 * utilisé par Ministère de l’éducation nationale et de la jeunesse \(MENJ\) et le Ministère de l’enseignement supérieur, de la recherche et de l’innovation \(MESRI\)
+* Ce code est forcément sur **8 caractères alphanumériques**
 
 **Exemple pour le CAP Arts et technique du verre - option décorateur :**
 

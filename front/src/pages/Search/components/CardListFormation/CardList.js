@@ -18,7 +18,7 @@ const checkIfHasRightToEdit = (item, userAcm) => {
   return hasRightToEdit;
 };
 
-const CardList = ({ data }) => {
+const CardList = ({ data, f2021 }) => {
   const { acm: userAcm } = useSelector(state => state.user);
   //const ImageComponent = <img src={image_preview} alt={data.intitule_court} />;
 
@@ -41,14 +41,19 @@ const CardList = ({ data }) => {
   // };
 
   return (
-    <Link to={`/formation/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
+    <Link
+      to={f2021 ? `/formation2021/${data._id}` : `/formation/${data._id}`}
+      className="list-card"
+      style={{ textDecoration: "none" }}
+      target="_blank"
+    >
       <div className="list-card-container ">
         <div className="thumbnail">
           <div className="field">
             <p>Niveau: {data.niveau}</p>
           </div>
           <div className="field">
-            <p>Code diplôme: {data.educ_nat_code}</p>
+            <p>Code diplôme: {data.cfd}</p>
           </div>
         </div>
         <div className="content">
@@ -74,7 +79,7 @@ const CardList = ({ data }) => {
           <div>
             <p>{data.nom_academie}</p>
             <p>{data.code_postal}</p>
-            <p>{data.entreprise_raison_sociale}</p>
+            <p>{data.etablissement_gestionnaire_entreprise_raison_sociale}</p>
             <p>{data.etablissement_formateur_enseigne}</p>
           </div>
         </div>

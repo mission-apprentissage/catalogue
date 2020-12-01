@@ -55,8 +55,13 @@ const TopBar = () => {
               </DropdownToggle>
               <DropdownMenu right>
                 <DropdownItem>
+                  <Link to={routes.SEARCH_FORMATIONS_2021} className={"nav-link link"}>
+                    Formations 2021
+                  </Link>
+                </DropdownItem>
+                <DropdownItem>
                   <Link to={routes.SEARCH_FORMATIONS} className={"nav-link link"}>
-                    Formations
+                    Formations 2020
                   </Link>
                 </DropdownItem>
                 <DropdownItem>
@@ -101,9 +106,7 @@ const TopBar = () => {
                 </Button>
               </div>
             ) : (
-              <Link to={routes.SIGNIN} className={"nav-link link"}>
-                S'identifier
-              </Link>
+              <div />
             )}
           </NavbarText>
         </Collapse>
@@ -113,3 +116,7 @@ const TopBar = () => {
 };
 
 export default TopBar;
+
+/* <Link to={routes.SIGNIN} className={"nav-link link"}>
+                S'identifier
+              </Link> */

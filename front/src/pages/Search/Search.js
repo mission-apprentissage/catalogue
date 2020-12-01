@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { ReactiveBase, ReactiveList, DataSearch } from "@appbaseio/reactivesearch";
-import { Container, Row, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Container, Row } from "reactstrap";
+// import { Container, Row, Button } from "reactstrap";
+// import { Link } from "react-router-dom";
 import Switch from "react-switch";
 import { API } from "aws-amplify";
 import { useSelector } from "react-redux";
 
 import config from "../../config";
 
-import routes from "../../routes.json";
+//import routes from "../../routes.json";
 
 import {
   QueryBuilder,
@@ -21,34 +22,82 @@ import {
 } from "./components";
 
 import constantsFormations from "./constantsFormations";
+import constantsRcoFormations from "./constantsRCOFormations";
 import constantsEtablissements from "./constantsEtablissements";
 
+import { _get } from "../../services/httpClient";
+
 import "./search.css";
+
+import { getEnvName } from "../../config";
+const ENV_NAME = getEnvName();
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
 
 export default ({ match }) => {
   const [countItems, setCountItems] = useState(0);
   const [mode, setMode] = useState("simple");
-  const [base, setBase] = useState("formations");
+  const [base, setBase] = useState("mnaformation");
+  const [endPoint, setEndpoint] = useState(endpointNewFront);
 
   const { FILTERS, columnsDefinition, facetDefinition, queryBuilderField, dataSearch } =
-    base === "formations" ? constantsFormations : constantsEtablissements;
+    base === "mnaformation"
+      ? constantsFormations
+      : base === "convertedformation"
+      ? constantsRcoFormations
+      : constantsEtablissements;
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector(state => state.user);
 
   useEffect(() => {
     async function run() {
       try {
-        const tmpBase =
-          match.params.base === "formations" || match.params.base === "etablissements"
-            ? match.params.base
-            : "formations";
+        let tmpBase = "mnaformation";
+        switch (match.params.base) {
+          case "formations":
+            tmpBase = "mnaformation";
+            break;
+          case "etablissements":
+            tmpBase = "etablissements";
+            break;
+          case "formations2021":
+            tmpBase = "convertedformation";
+            break;
+          default:
+            tmpBase = "mnaformation";
+            break;
+        }
+
+        setEndpoint(
+          tmpBase === "mnaformation" || tmpBase === "convertedformation"
+            ? endpointNewFront
+            : config.aws.apiGateway.endpoint
+        );
         setBase(tmpBase);
-        const resp = await API.get("api", `/${tmpBase}/count`, {
-          queryStringParameters: {
+
+        let countFormations = 0;
+        if (tmpBase === "mnaformation") {
+          const params = new window.URLSearchParams({
             query: JSON.stringify({ published: true }),
-          },
-        });
-        setCountItems(resp.count);
+          });
+          countFormations = await _get(`${endpointNewFront}/entity/formations/count?${params}`);
+        } else if (tmpBase === "convertedformation") {
+          const params = new window.URLSearchParams({
+            query: JSON.stringify({ published: true }),
+          });
+          countFormations = await _get(`${endpointNewFront}/entity/formations2021/count?${params}`);
+        } else {
+          const resp = await API.get("api", `/${tmpBase}/count`, {
+            queryStringParameters: {
+              query: JSON.stringify({ published: true }),
+            },
+          });
+          countFormations = resp.count;
+        }
+
+        setCountItems(countFormations);
       } catch (e) {
         console.log(e);
       }
@@ -62,15 +111,25 @@ export default ({ match }) => {
 
   return (
     <div className="page search-page">
-      <h1 className="mt-3">Catalogue de l'apprentissage</h1>
-      <ReactiveBase url={`${config.aws.apiGateway.endpoint}/es/search`} app={base}>
+      <h1 className="mt-3">
+        Catalogue de l'apprentissage
+        {base === "convertedformation" ? " 2021" : ""}
+      </h1>
+      <ReactiveBase url={`${endPoint}/es/search`} app={base}>
         <div className="search">
           <Container fluid style={{ maxWidth: 1860 }}>
             <label className="react-switch" style={{ right: "70px" }}>
               <Switch onChange={handleSearchSwitchChange} checked={mode !== "simple"} />
               <span>Recherche avancée</span>
             </label>
-            <h1 className="title">Votre recherche {base === "formations" ? "de formations" : "d'établissements"}</h1>
+            <h1 className="title">
+              Votre recherche{" "}
+              {base === "mnaformation"
+                ? "de formations"
+                : base === "convertedformation"
+                ? "de formations 2021"
+                : "d'établissements"}
+            </h1>
             <Row className="search-row">
               <div className={`search-sidebar`}>
                 {facetDefinition.map((fd, i) => {
@@ -87,15 +146,15 @@ export default ({ match }) => {
                     />
                   );
                 })}
-                {base === "formations" && <ToggleCatalogue filters={FILTERS} />}
-                <a href={`/${base}`}>Aller à l'ancienne interface</a>
-                {base === "formations" && user && (
+                {(base === "mnaformation" || base === "convertedformation") && <ToggleCatalogue filters={FILTERS} />}
+                {/* <a href={`/${base}`}>Aller à l'ancienne interface</a> */}
+                {base === "mnaformation" && user && (
                   <div className="mt-3 add-btn">
-                    <Button color="primary" outline>
+                    {/* <Button color="primary" outline>
                       <Link to={routes.ADD_FORMATION} className={"nav-link link"}>
                         Ajouter une formation
                       </Link>
-                    </Button>
+                    </Button> */}
                   </div>
                 )}
               </div>
@@ -104,7 +163,7 @@ export default ({ match }) => {
                   <QueryBuilder
                     lang="fr"
                     collection={base}
-                    react={{ and: FILTERS.filter((e) => e !== "QUERYBUILDER") }}
+                    react={{ and: FILTERS.filter(e => e !== "QUERYBUILDER") }}
                     fields={queryBuilderField}
                   />
                 )}
@@ -126,12 +185,12 @@ export default ({ match }) => {
                   <ReactiveList
                     componentId="result"
                     title="Results"
-                    dataField={base === "formations" ? "_id" : "_id"}
+                    dataField="_id"
                     loader="Chargement des résultats.."
                     size={8}
                     pagination={true}
                     showEndPage={true}
-                    renderPagination={(paginationProp) => {
+                    renderPagination={paginationProp => {
                       return <Pagination {...paginationProp} />;
                     }}
                     showResultStats={true}
@@ -146,18 +205,18 @@ export default ({ match }) => {
                         },
                       };
                     }}
-                    renderItem={(data) =>
-                      base === "formations" ? (
-                        <CardListFormation data={data} key={data._id} />
+                    renderItem={data =>
+                      base === "mnaformation" || base === "convertedformation" ? (
+                        <CardListFormation data={data} key={data._id} f2021={base === "convertedformation"} />
                       ) : (
                         <CardListEtablissements data={data} key={data._id} />
                       )
                     }
-                    renderResultStats={(stats) => {
+                    renderResultStats={stats => {
                       return (
                         <div className="summary-stats">
                           <span className="summary-text">
-                            {base === "formations"
+                            {base === "mnaformation" || base === "convertedformation"
                               ? `${stats.numberOfResults} formations affichées sur ${
                                   countItems !== 0 ? countItems : ""
                                 } formations au total`
@@ -169,8 +228,8 @@ export default ({ match }) => {
                             index={base}
                             filters={FILTERS}
                             columns={columnsDefinition
-                              .filter((def) => !def.debug || (user && def.exportOnly && def.debug))
-                              .map((def) => ({ header: def.Header, fieldName: def.accessor }))}
+                              .filter(def => !def.debug || (user && def.exportOnly && def.debug))
+                              .map(def => ({ header: def.Header, fieldName: def.accessor }))}
                             defaultQuery={{
                               match: {
                                 published: true,
