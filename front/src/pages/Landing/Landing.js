@@ -33,6 +33,7 @@ export default () => {
   const [loading, setLoading] = useState(true);
   const [countEstablishments, setCountEstablishments] = useState(0);
   const [countFormations, setCountFormations] = useState(0);
+  const [countFormations2021, setCountFormations2021] = useState(0);
   useEffect(() => {
     async function run() {
       try {
@@ -43,6 +44,9 @@ export default () => {
         });
         const countFormations = await _get(`${endpointNewFront}/entity/formations/count?${params}`);
         setCountFormations(countFormations);
+
+        const countFormations2021 = await _get(`${endpointNewFront}/entity/formations2021/count?${params}`);
+        setCountFormations2021(countFormations2021);
 
         setLoading(false);
       } catch (e) {
@@ -65,7 +69,8 @@ export default () => {
             {loading && <div>chargement...</div>}
             {!loading && (
               <strong>
-                {countFormations} formations et plus de {countEstablishments} établissements !
+                {countFormations} formations 2020, {countFormations2021} formations 2021 et plus de{" "}
+                {countEstablishments} établissements !
               </strong>
             )}
             <br />
@@ -80,7 +85,12 @@ export default () => {
         <Row className="mt-3">
           <Col xs="12" sm="6" md="4" className="mt-2">
             <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_FORMATIONS))}>
-              Consulter la liste des formations
+              Consulter la liste des formations 2020
+            </Button>
+          </Col>
+          <Col xs="12" sm="6" md="4" className="mt-2">
+            <Button color="primary" onClick={() => dispatch(push(routes.SEARCH_FORMATIONS_2021))}>
+              Consulter la liste des formations 2021
             </Button>
           </Col>
           <Col xs="12" sm="6" md="4" className="mt-2">
