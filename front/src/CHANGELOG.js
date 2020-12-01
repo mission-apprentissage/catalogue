@@ -1,15 +1,30 @@
 const changelog = {
   list: [
     {
-      version: "2.0.1",
+      version: "2.0.2",
       date: "Prochainement",
-      about: `<h5>Les actions à venir :</h5>
+      about: `<h5>A venir</h5>
       <ul>
         <li></li>
       </ul>`,
       fixes: [],
-      features: ["[Catalogue] Ajout des colonnes relatives à Affelnet (Déjà référencée et à charger)"],
-      improvements: ["[Catalogue] Nettoyage des données vides ou manquantes", "[Catalogue] Mise à jour possible des données collectées depuis mars 2020"],
+      features: [],
+      improvements: [],
+    },
+    {
+      version: "2.0.1",
+      date: "01 Décembre 2020",
+      about: `<h5>A propos de cette version :</h5>
+      <ul>
+        <li>Le catalogue 2021 est issu de la collecte de l'offre de formation en apprentissage réalisée par les Carif-Oref.</li>
+        <li>Les formations déclarées sur des nouveaux établissements ne sont pas encore affichées, elles ne seront à compter du 7/12/2021 (une info sera disponible sur l'écran d'accueil quand la fonctionnalité sera opérationnelle)</li>
+        <li>Les établissements présents en 2020 sont actuellement visibles, les nouveaux établissements 2021 seront intégrés dans les prochains jours.</li>
+        <li>Les scripts éligibilités utilisés, sont actuellement ceux de 2020, les scripts 2021 seront mis en place d'ici la fin du mois de décembre.</li>
+        <li>Le référencement Parcoursup et Affelnet pour 2021 sera déployé avec le module de validation au 06/01/2021.</li>
+      </ul>`,
+      fixes: [],
+      features: ["[Catalogue] Ajout des formations 2021 RCO"],
+      improvements: [],
     },
     {
       version: "2.0.0",
@@ -19,7 +34,12 @@ const changelog = {
         <li>Changement d'interface majeure</li>, 
       </ul>`,
       fixes: [],
-      features: ["[Catalogue] Ajout de filtres et d'un module de recherche", "[Catalogue] Mise en place d'un module de recherche avancée", "[Catalogue] Ajout de la fonctionnalité suppression", "[Catalogue] Ajout de la fonctionnalité ajout"],
+      features: [
+        "[Catalogue] Ajout de filtres et d'un module de recherche",
+        "[Catalogue] Mise en place d'un module de recherche avancée",
+        "[Catalogue] Ajout de la fonctionnalité suppression",
+        "[Catalogue] Ajout de la fonctionnalité ajout",
+      ],
       improvements: ["[Catalogue] Pagination en Français"],
     },
     {
