@@ -140,7 +140,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             <p>{formation.annee}</p>
           </div>
         </div>
-        <Section title="Information ParcourSup">
+        {/* <Section title="Information ParcourSup">
           <div className="field">
             <h3>Référencé dans ParcourSup</h3>
             <p>{formation.parcoursup_reference ? "OUI" : "NON"}</p>
@@ -159,7 +159,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             <h3>À charger dans Affelnet</h3>
             <p>{formation.affelnet_a_charger ? "OUI" : "NON"}</p>
           </div>
-        </Section>
+        </Section> */}
         <Section title="Information RNCP">
           <div className="field">
             {!formation.rncp_code && (
@@ -197,7 +197,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
             <p>{formation.rome_codes}</p>
           </div>
         </Section>
-        <Section title="Information OPCOs">
+        {/* <Section title="Information OPCOs">
           <div className="field">
             {formation.opcos && formation.opcos.length === 0 && (
               <>
@@ -213,7 +213,7 @@ const Formation = ({ formation, edition, onEdit, handleChange, handleSubmit, val
               </>
             )}
           </div>
-        </Section>
+        </Section> */}
       </Col>
       <Col md="5">
         {hasRightToEdit && (
