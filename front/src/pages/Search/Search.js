@@ -224,18 +224,20 @@ export default ({ match }) => {
                                   countItems !== 0 ? countItems : ""
                                 } établissements`}
                           </span>
-                          <ExportButton
-                            index={base}
-                            filters={FILTERS}
-                            columns={columnsDefinition
-                              .filter(def => !def.debug || (user && def.exportOnly && def.debug))
-                              .map(def => ({ header: def.Header, fieldName: def.accessor }))}
-                            defaultQuery={{
-                              match: {
-                                published: true,
-                              },
-                            }}
-                          />
+                          {base !== "convertedformation" && (
+                            <ExportButton
+                              index={base}
+                              filters={FILTERS}
+                              columns={columnsDefinition
+                                .filter(def => !def.debug || (user && def.exportOnly && def.debug))
+                                .map(def => ({ header: def.Header, fieldName: def.accessor }))}
+                              defaultQuery={{
+                                match: {
+                                  published: true,
+                                },
+                              }}
+                            />
+                          )}
                         </div>
                       );
                     }}
