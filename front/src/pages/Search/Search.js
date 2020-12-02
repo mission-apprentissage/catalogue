@@ -224,7 +224,7 @@ export default ({ match }) => {
                                   countItems !== 0 ? countItems : ""
                                 } établissements`}
                           </span>
-                          {base !== "convertedformation" && (
+                          {(base !== "convertedformation" || (user && base === "convertedformation")) && (
                             <ExportButton
                               index={base}
                               filters={FILTERS}
