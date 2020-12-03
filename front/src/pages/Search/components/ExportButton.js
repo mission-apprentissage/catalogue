@@ -3,6 +3,16 @@ import { API } from "aws-amplify";
 import { ReactiveComponent } from "@appbaseio/reactivesearch";
 import { Button, Progress } from "reactstrap";
 
+import { _post } from "../../../services/httpClient";
+
+import { getEnvName } from "../../../config";
+const ENV_NAME = getEnvName();
+
+const endpointNewFront =
+  ENV_NAME === "local" || ENV_NAME === "dev"
+    ? "https://catalogue-recette.apprentissage.beta.gouv.fr/api"
+    : "https://catalogue.apprentissage.beta.gouv.fr/api";
+
 const CSV_SEPARATOR = ";";
 
 const serializeObject = (columns, obj) => {
@@ -52,6 +62,13 @@ const downloadCSV = (fileName, csv) => {
 };
 
 let search = (index, query) => {
+  if (index === "convertedformation") {
+    return _post(`${endpointNewFront}/es/search/${index}/_search?scroll=5m`, {
+      size: 1000,
+      query: query.query,
+    });
+  }
+
   return API.post("api", `/es/search/${index}/_search?scroll=5m`, {
     body: {
       size: 1000,
@@ -61,6 +78,17 @@ let search = (index, query) => {
 };
 
 let scroll = (index, scrollId) => {
+  if (index === "convertedformation") {
+    return _post(`${endpointNewFront}/es/search/${index}/scroll?scroll=5m&scroll_id=${scrollId}`, {
+      scroll: true,
+      scroll_id: scrollId,
+      activeQuery: {
+        scroll: "1m",
+        scroll_id: scrollId,
+      },
+    });
+  }
+
   return API.post("api", `/es/search/${index}/scroll?scroll=5m&scroll_id=${scrollId}`, {
     body: {
       scroll: true,
@@ -95,7 +123,7 @@ let getDataAsCSV = async (searchUrl, query, columns, setProgress) => {
   return `${headers}${lines}`;
 };
 
-let countMount = 0;
+//let countMount = 0;
 
 const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} } }) => {
   const [requestExport, setRequestExport] = useState(false);
@@ -118,18 +146,19 @@ const ExportButton = ({ index, filters, columns, defaultQuery = { match_all: {} 
   }
 
   const onQueryChange = async (prevQuery, nextQuery) => {
-    if (countMount === 1) {
-      console.log(nextQuery);
-      let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
-      let fileName = `${index}_${new Date().toJSON()}.csv`;
-      downloadCSV(fileName, csv);
-      setExporting(false);
-      setRequestExport(false);
-      setProgress(0);
-      countMount = 0;
-    } else if (countMount === 0) {
-      countMount++;
-    }
+    // console.log("here");
+    // if (countMount === 1) {
+    console.log(nextQuery);
+    let csv = await getDataAsCSV(index, nextQuery, columns, setProgress);
+    let fileName = `${index}_${new Date().toJSON()}.csv`;
+    downloadCSV(fileName, csv);
+    setExporting(false);
+    setRequestExport(false);
+    setProgress(0);
+    //   countMount = 0;
+    // } else if (countMount === 0) {
+    //   countMount++;
+    // }
   };
 
   return (
