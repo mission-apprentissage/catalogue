@@ -28,7 +28,7 @@ const Layout = props => {
             dataField={dataField}
             filterLabel={filterLabel}
             react={{ and: filters.filter(e => e !== componentId) }}
-            showMissing={userAcm.all}
+            showMissing={userAcm.all !== "false"}
             showCount={true}
             queryFormat="or"
             missingLabel="(Vide)"
