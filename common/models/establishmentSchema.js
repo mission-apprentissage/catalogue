@@ -475,6 +475,12 @@ const establishmentSchema = {
     default: Date.now,
     description: "Date de dernières mise à jour",
   },
+
+  tags: {
+    type: [String],
+    default: [],
+    description: "Tableau de tags (2020, 2021, RCO, etc.)",
+  },
 };
 
 module.exports = establishmentSchema;
