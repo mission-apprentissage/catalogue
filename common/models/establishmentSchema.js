@@ -481,6 +481,33 @@ const establishmentSchema = {
     default: [],
     description: "Tableau de tags (2020, 2021, RCO, etc.)",
   },
+
+  // RCO fields
+  rco_uai: {
+    type: String,
+    default: null,
+    description: "UAI de l'établissement RCO",
+  },
+  rco_adresse: {
+    type: String,
+    default: null,
+    description: "Adresse de l'établissement RCO ",
+  },
+  rco_code_postal: {
+    type: String,
+    default: null,
+    description: "Code postal",
+  },
+  rco_code_insee_localite: {
+    type: String,
+    default: null,
+    description: "Code Insee localité RCO",
+  },
+  rco_geo_coordonnees: {
+    type: String,
+    implicit_type: "geo_point",
+    description: "Latitude et longitude de l'établissement RCO",
+  },
 };
 
 module.exports = establishmentSchema;
