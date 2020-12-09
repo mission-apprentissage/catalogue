@@ -475,7 +475,6 @@ const establishmentSchema = {
     default: Date.now,
     description: "Date de dernières mise à jour",
   },
-
   tags: {
     type: [String],
     default: [],
