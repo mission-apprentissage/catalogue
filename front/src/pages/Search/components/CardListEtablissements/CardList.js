@@ -2,6 +2,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Badge } from "reactstrap";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //import { faPen } from "@fortawesome/free-solid-svg-icons";
 //import { Button } from "reactstrap";
@@ -44,11 +45,17 @@ const CardList = ({ data }) => {
     <Link to={`/etablissement/${data._id}`} className="list-card" style={{ textDecoration: "none" }} target="_blank">
       <div className="list-card-container ">
         <div className="thumbnail">
-          <div className="field">
+          <div className="field grow-1" />
+          <div className="field grow-1">
             <p>UAI: {data.uai}</p>
-          </div>
-          <div className="field">
             <p>Localité: {data.localite}</p>
+          </div>
+          <div className="field pills">
+            {data.tags.map((tag, i) => (
+              <Badge color="success" key={i}>
+                {tag}
+              </Badge>
+            ))}
           </div>
         </div>
         <div className="content">

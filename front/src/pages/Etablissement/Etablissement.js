@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Container, Row, Col, Button, Spinner, Input, Modal, ModalHeader, ModalBody, Badge } from "reactstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { API } from "aws-amplify";
 import { useFormik } from "formik";
@@ -103,6 +103,14 @@ const Etablissement = ({ etablissement, edition, onEdit, handleChange, handleSub
         <div className="sidebar-section info">
           <h2>À propos</h2>
           <div>
+            <div className="field pills">
+              <h3>Tags</h3>
+              {etablissement.tags.map((tag, i) => (
+                <Badge color="success" key={i}>
+                  {tag}
+                </Badge>
+              ))}
+            </div>
             <div className="field multiple">
               <div>
                 <h3>Type</h3>
