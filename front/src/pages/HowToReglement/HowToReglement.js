@@ -28,7 +28,7 @@ const HowToReglement = () => {
                 target="_blank"
                 rel="noreferrer noopener"
               >
-                (cf note Dgesip 18.02.2020)
+                (cf note Dgesip https://services.dgesip.fr/fichiers/Fiche_OFSA_2021.pdf)
               </a>
             </h6>
             <br />
@@ -122,6 +122,7 @@ const HowToReglement = () => {
                         <ul>
                           <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
                           <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
+                          <li className="purple">qui attestent de la certification Qualiopi</li>
                         </ul>
                       </li>
                       <li>
