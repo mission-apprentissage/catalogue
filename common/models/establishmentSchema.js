@@ -468,7 +468,7 @@ const establishmentSchema = {
   created_at: {
     type: Date,
     default: Date.now,
-    description: "Date d'ajout en base de données",
+    description: "Date d'ajout en base de données ",
   },
   last_update_at: {
     type: Date,
