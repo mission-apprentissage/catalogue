@@ -122,10 +122,8 @@ const HowToReglement = () => {
                         <ul>
                           <li className="purple">Recherche via le Siret dans fichier DGEFP</li>
                           <li className="purple">+ Recherche via le Siret dans DATADOCK mention “Datadocké”</li>
+                          <li className="purple">qui attestent de la certification Qualiopi</li>
                         </ul>
-                       </li>
-                      <li>
-                      qui attestent de la certification Qualiopi
                       </li>
                       <li>
                         toutes les formations en apprentissage enregistrées au RNCP, ou tout titre ou diplôme délivré au
