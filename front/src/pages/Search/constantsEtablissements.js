@@ -1,4 +1,4 @@
-const FILTERS = ["QUERYBUILDER", "SEARCH", "num_departement", "nom_academie"];
+const FILTERS = ["QUERYBUILDER", "SEARCH", "num_departement", "nom_academie", "tags"];
 
 const columnsDefinition = [
   {
@@ -273,6 +273,14 @@ const facetDefinition = [
     title: "Département",
     filterLabel: "num_departement",
     selectAllLabel: "Tous",
+    sortBy: "asc",
+  },
+  {
+    componentId: "tags",
+    dataField: "tags.keyword",
+    title: "Année(s)",
+    filterLabel: "tags",
+    selectAllLabel: "Toutes",
     sortBy: "asc",
   },
 ];
