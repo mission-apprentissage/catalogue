@@ -29,7 +29,7 @@ const FILTERS = [
   "rncp_code",
   "mef_10_code",
   //"parcoursup_reference",
-  "parcoursup_a_charger",
+  // "parcoursup_a_charger",
   "diplome",
   //"opcos",
   //"info_opcos_intitule",
@@ -210,12 +210,12 @@ const columnsDefinition = [
   //   width: 200,
   //   editable: false,
   // },
-  {
-    Header: "À charger dans ParcourSup",
-    accessor: "parcoursup_a_charger",
-    width: 200,
-    editable: false,
-  },
+  // {
+  //   Header: "À charger dans ParcourSup",
+  //   accessor: "parcoursup_a_charger",
+  //   width: 200,
+  //   editable: false,
+  // },
   {
     Header: "Niveau de la formation",
     accessor: "niveau",
@@ -308,7 +308,7 @@ const queryBuilderField = [
   { text: "Uai du lieu de formation", value: "uai_formation.keyword" },
   { text: "Diplôme", value: "diplome.keyword" },
   { text: "Mef 10", value: "mef_10_code.keyword" },
-  { text: "ParcourSup à charger", value: "parcoursup_a_charger" },
+  //{ text: "ParcourSup à charger", value: "parcoursup_a_charger" },
   { text: "Affelnet à charger", value: "affelnet_a_charger" },
 ];
 
