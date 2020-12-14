@@ -88,15 +88,19 @@ class EtablissementChecker {
   getInfoDataGouv(establishment) {
     try {
       const jsonData = fileManager.getDataGouvOfsDataFromFile(filePathConstants.PATH_DATAGOUV_OFS_FILE);
+      let found = false;
       jsonData.forEach(data => {
         // Slice because of CSV Import adding double double quotes
         // Quick fix for num_etablissement - not optimised - not sure if useful
-        const num_etablissementFixed = this.convertStringToNumEtablissement(data.num_etablissement.slice(1, -1));
-        const parsedSiret = `${data.siren.slice(1, -1)}${num_etablissementFixed}`;
-        if (`${parsedSiret}`.trim() === `${establishment.siret}`.trim() && data.cfa === "Oui") {
-          return infosCodes.infoDATAGOUV.Found;
+        // const num_etablissementFixed = this.convertStringToNumEtablissement(data.num_etablissement.slice(1, -1));
+        // const parsedSiret = `${data.siren.slice(1, -1)}${num_etablissementFixed}`;
+        const sirenParsed = `${data.siren.slice(1, -1)}`;
+        if (`${sirenParsed}`.trim() === `${establishment.siren}`.trim() && data.cfa === "Oui") {
+          found = true;
         }
       });
+
+      if (found) return infosCodes.infoDATAGOUV.Found;
 
       return infosCodes.infoDATAGOUV.NotFound;
     } catch (err) {
