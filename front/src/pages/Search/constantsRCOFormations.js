@@ -309,7 +309,7 @@ const queryBuilderField = [
   { text: "Diplôme", value: "diplome.keyword" },
   { text: "Mef 10", value: "mef_10_code.keyword" },
   //{ text: "ParcourSup à charger", value: "parcoursup_a_charger" },
-  { text: "Affelnet à charger", value: "affelnet_a_charger" },
+  // { text: "Affelnet à charger", value: "affelnet_a_charger" },
 ];
 
 const facetDefinition = [
