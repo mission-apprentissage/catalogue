@@ -74,6 +74,7 @@ export default () => {
               </strong>
             )}
             <br />
+            <br />
             <ol>
               <li>
                 La mise à jour du 15/12 peut contenir des doublons au niveau des formations. Des travaux de
