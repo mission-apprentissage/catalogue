@@ -74,6 +74,28 @@ export default () => {
               </strong>
             )}
             <br />
+            <ol>
+              <li>
+                La mise à jour du 15/12 peut contenir des doublons au niveau des formations. Des travaux de
+                dédoublonnage sont en cours avec le réseau des Carif-Oref. Un message vous informera de la correction
+                des doublons.{" "}
+              </li>
+              <li>
+                Les établissements affichés sur le catalogue sont soit des établissements répertoriés en 2020 soit des
+                établissements répertoriés en 2021. Certains établissements sont présents sur les 2 années. A titre
+                d'information : - 1943 établissements uniquement 2020 - 1628 établissements 2020 & 2021 - 602
+                établissements uniquement 2021{" "}
+              </li>
+              <li>Courant janvier 2021 le catalogue des formations 2020 ne sera plus affiché dans cette interface.</li>
+              <li>
+                Si sur votre territoire, des offres de formations sont manquantes, contacter le Carif-Oref de votre
+                région :{" "}
+                <a href="https://reseau.intercariforef.org/referencer-son-offre-de-formation">
+                  https://reseau.intercariforef.org/referencer-son-offre-de-formation
+                </a>{" "}
+                afin de compléter ce catalogue
+              </li>
+            </ol>
             <br />
             Vos retours utilisateurs sont les bienvenus afin d’améliorer l’usage de ce catalogue, vous pouvez ainsi
             réaliser des modifications directement sur la base si vous repérez une coquille. Nous avons basculé vers une
