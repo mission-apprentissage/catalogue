@@ -89,6 +89,20 @@ export default () => {
               </li>
               <li>Courant janvier 2021 le catalogue des formations 2020 ne sera plus affiché dans cette interface.</li>
               <li>
+                A l’attention des services académiques : L’indication « A charger dans Parcoursup » sera développée de
+                façon plus précise en fonction de chaque type de formation dans la prochaine version du catalogue 2021.
+                Pour analyser les demandes d’intégration, il faut tenir compte de{" "}
+                <a
+                  href="https://mna-admin-prod.netlify.app/201030_FICHE_OFSA_2020_22_nov_VDEF.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  la note de cadrage MESRI des conditions de référencement
+                </a>
+                . L’indication « à charger dans parcoursup » de la version 2020 ne correspond pas à une validation
+                automatique, elle doit être entendue comme « sous réserve des conditions de référencement ».
+              </li>
+              <li>
                 Si sur votre territoire, des offres de formations sont manquantes, contacter le Carif-Oref de votre
                 région :{" "}
                 <a href="https://reseau.intercariforef.org/referencer-son-offre-de-formation">
