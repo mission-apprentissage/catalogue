@@ -93,7 +93,7 @@ export default () => {
                 façon plus précise en fonction de chaque type de formation dans la prochaine version du catalogue 2021.
                 Pour analyser les demandes d’intégration, il faut tenir compte de{" "}
                 <a
-                  href="https://mna-admin-prod.netlify.app/201030_FICHE_OFSA_2020_22_nov_VDEF.pdf"
+                  href="https://drive.google.com/file/d/1xL3urYVOJBNkm4HO-iZcTPhieRWpQ7Sk/view?usp=sharing"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
