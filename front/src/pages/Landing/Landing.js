@@ -102,13 +102,13 @@ export default () => {
                 . L’indication « à charger dans parcoursup » de la version 2020 ne correspond pas à une validation
                 automatique, elle doit être entendue comme « sous réserve des conditions de référencement ».
               </li>
-              <li>
-                Si sur votre territoire, des offres de formations sont manquantes, contacter le Carif-Oref de votre
-                région :{" "}
+              <li className="hightlight mt-3">
+                Si sur votre territoire, des offres de formations sont manquantes, veuillez contacter le Carif-Oref de
+                votre région afin de compléter ce catalogue: <br />
+                <br />
                 <a href="https://reseau.intercariforef.org/referencer-son-offre-de-formation">
                   https://reseau.intercariforef.org/referencer-son-offre-de-formation
                 </a>{" "}
-                afin de compléter ce catalogue
               </li>
             </ol>
             <br />
