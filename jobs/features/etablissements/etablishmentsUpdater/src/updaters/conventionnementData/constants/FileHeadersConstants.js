@@ -12,7 +12,14 @@ const FichierDeppHeader = [
   "mel_uai",
 ];
 
-const DataDockFileHeader = ["idDossier", "siren", "siret", "siret_siege_social", "RAISON SOCIALE", "REFERENCABLE"];
+const DataDockFileHeader = [
+  "id_etablissement_mna",
+  "siren",
+  "siret_siege_social",
+  "siret",
+  "RAISON SOCIALE",
+  "REFERENCABLE",
+];
 
 const DGEFPFileHeader = [
   "siren",
