@@ -17,7 +17,11 @@ L'api catalogue est une API au format REST.
 
 ## Détails et documentation
 
-### Vous trouverez la documentation détaillée ici:  [API v2 sur swagger](https://app.swaggerhub.com/apis-docs/Gethi/prod-mna_api/v2.2)
+### Vous trouverez la documentation détaillée ici: [ API swagger](https://catalogue.apprentissage.beta.gouv.fr/api/v1/docs/)
+
+### [https://catalogue.apprentissage.beta.gouv.fr/api/v1/docs/](https://catalogue.apprentissage.beta.gouv.fr/api/v1/docs/)
+
+### 
 
 
 
