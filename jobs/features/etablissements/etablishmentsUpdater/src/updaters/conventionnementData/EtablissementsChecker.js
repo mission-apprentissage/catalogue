@@ -67,16 +67,17 @@ class EtablissementChecker {
     try {
       const jsonData = fileManager.getDataDockDataFromFile(filePathConstants.PATH_BASE_DATADOCK);
       const result = jsonData.find(item => {
-        return (
-          `${item.siren}`.trim() === `${establishment.siren}`.trim() ||
-          `${item.siret.trim()}` === `${establishment.siret}`.trim() ||
-          `${item.siret_siege_social.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
-        );
+        return `${item.id_etablissement_mna}`.trim() === `${establishment._id}`.trim();
+        // return (
+        //   `${item.siren}`.trim() === `${establishment.siren}`.trim() ||
+        //   `${item.siret.trim()}` === `${establishment.siret}`.trim() ||
+        //   `${item.siret_siege_social.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
+        // );
       });
       if (!result) return infosCodes.infoDATADOCK.NotFound;
       if (result.REFERENCABLE.trim() === "OUI") return infosCodes.infoDATADOCK.Referencable;
       if (result.REFERENCABLE.trim() === "NON") return infosCodes.infoDATADOCK.NotReferencable;
-      if (result.REFERENCABLE.trim() === "") return infosCodes.infoDATADOCK.NotFound;
+      if (result.REFERENCABLE.trim() === "PAS DANS DATADOCK") return infosCodes.infoDATADOCK.NotFound;
 
       return infosCodes.infoDATADOCK.NotFound;
     } catch (err) {
@@ -88,15 +89,19 @@ class EtablissementChecker {
   getInfoDataGouv(establishment) {
     try {
       const jsonData = fileManager.getDataGouvOfsDataFromFile(filePathConstants.PATH_DATAGOUV_OFS_FILE);
+      let found = false;
       jsonData.forEach(data => {
         // Slice because of CSV Import adding double double quotes
         // Quick fix for num_etablissement - not optimised - not sure if useful
-        const num_etablissementFixed = this.convertStringToNumEtablissement(data.num_etablissement.slice(1, -1));
-        const parsedSiret = `${data.siren.slice(1, -1)}${num_etablissementFixed}`;
-        if (`${parsedSiret}`.trim() === `${establishment.siret}`.trim() && data.cfa === "Oui") {
-          return infosCodes.infoDATAGOUV.Found;
+        // const num_etablissementFixed = this.convertStringToNumEtablissement(data.num_etablissement.slice(1, -1));
+        // const parsedSiret = `${data.siren.slice(1, -1)}${num_etablissementFixed}`;
+        const sirenParsed = `${data.siren.slice(1, -1)}`;
+        if (`${sirenParsed}`.trim() === `${establishment.siren}`.trim() && data.cfa === "Oui") {
+          found = true;
         }
       });
+
+      if (found) return infosCodes.infoDATAGOUV.Found;
 
       return infosCodes.infoDATAGOUV.NotFound;
     } catch (err) {

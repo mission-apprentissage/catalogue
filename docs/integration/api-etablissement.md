@@ -1,8 +1,12 @@
+---
+description: 'https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs'
+---
+
 # API établissement
 
 ## Définition 
 
-{% api-method method="get" host="https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod" path="/etablissements/siret-uai" %}
+{% api-method method="get" host="https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity" path="/etablissements/siret-uai" %}
 {% api-method-summary %}
 Recherche d' établissement par UAI, Siret ou adresse.
 {% endapi-method-summary %}
@@ -148,11 +152,11 @@ Erreur.
                          Pensez à encoder vos paramètres**    
 Exemple :
 
-> https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query={"siret":"19400750600018"}
+> https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements/siret-uai?query={"siret":"19400750600018"}
 
 Devient
 
-> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D)
+> [https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D](https://tables-correspondances.apprentissage.beta.gouv.fr/api/entity/etablissements/siret-uai?query=%7B%22siret%22%3A%2219400750600018%22%7D)
 
 Vous pouvez utiliser : [https://www.urlencoder.org/](https://www.urlencoder.org/)
 
@@ -166,9 +170,9 @@ Le champ **"query"** adresse est insensible à la case.
   
 Les résultats sont triés par poids \("score"\) de récurrences des mots présent dans le champs adresse.
 
-> [https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod](https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod)/etablissements/siret-uai?query={"adresse":"2915 RtE DES BarTHES 40180"}
+> https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements/siret-uai?query={"adresse":"2915 RtE DES BarTHES 40180"}
 
-[Tester -&gt;](https://shorturl.at/qCNW1)
+Tester -&gt;
 
 **Réponse simplifié :**
 
@@ -211,7 +215,7 @@ Les résultats sont triés par poids \("score"\) de récurrences des mots prése
 
 ### Recherche par Siret
 
-> https://c7a5ujgw35.execute-api.eu-west-3.amazonaws.com/prod/etablissements/siret-uai?query={"siret":"19400750600018"}
+> https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements/siret-uai?query={"siret":"19400750600018"}
 
 #### Réponse
 
