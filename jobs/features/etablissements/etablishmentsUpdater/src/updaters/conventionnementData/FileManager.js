@@ -36,7 +36,7 @@ class FileManager {
         const worksheet = workbook.Sheets[sheet_name_list[0]];
         const jsonSheetArray = XLSX.utils.sheet_to_json(worksheet, {
           header: fileHeadersConstants.DataDockFileHeader,
-          range: 0,
+          range: 1,
         });
         return jsonSheetArray;
       }

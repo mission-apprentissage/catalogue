@@ -67,16 +67,17 @@ class EtablissementChecker {
     try {
       const jsonData = fileManager.getDataDockDataFromFile(filePathConstants.PATH_BASE_DATADOCK);
       const result = jsonData.find(item => {
-        return (
-          `${item.siren}`.trim() === `${establishment.siren}`.trim() ||
-          `${item.siret.trim()}` === `${establishment.siret}`.trim() ||
-          `${item.siret_siege_social.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
-        );
+        return `${item.id_etablissement_mna}`.trim() === `${establishment._id}`.trim();
+        // return (
+        //   `${item.siren}`.trim() === `${establishment.siren}`.trim() ||
+        //   `${item.siret.trim()}` === `${establishment.siret}`.trim() ||
+        //   `${item.siret_siege_social.trim()}` === `${establishment.etablissement_siege_siret}`.trim()
+        // );
       });
       if (!result) return infosCodes.infoDATADOCK.NotFound;
       if (result.REFERENCABLE.trim() === "OUI") return infosCodes.infoDATADOCK.Referencable;
       if (result.REFERENCABLE.trim() === "NON") return infosCodes.infoDATADOCK.NotReferencable;
-      if (result.REFERENCABLE.trim() === "") return infosCodes.infoDATADOCK.NotFound;
+      if (result.REFERENCABLE.trim() === "PAS DANS DATADOCK") return infosCodes.infoDATADOCK.NotFound;
 
       return infosCodes.infoDATADOCK.NotFound;
     } catch (err) {

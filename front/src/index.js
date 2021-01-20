@@ -7,7 +7,7 @@ import { ConnectedRouter } from "connected-react-router";
 import configureStore, { history } from "./redux";
 import awsConfigure from "./services/aws";
 
-import App from "./App";
+// import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -18,9 +18,9 @@ const store = configureStore();
 async function init() {
   await awsConfigure();
 
-  if (window.location.hostname.includes("mna-admin-dev.netlify.app")) {
-    window.location.replace("https://mna-admin-prod.netlify.app");
-  }
+  //if (window.location.hostname.includes("mna-admin-dev.netlify.app")) {
+  window.location.replace("https://catalogue.apprentissage.beta.gouv.fr/");
+  //}
 
   // Sentry.init({
   //   dsn: "https://SENKEY@sentry.io/KEY",
@@ -30,9 +30,7 @@ async function init() {
 
   ReactDOM.render(
     <Provider store={store}>
-      <ConnectedRouter history={history}>
-        <App />
-      </ConnectedRouter>
+      <ConnectedRouter history={history}>{/* <App /> */}</ConnectedRouter>
     </Provider>,
     document.getElementById("root")
   );
