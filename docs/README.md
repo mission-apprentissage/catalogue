@@ -8,6 +8,10 @@ description: >-
 
 ## Un catalogue élargi de formations en Apprentissage
 
+```text
+https://catalogue.apprentissage.beta.gouv.fr/
+```
+
 {% page-ref page="./" %}
 
 ### Détails 
