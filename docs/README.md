@@ -12,6 +12,14 @@ description: >-
 https://catalogue.apprentissage.beta.gouv.fr/
 ```
 
+### Ambitions
+
+Rendre plus visibles les offres de formation en apprentissage pour :   
+1. Mieux informer les jeunes et les employeurs intéressés par cette voie de formation et notamment les utilisateurs des outils d’affectation du ministère de l’Enseignement supérieur et de la Recherche \(Parcoursup\) et de l’Éducation nationale \(Affelnet\).  
+2. Saisir le dynamisme des CFA dans le nouveau cadre posé par la loi pour la liberté de choisir son avenir professionnel, qui favorise l'actualisation continue de l'offre de formation.   
+3. Améliorer la qualité de la description des formations et des établissements et la fiabilité des informations.   
+4. Simplifier les démarches pour tous les acteurs et notamment pour les personnels des CFA, en automatisant une partie du recensement et en publiant un catalogue ouvert, accessible à toutes les institutions concourant à l'orientation des jeunes. 
+
 {% page-ref page="./" %}
 
 ### Détails 
@@ -22,4 +30,11 @@ Les opérateurs / consommateurs \(AFFELNET, PARCOURSUP, RCO, ONISEP, CCI, ..\) p
 
 
 Cet open catalog visera à réunir toutes les informations utiles à une présentation pertinente des formations, et des établissements de formation en apprentissage
+
+### Impact
+
+La mise en visibilité d’une offre de formation en Apprentissage complète et interconnectée permet d'augmenter le nombre \(et le bon enregistrement\) des vœux en apprentissage : 
+
++19% de vœux exprimés en apprentissage sur Parcoursup par rapport à l’année précédente \(145 000 vœux en 2019 et 173 000 en 2020\)  
+
 
