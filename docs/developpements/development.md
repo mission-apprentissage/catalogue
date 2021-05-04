@@ -1,4 +1,4 @@
-# Prise en main
+# Prise en main -- Obsolète
 
 ## Stack
 

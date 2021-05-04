@@ -20,7 +20,7 @@
 
 ## Développements
 
-* [Prise en main](developpements/development.md)
+* [Prise en main -- Obsolète](developpements/development.md)
 * [Serverless api](developpements/api.md)
 * [Services et scripts](developpements/jobs/README.md)
   * [fixes](developpements/jobs/fixes/README.md)
