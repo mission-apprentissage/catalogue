@@ -4,7 +4,9 @@ description: Code formation diplôme (CFD - code Éducation Nationale)
 
 # CFD - Code Formation Diplôme
 
-## Définition 
+## En entrée ?
+
+Un code cfd dont je recherche les informations détaillées. Défini comme ci-dessous 
 
 <table>
   <thead>
@@ -42,6 +44,11 @@ description: Code formation diplôme (CFD - code Éducation Nationale)
       <td style="text-align:left">Num&#xE9;ro d&#x2019;ordre</td>
       <td style="text-align:left"></td>
     </tr>
+    <tr>
+      <td style="text-align:left"></td>
+      <td style="text-align:left">Lettre sp&#xE9;cialit&#xE9;</td>
+      <td style="text-align:left">(Optionnel)</td>
+    </tr>
   </tbody>
 </table>
 
@@ -52,7 +59,7 @@ description: Code formation diplôme (CFD - code Éducation Nationale)
 * utilisé par Ministère de l’éducation nationale et de la jeunesse \(MENJ\) et le Ministère de l’enseignement supérieur, de la recherche et de l’innovation \(MESRI\)
 * Ce code est forcément sur **8 caractères alphanumériques**
 
-## Information de retour
+## En sortie ?
 
 Ce que je peux récupérer à partir CFD. 
 
@@ -164,7 +171,7 @@ Ce que je peux récupérer à partir CFD.
   </tbody>
 </table>
 
-## Accès 
+## Comment ? 
 
 ### API
 
