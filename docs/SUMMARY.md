@@ -22,6 +22,7 @@
   * [SIRET](tables-de-correspondances/documentation/siret.md)
   * [Code Postal](tables-de-correspondances/documentation/codes-postaux.md)
   * [Coordonnées GPS](tables-de-correspondances/documentation/coordonnees-gps.md)
+  * [Etablissements](tables-de-correspondances/documentation/etablissements.md)
   * [Swagger API](tables-de-correspondances/documentation/swagger/README.md)
     * [API établissement](tables-de-correspondances/documentation/swagger/api-etablissement.md)
 * [Cas d'usages](tables-de-correspondances/cas-dusages.md)
