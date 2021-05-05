@@ -22,26 +22,8 @@ Un code MEF 10 ou 11 caractères dont je recherche les informations détaillées
 
 Ce que je peux récupérer à partir d'un MEF. 
 
-| Nom du champ | Description  | Type |
+| Nom du champ | Description | Type |
 | :--- | :--- | :--- |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
 |  |  |  |
 
 ## Intégration ? 
