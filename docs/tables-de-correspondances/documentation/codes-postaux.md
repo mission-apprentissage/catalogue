@@ -1,4 +1,4 @@
-# Codes Postaux
+# Code Postal
 
 ## En entrée ?
 
