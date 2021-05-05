@@ -1,12 +1,58 @@
 ---
-description: >-
-  Swagger:
-  https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/#/Outils/post_cfd
+description: Code formation diplôme (CFD - code Éducation Nationale)
 ---
 
 # CFD - Code Formation Diplôme
 
-### Information de retour
+## Définition 
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">
+        <p>CDF</p>
+        <p></p>
+      </th>
+      <th style="text-align:left">
+        <p>50022427</p>
+        <p>(<a href="http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/V_FORMATION_DIPLOME">table</a>)</p>
+      </th>
+      <th style="text-align:left">ARTS ET TECHNIQUES DU VERRE OPTION DECORATEUR (CAP)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">500</td>
+      <td style="text-align:left">Niveau formation dipl&#xF4;me (<a href="http://infocentre.pleiade.education.fr/bcn/index.php/workspace/viewTable/n/N_NIVEAU_FORMATION_DIPLOME/nbElements/20">table</a>)</td>
+      <td
+      style="text-align:left">
+        <p>CERTIFICAT D&apos;APTITUDES PROFESSIONNELLES</p>
+        <p><em>! la table des niveau n&#x2019;est pas &#xE0; jour</em>
+        </p>
+        </td>
+    </tr>
+    <tr>
+      <td style="text-align:left">224</td>
+      <td style="text-align:left">Groupe sp&#xE9;cialit&#xE9; ou NSF (<a href="http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_GROUPE_SPECIALITE">table</a>)</td>
+      <td
+      style="text-align:left">MATERIAUX DE CONSTRUCTION, VERRE, CERAM.</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">27</td>
+      <td style="text-align:left">Num&#xE9;ro d&#x2019;ordre</td>
+      <td style="text-align:left"></td>
+    </tr>
+  </tbody>
+</table>
+
+**Exemple pour le CAP Arts et technique du verre - option décorateur :**
+
+* liste les formations qui existent de droit et reconnue par l'état
+* dépend du ministère de l'Education Nationale
+* utilisé par Ministère de l’éducation nationale et de la jeunesse \(MENJ\) et le Ministère de l’enseignement supérieur, de la recherche et de l’innovation \(MESRI\)
+* Ce code est forcément sur **8 caractères alphanumériques**
+
+## Information de retour
 
 Ce que je peux récupérer à partir CFD. 
 
@@ -117,6 +163,12 @@ Ce que je peux récupérer à partir CFD.
     </tr>
   </tbody>
 </table>
+
+## Accès 
+
+### API
+
+Swagger: [https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/\#/Outils/post\_cfd](https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/#/Outils/post_cfd)
 
 {% api-method method="post" host="https://tables-correspondances.apprentissage.beta.gouv.fr/api" path="/v1/cfd" %}
 {% api-method-summary %}
@@ -307,7 +359,11 @@ CFD successfully retrieved.
 {% endapi-method-spec %}
 {% endapi-method %}
 
-### Exemple:
+#### Exemple:
 
+### SDK
 
+```javascript
+// TODO
+```
 
