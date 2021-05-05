@@ -24,7 +24,7 @@ Récupérer les établissements annuaire
 {% endapi-method-summary %}
 
 {% api-method-description %}
-// TODO
+/// TODO
 {% endapi-method-description %}
 
 {% api-method-spec %}
