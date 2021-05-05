@@ -168,7 +168,7 @@ Ce que je peux récupérer à partir RNCP.
   </tbody>
 </table>
 
-## Comment ? 
+## Intégration ? 
 
 ### API
 

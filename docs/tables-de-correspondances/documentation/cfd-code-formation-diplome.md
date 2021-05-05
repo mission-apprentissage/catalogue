@@ -171,7 +171,7 @@ Ce que je peux récupérer à partir CFD.
   </tbody>
 </table>
 
-## Comment ? 
+## Intégration ? 
 
 ### API
 
