@@ -18,3 +18,9 @@
 * [API établissement](integration/api-etablissement.md)
 * [API](integration/api.md)
 
+## Tables de correspondances
+
+* [Présentation](tables-de-correspondances/presentation.md)
+* [Documentation](tables-de-correspondances/documentation/README.md)
+  * [CFD - Code Formation Diplôme](tables-de-correspondances/documentation/cfd-code-formation-diplome.md)
+
