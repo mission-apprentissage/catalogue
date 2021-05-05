@@ -20,7 +20,6 @@
 ## Tables de correspondances
 
 * [Présentation](tables-de-correspondances/presentation.md)
-* [F.A.Q](tables-de-correspondances/f.a.q.md)
 * [Documentation](tables-de-correspondances/documentation/README.md)
   * [CFD - Code Formation Diplôme](tables-de-correspondances/documentation/cfd-code-formation-diplome.md)
   * [RNCP - Code fiche Répertoire National des Certifications Professionnelles](tables-de-correspondances/documentation/rncp.md)
@@ -28,4 +27,5 @@
   * [Cas d'usages](tables-de-correspondances/documentation/cas-dusages.md)
   * [Swagger API](tables-de-correspondances/documentation/swagger/README.md)
     * [API établissement](tables-de-correspondances/documentation/swagger/api-etablissement.md)
+* [F.A.Q](tables-de-correspondances/f.a.q.md)
 
