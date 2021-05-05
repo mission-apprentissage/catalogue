@@ -1,2 +1,0 @@
-# Etablishments Verification Methods
-

@@ -1,2 +1,0 @@
-# addTrainingFromDSModel \[mna-services\]
-
