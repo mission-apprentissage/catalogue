@@ -15,7 +15,6 @@
 
 ## Intégration
 
-* [API établissement](integration/api-etablissement.md)
 * [API](integration/api.md)
 
 ## Tables de correspondances
@@ -26,4 +25,5 @@
   * [RNCP - Code fiche Répertoire National des Certifications Professionnelles](tables-de-correspondances/documentation/rncp.md)
   * [MEF](tables-de-correspondances/documentation/mef.md)
   * [Cas d'usages](tables-de-correspondances/documentation/cas-dusages.md)
+  * [API établissement](tables-de-correspondances/documentation/api-etablissement.md)
 
