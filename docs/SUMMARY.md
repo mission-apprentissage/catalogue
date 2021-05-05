@@ -25,6 +25,6 @@
   * [RNCP - Code fiche Répertoire National des Certifications Professionnelles](tables-de-correspondances/documentation/rncp.md)
   * [MEF](tables-de-correspondances/documentation/mef.md)
   * [Cas d'usages](tables-de-correspondances/documentation/cas-dusages.md)
-  * [API établissement](tables-de-correspondances/documentation/api-etablissement.md)
-  * [Swagger](tables-de-correspondances/documentation/swagger.md)
+  * [Swagger](tables-de-correspondances/documentation/swagger/README.md)
+    * [API établissement](tables-de-correspondances/documentation/swagger/api-etablissement.md)
 
