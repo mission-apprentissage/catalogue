@@ -6,6 +6,118 @@ description: >-
 
 # CFD - Code Formation Diplôme
 
+### Information de retour
+
+Ce que je peux récupérer à partir CFD. 
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Nom du champ</th>
+      <th style="text-align:left">Description</th>
+      <th style="text-align:left">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:left">cfd</td>
+      <td style="text-align:left">
+        <p>La valeur du code formation dipl&#xF4;me <b>Mis &#xE0; jour </b>&#x26A0;&#xFE0F;</p>
+        <p>Peut importe le CFD recherch&#xE9; ce champ retournera un CFD le plus
+          &#xE0; jour possible bas&#xE9; sur les informations de la BCN. Si le cfd
+          est diff&#xE9;rent alors le champ cfd_outdated sera &#xE0; <em><code>true</code></em>.</p>
+      </td>
+      <td style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">cfd_outdated</td>
+      <td style="text-align:left">
+        <p>Indique si le CFD recherch&#xE9; n&apos;est plus &#xE0; jour.</p>
+        <p>Si vrai alors la valeur de champ cfd est diff&#xE9;rente de celle recherch&#xE9;e.</p>
+      </td>
+      <td style="text-align:left">bolean</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">date_fermeture</td>
+      <td style="text-align:left">
+        <p>Date &#xE0; laquelle le code recherch&#xE9; a ferm&#xE9;.</p>
+        <p>Si la valeur est &#xE9;gale &#xE0; <em><code>null</code></em> alors ce code
+          est en vigueur.</p>
+      </td>
+      <td style="text-align:left">date | null</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">specialite</td>
+      <td style="text-align:left">Retourne l&apos;information de sp&#xE9;cialit&#xE9; du code recherch&#xE9;.
+        <br
+        />Cette information ne peut &#xEA;tre trouv&#xE9;e que si le code recherch&#xE9;
+        est sur 9 caract&#xE8;res. exemple: <em><code>26033206T</code></em> 
+      </td>
+      <td style="text-align:left">object | null</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">niveau</td>
+      <td style="text-align:left">
+        <p>Niveau de la formation.</p>
+        <p>&quot;3 (CAP...)&quot;, &quot;4 (BAC...)&quot;, &quot;5 (BTS, DEUST...)&quot;,
+          &quot;6 (Licence, BUT...)&quot;, &quot;7 (Master, titre ing&#xE9;nieur...)&quot;,
+          &quot;8 (Doctorat...)&quot;,</p>
+      </td>
+      <td style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">intitule_long</td>
+      <td style="text-align:left">Intitul&#xE9; long BCN (N ou V)_FORMATION_DIPLOME LIBELLE_LONG_200</td>
+      <td
+      style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">intitule_court</td>
+      <td style="text-align:left">Intitul&#xE9; court BCN (N ou V)_FORMATION_DIPLOME LIBELLE_STAT_33</td>
+      <td
+      style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">libelle_court</td>
+      <td style="text-align:left">Libelle court BCN (N ou V)_FORMATION_DIPLOME LIBELLE_COURT</td>
+      <td style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">diplome</td>
+      <td style="text-align:left">Nom du dipl&#xF4;me BCN Table N_NIVEAU_FORMATION LIBELLE_100</td>
+      <td style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">niveau_formation_diplome</td>
+      <td style="text-align:left">Code niveau dipl&#xF4;me BCN (N ou V)_FORMATION_DIPLOME NIVEAU_FORMATION_DIPLOME</td>
+      <td
+      style="text-align:left">string</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">rncp</td>
+      <td style="text-align:left"><em>Plus de d&#xE9;tails sur </em><a href="rncp.md"><em>la page RNCP</em></a>&lt;em&gt;&lt;/em&gt;</td>
+      <td
+      style="text-align:left">object</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">mefs</td>
+      <td style="text-align:left"><em>Plus de d&#xE9;tails sur </em><a href="mef.md"><em>la page MEF</em></a>&lt;em&gt;&lt;/em&gt;</td>
+      <td
+      style="text-align:left">object</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">onisep</td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left">object</td>
+    </tr>
+    <tr>
+      <td style="text-align:left">opcos</td>
+      <td style="text-align:left"></td>
+      <td style="text-align:left">[string]</td>
+    </tr>
+  </tbody>
+</table>
+
 {% api-method method="post" host="https://tables-correspondances.apprentissage.beta.gouv.fr/api" path="/v1/cfd" %}
 {% api-method-summary %}
 Récupérer les informations liées à un CFD 
@@ -194,25 +306,6 @@ CFD successfully retrieved.
 {% endapi-method-response %}
 {% endapi-method-spec %}
 {% endapi-method %}
-
-### Schéma de retour
-
-| Nom du champ | Description  | Type |
-| :--- | :--- | :--- |
-| cfd |  |  |
-| cfd\_outdated |  |  |
-| date\_fermeture |  |  |
-| specialite |  |  |
-| niveau |  |  |
-| intitule\_long |  |  |
-| intitule\_court |  |  |
-| diplome |  |  |
-| libelle\_court |  |  |
-| niveau\_formation\_diplome |  |  |
-| rncp |  |  |
-| mefs |  |  |
-| onisep |  |  |
-| opcos |  |  |
 
 ### Exemple:
 
