@@ -23,9 +23,9 @@
 * [Documentation](tables-de-correspondances/documentation/README.md)
   * [CFD - Code Formation Diplôme](tables-de-correspondances/documentation/cfd-code-formation-diplome.md)
   * [RNCP - Code fiche Répertoire National des Certifications Professionnelles](tables-de-correspondances/documentation/rncp.md)
-  * [MEF - Draft](tables-de-correspondances/documentation/mef.md)
-  * [Cas d'usages](tables-de-correspondances/documentation/cas-dusages.md)
+  * [MEF](tables-de-correspondances/documentation/mef.md)
   * [Swagger API](tables-de-correspondances/documentation/swagger/README.md)
     * [API établissement](tables-de-correspondances/documentation/swagger/api-etablissement.md)
+* [Cas d'usages](tables-de-correspondances/cas-dusages.md)
 * [F.A.Q](tables-de-correspondances/f.a.q.md)
 

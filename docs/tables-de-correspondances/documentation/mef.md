@@ -1,4 +1,4 @@
-# MEF - Draft
+# MEF
 
 ## En entrée ?
 
