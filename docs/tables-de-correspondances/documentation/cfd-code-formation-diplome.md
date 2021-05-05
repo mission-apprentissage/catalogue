@@ -368,6 +368,10 @@ CFD successfully retrieved.
 
 #### Exemple:
 
+[https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/\#/Outils/post\_cfd](https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/#/Outils/post_cfd)
+
+![](../../.gitbook/assets/image.png)
+
 ### SDK
 
 ```javascript

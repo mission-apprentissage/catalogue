@@ -209,6 +209,10 @@ RNCP successfully retrieved.
 
 #### Exemple:
 
+[https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/\#/Outils/post\_rncp](https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/docs/#/Outils/post_rncp)
+
+![](../../.gitbook/assets/image%20%281%29.png)
+
 ### SDK
 
 ```javascript
