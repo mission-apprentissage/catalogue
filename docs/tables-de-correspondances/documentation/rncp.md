@@ -24,20 +24,29 @@ Ce que je peux récupérer à partir RNCP.
 
 | Nom du champ | Description  | Type |
 | :--- | :--- | :--- |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| code\_rncp |  |  |
+| intitule\_diplome |  |  |
+| cfds |  |  |
+| date\_fin\_validite\_enregistrement |  |  |
+| active\_inactive |  |  |
+| etat\_fiche\_rncp |  |  |
+| niveau\_europe |  |  |
+| code\_type\_certif |  |  |
+| type\_certif |  |  |
+| ancienne\_fiche |  |  |
+| nouvelle\_fiche |  |  |
+| demande |  |  |
+| certificateurs |  |  |
+| nsf\_code |  |  |
+| nsf\_libelle |  |  |
+| romes |  |  |
+| blocs\_competences |  |  |
+| voix\_acces |  |  |
+| partenaires |  |  |
+| type\_enregistrement |  |  |
+| si\_jury\_ca |  |  |
+| eligible\_apprentissage |  |  |
+| releated |  |  |
 
 ## Comment ? 
 
