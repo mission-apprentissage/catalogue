@@ -5,7 +5,7 @@ description: >-
   et autres fonctionnalités...
 ---
 
-# API
+# Swagger API Catalogue
 
 ## Introduction
 
