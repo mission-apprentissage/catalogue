@@ -104,37 +104,37 @@ Ce que je peux récupérer à partir RNCP.
     </tr>
     <tr>
       <td style="text-align:left">certificateurs</td>
-      <td style="text-align:left">Liste des certificateurs</td>
+      <td style="text-align:left">Liste des certificateurs avec leur Nom et Siret</td>
       <td style="text-align:left">[object]</td>
     </tr>
     <tr>
       <td style="text-align:left">nsf_code</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Code NSF</td>
       <td style="text-align:left">string</td>
     </tr>
     <tr>
       <td style="text-align:left">nsf_libelle</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Libell&#xE9; NSF</td>
       <td style="text-align:left">string</td>
     </tr>
     <tr>
       <td style="text-align:left">romes</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Liste des codes romes avec leurs libell&#xE9;s</td>
       <td style="text-align:left">[object]</td>
     </tr>
     <tr>
       <td style="text-align:left">blocs_competences</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Liste des blocs de comp&#xE9;tences</td>
       <td style="text-align:left">[object]</td>
     </tr>
     <tr>
       <td style="text-align:left">voix_acces</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Liste des voix d&apos;acc&#xE8;s</td>
       <td style="text-align:left">[object]</td>
     </tr>
     <tr>
       <td style="text-align:left">partenaires</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Liste des partenaires avec leur Nom et Siret</td>
       <td style="text-align:left">[object]</td>
     </tr>
     <tr>
@@ -157,7 +157,7 @@ Ce que je peux récupérer à partir RNCP.
     </tr>
     <tr>
       <td style="text-align:left">eligible_apprentissage</td>
-      <td style="text-align:left"></td>
+      <td style="text-align:left">Vrai, Faux</td>
       <td style="text-align:left">boolean</td>
     </tr>
     <tr>
