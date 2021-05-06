@@ -65,6 +65,14 @@ Vous trouverez les détails sur cette page :
 
 
 
+## Recherche d'établissement par Siret et UAI ? 
+
+Vous pouvez retrouver les détails sur cette page :
+
+{% page-ref page="documentation/swagger/api-etablissement.md" %}
+
+
+
 ## Question ? 
 
 Réponse
