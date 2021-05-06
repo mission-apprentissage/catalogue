@@ -225,3 +225,20 @@ RNCP successfully retrieved.
 
 **code\_certif :**  BUT, DUT, Formation professionnelle,Formations  des écoles d'ingénieurs, Certificat de Spécialisation Agricole, BPJEPS, Sous-officier,Titre professionnel, Autre, MASTER,BP,BTS, Licence Professionnelle,Titre ingénieur,null,BAC PRO, LICENCE,BEPA,CAP,TP,BT,MC4,MC5,BEES,DIPLOVIS,BMA,BEP,DipViGrM,BTSA,DGE\_GM,BAPAAT,DEUST,BTSMarit,DE,CS,CAPA,BPA,BTA,DOCTORAT,BEATEP,Grade\_Master,DEAVS,DMA,DEDPAD,CAPD,CEAV,BTn,DSTS,CP,DNMADE,DEA,Grade\_Licence,DEEA 
 
+Exemple de bloc de compétences 
+
+```javascript
+{
+        "numero_bloc": "RNCP34826BC04",
+        "intitule": "Accompagnement éducatif budgétaire",
+        "liste_competences": "<p>C2.B1 Analyser les besoins d’un public   </p><p>   <br>C2.4 Mettre en œuvre un accompagnement éducatif budgétaire      </p>",
+        "modalites_evaluation": "<p>Evaluer la capacité du candidat à: </p><p>Mettre en œuvre un accompagnement éducatif   budgétaire <br>Analyser la mise en œuvre de l’accompagnement   <br><br><br>Etude d’une situation d’accompagnement éducatif budgétaire   <br></p><p>Coefficient: <br>Ecrit: 1     <br></p><p>Durée de l'épreuve : 3 heures   <br></p><p>Evaluateurs/examinateurs :<br>- un formateur ou un universitaire et un professionnel confirmé du secteur     </p><p>Evaluation organisée par l'établissement de formation</p>"
+      },
+      {
+        "numero_bloc": "RNCP34826BC05",
+        "intitule": "Expression et communication écrite et orale",
+        "liste_competences": "<p>C3.1 Elaborer une stratégie de communication à destination de différents publics  </p>",
+        "modalites_evaluation": "<p>bloc de compétences validé en brevet de technicien supérieur « économie sociale familiale »</p>"
+      },
+```
+
