@@ -225,7 +225,7 @@ RNCP successfully retrieved.
 
 **code\_certif :**  BUT, DUT, Formation professionnelle,Formations  des écoles d'ingénieurs, Certificat de Spécialisation Agricole, BPJEPS, Sous-officier,Titre professionnel, Autre, MASTER,BP,BTS, Licence Professionnelle,Titre ingénieur,null,BAC PRO, LICENCE,BEPA,CAP,TP,BT,MC4,MC5,BEES,DIPLOVIS,BMA,BEP,DipViGrM,BTSA,DGE\_GM,BAPAAT,DEUST,BTSMarit,DE,CS,CAPA,BPA,BTA,DOCTORAT,BEATEP,Grade\_Master,DEAVS,DMA,DEDPAD,CAPD,CEAV,BTn,DSTS,CP,DNMADE,DEA,Grade\_Licence,DEEA 
 
-Exemple de bloc de compétences 
+Exemple de **bloc de compétences** 
 
 ```javascript
 {
