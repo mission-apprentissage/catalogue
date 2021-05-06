@@ -1,2 +1,0 @@
-# Cas d'usages
-
