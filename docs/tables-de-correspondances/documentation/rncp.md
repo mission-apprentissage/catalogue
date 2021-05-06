@@ -140,7 +140,7 @@ Ce que je peux récupérer à partir RNCP.
     <tr>
       <td style="text-align:left">type_enregistrement</td>
       <td style="text-align:left">
-        <p></p>
+        <p>// TODO</p>
         <p><em><code>&quot;Enregistrement de droit&quot;</code></em>
         </p>
       </td>

@@ -55,6 +55,16 @@ Via appels direct dans votre navigateur :
 https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements?select={"updates_history":1}&query={MA_REQUETE_MONGO}
 ```
 
+## Comment récupérer  les évolutions d'un code formation diplôme ? 
+
+Le chemin API [https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/cfd](https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/cfd)   
+vous retournera les mise à jour BCN du code formation diplôme que vous recherchez.  
+Vous trouverez les détails sur cette page :  
+
+{% page-ref page="documentation/cfd-code-formation-diplome.md" %}
+
+
+
 ## Question ? 
 
 Réponse
