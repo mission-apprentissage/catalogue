@@ -30,3 +30,8 @@
 * [Codes et tutti quanti](tables-de-correspondances/codes-et-tutti-quanti.md)
 * [F.A.Q](tables-de-correspondances/f.a.q.md)
 
+## Architecture Technique
+
+* [Vue d’ensemble](architecture-technique/vue-densemble.md)
+* [Traitements sur la données pour l'Apprentissage - en cours](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours.md)
+
