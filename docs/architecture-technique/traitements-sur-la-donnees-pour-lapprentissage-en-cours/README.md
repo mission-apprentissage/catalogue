@@ -6,7 +6,7 @@ Pour des besoins de lisibilité dans ce chapitre, ci-dessous le diagramme simpli
 
 ![](../../.gitbook/assets/s1-2%20%281%29.png)
 
-![](../../.gitbook/assets/s2.png)
+![](../../.gitbook/assets/s3.png)
 
 Vous trouverez les détails de chaque traitements dans les pages suivantes : 
 
