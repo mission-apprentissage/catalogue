@@ -75,7 +75,7 @@ Ce que je peux récupérer à partir CFD.
     <tr>
       <td style="text-align:left">cfd</td>
       <td style="text-align:left">
-        <p>La valeur du code formation dipl&#xF4;me <b>Mis &#xE0; jour </b>&#x26A0;&#xFE0F;</p>
+        <p>La valeur du code formation dipl&#xF4;me <b>Mise &#xE0; jour </b>&#x26A0;&#xFE0F;</p>
         <p>Peut importe le CFD recherch&#xE9; ce champ retournera un CFD le plus
           &#xE0; jour possible bas&#xE9; sur les informations de la BCN. Si le cfd
           est diff&#xE9;rent alors le champ cfd_outdated sera &#xE0; <em><code>true</code></em>.</p>
