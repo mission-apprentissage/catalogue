@@ -33,5 +33,8 @@
 ## Architecture Technique
 
 * [Vue d’ensemble](architecture-technique/vue-densemble.md)
-* [Traitements sur la données pour l'Apprentissage - en cours](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours.md)
+* [Traitements sur la données pour l'Apprentissage](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
+  * [Convertir](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
+  * [Vérifier et Corriger](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
+  * [Enrichir](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/enrichir.md)
 
