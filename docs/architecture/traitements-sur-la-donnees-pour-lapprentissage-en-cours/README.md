@@ -10,8 +10,6 @@ Pour des besoins de lisibilité dans ce chapitre, ci-dessous le diagramme simpli
 
 ![](../../.gitbook/assets/s6.png)
 
-
-
 Vous trouverez les détails de chaque traitements dans les pages suivantes : 
 
 {% page-ref page="convertir.md" %}
