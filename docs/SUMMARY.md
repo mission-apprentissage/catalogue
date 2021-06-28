@@ -30,11 +30,11 @@
 * [Codes et tutti quanti](tables-de-correspondances/codes-et-tutti-quanti.md)
 * [F.A.Q](tables-de-correspondances/f.a.q.md)
 
-## Architecture Technique
+## Architecture
 
-* [Vue d’ensemble](architecture-technique/vue-densemble.md)
-* [Traitements sur la données pour l'Apprentissage](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
-  * [Convertir](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
-  * [Vérifier et Corriger](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
-  * [Enrichir](architecture-technique/traitements-sur-la-donnees-pour-lapprentissage-en-cours/enrichir.md)
+* [Vue d’ensemble](architecture/vue-densemble.md)
+* [Traitements sur la données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
+  * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
+  * [Vérifier et Corriger](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
+  * [Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/enrichir.md)
 
