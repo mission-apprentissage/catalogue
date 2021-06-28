@@ -6,13 +6,9 @@ Pour des besoins de lisibilité dans ce chapitre, ci-dessous le diagramme simpli
 
 ![](../../.gitbook/assets/s1-2%20%281%29.png)
 
-### Flux de traitements
+### Flux de traitements et découpage
 
 ![](../../.gitbook/assets/s6.png)
-
-### Découpage technique
-
-
 
 
 
