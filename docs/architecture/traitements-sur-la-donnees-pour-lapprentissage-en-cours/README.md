@@ -8,7 +8,7 @@ Pour des besoins de lisibilité dans ce chapitre, ci-dessous le diagramme simpli
 
 ### Flux de traitements et découpage
 
-![](../../.gitbook/assets/s6.png)
+![](../../.gitbook/assets/s8.png)
 
 Vous trouverez les détails de chaque traitements dans les pages suivantes : 
 
