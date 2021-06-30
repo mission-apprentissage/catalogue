@@ -12,7 +12,7 @@
 #### Vérification des codes UAI
 
 * s’assurer que le code UAI partie établissement existe et correspond à un “numéro UAI CFA”.
-* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
+* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, ACCE, ...\)
 * identifier les erreurs de mariage entre UAI CFA et UAI site
 * s’assurer de la complétude des UAI site dans le catalogue des formations
 
@@ -33,7 +33,7 @@ Vérifier que l'établissement est habilité à délivrer des titres professionn
 
 Besoins :   
 - quand, je consulte le catalogue des offres de formation en Apprentissage  
-- je veux, être assuré que l'établissement est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et de l'organisme délivrant une certification en apprentissage et d’éviter des contrôles manuels chronophages
+- je veux, être assuré que l'établissement est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et de l'organisme délivrant une certification en apprentissage et d’éviter des contrôles manuels chronophage
 
 Cette spécification répond au besoin de chargement des établissements en apprentissage pour les besoins de Parcoursup ou Affelnet afin d’améliorer le nombre de formations proposées en apprentissage au sein des choix de formations offertes par les SI de l'Education Nationale et de l'Enseignement Supérieur.
 

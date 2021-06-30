@@ -65,7 +65,7 @@ Vous trouverez les détails sur cette page :
 
 
 
-## Recherche d'établissement par Siret et UAI ? 
+## Recherche d'établissement collecté par RCO via Siret et UAI ? 
 
 Vous pouvez retrouver les détails sur cette page :
 
