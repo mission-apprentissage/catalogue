@@ -4,7 +4,7 @@
 
 ![](../../.gitbook/assets/mise-a-jour-formation.png)
 
-## Établissement
+## Établissement \(en cours\)
 
-
+![](../../.gitbook/assets/mise-a-jour-etablissement.png)
 
