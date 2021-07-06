@@ -4,9 +4,9 @@ Ce chapitre décrit les traitements permettant de **vérifier, corriger et enric
   
 Pour des besoins de lisibilité dans ce chapitre, ci-dessous le diagramme simplifié centré autour des traitements de données :
 
-![](../../.gitbook/assets/s1-2%20%281%29.png)
+![](../../.gitbook/assets/traitements.png)
 
-### Flux de traitements et découpage
+### Flux de traitements et découpage \(à refaire\)
 
 ![](../../.gitbook/assets/s9.png)
 

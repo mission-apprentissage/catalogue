@@ -9,7 +9,7 @@ Dans le contexte de l’apprentissage, il est nécessaire d'articuler l'offre de
 
 De plus, sur les données des formations il est nécessaire d'ajouter en autres  les différents codes pivot pour les différents consommateurs.\([Cf Traitements liés aux formations](../../traitements-scripts/traitements-lies-aux-formations.md)\)
 
-### Détails 
+### Détails \(à refaire\)
 
 ![](../../.gitbook/assets/s10.png)
 
