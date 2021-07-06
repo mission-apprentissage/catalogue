@@ -16,7 +16,3 @@ Vous trouverez les détails de chaque traitements dans les pages suivantes :
 
 {% page-ref page="verifier-et-corriger.md" %}
 
-{% page-ref page="enrichir.md" %}
-
-
-

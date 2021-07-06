@@ -35,6 +35,5 @@
 * [Vue d’ensemble](architecture/vue-densemble.md)
 * [Traitements sur la données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
   * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
-  * [Vérifier et Corriger](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
-  * [Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/enrichir.md)
+  * [Vérifier, Corriger et Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
 

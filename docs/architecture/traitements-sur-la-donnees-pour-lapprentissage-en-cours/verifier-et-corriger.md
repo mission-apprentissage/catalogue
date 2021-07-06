@@ -1,2 +1,2 @@
-# Vérifier et Corriger
+# Vérifier, Corriger et Enrichir
 
