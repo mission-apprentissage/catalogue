@@ -2,7 +2,14 @@
 
 * [Présentation catalogue](README.md)
 
-## Traitements et scripts <a id="traitements-scripts"></a>
+## Fonctionnel - \(en cours de rédaction\) <a id="architecture"></a>
+
+* [Vue d’ensemble  - architecture hybride](architecture/vue-densemble.md)
+* [Traitements sur la données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
+  * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
+  * [Vérifier, Corriger et Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
+
+## Traitements et scripts -  \(en cours de rédaction\) <a id="traitements-scripts"></a>
 
 * [Traitements liés aux établissements](traitements-scripts/etablissements.md)
 * [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations.md)
@@ -29,11 +36,4 @@
     * [API établissement](tables-de-correspondances/documentation/swagger/api-etablissement.md)
 * [Codes et tutti quanti](tables-de-correspondances/codes-et-tutti-quanti.md)
 * [F.A.Q](tables-de-correspondances/f.a.q.md)
-
-## Fonctionnel <a id="architecture"></a>
-
-* [Vue d’ensemble  - architecture hybride](architecture/vue-densemble.md)
-* [Traitements sur la données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
-  * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
-  * [Vérifier, Corriger et Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
 
