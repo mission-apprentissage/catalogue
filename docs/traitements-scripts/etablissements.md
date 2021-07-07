@@ -57,7 +57,27 @@ Note DGESCO du 13 janvier 2020
 
 ![](../.gitbook/assets/apientreprise.png)
 
-###  Vérifications et enrichissement via Geo.api.gouv.fr
+#### Vérification du SIRET
+
+{% hint style="info" %}
+retrouvez le code source de ce script sur : 
+{% endhint %}
+
+**Consolidation des données**
+
+* API Siren 
+* API Entreprise 
+* API Enseignement Supérieur 
+* Fichiers de la DEPP 
+* Fichier DGER - Agriculture
+
+**Traitements réalisés en cascade au moment de la collecte**
+
+**Intégration des données collectées par d'autres opérateurs** 
+
+\*\*\*\*
+
+### Vérifications et enrichissement via Geo.api.gouv.fr
 
 ![](../.gitbook/assets/geoapi.png)
 

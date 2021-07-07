@@ -1,8 +1,6 @@
-# Traitements liés à la modification d'un champ
+# Interopérabilité des traitements \(Brouillon\)
 
-#### Modifications unitaires
-
-#### Modifications en masse
+#### 
 
 #### Liste des champs modifiables et des informations en cascade
 
