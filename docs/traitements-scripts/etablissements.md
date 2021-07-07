@@ -10,7 +10,7 @@
 
 |  |  |
 | :--- | :--- |
-| TestImg | Content |
+| ![](../.gitbook/assets/traitementseta.png) | Content |
 
 ### Conventionnement
 
