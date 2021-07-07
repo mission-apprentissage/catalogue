@@ -1,4 +1,4 @@
-# Vue d’ensemble
+# Vue d’ensemble  - architecture hybride
 
 Ci-dessous, vous pourrez retrouver une vue d'ensemble "macro" \(très haut niveau\) des blocs fonctionnels composants le "catalogue" au 1 Juillet 2021.    
 
