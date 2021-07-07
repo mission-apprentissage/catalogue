@@ -4,7 +4,7 @@
 
 ![](../.gitbook/assets/mise-a-jour-etablissement%20%281%29.png)
 
-## Détails des traitements 
+## Détails des traitements
 
 |  |  |
 | :--- | :--- |
@@ -47,9 +47,10 @@ Vérifier que l'établissement est habilité à délivrer des titres professionn
 
 #### Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup
 
-Besoins :   
-- quand, je consulte le catalogue des offres de formation en Apprentissage  
-- je veux, être assuré que l'établissement est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et de l'organisme délivrant une certification en apprentissage et d’éviter des contrôles manuels chronophage
+Besoins :
+
+* quand, je consulte le catalogue des offres de formation en Apprentissage  
+* je veux, être assuré que l'établissement est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et de l'organisme délivrant une certification en apprentissage et d’éviter des contrôles manuels chronophage
 
 Cette spécification répond au besoin de chargement des établissements en apprentissage pour les besoins de Parcoursup ou Affelnet afin d’améliorer le nombre de formations proposées en apprentissage au sein des choix de formations offertes par les SI de l'Education Nationale et de l'Enseignement Supérieur.
 
@@ -57,7 +58,7 @@ Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
 
-###  Vérifications et enrichissement via Entreprise.api.gouv.fr
+### Vérifications et enrichissement via Entreprise.api.gouv.fr
 
 |  |  |
 | :--- | :--- |
@@ -66,7 +67,7 @@ Note DGESCO du 13 janvier 2020
 #### Vérification du SIRET
 
 {% hint style="info" %}
-retrouvez le code source de ce script sur : 
+retrouvez le code source de ce script sur :
 {% endhint %}
 
 **Consolidation des données**
@@ -79,7 +80,7 @@ retrouvez le code source de ce script sur :
 
 **Traitements réalisés en cascade au moment de la collecte**
 
-**Intégration des données collectées par d'autres opérateurs** 
+**Intégration des données collectées par d'autres opérateurs**
 
 \*\*\*\*
 
@@ -90,18 +91,19 @@ retrouvez le code source de ce script sur :
 | ![](../.gitbook/assets/geoapi.png) | Consolidation Api Geo . |
 | ![](../.gitbook/assets/apigeo2.png) | Consolidation Api Geo . |
 
-
 ### Vérifications et enrichissement via l'Onisep
 
 |  |  |
 | :--- | :--- |
 | ![](../.gitbook/assets/onisep.png) | Consolidation Api Geo . |
 
+#### 
+
+{% embed url="https://codepen.io/dok/full/LJpegR" %}
 
 
 
-
-
+#### 
 
 #### Vérification des liens OPCO - CFA
 
