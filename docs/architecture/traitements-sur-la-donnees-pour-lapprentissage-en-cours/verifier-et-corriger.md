@@ -1,8 +1,6 @@
 # Vérifier, Corriger et Enrichir
 
-
-
-Retrouvez tous les détails des traitements dans le chapitre suivant : 
+Retrouvez tous les détails des traitements dans le chapitre : 
 
 
 

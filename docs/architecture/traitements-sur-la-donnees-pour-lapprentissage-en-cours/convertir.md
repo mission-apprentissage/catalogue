@@ -2,6 +2,8 @@
 
 Le bloc de conversion permet principalement le passage du Format Lhéo vers un Format consommable et améliorable dans le cadre de l'apprentissage. 
 
+
+
 ### Pourquoi ce traitement  ?
 
 Le format Lhéo [http://lheo.gouv.fr/](http://lheo.gouv.fr/) est articulé autour de la notion d'action de formation étant dispensée dans un établissement.   
