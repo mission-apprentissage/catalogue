@@ -6,11 +6,9 @@
 
 ## Détails des traitements 
 
-![](../.gitbook/assets/traitementseta.png)
-
 |  |  |
 | :--- | :--- |
-| ![](../.gitbook/assets/traitementseta.png) | Content |
+| ![](../.gitbook/assets/traitementseta.png) | Les traitements sur un établissement se font autour de la données pivot SIRET. |
 
 ### Conventionnement
 
