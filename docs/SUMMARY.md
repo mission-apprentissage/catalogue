@@ -4,7 +4,7 @@
 
 ## Fonctionnel - \(en cours de rédaction\) <a id="architecture"></a>
 
-* [Vue d’ensemble  - architecture hybride](architecture/vue-densemble.md)
+* [Vue d’ensemble simplifiée](architecture/vue-densemble.md)
 * [Traitements sur la données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/README.md)
   * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/convertir.md)
   * [Vérifier, Corriger et Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage-en-cours/verifier-et-corriger.md)
