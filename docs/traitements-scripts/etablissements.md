@@ -12,7 +12,9 @@
 
 ### Conventionnement
 
-![](../.gitbook/assets/conventionnement.png)
+|  |  |
+| :--- | :--- |
+| ![](../.gitbook/assets/conventionnement.png) | Règles de conventionnements . |
 
 #### Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock
 
@@ -57,7 +59,9 @@ Note DGESCO du 13 janvier 2020
 
 ###  Vérifications et enrichissement via Entreprise.api.gouv.fr
 
-![](../.gitbook/assets/apientreprise.png)
+|  |  |
+| :--- | :--- |
+| ![](../.gitbook/assets/apientreprise.png) | Consolidation Api entreprise . |
 
 #### Vérification du SIRET
 
@@ -81,17 +85,17 @@ retrouvez le code source de ce script sur :
 
 ### Vérifications et enrichissement via Geo.api.gouv.fr
 
-![](../.gitbook/assets/geoapi.png)
+|  |  |
+| :--- | :--- |
+| ![](../.gitbook/assets/geoapi.png) | Consolidation Api Geo . |
+| ![](../.gitbook/assets/apigeo2.png) | Consolidation Api Geo . |
 
-![](../.gitbook/assets/apigeo2.png)
 
 ### Vérifications et enrichissement via l'Onisep
 
-![](../.gitbook/assets/onisep.png)
-
-
-
-
+|  |  |
+| :--- | :--- |
+| ![](../.gitbook/assets/onisep.png) | Consolidation Api Geo . |
 
 
 
