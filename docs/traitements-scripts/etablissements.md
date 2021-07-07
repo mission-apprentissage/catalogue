@@ -4,7 +4,13 @@
 
 ![](../.gitbook/assets/mise-a-jour-etablissement%20%281%29.png)
 
-## Détails
+## Détails des traitements 
+
+![](../.gitbook/assets/traitementseta.png)
+
+### Conventionnement
+
+![](../.gitbook/assets/conventionnement.png)
 
 #### Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock
 
@@ -46,6 +52,30 @@ Cette spécification répond au besoin de chargement des établissements en appr
 Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
+
+###  Vérifications et enrichissement via Entreprise.api.gouv.fr
+
+![](../.gitbook/assets/apientreprise.png)
+
+###  Vérifications et enrichissement via Geo.api.gouv.fr
+
+![](../.gitbook/assets/geoapi.png)
+
+![](../.gitbook/assets/apigeo2.png)
+
+### Vérifications et enrichissement via l'Onisep
+
+![](../.gitbook/assets/onisep.png)
+
+
+
+
+
+
+
+
+
+
 
 #### Vérification des liens OPCO - CFA
 
