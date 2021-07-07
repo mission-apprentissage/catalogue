@@ -1,5 +1,11 @@
 # Traitements liés aux formations
 
+## Vue d’ensemble
+
+![](../.gitbook/assets/mise-a-jour-formation.png)
+
+## Détails
+
 #### Vérification des données Diplôme Niveau Intitulé
 
 * vérifier que le code diplôme existe

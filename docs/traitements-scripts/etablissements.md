@@ -1,5 +1,11 @@
 # Traitements liés aux établissements
 
+## Vue d’ensemble
+
+![](../.gitbook/assets/mise-a-jour-etablissement%20%281%29.png)
+
+## Détails
+
 #### Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock
 
 * Etablissement en capacité de proposer des actions de formations par apprentissage, c’est-à-dire
