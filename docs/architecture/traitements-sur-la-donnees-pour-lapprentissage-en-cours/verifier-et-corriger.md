@@ -1,10 +1,8 @@
 # Vérifier, Corriger et Enrichir
 
-## Formation
 
-![](../../.gitbook/assets/mise-a-jour-formation.png)
 
-## Établissement 
+Retrouvez tous les détails des traitements dans le chapitre suivant : 
 
-![](../../.gitbook/assets/mise-a-jour-etablissement%20%281%29.png)
+
 
