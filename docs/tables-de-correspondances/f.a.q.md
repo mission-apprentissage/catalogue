@@ -71,9 +71,3 @@ Vous pouvez retrouver les détails sur cette page :
 
 {% page-ref page="documentation/swagger/api-etablissement.md" %}
 
-
-
-## Question ? 
-
-Réponse
-
