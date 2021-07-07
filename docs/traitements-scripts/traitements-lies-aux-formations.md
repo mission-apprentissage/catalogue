@@ -4,7 +4,13 @@
 
 ![](../.gitbook/assets/mise-a-jour-formation.png)
 
-## Détails
+## Détails des traitements
+
+![](../.gitbook/assets/traitementformation.png)
+
+### Vérifications et enrichissements via le CFD
+
+![](../.gitbook/assets/cfdbcn.png)
 
 #### Vérification des données Diplôme Niveau Intitulé
 
