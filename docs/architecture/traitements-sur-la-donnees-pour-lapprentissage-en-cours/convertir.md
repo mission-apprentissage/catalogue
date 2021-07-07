@@ -2,7 +2,7 @@
 
 Le bloc de conversion permet principalement le passage du Format Lhéo vers un Format consommable et améliorable dans le cadre de l'apprentissage. 
 
-![](../../.gitbook/assets/convertir.png)
+![Flux macro de convertion ](../../.gitbook/assets/workflowtraitements-convertir.png)
 
 ### Pourquoi ce traitement  ?
 
