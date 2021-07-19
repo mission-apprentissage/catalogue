@@ -10,13 +10,13 @@
 
 Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
-1.  Vérifications et enrichissement basés sur le **SIRET**
-2. Vérifications et enrichissement basés sur le **Code postal** 
+1.  Vérifications et enrichissements basés sur le **SIRET**
+2. Vérifications et enrichissements basés sur le **Code postal** 
 3. Récupération des informations de géolocalisation sur l'adresse
-4. Vérifications et enrichissement **Conventionnement**
+4. Vérifications et enrichissements **Conventionnement**
 5. Récupération des **informations Onisep** depuis l'UAI et nom académie
 
-### 1. Vérifications et enrichissement via Entreprise.api.gouv.fr
+### 1. Vérifications et enrichissements via Entreprise.api.gouv.fr
 
 ![](../.gitbook/assets/apientreprise.png)
 
@@ -34,12 +34,12 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
   siege_social: {
     type: Boolean,
     default: false,
-    description: "L'établissement est le siége sociale de l'entreprise",
+    description: "L'établissement est le siège social de l'entreprise",
   },
   etablissement_siege_siret: {
     type: String,
     default: null,
-    description: "Numéro SIRET du siége sociale de l'entreprise",
+    description: "Numéro SIRET du siège social de l'entreprise",
   },
   siret: {
     type: String,
@@ -79,7 +79,7 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
   diffusable_commercialement: {
     type: Boolean,
     default: true,
-    description: "Les informations de l'établissement sont elles diffusable commercialement",
+    description: "Les informations de l'établissement sont elles diffusables commercialement",
   },
   enseigne: {
     type: String,
@@ -94,7 +94,7 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
   ferme: {
     type: Boolean,
     default: false,
-    description: "l'établissment a cessé son activité",
+    description: "l'établissement a cessé son activité",
   },
   entreprise_siren: {
     type: String,
@@ -114,7 +114,7 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
   entreprise_code_effectif_entreprise: {
     type: String,
     default: null,
-    description: "Code éffectf",
+    description: "Code effectf",
   },
   entreprise_forme_juridique_code: {
     type: String,
@@ -170,7 +170,7 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
   entreprise_siret_siege_social: {
     type: String,
     default: null,
-    description: "Numéro siret du siége sociale",
+    description: "Numéro siret du siége social",
   },
   entreprise_categorie: {
     type: String,
@@ -196,16 +196,16 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 * API Siren 
 * API Entreprise 
 
-_Vous pouvez retrouver les détails du traitement "Vérifications et enrichissement  **Conventionnement**" sur cette page section numéro 5._ 
+_Vous pouvez retrouver les détails du traitement "Vérifications et enrichissements  **Conventionnement**" sur cette page section numéro 5._ 
 
-### 2. et 3. Vérifications et enrichissement via Geo.api.gouv.fr
+### 2. et 3. Vérifications et enrichissements via Geo.api.gouv.fr
 
 |  |  |
 | :--- | :--- |
 | ![](../.gitbook/assets/geoapi.png) | Recherche informations d'adresse |
 | ![](../.gitbook/assets/apigeo2.png) | Recherche geo coordonnées - Latitude et longitude  |
 
-### 4. Vérifications et enrichissement Conventionnement
+### 4. Vérifications et enrichissements Conventionnement
 
 ![](../.gitbook/assets/conventionnement.png)
 
@@ -267,7 +267,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 **Traitements réalisés en cascade au moment de l'import d'Offre Info**
 
-### 5. Vérifications et enrichissement via l'Onisep
+### 5. Vérifications et enrichissements via l'Onisep
 
 ![Consolidation Api Geo .](../.gitbook/assets/onisep.png)
 
