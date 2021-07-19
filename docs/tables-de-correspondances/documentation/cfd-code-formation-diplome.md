@@ -29,7 +29,7 @@ Un code cfd dont je recherche les informations détaillées. Défini comme ci-de
       <td
       style="text-align:left">
         <p>CERTIFICAT D&apos;APTITUDES PROFESSIONNELLES</p>
-        <p><em>! la table des niveau n&#x2019;est pas &#xE0; jour</em>
+        <p><em>! la table des niveaux n&#x2019;est pas &#xE0; jour</em>
         </p>
         </td>
     </tr>
