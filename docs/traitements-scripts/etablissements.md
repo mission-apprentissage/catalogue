@@ -8,12 +8,12 @@
 
 ![](../.gitbook/assets/traitementseta.png)
 
-Les différents traitements sur un établissement se font autour de la données pivot **SIRET**.
+Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
 1.  Vérifications et enrichissement basés sur le **SIRET**
 2. Vérifications et enrichissement basés sur le **Code postal** 
-3. Récupération des informations de géolocalisation  sur l'adresse
-4. Vérifications et enrichissement  **Conventionnement**
+3. Récupération des informations de géolocalisation sur l'adresse
+4. Vérifications et enrichissement **Conventionnement**
 5. Récupération des **informations Onisep** depuis l'UAI et nom académie
 
 ### 1. Vérifications et enrichissement via Entreprise.api.gouv.fr
@@ -196,7 +196,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 * API Siren 
 * API Entreprise 
 
-_Vous pouvez retrouver les détails du traitements "Vérifications et enrichissement  **Conventionnement**" sur cette page section numéro 5._ 
+_Vous pouvez retrouver les détails du traitement "Vérifications et enrichissement  **Conventionnement**" sur cette page section numéro 5._ 
 
 ### 2. et 3. Vérifications et enrichissement via Geo.api.gouv.fr
 
@@ -217,7 +217,7 @@ _Vous pouvez retrouver les détails du traitements "Vérifications et enrichisse
 
   soit un CFA précédemment conventionné avec un conseil régional, présent dans la liste établie par la DEPP \(vérification sur l'UAI\)
 
-* soit un établissement connu entant qu'organisme de formation dûment déclaré en préfecture \(vérification sur le SIRET\)...
+* soit un établissement connu en tant qu'organisme de formation dûment déclaré en préfecture \(vérification sur le SIRET\)...
 * ...qui, s’il n’est pas un CFA conventionné avec un conseil régional, a pu faire attester la qualité de ses actions de formation suivant les termes du décret du décret du 30 juin 2015. À cette fin, la mission a utilisé la base de données du groupement d’intérêt économique DATADOCK réunissant les OPCO \(vérification sur le SIRET\).
 
 **Vérification des codes UAI**
