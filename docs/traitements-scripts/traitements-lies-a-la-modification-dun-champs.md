@@ -11,7 +11,7 @@ Sur l’onglet formation :
 * Numéro d’académie, 
 * SIRET CFA-OFA, 
 * SIRET Formateur, 
-* Code diplôme \(si le champs est vide ou qu’il contient des informations incorrectes\), 
+* Code diplôme \(si le champ est vide ou qu’il contient des informations incorrectes\), 
 * Période, 
 * Capacité, 
 * UAI formation, 

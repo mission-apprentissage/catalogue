@@ -279,7 +279,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 **Consolidation des données**
 
-* API Privé Onisep
+* API Privée Onisep
 
 ~~~~
 

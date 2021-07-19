@@ -1,6 +1,6 @@
 ---
 description: >-
-  L' Api catalogue vous permettra de consulter les offres de formations en
+  L' API catalogue vous permettra de consulter les offres de formations en
   apprentissage, vérifier l’éligibilité d'un établissement, recherche avancée,
   et autres fonctionnalités...
 ---

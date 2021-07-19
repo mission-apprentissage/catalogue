@@ -21,7 +21,7 @@ updates_history: [
 ]
 ```
 
-Les critères de recherche sont très libre, avec l'aide d'un développeur vous pouvez rechercher via une requête sont forme MongoDb.   
+Les critères de recherche sont très libre, avec l'aide d'un développeur vous pouvez rechercher via une requête sous forme MongoDB.   
   
 Tester: 
 
@@ -272,7 +272,7 @@ Exemple de retour \(toutes les mises à jour des informations\):
 }
 ```
 
-Via appels direct dans votre navigateur : 
+Via appels directs dans votre navigateur : 
 
 ```text
 https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements?select={"updates_history":1}&query={MA_REQUETE_MONGO}
