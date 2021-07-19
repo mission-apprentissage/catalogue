@@ -96,30 +96,7 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
     default: false,
     description: "l'établissment a cessé son activité",
   },
-
-
-
-
-        adresse: this.buildAdresse(etablissementApiInfo.adresse),
-        numero_voie: etablissementApiInfo.adresse.numero_voie,
-        type_voie: etablissementApiInfo.adresse.type_voie,
-        nom_voie: etablissementApiInfo.adresse.nom_voie,
-        complement_adresse: etablissementApiInfo.adresse.complement_adresse,
-        code_postal: etablissementApiInfo.adresse.code_postal,
-        num_departement: etablissementApiInfo.adresse.code_postal.substring(0, 2),
-        localite: etablissementApiInfo.adresse.localite,
-        code_insee_localite: etablissementApiInfo.adresse.code_insee_localite,
-        cedex: etablissementApiInfo.adresse.cedex,
-
-        region_implantation_code: etablissementApiInfo.region_implantation.code,
-        region_implantation_nom: etablissementApiInfo.region_implantation.value,
-        commune_implantation_code: etablissementApiInfo.commune_implantation.code,
-        commune_implantation_nom: etablissementApiInfo.commune_implantation.value,
-        pays_implantation_code: etablissementApiInfo.pays_implantation.code,
-        pays_implantation_nom: etablissementApiInfo.pays_implantation.value,
-
-        
- entreprise_siren: {
+  entreprise_siren: {
     type: String,
     default: null,
     description: "Numéro siren",
