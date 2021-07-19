@@ -20,7 +20,7 @@ Les différents traitements sur un établissement se font autour de la donnée p
 
 ![](../.gitbook/assets/e3.png)
 
-La consolidation des informations entreprise se fait par l’intermédiaire de l'API entreprise [https://entreprise.api.gouv.fr/](https://entreprise.api.gouv.fr/). 
+La consolidation des informations de l'entreprise se fait par l’intermédiaire de l'API entreprise [https://entreprise.api.gouv.fr/](https://entreprise.api.gouv.fr/). 
 
 Si le SIRET existe dans l'api, nous retournons les informations suivantes : 
 
@@ -198,7 +198,9 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 _Vous pouvez retrouver les détails du traitement "Vérifications et enrichissements  **Conventionnement**" sur cette page section numéro 5._ 
 
-### 2. et 3. Vérifications et enrichissements via Geo.api.gouv.fr
+### 2. et 3. Vérifications et enrichissements via geo.api.gouv.fr
+
+[https://geo.api.gouv.fr/adresse](https://geo.api.gouv.fr/adresse)
 
 |  |  |
 | :--- | :--- |

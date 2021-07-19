@@ -21,7 +21,7 @@ updates_history: [
 ]
 ```
 
-Les critères de recherche sont très libre, avec l'aide d'un développeur vous pouvez rechercher via une requête sous forme MongoDB.   
+Les critères de recherche sont très libres, avec l'aide d'un développeur vous pouvez rechercher via une requête sous forme MongoDB.   
   
 Tester: 
 
