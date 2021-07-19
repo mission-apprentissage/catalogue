@@ -2,11 +2,11 @@
 
 ## Vue d’ensemble
 
-![](../.gitbook/assets/mise-a-jour-etablissement%20%281%29.png)
+![](../.gitbook/assets/e.png)
 
 ## Détails des traitements
 
-![](../.gitbook/assets/traitementseta.png)
+![](../.gitbook/assets/e2%20%281%29.png)
 
 Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
@@ -18,7 +18,7 @@ Les différents traitements sur un établissement se font autour de la donnée p
 
 ### 1. Vérifications et enrichissements via Entreprise.api.gouv.fr
 
-![](../.gitbook/assets/apientreprise.png)
+![](../.gitbook/assets/e3.png)
 
 La consolidation des informations entreprise se fait par l’intermédiaire de l'API entreprise [https://entreprise.api.gouv.fr/](https://entreprise.api.gouv.fr/). 
 
@@ -207,7 +207,7 @@ _Vous pouvez retrouver les détails du traitement "Vérifications et enrichissem
 
 ### 4. Vérifications et enrichissements Conventionnement
 
-![](../.gitbook/assets/conventionnement.png)
+![](../.gitbook/assets/e4.png)
 
 #### Règles de conventionnements .
 
@@ -269,7 +269,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 ### 5. Vérifications et enrichissements via l'Onisep
 
-![Consolidation Api Geo .](../.gitbook/assets/onisep.png)
+![](../.gitbook/assets/e5.png)
 
 **Recherche des informations supplémentaires collectées par l'Onisep**
 
