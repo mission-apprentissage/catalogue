@@ -2,11 +2,11 @@
 
 ## Vue d’ensemble
 
-![](../.gitbook/assets/e.png)
+![](../.gitbook/assets/e%20%281%29.png)
 
 ## Détails des traitements
 
-![](../.gitbook/assets/e2%20%281%29.png)
+![](../.gitbook/assets/e2%20%282%29.png)
 
 Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
