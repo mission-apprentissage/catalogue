@@ -6,17 +6,235 @@
 
 ## Détails des traitements
 
+![](../.gitbook/assets/traitementseta.png)
+
+Les différents traitements sur un établissement se font autour de la données pivot **SIRET**.
+
+1.  Vérifications et enrichissement basés sur le **SIRET**
+2. Vérifications et enrichissement basés sur le **Code postal** 
+3. Récupération des informations de géolocalisation  sur l'adresse
+4. Vérifications et enrichissement  **Conventionnement**
+5. Récupération des **informations Onisep** depuis l'UAI et nom académie
+
+### 1. Vérifications et enrichissement via Entreprise.api.gouv.fr
+
+![](../.gitbook/assets/apientreprise.png)
+
+La consolidation des informations entreprise se fait par l’intermédiaire de l'API entreprise [https://entreprise.api.gouv.fr/](https://entreprise.api.gouv.fr/). 
+
+Si le SIRET existe dans l'api, nous retournons les informations suivantes : 
+
+```javascript
+{
+  api_entreprise_reference: {
+    type: Boolean,
+    default: false,
+    description: "L'établissement est trouvé via l'API Entreprise",
+  },
+  siege_social: {
+    type: Boolean,
+    default: false,
+    description: "L'établissement est le siége sociale de l'entreprise",
+  },
+  etablissement_siege_siret: {
+    type: String,
+    default: null,
+    description: "Numéro SIRET du siége sociale de l'entreprise",
+  },
+  siret: {
+    type: String,
+    default: null,
+    description: "SIRET recherché",
+  },
+  siren: {
+    type: String,
+    default: null,
+    description: "Numéro siren de l'établissement",
+  },
+  naf_code: {
+    type: String,
+    default: null,
+    description: "Code NAF",
+  },
+  naf_libelle: {
+    type: String,
+    default: null,
+    description: "Libellé du code NAT (ex: Enseignement secondaire technique ou professionnel)",
+  },
+  tranche_effectif_salarie: {
+    type: Object,
+    default: {},
+    description: "Tranche salariale",
+  },
+  date_creation: {
+    type: Date,
+    default: null,
+    description: "Date de création de l'établissement",
+  },
+  date_mise_a_jour: {
+    type: Date,
+    default: null,
+    description: "Date de la dernière mise à jour des informations",
+  },
+  diffusable_commercialement: {
+    type: Boolean,
+    default: true,
+    description: "Les informations de l'établissement sont elles diffusable commercialement",
+  },
+  enseigne: {
+    type: String,
+    default: null,
+    description: "Enseigne de l'établissement ou de l'entreprise",
+  },
+  date_fermeture: {
+    type: Date,
+    default: null,
+    description: "Date de cessation d'activité de l'établissement",
+  },
+  ferme: {
+    type: Boolean,
+    default: false,
+    description: "l'établissment a cessé son activité",
+  },
+
+
+
+
+        adresse: this.buildAdresse(etablissementApiInfo.adresse),
+        numero_voie: etablissementApiInfo.adresse.numero_voie,
+        type_voie: etablissementApiInfo.adresse.type_voie,
+        nom_voie: etablissementApiInfo.adresse.nom_voie,
+        complement_adresse: etablissementApiInfo.adresse.complement_adresse,
+        code_postal: etablissementApiInfo.adresse.code_postal,
+        num_departement: etablissementApiInfo.adresse.code_postal.substring(0, 2),
+        localite: etablissementApiInfo.adresse.localite,
+        code_insee_localite: etablissementApiInfo.adresse.code_insee_localite,
+        cedex: etablissementApiInfo.adresse.cedex,
+
+        region_implantation_code: etablissementApiInfo.region_implantation.code,
+        region_implantation_nom: etablissementApiInfo.region_implantation.value,
+        commune_implantation_code: etablissementApiInfo.commune_implantation.code,
+        commune_implantation_nom: etablissementApiInfo.commune_implantation.value,
+        pays_implantation_code: etablissementApiInfo.pays_implantation.code,
+        pays_implantation_nom: etablissementApiInfo.pays_implantation.value,
+
+        
+ entreprise_siren: {
+    type: String,
+    default: null,
+    description: "Numéro siren",
+  },
+  entreprise_procedure_collective: {
+    type: Boolean,
+    default: false,
+    description: "Procédure collective",
+  },
+  entreprise_enseigne: {
+    type: String,
+    default: null,
+    description: "Enseigne",
+  },
+  entreprise_code_effectif_entreprise: {
+    type: String,
+    default: null,
+    description: "Code éffectf",
+  },
+  entreprise_forme_juridique_code: {
+    type: String,
+    default: null,
+    description: "Code forme juridique",
+  },
+  entreprise_forme_juridique: {
+    type: String,
+    default: null,
+    description: "Forme juridique (ex: Établissement public local d'enseignement)",
+  },
+  entreprise_raison_sociale: {
+    type: String,
+    default: null,
+    description: "Raison sociale",
+  },
+  entreprise_nom_commercial: {
+    type: String,
+    default: null,
+    description: "Nom commercial",
+  },
+ 
+  entreprise_date_creation: {
+    type: Date,
+    default: null,
+    description: "Date de création",
+  },
+  entreprise_date_radiation: {
+    type: String,
+    default: null,
+    description: "Date de radiation",
+  },
+  entreprise_naf_code: {
+    type: String,
+    default: null,
+    description: "Code NAF",
+  },
+  entreprise_naf_libelle: {
+    type: String,
+    default: null,
+    description: "Libellé du code NAT (ex: Enseignement secondaire technique ou professionnel)",
+  },
+  entreprise_date_fermeture: {
+    type: Date,
+    default: null,
+    description: "Date de cessation d'activité",
+  },
+  entreprise_ferme: {
+    type: Boolean,
+    default: false,
+    description: "A cessé son activité",
+  },
+  entreprise_siret_siege_social: {
+    type: String,
+    default: null,
+    description: "Numéro siret du siége sociale",
+  },
+  entreprise_categorie: {
+    type: String,
+    default: null,
+    description: "Catégorie (PME, TPE, etc..)",
+  },
+  entreprise_tranche_effectif_salarie: {
+    type: Object,
+    default: {},
+    description: "Tranche salarié",
+  },
+}
+```
+
+**Vérification par le SIRET**
+
+{% hint style="info" %}
+retrouvez le code source de ce script sur : [https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/handlers/siretHandler.js](https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/handlers/siretHandler.js)
+{% endhint %}
+
+**Consolidation des données**
+
+* API Siren 
+* API Entreprise 
+
+_Vous pouvez retrouver les détails du traitements "Vérifications et enrichissement  **Conventionnement**" sur cette page section numéro 5._ 
+
+### 2. et 3. Vérifications et enrichissement via Geo.api.gouv.fr
+
 |  |  |
 | :--- | :--- |
-| ![](../.gitbook/assets/traitementseta.png) | Les traitements sur un établissement se font autour de la données pivot SIRET. |
+| ![](../.gitbook/assets/geoapi.png) | Recherche informations d'adresse |
+| ![](../.gitbook/assets/apigeo2.png) | Recherche geo coordonnées - Latitude et longitude  |
 
-### Conventionnement
+### 4. Vérifications et enrichissement Conventionnement
 
-|  |  |
-| :--- | :--- |
-| ![](../.gitbook/assets/conventionnement.png) | Règles de conventionnements . |
+![](../.gitbook/assets/conventionnement.png)
 
-#### Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock
+#### Règles de conventionnements .
+
+**Vérifications CFA conventionné, CFA déclaré en préfecture et condition certification datadock**
 
 * Etablissement en capacité de proposer des actions de formations par apprentissage, c’est-à-dire
 
@@ -25,27 +243,27 @@
 * soit un établissement connu entant qu'organisme de formation dûment déclaré en préfecture \(vérification sur le SIRET\)...
 * ...qui, s’il n’est pas un CFA conventionné avec un conseil régional, a pu faire attester la qualité de ses actions de formation suivant les termes du décret du décret du 30 juin 2015. À cette fin, la mission a utilisé la base de données du groupement d’intérêt économique DATADOCK réunissant les OPCO \(vérification sur le SIRET\).
 
-#### Vérification des codes UAI
+**Vérification des codes UAI**
 
 * s’assurer que le code UAI partie établissement existe et correspond à un “numéro UAI CFA”.
 * identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, ACCE, ...\)
 * identifier les erreurs de mariage entre UAI CFA et UAI site
 * s’assurer de la complétude des UAI site dans le catalogue des formations
 
-#### Vérification RNCP
+**Vérification RNCP**
 
 Vérifier que l'établissement est présent dans la liste des certificateurs pour délivrer ce titre, dans la fiche RNCP de la certification consultable via Répertoire national des certifications professionnelles \(RNCP\)
 
 Vérifier que l'établissement est habilité à délivrer des titres professionnels au RNCP \(Organisme certifié 2015\) : Vérification sur les fiches RNCP.
 
-#### Identification des établissements principaux vs secondaires
+**Identification des établissements principaux vs secondaires**
 
 * identifier les établissements secondaires 
 * identifier les liens établissements principaux - établissements secondaires sur les SIRET 
 * identifier les liens établissements sur les UAI CFA et UAI site 
 * identifier les liens établissements sur les OF responsable, OF formateur
 
-#### Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup
+**Conditions d'entrée d'un établissement sur les SI Affelnet et / ou Parcoursup**
 
 Besoins :
 
@@ -58,47 +276,40 @@ Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
 
-### Vérifications et enrichissement via Entreprise.api.gouv.fr
-
-|  |  |
-| :--- | :--- |
-| ![](../.gitbook/assets/apientreprise.png) | Consolidation Api entreprise . |
-
-#### Vérification du SIRET
+**Vérification du conventionnement**
 
 {% hint style="info" %}
-retrouvez le code source de ce script sur :
+retrouvez le code source de ce script sur : [https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/controllers/conventionController.js\#L47](https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/controllers/conventionController.js#L47)
 {% endhint %}
 
 **Consolidation des données**
 
-* API Siren 
-* API Entreprise 
 * API Enseignement Supérieur 
 * Fichiers de la DEPP 
 * Fichier DGER - Agriculture
 
-**Traitements réalisés en cascade au moment de la collecte**
+**Traitements réalisés en cascade au moment de l'import d'Offre Info**
 
-**Intégration des données collectées par d'autres opérateurs**
+### 5. Vérifications et enrichissement via l'Onisep
 
-\*\*\*\*
+![Consolidation Api Geo .](../.gitbook/assets/onisep.png)
 
-### Vérifications et enrichissement via Geo.api.gouv.fr
+**Recherche des informations supplémentaires collectées par l'Onisep**
 
-|  |  |
-| :--- | :--- |
-| ![](../.gitbook/assets/geoapi.png) | Consolidation Api Geo . |
-| ![](../.gitbook/assets/apigeo2.png) | Consolidation Api Geo . |
+{% hint style="info" %}
+retrouvez le code source de ce script sur : [https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/controllers/onisep/onisepController.js\#L4](https://github.com/mission-apprentissage/tables-correspondances/blob/master/server/src/logic/controllers/onisep/onisepController.js#L4)
+{% endhint %}
 
-### Vérifications et enrichissement via l'Onisep
+**Consolidation des données**
 
-|  |  |
-| :--- | :--- |
-| ![](../.gitbook/assets/onisep.png) | Consolidation Api Geo . |
+* API Privé Onisep
 
-#### Vérification des liens OPCO - CFA
+~~~~
 
-* identifier les CFA dépendants d'un OPCO
-* identifier les formations sur les métiers du secteur des entreprises de l'OPCO
+~~-----~~
+
+#### ~~Vérification des liens OPCO - CFA~~
+
+* ~~identifier les CFA dépendants d'un OPCO~~
+* ~~identifier les formations sur les métiers du secteur des entreprises de l'OPCO~~
 

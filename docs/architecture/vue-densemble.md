@@ -40,5 +40,5 @@ Ci-dessous, vous pourrez retrouver une vue d'ensemble "macro" \(très haut nivea
 
 --------------------------------------------------------------------------------------------------
 
-Le contexte l’apprentissage impose une certaine quantité de vérifications ainsi que de précision sur la données de formation et d'établissements. Ainsi afin de facilité la consommation de l'offre de formation et des informations établissements du catalogue, la MNA effectue une série de traitements décrit dans le prochain chapitre. \([Traitements sur la données pour l'apprentissage](traitements-sur-la-donnees-pour-lapprentissage-en-cours/)\) 
+Le contexte l’apprentissage impose une certaine quantité de vérifications ainsi que de précision sur la données de formation et d'établissements. Ainsi afin de facilité la consommation de l'offre de formation et des informations établissements du catalogue, la MNA effectue une série de traitements décrit dans le prochain chapitre. \([Traitements sur la données pour l'apprentissage](traitements-sur-la-donnees-pour-lapprentissage/)\) 
 
