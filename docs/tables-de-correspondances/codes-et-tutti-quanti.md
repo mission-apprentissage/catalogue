@@ -2,7 +2,7 @@
 
 ## **Code formation diplôme \(CFD - code Éducation Nationale\)**
 
-* liste les formations qui existent de droit et reconnue par l'état
+* liste les formations qui existent de droit et reconnues par l'état
 * dépend du ministère de l'Education Nationale
 * utilisé par Ministère de l’éducation nationale et de la jeunesse \(MENJ\) et le Ministère de l’enseignement supérieur, de la recherche et de l’innovation \(MESRI\)
 * Ce code est forcément sur **8 caractères alphanumériques**
@@ -50,7 +50,7 @@
 
 ## **Code MEF**
 
-* liste les formations qui existent de droit et reconnue par l'état
+* liste les formations qui existent de droit et reconnues par l'état
 * dépend du ministère de l'Education Nationale
 * utilisé par Parcoursup et Affelnet car plus précis que le code formation diplôme, données supplémentaires : durée de formation et année sur laquelle on s'inscrit
 
@@ -91,7 +91,7 @@
 
 ## **Code NAF**
 
-* liste les types d'activité économiques productives
+* liste les types d'activités économiques productives
 * dépend du Ministère du travail
 
 **Exemple pour le CAP Arts et technique du verre - option décorateur :**

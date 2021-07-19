@@ -2,11 +2,11 @@
 
 ## Introduction
 
-L'api tables de correspondances est une API au format REST.
+L'API tables de correspondances est une API au format REST.
 
  Les routes de consultation sont ouvertes au grand public.
 
- Les routes de création, suppression et mise à jour des entités tel que les formations ou les établissements sont soumises à restriction via API\_KEY \(jwt\_token\).
+ Les routes de création, suppression et mise à jour des entités telles que les formations ou les établissements sont soumises à restriction via API\_KEY \(jwt\_token\).
 
 ## Détails et documentation
 

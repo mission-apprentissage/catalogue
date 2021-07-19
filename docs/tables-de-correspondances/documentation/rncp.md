@@ -43,7 +43,7 @@ Ce que je peux récupérer à partir RNCP.
     </tr>
     <tr>
       <td style="text-align:left">cfds</td>
-      <td style="text-align:left">Liste des codes formation dipl&#xF4;me associ&#xE9;</td>
+      <td style="text-align:left">Liste des codes formation dipl&#xF4;me associ&#xE9;s</td>
       <td style="text-align:left">[string]</td>
     </tr>
     <tr>
@@ -180,8 +180,8 @@ Récupérer les informations liées à un RNCP
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Cette api vous permet de récupérer les informations relatives à un code RNCP.   
-Appels sous-jacent aux données France Compétences, tables BCN V et N formations, MEF, référentiel RNCP
+Cette API vous permet de récupérer les informations relatives à un code RNCP.   
+Appels sous-jacents aux données France Compétences, tables BCN V et N formations, MEF, référentiel RNCP
 {% endapi-method-description %}
 
 {% api-method-spec %}

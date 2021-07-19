@@ -2,7 +2,7 @@
 
 ## En entrée ?
 
-Une adresse dont je recherche les coordonnées  GPS. Défini comme ci-dessous 
+Une adresse dont je recherche les coordonnées  GPS. Définie comme ci-dessous 
 
 // TODO
 
@@ -26,8 +26,8 @@ Récupérer les coordonnées GPS  liées à une adresse
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Cette api vous permet de récupérer les informations relatives à un code postal.  
-Si **malencontreusement** vous appelez cette adresse avec un code commune Insee, l'api corrigera l'information 
+Cette api vous permet de récupérer les informations relatives à une adresse.  
+Si **malencontreusement** vous appelez cette route avec un code commune Insee, l'api corrigera l'information.
 {% endapi-method-description %}
 
 {% api-method-spec %}

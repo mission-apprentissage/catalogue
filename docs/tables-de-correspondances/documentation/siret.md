@@ -27,7 +27,7 @@ Récupérer les informations liées à un SIRET
 
 {% api-method-description %}
 Cette api vous permet de récupérer les informations relatives à un code siret.   
-Appels sous-jacent API entreprise et API Sirene 
+Appels sous-jacents API entreprise et API Sirene 
 {% endapi-method-description %}
 
 {% api-method-spec %}

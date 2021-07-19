@@ -39,7 +39,7 @@ Récupérer les informations liées à un MEF
 
 {% api-method-description %}
 Cette api vous permet de récupérer les informations relatives à un MEF 10 ou 11 caractères.   
-Appels sous-jacent aux tables BCN V et N formations, MEF 
+Appels sous-jacents aux tables BCN V et N formations, MEF 
 {% endapi-method-description %}
 
 {% api-method-spec %}

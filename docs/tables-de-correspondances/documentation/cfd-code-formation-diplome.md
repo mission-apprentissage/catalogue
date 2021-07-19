@@ -54,7 +54,7 @@ Un code cfd dont je recherche les informations détaillées. Défini comme ci-de
 
 **Exemple pour le CAP Arts et technique du verre - option décorateur :**
 
-* liste les formations qui existent de droit et reconnue par l'état
+* liste les formations qui existent de droit et reconnues par l'état
 * dépend du ministère de l'Education Nationale
 * utilisé par Ministère de l’éducation nationale et de la jeunesse \(MENJ\) et le Ministère de l’enseignement supérieur, de la recherche et de l’innovation \(MESRI\)
 * Ce code est forcément sur **8 caractères alphanumériques**
@@ -76,9 +76,9 @@ Ce que je peux récupérer à partir CFD.
       <td style="text-align:left">cfd</td>
       <td style="text-align:left">
         <p>La valeur du code formation dipl&#xF4;me <b>Mise &#xE0; jour </b>&#x26A0;&#xFE0F;</p>
-        <p>Peut importe le CFD recherch&#xE9; ce champ retournera un CFD le plus
-          &#xE0; jour possible bas&#xE9; sur les informations de la BCN. Si le cfd
-          est diff&#xE9;rent alors le champ cfd_outdated sera &#xE0; <em><code>true</code></em>.</p>
+        <p>Peu importe le CFD recherch&#xE9; ce champ retournera le CFD le plus &#xE0;
+          jour possible bas&#xE9; sur les informations de la BCN. Si le cfd est diff&#xE9;rent
+          alors le champ cfd_outdated sera &#xE0; <em><code>true</code></em>.</p>
       </td>
       <td style="text-align:left">string</td>
     </tr>
@@ -183,8 +183,8 @@ Récupérer les informations liées à un CFD
 {% endapi-method-summary %}
 
 {% api-method-description %}
-Cette api vous permet de récupérer les informations relatives à un CFD.   
-Appels sous-jacent aux tables BCN V et N formations, MEF, référentiel RNCP
+Cette API vous permet de récupérer les informations relatives à un CFD.   
+Appels sous-jacents aux tables BCN V et N formations, MEF, référentiel RNCP
 {% endapi-method-description %}
 
 {% api-method-spec %}

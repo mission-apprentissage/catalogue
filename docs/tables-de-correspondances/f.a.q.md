@@ -21,7 +21,7 @@ updates_history: [
 ]
 ```
 
-Les critères de recherche sont très libre, avec l'aide d'un développeur vous pouvez rechercher via une requête sont forme MongoDb.   
+Les critères de recherche sont très libre, avec l'aide d'un développeur vous pouvez rechercher via une requête sous forme MongoDB.   
   
 Tester: 
 
@@ -49,16 +49,16 @@ Exemple de retour \(mise à jour des informations de localisation\):
         }
 ```
 
-Via appels direct dans votre navigateur : 
+Via appels directs dans votre navigateur : 
 
 ```text
 https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/entity/etablissements?select={"updates_history":1}&query={MA_REQUETE_MONGO}
 ```
 
-## Comment récupérer  les évolutions d'un code formation diplôme ? 
+## Comment récupérer les évolutions d'un code formation diplôme ? 
 
 Le chemin API [https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/cfd](https://tables-correspondances.apprentissage.beta.gouv.fr/api/v1/cfd)   
-vous retournera les mise à jour BCN du code formation diplôme que vous recherchez.  
+vous retournera les mises à jour BCN du code formation diplôme que vous recherchez.  
 Vous trouverez les détails sur cette page :  
 
 {% page-ref page="documentation/cfd-code-formation-diplome.md" %}
