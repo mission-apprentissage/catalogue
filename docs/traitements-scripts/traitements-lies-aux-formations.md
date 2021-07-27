@@ -15,7 +15,7 @@
 #### Vérification des données Diplôme Niveau Intitulé
 
 * vérifier que le code diplôme existe
-* vérifier que le code diplôme est valide \(encore actif sur la période affichage offre de formation\)
+* vérifier que le code diplôme est valide \(encore actif sur la période affichage offre de formation\) ou le remplacer par le code diplôme le plus récent le cas échéant
 * s'assurer que le niveau de formation est bien celui délivré par le diplôme/titre visé
 * s'assurer que la nomenclature européenne des niveaux est affichée
 * afficher l'intitulé diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
@@ -66,10 +66,14 @@ Note DGESCO du 13 janvier 2020
 identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
 dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
 
+**Vérification et enrichissement de l'adresse du lieu de formation**
+
+Les informations de géolocalisation \(longitude / latitude\) sont collectées par RCO, les traitements suivants sont appliqués :
+
+* Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
+* vérification de la cohérence des données entre le code insee reçu de RCO et celui reçu du géocodage inverse
+
 #### Intégration de données complémentaires
 
 * ONISEP \(descriptif formation\)
-* Coordonnées GPS \(API BAN\)
-
-
 
