@@ -13,6 +13,7 @@
 
 * [Traitements liés aux établissements](traitements-scripts/etablissements.md)
 * [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations/README.md)
+  * [Publication sur Parcoursup](traitements-scripts/traitements-lies-aux-formations/publication-sur-parcoursup.md)
   * [Publication sur Affelnet](traitements-scripts/traitements-lies-aux-formations/formations-publication-affelnet.md)
 * [Interopérabilité des traitements \(Brouillon\)](traitements-scripts/traitements-lies-a-la-modification-dun-champs.md)
 

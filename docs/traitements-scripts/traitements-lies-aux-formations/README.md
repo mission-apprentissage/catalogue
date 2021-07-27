@@ -63,6 +63,8 @@ Note DGESCO du 13 janvier 2020
 
 {% page-ref page="formations-publication-affelnet.md" %}
 
+{% page-ref page="publication-sur-parcoursup.md" %}
+
 #### Table de correspondance Code MEF - Code diplôme formation
 
 identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
