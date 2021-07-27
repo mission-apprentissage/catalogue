@@ -12,7 +12,8 @@
 ## Traitements et scripts -  \(en cours de rédaction\) <a id="traitements-scripts"></a>
 
 * [Traitements liés aux établissements](traitements-scripts/etablissements.md)
-* [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations.md)
+* [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations/README.md)
+  * [Publication sur Affelnet](traitements-scripts/traitements-lies-aux-formations/formations-publication-affelnet.md)
 * [Interopérabilité des traitements \(Brouillon\)](traitements-scripts/traitements-lies-a-la-modification-dun-champs.md)
 
 ## Intégration Catalogue <a id="integration"></a>

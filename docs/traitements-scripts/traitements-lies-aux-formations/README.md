@@ -2,15 +2,15 @@
 
 ## Vue d’ensemble
 
-![](../.gitbook/assets/f.png)
+![](../../.gitbook/assets/f.png)
 
 ## Détails des traitements
 
-![](../.gitbook/assets/f1.png)
+![](../../.gitbook/assets/f1.png)
 
 ### Vérifications et enrichissements via le CFD
 
-![](../.gitbook/assets/f2.png)
+![](../../.gitbook/assets/f2.png)
 
 #### Vérification des données Diplôme Niveau Intitulé
 
@@ -60,6 +60,8 @@ Cette spécification répond au besoin de chargement des formations en apprentis
 Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
+
+
 
 #### Table de correspondance Code MEF - Code diplôme formation
 
