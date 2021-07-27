@@ -61,7 +61,7 @@ Note DGESIP du 18 février 2020
 
 Note DGESCO du 13 janvier 2020
 
-{% page-ref page="formations-publication-affelnet.md" %}
+{% page-ref page="publication-sur-affelnet.md" %}
 
 {% page-ref page="publication-sur-parcoursup.md" %}
 

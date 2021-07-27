@@ -1,3 +1,9 @@
+---
+description: >-
+  Traitements effectués sur les formations du catalogue pour intégration dans le
+  SI Parcoursup
+---
+
 # Publication sur Parcoursup
 
 Les règles de pertinence s'appliquent sur l'ensemble des formations du catalogue, afin de mettre un statut \(et visuellement un badge\) sur les formations qui sont dans le périmètre Parcoursup.
