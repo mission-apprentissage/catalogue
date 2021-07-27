@@ -45,7 +45,9 @@ https://catalogue.apprentissage.beta.gouv.fr/api/entity/formations2021?query={"a
 
 Les règles de pertinences ont également une autre utilité, celle de déterminer le mef de la formation et d'en extraire les modalités \(durée et année d'inscription\). En effet les formations ont un tableau de mefs \(correspondant à tous les mefs existants pour le cfd de la formation\), on applique alors les règles de pertinence sur chaque formation, et si la formation est eligible via une des règles, on lui donne le mef correspondant et on en déduit les modalités.
 
-**Ce mef est indispensable pour l'import automatique par Affelnet**
+{% hint style="info" %}
+Ce mef est indispensable pour l'import automatique par Affelnet
+{% endhint %}
 
 ## Historique des statuts
 
