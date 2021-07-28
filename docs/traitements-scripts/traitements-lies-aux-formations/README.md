@@ -35,18 +35,16 @@ _Vérification des données Diplôme Niveau Intitulé_
 * s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
 * identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
 
-### 
-
-#### 
-
-\*\*\*\*
-
-**Vérification et enrichissement de l'adresse du lieu de formation**
+### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
 
 Les informations de géolocalisation \(longitude / latitude\) sont collectées par RCO, les traitements suivants sont appliqués :
 
 * Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
 * vérification de la cohérence des données entre le code insee reçu de RCO et celui reçu du géocodage inverse
+
+### II.5 Publication
+
+
 
 ## III. Intégration de données complémentaires
 
