@@ -10,9 +10,9 @@
 
 ### Vérifications et enrichissements via le CFD
 
-![](../../.gitbook/assets/cfd.png)
+_**Vérification des données Diplôme Niveau Intitulé**_
 
-#### Vérification des données Diplôme Niveau Intitulé
+![](../../.gitbook/assets/cfd.png)
 
 * vérifier que le code diplôme existe
 * vérifier que le code diplôme est valide \(encore actif sur la période affichage offre de formation\) ou le remplacer par le code diplôme le plus récent le cas échéant
@@ -22,17 +22,17 @@
 * afficher des intitulés court, long normalisés
 * mettre en place des traitements spécifiques pour les Mentions Complémentaires
 
-#### Vérification des UAI
-
-* s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
-* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\) 
-
-#### Vérification du rattachement académique
+### Vérification du rattachement académique
 
 * s'assurer que la formation est rattachée à son académie
 * vérifier la cohérence entre le code académie et son libellé
 
-#### Vérifications RNCP
+### Vérification des UAI
+
+* s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
+* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
+
+### Vérifications RNCP
 
 ![](../../.gitbook/assets/rncpformation.png)
 
