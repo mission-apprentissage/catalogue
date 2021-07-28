@@ -41,7 +41,6 @@
 * mettre à jour le Code RNCP si le code Diplome = Code RNCP
 * vérifier la validité d'un Code RNCP 
 * identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome
-* établir une correspondance code MEF -Code RNCP pour identifier les formations délivrant strictement des RNCP
 
 #### Permettre de rechercher une formation à partir d'une appellation du Rome, de son libellé ou du libellé du RNCP ou du Diplôme
 
