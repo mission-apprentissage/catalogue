@@ -100,5 +100,10 @@ Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsq
 
 ![](../../.gitbook/assets/onisepformation.png)
 
-code\_mef, libelle\_formation\_principal, libelle\_poursuite, lien\_site\_onisepfr, discipline, domaine\_sousdomaine
+* code\_mef
+* libelle\_formation\_principal
+* libelle\_poursuite
+* lien\_site\_onisepfr
+* discipline
+* domaine\_sousdomaine
 
