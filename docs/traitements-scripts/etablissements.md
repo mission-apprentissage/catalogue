@@ -61,20 +61,10 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
     default: null,
     description: "Libellé du code NAT (ex: Enseignement secondaire technique ou professionnel)",
   },
-  tranche_effectif_salarie: {
-    type: Object,
-    default: {},
-    description: "Tranche salariale",
-  },
   date_creation: {
     type: Date,
     default: null,
     description: "Date de création de l'établissement",
-  },
-  date_mise_a_jour: {
-    type: Date,
-    default: null,
-    description: "Date de la dernière mise à jour des informations",
   },
   diffusable_commercialement: {
     type: Boolean,
@@ -96,6 +86,23 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
     default: false,
     description: "l'établissement a cessé son activité",
   },
+  
+  
+  
+  // Ci-dessous les champs non utilisés dans les scripts aujourd’hui 
+  date_mise_a_jour: {
+    type: Date,
+    default: null,
+    description: "Date de la dernière mise à jour des informations",
+  },
+  tranche_effectif_salarie: {
+    type: Object,
+    default: {},
+    description: "Tranche salariale",
+  },
+  
+  // Ci-dessous les informations concernant le siège social de l'entreprise
+  // Elles permettent de réaliser des vérifications supplémentaires si nécessaire 
   entreprise_siren: {
     type: String,
     default: null,
@@ -136,7 +143,6 @@ Si le SIRET existe dans l'api, nous retournons les informations suivantes :
     default: null,
     description: "Nom commercial",
   },
- 
   entreprise_date_creation: {
     type: Date,
     default: null,
