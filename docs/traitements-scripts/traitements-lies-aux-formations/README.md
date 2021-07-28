@@ -42,7 +42,7 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 * Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
 * vérification de la cohérence des données entre le code insee reçu de RCO et celui reçu du géocodage inverse
 
-### II.5 Publication
+### II.5 Vérification de la publication de la formation
 
 
 
