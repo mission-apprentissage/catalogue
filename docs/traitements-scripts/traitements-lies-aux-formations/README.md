@@ -10,7 +10,7 @@
 
 ### Vérifications et enrichissements via le CFD
 
-![](../../.gitbook/assets/f2.png)
+![](../../.gitbook/assets/cfd.png)
 
 #### Vérification des données Diplôme Niveau Intitulé
 
@@ -33,6 +33,8 @@
 * vérifier la cohérence entre le code académie et son libellé
 
 #### Vérifications RNCP
+
+![](../../.gitbook/assets/rncpformation.png)
 
 * vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage.
 * vérifier le niveau de formation nomenclature européenne à partir du RNCP
@@ -88,4 +90,6 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 #### Intégration de données complémentaires
 
 * ONISEP \(descriptif formation\)
+
+![](../../.gitbook/assets/onisepformation.png)
 
