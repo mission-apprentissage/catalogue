@@ -65,10 +65,19 @@ Note DGESCO du 13 janvier 2020
 
 {% page-ref page="publication-sur-parcoursup.md" %}
 
-#### Table de correspondance Code MEF - Code diplôme formation
+#### Table de correspondance Code MEF - Code formation diplôme
 
-identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\)  
-dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
+Identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\).  
+Dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
+
+Récupération de la liste des codes MEF existants pour un code formation diplôme.  
+Puis pour l'intégration dans le SI Affelnet déduction du code MEF éligible, en appliquant les règles de publication.
+
+{% hint style="info" %}
+Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsque les modalités seront remontées dans la collecte RCO.
+{% endhint %}
+
+\*\*\*\*
 
 **Vérification et enrichissement de l'adresse du lieu de formation**
 
