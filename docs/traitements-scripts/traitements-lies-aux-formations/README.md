@@ -38,8 +38,6 @@
 
 [Voir le détails d'une fiche RNCP](../../tables-de-correspondances/documentation/rncp.md)
 
-
-
 * vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage.
 * vérifier le niveau de formation nomenclature européenne à partir du RNCP
 * déterminer les différents code ROME accessibles pour chaque fiche RNCP
