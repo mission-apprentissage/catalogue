@@ -22,8 +22,8 @@ _Vérification des données Diplôme Niveau Intitulé_
 * S'assurer que la nomenclature européenne des niveaux est affichée
 * Récupérer les intitulés court et long normalisés du diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
 * Recherche et récupération des codes MEFs 10 associés dans la table BCN [N\_MEF](https://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_MEF)
-* Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#onisep-descriptif-formation) 
-* Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#verifications-rncp) 
+* Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-4-onisep-descriptif-formation) 
+* Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp) 
 
 ### II.2 Vérification du rattachement académique
 
