@@ -14,13 +14,15 @@ _**Vérification des données Diplôme Niveau Intitulé**_
 
 ![](../../.gitbook/assets/cfd.png)
 
-* vérifier que le code diplôme existe
-* vérifier que le code diplôme est valide \(encore actif sur la période affichage offre de formation\) ou le remplacer par le code diplôme le plus récent le cas échéant
-* s'assurer que le niveau de formation est bien celui délivré par le diplôme/titre visé
-* s'assurer que la nomenclature européenne des niveaux est affichée
-* afficher l'intitulé diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
-* afficher des intitulés court, long normalisés
-* mettre en place des traitements spécifiques pour les Mentions Complémentaires
+* Vérifier que le code diplôme existe dans l'une des tables BCN \(Base Centrale des Nomenclatures\) [N\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_FORMATION_DIPLOME) ou [V\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/V_FORMATION_DIPLOME)
+* Vérifier que le code diplôme est valide : 
+  * Recherche de code diplôme plus récent et Remplacer le cas échéant.
+  * Encore actif sur la période affichage offre de formation - _**31 Août de l’année courante.**_
+* S'assurer que le niveau de formation est bien celui délivré par le diplôme/titre visé
+* S'assurer que la nomenclature européenne des niveaux est affichée
+* Récupérer les intitulés court et long normalisés du diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
+* Recherche et récupération des codes MEFs 10 associés dans la table BCN [N\_MEF](https://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_MEF)
+* Ajout des informations Onisep lié à ce code diplôme. Détails plus bas dans cette page. 
 
 ### Vérification du rattachement académique
 
@@ -89,9 +91,9 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 * Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
 * vérification de la cohérence des données entre le code insee reçu de RCO et celui reçu du géocodage inverse
 
-#### Intégration de données complémentaires
+### Intégration de données complémentaires
 
-* ONISEP \(descriptif formation\)
+#### ONISEP \(descriptif formation\)
 
 ![](../../.gitbook/assets/onisepformation.png)
 
