@@ -139,17 +139,17 @@ _Le taux de couverture reste néanmoins faible._
 
 ![](../../.gitbook/assets/rncpeta.png)
 
-_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage._ 
+~~_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage._~~ 
 
-_2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP_ 
+~~_2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP_~~ 
 
-_4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN_ 
+~~_4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN_~~ 
 
-_5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP_ 
+~~_5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP_~~ 
 
-_6/ vérifier la validité d'un Code RNCP_ 
+~~_6/ vérifier la validité d'un Code RNCP_~~ 
 
-_7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_
+~~_7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_~~
 
 ### III.6 Publication catalogue général ou non éligible
 
