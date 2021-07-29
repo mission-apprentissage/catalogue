@@ -25,26 +25,50 @@ _Vérification des données Diplôme Niveau Intitulé_
 * Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-4-onisep-descriptif-formation) 
 * Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp) 
 
-### II.2 Vérification du rattachement académique
+### II.2 Vérifications et enrichissements viale Code Postal et Code Commune Insee
 
-* s'assurer que la formation est rattachée à son académie
-* vérifier la cohérence entre le code académie et son libellé
+![](../../.gitbook/assets/cccp.png)
 
-### II.3 Vérification des Etablissements ~~UAI~~
+_Vérification cohérence et rattachement académique_
+
+* Vérification que le code postal est correctement formaté
+* Vérification que le code commune Insee est correctement formaté
+* Recherche des codes sur [geo.api.gouv.fr ](https://geo.api.gouv.fr/)
+* Vérification de la cohérence du code postal et code commune Insee:
+  *  Si les codes existent et ne sont pas erronés 
+  * si les deux codes n'ont pas été inversé lors de la saisie \(si ce que l'on reçoit dans le code postal n'est pas en réalité un code commune Insee et vise versa\)
+* Enrichissement avec nom de commune, numéro de département, nom de département, nom région, numéro de région, num académie, nom académie. Les information sur l'académie sont récupérées via une liste statique \(fichier plat json\).
+* Vérification que les départements, codes postaux, codes Insee sont cohérents entre-eux
+
+**Pourquoi utilisons nous l'api.geo.gouv.fr ?** 
+
+* Fréquence de mise à jour : **quotidienne**
+
+### II.3 Rattachement basés sur les établissements collectés
+
+![](../../.gitbook/assets/eta.png)
 
 * s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
 * identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
 
+"Les scripts mis en place par la mission permettent de vérifier : 1/ SIRET correctement formaté 2/ SIRET existant dans API \(entreprise.api.gouv.fr\) 3/ SIRET actif dans API \(entreprise.api.gouv.fr\) 4/ Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) "
+
+_"\(Prérequis rattachement d'un code RNCP au CFD fourni\)_
+
+_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage. 2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP 4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN 5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP 6/ vérifier la validité d'un Code RNCP 7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_
+
 ### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
 
-Les informations de géolocalisation \(longitude / latitude\) sont collectées par RCO, les traitements suivants sont appliqués :
+![](../../.gitbook/assets/geo.png)
+
+Les informations de géolocalisation \(longitude / latitude\) sont collectées par les CO, les traitements suivants sont appliqués :
 
 * Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
-* vérification de la cohérence des données entre le code insee reçu de RCO et celui reçu du géocodage inverse
+* vérification de la cohérence des données entre le code Insee reçu de RCO et celui reçu du géocodage inverse
 
 ### II.5 Vérification de la publication de la formation
 
-
+![](../../.gitbook/assets/publis.png)
 
 ## III. Intégration de données complémentaires
 
@@ -100,10 +124,14 @@ Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsq
 
 ![](../../.gitbook/assets/onisepformation.png)
 
+Via une API privée mise à disposition de la mission par l'Onisep nous récupérerons les informations suivantes:  
+
 * code\_mef
 * libelle\_formation\_principal
 * libelle\_poursuite
 * lien\_site\_onisepfr
 * discipline
 * domaine\_sousdomaine
+
+_Le taux de couverture reste néanmoins faible._
 
