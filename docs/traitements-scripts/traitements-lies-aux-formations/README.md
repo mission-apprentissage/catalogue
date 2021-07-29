@@ -54,7 +54,7 @@ _Vérification cohérence et rattachement académique_
 * Recherche et rattachement à l’établissement précédemment créé en base \([voir Traitements liés aux établissements](../etablissements.md)\)
 * Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) 
 * Si l’établissement est fermé alors une erreur est remontée dans le flux des rapports
-* Vérification de la publication catalogue \(Voir plus bas dans cette page\)
+* Vérification de la publication catalogue [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-6-publication-catalogue-general-ou-non-eligible)
 * Vérification des habilitations RNCP [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-5-verifications-rncp-pour-un-etablissement-habilitation-rncp)
 
 ### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
