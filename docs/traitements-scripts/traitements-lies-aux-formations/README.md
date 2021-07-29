@@ -49,13 +49,13 @@ _Vérification cohérence et rattachement académique_
 ![](../../.gitbook/assets/eta.png)
 
 * s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
-* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)
-
-"Les scripts mis en place par la mission permettent de vérifier : 1/ SIRET correctement formaté 2/ SIRET existant dans API \(entreprise.api.gouv.fr\) 3/ SIRET actif dans API \(entreprise.api.gouv.fr\) 4/ Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) "
-
-_"\(Prérequis rattachement d'un code RNCP au CFD fourni\)_
-
-_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage. 2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP 4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN 5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP 6/ vérifier la validité d'un Code RNCP 7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_
+* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)  Cette étape est réalisée pour les établissements Gestionnaire et Formateur. 
+* SIRET correctement formaté 
+* Recherche et rattachement à l’établissement précédemment créé en base \([voir Traitements liés aux établissements](../etablissements.md)\)
+* Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) 
+* Si l’établissement est fermé alors une erreur est remontée dans le flux des rapports
+* Vérification de la publication catalogue \(Voir plus bas dans cette page\)
+* Vérification des habilitations RNCP [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-5-verifications-rncp-pour-un-etablissement-habilitation-rncp)
 
 ### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
 
@@ -72,7 +72,7 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 
 ## III. Intégration de données complémentaires
 
-### III.1 Vérifications RNCP
+### III.1 Vérifications RNCP pour une formation
 
 ![](../../.gitbook/assets/rncpformation.png)
 
@@ -134,4 +134,20 @@ Via une API privée mise à disposition de la mission par l'Onisep nous récupé
 * domaine\_sousdomaine
 
 _Le taux de couverture reste néanmoins faible._
+
+### _III.5_ Vérifications RNCP pour un établissement \(Habilitation RNCP\)
+
+![](../../.gitbook/assets/rncpeta.png)
+
+_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage._ 
+
+_2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP_ 
+
+_4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN_ 
+
+_5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP_ 
+
+_6/ vérifier la validité d'un Code RNCP_ 
+
+_7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_
 
