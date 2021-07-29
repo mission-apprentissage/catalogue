@@ -55,7 +55,7 @@ _Vérification cohérence et rattachement académique_
 * Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) 
 * Si l’établissement est fermé alors une erreur est remontée dans le flux des rapports
 * Vérification de la publication catalogue \(Voir plus bas dans cette page\)
-* Vérification des habilitations RNCP \(Voir plus bas dans cette page\)
+* Vérification des habilitations RNCP [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-5-verifications-rncp-pour-un-etablissement-habilitation-rncp)
 
 ### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
 
@@ -135,7 +135,7 @@ Via une API privée mise à disposition de la mission par l'Onisep nous récupé
 
 _Le taux de couverture reste néanmoins faible._
 
-### _III.5_ Vérifications RNCP pour un établissement \(Habilitation RNCP\)
+### III.5 Vérifications RNCP pour un établissement \(Habilitation RNCP\)
 
 ![](../../.gitbook/assets/rncpeta.png)
 
@@ -150,4 +150,8 @@ _5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP_
 _6/ vérifier la validité d'un Code RNCP_ 
 
 _7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_
+
+### III.6 Publication catalogue général ou non éligible
+
+![](../../.gitbook/assets/catagene.png)
 
