@@ -27,7 +27,7 @@ _Vérification des données Diplôme Niveau Intitulé_
 
 ### II.2 Vérifications et enrichissements via la géolocalisation et le code commune Insee
 
-![](../../.gitbook/assets/geo.png)
+![](../../.gitbook/assets/architecture-technique-juill-2021-2x-1-%20%281%29.png)
 
 _Vérification cohérence et rattachement académique_
 
