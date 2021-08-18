@@ -6,7 +6,7 @@
 
 ## Détails des traitements
 
-![](../.gitbook/assets/e2%20%282%29.png)
+![](../.gitbook/assets/verifications-etablissements.png)
 
 Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
