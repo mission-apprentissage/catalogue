@@ -11,10 +11,9 @@
 Les différents traitements sur un établissement se font autour de la donnée pivot **SIRET**.
 
 1.  Vérifications et enrichissements basés sur le **SIRET**
-2. Vérifications et enrichissements basés sur le **Code postal** 
-3. Récupération des informations de géolocalisation sur l'adresse
-4. Vérifications et enrichissements **Conventionnement**
-5. Récupération des **informations Onisep** depuis l'UAI et nom académie
+2. Récupération des informations de géolocalisation sur l'adresse
+3. Vérifications et enrichissements **Conventionnement**
+4. Récupération des **informations Onisep** depuis l'UAI et nom académie
 
 ### 1. Vérifications et enrichissements via Entreprise.api.gouv.fr
 
@@ -204,7 +203,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 _Vous pouvez retrouver les détails du traitement "Vérifications et enrichissements  **Conventionnement**" sur cette page section numéro 5._ 
 
-### 2. et 3. Vérifications et enrichissements via geo.api.gouv.fr
+### 2. Récupération des informations de géolocalisation via geo.api.gouv.fr
 
 [https://geo.api.gouv.fr/adresse](https://geo.api.gouv.fr/adresse)
 
@@ -213,7 +212,7 @@ _Vous pouvez retrouver les détails du traitement "Vérifications et enrichissem
 | ![](../.gitbook/assets/geoapi.png) | Recherche informations d'adresse |
 | ![](../.gitbook/assets/apigeo2.png) | Recherche geo coordonnées - Latitude et longitude  |
 
-### 4. Vérifications et enrichissements Conventionnement
+### 3. Vérifications et enrichissements Conventionnement
 
 ![](../.gitbook/assets/e4.png)
 
@@ -275,7 +274,7 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 
 **Traitements réalisés en cascade au moment de l'import d'Offre Info**
 
-### 5. Vérifications et enrichissements via l'Onisep
+### 4. Vérifications et enrichissements via l'Onisep
 
 ![](../.gitbook/assets/e5.png)
 
