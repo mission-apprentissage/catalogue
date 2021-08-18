@@ -2,7 +2,7 @@
 
 ## I. Vue d’ensemble
 
-![](../../.gitbook/assets/f.png)
+![](../../.gitbook/assets/architecture-technique-juill-2021-2x%20%281%29.png)
 
 ## II.  Détails des traitements
 
