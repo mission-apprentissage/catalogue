@@ -25,20 +25,17 @@ _Vérification des données Diplôme Niveau Intitulé_
 * Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-4-onisep-descriptif-formation) 
 * Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp) 
 
-### II.2 Vérifications et enrichissements viale Code Postal et Code Commune Insee
+### II.2 Vérifications et enrichissements via la géolocalisation et le code commune Insee
 
-![](../../.gitbook/assets/cccp.png)
+![](../../.gitbook/assets/geo.png)
 
 _Vérification cohérence et rattachement académique_
 
-* Vérification que le code postal est correctement formaté
-* Vérification que le code commune Insee est correctement formaté
-* Recherche des codes sur [geo.api.gouv.fr ](https://geo.api.gouv.fr/)
-* Vérification de la cohérence du code postal et code commune Insee:
-  *  Si les codes existent et ne sont pas erronés 
-  * si les deux codes n'ont pas été inversé lors de la saisie \(si ce que l'on reçoit dans le code postal n'est pas en réalité un code commune Insee et vise versa\)
+Les informations de géolocalisation \(longitude / latitude\) sont collectées par les CO, les traitements suivants sont appliqués :
+
+* Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
 * Enrichissement avec nom de commune, numéro de département, nom de département, nom région, numéro de région, num académie, nom académie. Les information sur l'académie sont récupérées via une liste statique \(fichier plat json\).
-* Vérification que les départements, codes postaux, codes Insee sont cohérents entre-eux
+* vérification de la cohérence des données entre le code Insee reçu de RCO et celui reçu du géocodage inverse
 
 **Pourquoi utilisons nous l'api.geo.gouv.fr ?** 
 
@@ -57,16 +54,7 @@ _Vérification cohérence et rattachement académique_
 * Vérification de la publication catalogue [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-6-publication-catalogue-general-ou-non-eligible)
 * Vérification des habilitations RNCP [\(Voir plus bas dans cette page\)](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-5-verifications-rncp-pour-un-etablissement-habilitation-rncp)
 
-### **II.4 Vérification et enrichissement de l'adresse du lieu de formation**
-
-![](../../.gitbook/assets/geo.png)
-
-Les informations de géolocalisation \(longitude / latitude\) sont collectées par les CO, les traitements suivants sont appliqués :
-
-* Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
-* vérification de la cohérence des données entre le code Insee reçu de RCO et celui reçu du géocodage inverse
-
-### II.5 Vérification de la publication de la formation
+### II.4 Vérification de la publication de la formation
 
 ![](../../.gitbook/assets/publis.png)
 
