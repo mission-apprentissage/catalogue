@@ -2,7 +2,7 @@
 
 ## Vue d’ensemble
 
-![](../.gitbook/assets/e%20%281%29.png)
+![](../.gitbook/assets/vue-ensemble-etablissements.png)
 
 ## Détails des traitements
 
