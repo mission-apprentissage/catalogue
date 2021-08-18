@@ -6,7 +6,7 @@
 
 ## II.  Détails des traitements
 
-![](../../.gitbook/assets/f1.png)
+![](../../.gitbook/assets/verifications-formations.png)
 
 ### II.1 Vérifications et enrichissements via le CFD
 
