@@ -209,7 +209,6 @@ _Vous pouvez retrouver les détails du traitement "Vérifications et enrichissem
 
 |  |  |
 | :--- | :--- |
-| ![](../.gitbook/assets/geoapi.png) | Recherche informations d'adresse |
 | ![](../.gitbook/assets/apigeo2.png) | Recherche geo coordonnées - Latitude et longitude  |
 
 ### 3. Vérifications et enrichissements Conventionnement
