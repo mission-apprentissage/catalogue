@@ -6,5 +6,19 @@
 
 ### Architecture
 
-![](../.gitbook/assets/archi-1-.png)
+![](../.gitbook/assets/archi-2-.png)
+
+####   Front
+
+* React JS
+
+####  Back
+
+* Server/ API : Node JS
+* Base de données : MongoDB
+* Moteur de recherche: Elastic Search
+* Statistique: Metabase
+* Reverse Proxy: Nginx
+
+
 
