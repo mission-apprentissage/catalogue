@@ -9,13 +9,13 @@
   * [Convertir](architecture/traitements-sur-la-donnees-pour-lapprentissage/convertir.md)
   * [Vérifier, Corriger et Enrichir](architecture/traitements-sur-la-donnees-pour-lapprentissage/verifier-et-corriger.md)
 
-## Traitements et scripts -  \(en cours de rédaction\) <a id="traitements-scripts"></a>
+## Traitements et scripts <a id="traitements-scripts"></a>
 
 * [Traitements liés aux établissements](traitements-scripts/etablissements.md)
 * [Traitements liés aux formations](traitements-scripts/traitements-lies-aux-formations/README.md)
   * [Publication sur Parcoursup](traitements-scripts/traitements-lies-aux-formations/publication-sur-parcoursup.md)
   * [Publication sur Affelnet](traitements-scripts/traitements-lies-aux-formations/publication-sur-affelnet.md)
-* [Interopérabilité des traitements \(Brouillon\)](traitements-scripts/traitements-lies-a-la-modification-dun-champs.md)
+* [Interopérabilité des traitements \(En cours\)](traitements-scripts/traitements-lies-a-la-modification-dun-champs.md)
 
 ## Intégration Catalogue <a id="integration"></a>
 
