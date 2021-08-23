@@ -2,7 +2,7 @@
 
 * [Présentation catalogue](README.md)
 
-## Fonctionnel - \(en cours de rédaction\) <a id="architecture"></a>
+## Fonctionnel <a id="architecture"></a>
 
 * [Vue d’ensemble simplifiée](architecture/vue-densemble.md)
 * [Traitements sur les données pour l'Apprentissage](architecture/traitements-sur-la-donnees-pour-lapprentissage/README.md)
