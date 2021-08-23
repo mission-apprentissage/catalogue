@@ -8,29 +8,17 @@ Ci-dessous, vous pourrez retrouver une vue d'ensemble "macro" \(très haut nivea
 
 #### CFA - Centre de formation d'apprentis
 
-// todo
-
 #### CO - Carif Oref
-
-// todo
 
 #### RCO - Réseau des Carif Oref 
 
-// todo
-
 #### MNA - Mission National Apprentissage
-
-// todo
 
 ### Consommateurs 
 
 #### ParcourSup
 
-// todo
-
 #### Affelnet
-
-// Todo
 
 #### La bonne alternance
 
