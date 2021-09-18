@@ -28,14 +28,14 @@ Rendre plus visibles les offres de formation en apprentissage pour :
 
 Ce service est « consommable » à travers les principaux outils numériques d’orientation \(sites de l’État ou de ses opérateurs ou des régions ou d’associations ou d’entreprises privées\) par tous les jeunes, les prescripteurs, les employeurs. 
 
-Les opérateurs / consommateurs \(AFFELNET, PARCOURSUP, RCO, ONISEP, CCI, ..\) pourront se connecter aux données du catalogue pour utiliser les informations collectées, les OFA déposeront une seule fois leur offre pour alimenter tout le système \(simplicité et gain de temps\).
+Les opérateurs / consommateurs \(Affelnet, Parcoursup, Réseau des Carif-Oref, Onisep,  CCI, ..\) pourront se connecter aux données du catalogue pour utiliser les informations collectées, les organismes de formation en apprentissage déposeront une seule fois leur offre pour alimenter tout le système \(simplicité et gain de temps\).
 
 Cet open catalogue vise à réunir toutes les informations utiles à une présentation pertinente des formations, et des établissements de formation en apprentissage
 
 ### Impact
 
-La mise en visibilité d’une offre de formation en Apprentissage complète et interconnectée permet d'augmenter le nombre \(et le bon enregistrement\) des vœux en apprentissage : 
+La mise en visibilité d’une offre de formation en apprentissage complète et interconnectée permet d'augmenter le nombre \(et le bon enregistrement\) des vœux en apprentissage : 
 
-+19% de vœux exprimés en apprentissage sur Parcoursup par rapport à l’année précédente \(145 000 vœux en 2019 et 173 000 en 2020\)  
+En 2020, plus de 19% de vœux ont été exprimés en apprentissage sur Parcoursup par rapport à l’année précédente \(145 000 vœux en 2019 et 173 000 en 2020\)  
 
 
