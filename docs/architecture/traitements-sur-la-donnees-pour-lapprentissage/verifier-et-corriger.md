@@ -1,4 +1,4 @@
-# Vérifier, Corriger et Enrichir
+# Vérifier, corriger et enrichir
 
 ![Flux macro V&#xE9;rification et Enrichissements ](../../.gitbook/assets/workflowtraitementsverifenrichir.png)
 
