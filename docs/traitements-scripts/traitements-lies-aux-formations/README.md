@@ -8,19 +8,19 @@
 
 ![](../../.gitbook/assets/verifications-formations.png)
 
-### II.1 Vérifications et enrichissements via le CFD
+### II.1 Vérifications et enrichissements via le code formation diplôme \(CFD\)
 
 _Vérification des données Diplôme Niveau Intitulé_
 
 ![](../../.gitbook/assets/cfd.png)
 
-* Vérifier que le code diplôme existe dans l'une des tables BCN \(Base Centrale des Nomenclatures\) [N\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_FORMATION_DIPLOME) ou [V\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/V_FORMATION_DIPLOME)
-* Vérifier que le code diplôme est valide : 
-  * Recherche de code diplôme plus récent et Remplacer le cas échéant.
+* Vérifier que le code formation diplôme existe dans l'une des tables BCN \(Base Centrale des Nomenclatures\) [N\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_FORMATION_DIPLOME) ou [V\_FORMATION\_DIPLOME](http://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/V_FORMATION_DIPLOME)
+* Vérifier que le code formation diplôme est valide : 
+  * Recherche de code formation diplôme plus récent et remplacer le cas échéant.
   * Encore actif sur la période affichage offre de formation - _**31 Août de l’année courante.**_
 * S'assurer que le niveau de formation est bien celui délivré par le diplôme/titre visé
 * S'assurer que la nomenclature européenne des niveaux est affichée
-* Récupérer les intitulés court et long normalisés du diplôme selon les nomenclatures utilisées par l'Education Nationale et l'Enseignement Supérieur
+* Récupérer les intitulés court et long normalisés du diplôme selon les nomenclatures utilisées par l'Éducation nationale et l'Enseignement supérieur
 * Recherche et récupération des codes MEFs 10 associés dans la table BCN [N\_MEF](https://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_MEF)
 * Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-4-onisep-descriptif-formation) 
 * Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp) 
@@ -31,22 +31,20 @@ _Vérification des données Diplôme Niveau Intitulé_
 
 _Vérification cohérence et rattachement académique_
 
-Les informations de géolocalisation \(longitude / latitude\) sont collectées par les CO, les traitements suivants sont appliqués :
+Les informations de géolocalisation \(longitude / latitude\) sont collectées par les Carif-Oref. Les traitements suivants sont appliqués :
 
-* Récupération des données adresse \(normalisation du numéro voie, type de voie, nom voie, code postal, localité\) en utilisant l'api de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
+* Récupération des données adresse \(normalisation du numéro voie, type de voie, nom de voie, code postal, localité\) en utilisant l'API de géocodage inverse de la BAN \([https://api-adresse.data.gouv.fr/reverse/](https://api-adresse.data.gouv.fr/reverse/)\)
 * Enrichissement avec nom de commune, numéro de département, nom de département, nom région, numéro de région, num académie, nom académie. Les information sur l'académie sont récupérées via une liste statique \(fichier plat json\).
-* vérification de la cohérence des données entre le code Insee reçu de RCO et celui reçu du géocodage inverse
+* Vérification de la cohérence des données entre le code Insee reçu des Carif-Oref et celui reçu du géocodage inverse
 
-**Pourquoi utilisons nous l'api.geo.gouv.fr ?** 
+**Fréquence de mise à jour : quotidienne** 
 
-* Fréquence de mise à jour : **quotidienne**
-
-### II.3 Rattachement basés sur les établissements collectés
+### II.3 Rattachements basés sur les établissements collectés
 
 ![](../../.gitbook/assets/eta.png)
 
-* s'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
-* identifier les UAI invalides afin de permettre une investigation/ correction des données en base \(BCE, Accé, ...\)  Cette étape est réalisée pour les établissements Gestionnaire et Formateur. 
+* S'assurer que le code UAI partie formation existe et correspond à un “numéro UAI site”
+* Identifier les UAI invalides afin de permettre une investigation et correction des données en base \(BCE, Accé, ...\)  Cette étape est réalisée pour les établissements Gestionnaire et Formateur. 
 * SIRET correctement formaté 
 * Recherche et rattachement à l’établissement précédemment créé en base \([voir Traitements liés aux établissements](../etablissements.md)\)
 * Enrichissement des données : siège social \(oui/non\), n° SS, Siret, n°SIREN, code NAF, libellé code NAT, tranche salariale, date de création, date de dernière màj, informations diffusables \(oui/non\), nom d'enseigne, date de cessation activité, info cessation activité, procédure collective, enseigne, code effectif, code forme juridique, raison sociale, nom commercial, date de création, date de radiation, catégorie \(PME, TPE, ..\) 
@@ -64,7 +62,7 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 
 ![](../../.gitbook/assets/rncpformation.png)
 
-[Voir le détails d'une fiche RNCP](../../tables-de-correspondances/documentation/rncp.md)
+[Voir le détail d'une fiche RNCP](../../tables-de-correspondances/documentation/rncp.md)
 
 * vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage.
 * vérifier le niveau de formation nomenclature européenne à partir du RNCP
@@ -80,13 +78,11 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 * pouvoir rechercher une formation dans le catalogue à partir du libellé du Rome ou du libellé du RNCP ou du Diplôme
 * permettre la saisie approximative d’une appellation du Rome, de son libellé ou du libellé du RNCP ou du Diplôme
 
-### III.2 Conditions d'entrée d'une formation au sein des SI Affelnet et Parcoursup
+### III.2 Conditions d'entrée d'une formation au sein des systèmes d'information Affelnet et Parcoursup
 
-Besoins :   
-- quand, je consulte le catalogue des offres de formation en Apprentissage  
-- je veux, être assuré que la formation est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et d’éviter des contrôles manuels chronophages
+Besoin : quand je consulte le catalogue des offres de formation en apprentissage, je veux être assuré que la formation est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et d’éviter des contrôles manuels chronophages.
 
-Cette spécification répond au besoin de chargement des formations en apprentissage pour les besoins de Parcoursup ou Affelnet afin d’améliorer le nombre de formations proposées en apprentissage au sein des choix de formations offertes par les SI de l'Education Nationale et de l'Enseignement Supérieur.
+Cette spécification répond au besoin de chargement des formations en apprentissage pour les besoins de Parcoursup ou Affelnet afin d’améliorer le nombre de formations proposées en apprentissage au sein des choix de formations offertes par les systèmes d'information de l'Éducation nationale et de l'Enseignement supérieur.
 
 Note DGESIP du 18 février 2020
 
@@ -96,19 +92,19 @@ Note DGESCO du 13 janvier 2020
 
 {% page-ref page="publication-sur-parcoursup.md" %}
 
-### III.3 Table de correspondance Code MEF - Code formation diplôme
+### III.3 Table de correspondance Codes MEF \(modules élémentaires de formation\) - Codes CFD \(formation diplôme\)
 
-Identifier les formations présentes dans les SI EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\).  
+Identifier les formations présentes dans les systèmes d'information EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\).  
 Dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
 
 Récupération de la liste des codes MEF existants pour un code formation diplôme.  
-Puis pour l'intégration dans le SI Affelnet déduction du code MEF éligible, en appliquant les règles de publication.
+Puis pour l'intégration dans le système d'information Affelnet déduction du code MEF éligible, en appliquant les règles de publication.
 
 {% hint style="info" %}
-Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsque les modalités seront remontées dans la collecte RCO.
+Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsque les modalités seront remontées dans la collecte auprès de réseau des Carif-Oref.
 {% endhint %}
 
-### III.4 ONISEP \(descriptif formation\)
+### III.4 Onisep \(descriptif formation\)
 
 ![](../../.gitbook/assets/onisepformation.png)
 
