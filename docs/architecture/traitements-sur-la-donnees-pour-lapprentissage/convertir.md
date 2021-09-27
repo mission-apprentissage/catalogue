@@ -4,6 +4,8 @@ Le bloc de conversion permet principalement le passage du format Lhéo vers un F
 
 ![Flux macro de convertion ](../../.gitbook/assets/workflowtraitements-convertir.png)
 
+Ci-dessus les boîtes marquées1⃣correspondent à l'étape de conversion.
+
 ### Pourquoi ce traitement  ?
 
 Le format Lhéo [http://lheo.gouv.fr/](http://lheo.gouv.fr/) est articulé autour de la notion d'action de formation étant dispensée dans un établissement.   
