@@ -870,6 +870,14 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 
 ![](../../.gitbook/assets/publis.png)
 
+### II.5 Historique des modifications et sauvegardes
+
+Les mises à jours des formations sont quotidiennes.
+
+Lors des mises à jour l'historique des modifications est stocké sur chaque formation.
+
+Un mécanisme de sauvegarde est en place et effectue un backup quotidien de toute la base des formations.
+
 ## III. Intégration de données complémentaires
 
 ### III.1 Vérifications RNCP pour une formation
