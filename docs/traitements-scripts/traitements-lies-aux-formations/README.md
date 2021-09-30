@@ -847,7 +847,6 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
     "num_academie": 27
   }
 }
-
 ```
 
 * Vérification de la cohérence des données entre le code Insee reçu des Carif-Oref et celui reçu du géocodage inverse
