@@ -23,7 +23,7 @@ _Vérification des données Diplôme Niveau Intitulé_
 * Récupérer les intitulés court et long normalisés du diplôme selon les nomenclatures utilisées par l'Éducation nationale et l'Enseignement supérieur
 * Recherche et récupération des codes MEFs 10 associés dans la table BCN [N\_MEF](https://infocentre.pleiade.education.fr/bcn/workspace/viewTable/n/N_MEF)
 * Ajout des informations Onisep lié à ce code diplôme. [Détails Onisep plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-4-onisep-descriptif-formation) 
-* Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp) 
+* Ajout des informations RNCP lié à ce code diplôme.  [Détails RNCP plus bas dans cette page.](https://mission-apprentissage.gitbook.io/catalogue/traitements-scripts/traitements-lies-aux-formations#iii-1-verifications-rncp)
 
 ### II.2 Vérifications et enrichissements via la géolocalisation et le code commune Insee
 
@@ -892,7 +892,11 @@ Les informations de géolocalisation \(longitude / latitude\) sont collectées p
 * pouvoir rechercher une formation dans le catalogue à partir du libellé du Rome ou du libellé du RNCP ou du Diplôme
 * permettre la saisie approximative d’une appellation du Rome, de son libellé ou du libellé du RNCP ou du Diplôme
 
-### III.2 Conditions d'entrée d'une formation au sein des systèmes d'information Affelnet et Parcoursup
+### III.2 Vérifications RNCP pour un établissement \(Habilitation RNCP\)
+
+![](../../.gitbook/assets/rncpeta.png)
+
+### III.3 Conditions d'entrée d'une formation au sein des systèmes d'information Affelnet et Parcoursup
 
 Besoin : quand je consulte le catalogue des offres de formation en apprentissage, je veux être assuré que la formation est “légitime” au sein de Parcoursup ou Affelnet afin de garantir la conformité de la formation et d’éviter des contrôles manuels chronophages.
 
@@ -906,7 +910,7 @@ Note DGESCO du 13 janvier 2020
 
 {% page-ref page="publication-sur-parcoursup.md" %}
 
-### III.3 Table de correspondance Codes MEF \(modules élémentaires de formation\) - Codes CFD \(formation diplôme\)
+### III.4 Table de correspondance Codes MEF \(modules élémentaires de formation\) - Codes CFD \(formation diplôme\)
 
 Identifier les formations présentes dans les systèmes d'information EN et qui sont également référencées dans le catalogue afin de concentrer les efforts de saisie sur les nouvelles formations à faire entrer dans les SI EN \(Parcoursup et Affelnet\).  
 Dédoublonner des formations au sein du catalogue apprentissage \(car le seul code diplôme ne permet pas de réaliser ce dédoublonnage\).
@@ -918,7 +922,7 @@ Puis pour l'intégration dans le système d'information Affelnet déduction du c
 Cette déduction du MEF éligible Affelnet est temporaire et sera retirée lorsque les modalités seront remontées dans la collecte auprès de réseau des Carif-Oref.
 {% endhint %}
 
-### III.4 Onisep \(descriptif formation\)
+### III.5 Onisep \(descriptif formation\)
 
 ![](../../.gitbook/assets/onisepformation.png)
 
@@ -932,22 +936,6 @@ Via une API privée mise à disposition de la mission par l'Onisep nous récupé
 * domaine\_sousdomaine
 
 _Le taux de couverture reste néanmoins faible._
-
-### III.5 Vérifications RNCP pour un établissement \(Habilitation RNCP\)
-
-![](../../.gitbook/assets/rncpeta.png)
-
-~~_1/ vérifier que le titre RNCP est habilité à être délivré en apprentissage, c’est-à-dire : qu’il est présent dans la fiche RNCP correspondante consultable via Répertoire national des certifications professionnelles \(RNCP\) \(hors Répertoire Spécifique\) en tant que diplôme ou titre enregistré “de droit” ou en tant que diplôme ou titre enregistré “sur demande” et pouvant être dispensé par apprentissage._~~ 
-
-~~_2/ vérifier le niveau de formation nomenclature européenne à partir du RNCP 3/ déterminer les différents code ROME accessibles pour chaque fiche RNCP_~~ 
-
-~~_4/ distinguer dans le catalogue si la formation visée est un titre RNCP ou un Diplome EN_~~ 
-
-~~_5/ mettre à jour le Code RNCP si le code Diplome = Code RNCP_~~ 
-
-~~_6/ vérifier la validité d'un Code RNCP_~~ 
-
-~~_7/ identifier les actions complémentaires à entreprendre s'il n'y a pas de correspondance Code RNCP - code Diplome"_~~
 
 ### III.6 Publication catalogue général ou non éligible
 
