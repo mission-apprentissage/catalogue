@@ -296,3 +296,13 @@ retrouvez le code source de ce script sur : [https://github.com/mission-apprenti
 * ~~identifier les CFA dépendants d'un OPCO~~
 * ~~identifier les formations sur les métiers du secteur des entreprises de l'OPCO~~
 
+### 5. Historique des modifications et sauvegardes
+
+Les mises à jours des établissements sont quotidiennes.
+
+Lors des mises à jour l'historique des modifications est stocké sur chaque établissement.
+
+Un mécanisme de sauvegarde est en place et effectue un backup quotidien de toute la base des établissements.
+
+
+
