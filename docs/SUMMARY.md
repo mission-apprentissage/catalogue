@@ -21,7 +21,8 @@
 
 * [Swagger API Catalogue](integration/api.md)
 * [F.A.Q](integration/f.a.q.md)
-* [Architecture technique](integration/architecture-technique.md)
+* [Architecture technique actuelle](integration/architecture-technique.md)
+* [Architecture technique pour la passation](integration/architecture-technique-pour-la-passation.md)
 
 ## Utilitaires de vérifications <a id="tables-de-correspondances"></a>
 
