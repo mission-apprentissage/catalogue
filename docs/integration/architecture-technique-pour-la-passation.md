@@ -17,14 +17,14 @@ Afin de transmettre aux parties prenantes les modules et les données qui leur s
 
 Nous n'avons pas encore fait la séparation entre le code cœur du catalogue et le code spécifique pour les ministères éducatifs.
 
-Il y a un bloc coeur à prendre côté backend \(7500 lignes environ\) et le tout le code du front \(20K lignes environ\) :
+Il y a un bloc squelette à prendre côté backend \(7500 lignes environ\) et le tout le code du front \(20K lignes environ\) :
 
 * Réconciliation / Rapprochement - back 1200 lignes / front 2500 lignes
 * Périmètre - back 800 lignes / front 2000 lignes
 * Publication - back 100 lignes / front 500 lignes
 * Gestion des utilisateurs - back 500 lignes / front 1000 lignes
 * Gestion des rôles / droits - back 200 lignes / front 500 lignes
-* Coeur backend - back 7 500 lignes
+* Squelette backend - back 7 500 lignes
 * Total frontend - front 20 000 lignes
 
 
