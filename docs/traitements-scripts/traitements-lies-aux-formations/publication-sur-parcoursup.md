@@ -6,9 +6,9 @@ description: >-
 
 # Publication sur Parcoursup
 
-Les règles de pertinence s'appliquent sur l'ensemble des formations du catalogue, afin de mettre un statut \(et visuellement un badge\) sur les formations qui sont dans le périmètre Parcoursup.
+Les règles d'intégration s'appliquent sur l'ensemble des formations du catalogue, afin de mettre un statut \(et visuellement un badge\) sur les formations qui sont dans le périmètre Parcoursup.
 
-Le script de pertinence est exécuté chaque nuit, après l'import RCO qui peut ajouter, supprimer ou modifier des formations et donc modifier leur statut pour Parcoursup.
+Le script d'intégration est exécuté chaque nuit, après l'import RCO qui peut ajouter, supprimer ou modifier des formations et donc modifier leur statut pour Parcoursup.
 
 ## Liste des statuts
 
@@ -26,9 +26,9 @@ Après action utilisateur on ne change plus le statut de la formation, donc le s
 
 En revanche pour les statuts "hors périmètre", "à publier \(...\)" et "à publier" on recalcule chaque soir. À noter que ces statuts on la priorité suivante : `"à publier" > "à publier (soumis à validation Recteur)" > "à publier (vérifier accès direct postbac)" > "hors périmètre"`
 
-## Règles de pertinence
+## Règles d'intégration
 
-Les règles de pertinence pour Parcoursup sont paramétrées depuis le module de périmètre sur le catalogue. C'est une interface d'administration configurée par la MOSS.
+Les règles d'intégration pour Parcoursup sont paramétrées depuis le module de périmètre sur le catalogue. C'est une interface d'administration configurée par la MOSS.
 
 ## Import Automatique
 
@@ -36,7 +36,7 @@ Les règles de pertinence pour Parcoursup sont paramétrées depuis le module de
 L'import automatique n'est pas activé sur Parcoursup pour le moment
 {% endhint %}
 
-Les formations seront à terme importées automatiquement par Parcoursup, via l'API du catalogue. Les formations importées automatiquement par Parcoursup sont celles qui ont les statuts **"publié"** et **"en attente de publication"**.
+Les formations seront à terme créées automatiquement sur Parcoursup, via un Web Service. Les formations postées sur sur WS sont celles qui ont les statuts **"en attente de publication"**.
 
 ```text
 https://catalogue.apprentissage.beta.gouv.fr/api/entity/formations2021?query={"parcoursup_statut":{"$in":["publié","en attente de publication"]}}
