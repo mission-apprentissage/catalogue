@@ -38,10 +38,6 @@ L'import automatique n'est pas activé sur Parcoursup pour le moment
 
 Les formations seront à terme créées automatiquement sur Parcoursup, via un Web Service. Les formations postées sur sur WS sont celles qui ont les statuts **"en attente de publication"**.
 
-```text
-https://catalogue.apprentissage.beta.gouv.fr/api/entity/formations2021?query={"parcoursup_statut":{"$in":["publié","en attente de publication"]}}
-```
-
 ## Historique des statuts
 
 Chaque soir après le calcul des statuts Parcoursup, on écrit dans l'historique de la formation le statut Parcoursup qui lui a été attribué \(champ `parcoursup_statut_history`\). Cela nous permet de suivre les variations de statuts au niveau des académies, de suivre l'avancement de la collecte RCO, etc.
